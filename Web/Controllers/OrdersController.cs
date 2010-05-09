@@ -1,5 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using Restfulie.Server;
+using Restfulie.Server.Status;
+using Web.Models;
 
 namespace Web.Controllers
 {
@@ -8,8 +11,8 @@ namespace Web.Controllers
     {
         public ActionResult Index()
         {
-            var x = Url.Action("oi");
-            return View();
+            var order = new Order {Amount = 333.44, Date = DateTime.Now};
+            return new Success(order);
         }
 
     }
