@@ -2,7 +2,7 @@
 
 namespace Restfulie.Server.Results
 {
-    public class BadRequest : ActionResult
+    public class BadRequest : RestfulieResult
     {
         private readonly string message;
 
@@ -17,23 +17,17 @@ namespace Restfulie.Server.Results
 
         public override void ExecuteResult(ControllerContext context)
         {
-            context.HttpContext.Response.StatusCode = (int)StatusCodes.BadRequest;
+            SetStatusCode(context, StatusCodes.BadRequest);
 
             if(MessageWasPassed())
             {
-                WriteResource(context);
+                Write(context, message);
             }
         }
 
         private bool MessageWasPassed()
         {
             return !string.IsNullOrEmpty(message);
-        }
-
-        private void WriteResource(ControllerContext context)
-        {
-            context.HttpContext.Response.Output.Write(message);
-            context.HttpContext.Response.Output.Flush();
         }
     }
 }

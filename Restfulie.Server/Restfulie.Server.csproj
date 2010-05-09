@@ -64,6 +64,7 @@
     <Compile Include="ActAsRestfulie.cs" />
     <Compile Include="IBehaveAsResource.cs" />
     <Compile Include="Results\BadRequest.cs" />
+    <Compile Include="Results\RestfulieResult.cs" />
     <Compile Include="Serializers\DefaultXmlSerializer.cs" />
     <Compile Include="Serializers\ISerializer.cs" />
     <Compile Include="Results\StatusCodes.cs" />

@@ -4,7 +4,7 @@ using Restfulie.Server.Serializers;
 
 namespace Restfulie.Server.Results
 {
-    public class Success : ActionResult
+    public class Success : RestfulieResult
     {
         private readonly IBehaveAsResource resource;
         private readonly ISerializer serializer;
@@ -27,23 +27,17 @@ namespace Restfulie.Server.Results
 
         public override void ExecuteResult(ControllerContext context)
         {
-            context.HttpContext.Response.StatusCode = (int)StatusCodes.Success;
+            SetStatusCode(context,StatusCodes.Success);
 
             if(ResourceWasPassed())
             {
-                WriteResource(context);
+                Write(context, serializer.Serialize(resource));
             }
         }
 
         private bool ResourceWasPassed()
         {
             return resource!=null;
-        }
-
-        private void WriteResource(ControllerContext context)
-        {
-            context.HttpContext.Response.Output.Write(serializer.Serialize(resource));
-            context.HttpContext.Response.Output.Flush();
         }
     }
 }
