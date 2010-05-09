@@ -47,6 +47,9 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Web.Abstractions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -59,7 +62,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Serializers\DefaultXmlSerializerTests.cs" />
     <Compile Include="SomeController.cs" />
+    <Compile Include="SomeResource.cs" />
+    <Compile Include="Status\SuccessTests.cs" />
     <Compile Include="Transitions\TransitionsTests.cs" />
   </ItemGroup>
   <ItemGroup>
