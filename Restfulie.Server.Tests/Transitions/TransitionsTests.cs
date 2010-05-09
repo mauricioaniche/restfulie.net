@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Moq;
 using NUnit.Framework;
 
 namespace Restfulie.Server.Tests.Transitions
@@ -9,10 +10,14 @@ namespace Restfulie.Server.Tests.Transitions
         [Test]
         public void ShouldTransitToAControllerAction()
         {
-            var transit = new Server.Transitions();
+            var urlGenerator = new Mock<IUrlGenerator>(MockBehavior.Strict);
+            urlGenerator.Setup(p => p.For("SomeSimpleAction", "Some")).Returns("http://Some/SomeSimpleAction");
+
+            var transit = new Server.Transitions(urlGenerator.Object);
             transit.Named("pay").Uses<SomeController>().SomeSimpleAction();
 
             Assert.AreEqual("pay", transit.All.First().Name);
+            Assert.AreEqual("http://Some/SomeSimpleAction", transit.All.First().Url);
         }
 
     }

@@ -8,6 +8,7 @@ namespace Web.Controllers
     {
         public ActionResult Index()
         {
+            var x = Url.Action("oi");
             return View();
         }
 

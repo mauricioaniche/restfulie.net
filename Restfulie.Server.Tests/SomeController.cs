@@ -4,7 +4,7 @@ namespace Restfulie.Server.Tests
 {
     public class SomeController : Controller
     {
-        public ActionResult SomeSimpleAction()
+        public virtual ActionResult SomeSimpleAction()
         {
             return View();
         }

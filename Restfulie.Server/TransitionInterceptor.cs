@@ -2,18 +2,23 @@
 
 namespace Restfulie.Server
 {
-    class TransitionInterceptor : IInterceptor
+    public class TransitionInterceptor : IInterceptor
     {
         private readonly Transitions transitions;
+        private readonly IUrlGenerator urlGenerator;
 
-        public TransitionInterceptor(Transitions transitions)
+        public TransitionInterceptor(Transitions transitions, IUrlGenerator urlGenerator)
         {
             this.transitions = transitions;
+            this.urlGenerator = urlGenerator;
         }
 
         public void Intercept(IInvocation invocation)
         {
-            transitions.AddTransition();
+            var action = invocation.Method.Name;
+            var controller = invocation.TargetType.Name.Replace("Controller", "");
+
+            transitions.AddTransition(urlGenerator.For(action, controller));
         }
     }
 }
