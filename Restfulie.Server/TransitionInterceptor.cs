@@ -1,4 +1,5 @@
 ﻿using Castle.Core.Interceptor;
+using Restfulie.Server.UrlGenerators;
 
 namespace Restfulie.Server
 {

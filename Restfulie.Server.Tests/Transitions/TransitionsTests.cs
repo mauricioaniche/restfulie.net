@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Moq;
 using NUnit.Framework;
+using Restfulie.Server.UrlGenerators;
 
 namespace Restfulie.Server.Tests.Transitions
 {
