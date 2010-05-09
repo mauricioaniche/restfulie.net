@@ -1,3 +1,6 @@
 *suo
 _ReSharper*
 *.resharper*
+bin
+obj
+Bin
