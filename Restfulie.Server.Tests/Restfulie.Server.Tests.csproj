@@ -65,7 +65,7 @@
     <Compile Include="Serializers\DefaultXmlSerializerTests.cs" />
     <Compile Include="SomeController.cs" />
     <Compile Include="SomeResource.cs" />
-    <Compile Include="Status\SuccessTests.cs" />
+    <Compile Include="Results\SuccessTests.cs" />
     <Compile Include="Transitions\TransitionsTests.cs" />
   </ItemGroup>
   <ItemGroup>

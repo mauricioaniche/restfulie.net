@@ -3,7 +3,7 @@ using Restfulie.Server.UrlGenerators;
 
 namespace Restfulie.Server
 {
-    public class TransitionInterceptor : IInterceptor
+    class TransitionInterceptor : IInterceptor
     {
         private readonly Transitions transitions;
         private readonly IUrlGenerator urlGenerator;

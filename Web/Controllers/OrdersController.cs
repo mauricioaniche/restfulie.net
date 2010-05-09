@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using Restfulie.Server;
-using Restfulie.Server.Status;
+using Restfulie.Server.Results;
 using Web.Models;
 
 namespace Web.Controllers
