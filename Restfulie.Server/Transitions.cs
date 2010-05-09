@@ -29,6 +29,7 @@ namespace Restfulie.Server
         public void AddTransition(string url)
         {
             All.Add(new Transition(currentName, url));
+            currentName = string.Empty;
         } 
 
         public Transitions Named(string name)

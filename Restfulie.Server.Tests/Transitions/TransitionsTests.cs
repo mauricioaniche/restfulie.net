@@ -12,8 +12,7 @@ namespace Restfulie.Server.Tests.Transitions
         [Test]
         public void ShouldTransitToAControllerAction()
         {
-            var urlGenerator = new Mock<IUrlGenerator>(MockBehavior.Strict);
-            urlGenerator.Setup(p => p.For("SomeSimpleAction", "Some")).Returns("http://Some/SomeSimpleAction");
+            var urlGenerator = BuildUrlGenerator();
 
             var transit = new Server.Transitions(urlGenerator.Object);
             transit.Named("pay").Uses<SomeController>().SomeSimpleAction();
@@ -30,5 +29,25 @@ namespace Restfulie.Server.Tests.Transitions
             transit.Uses<SomeController>().SomeSimpleAction();
         }
 
+        [Test]
+        public void ShouldWorkWhenUsingTheAPIFluently()
+        {
+            var urlGenerator = BuildUrlGenerator();
+
+            var transit = new Server.Transitions(urlGenerator.Object);
+            transit.Named("pay").Uses<SomeController>().SomeSimpleAction();
+            transit.Named("cancel").Uses<SomeController>().SomeSimpleAction();
+
+            Assert.AreEqual(2, transit.All.Count);
+            Assert.IsNotNull(transit.All.Where(t => t.Name == "pay").Single());
+            Assert.IsNotNull(transit.All.Where(t => t.Name == "cancel").Single());
+        }
+
+        private Mock<IUrlGenerator> BuildUrlGenerator()
+        {
+            var urlGenerator = new Mock<IUrlGenerator>(MockBehavior.Strict);
+            urlGenerator.Setup(p => p.For("SomeSimpleAction", "Some")).Returns("http://Some/SomeSimpleAction");
+            return urlGenerator;
+        }
     }
 }
