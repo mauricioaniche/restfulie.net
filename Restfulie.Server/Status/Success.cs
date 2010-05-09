@@ -20,8 +20,8 @@ namespace Restfulie.Server.Status
         }
 
         public Success(IBehaveAsResource resource, ISerializer serializer)
-            : this(resource)
         {
+            this.resource = resource;
             this.serializer = serializer;
         }
 
