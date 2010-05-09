@@ -1,0 +1,9 @@
+C:\Projetos\Restfulie\Web\bin\Web.dll
+C:\Projetos\Restfulie\Web\bin\Web.pdb
+C:\Projetos\Restfulie\Web\obj\Debug\ResolveAssemblyReference.cache
+C:\Projetos\Restfulie\Web\obj\Debug\Web.dll
+C:\Projetos\Restfulie\Web\obj\Debug\Web.pdb
+C:\Projetos\Restfulie\Web\bin\Restfulie.Server.dll
+C:\Projetos\Restfulie\Web\bin\Restfulie.Server.pdb
+C:\Projetos\Restfulie\Web\bin\Castle.DynamicProxy2.dll
+C:\Projetos\Restfulie\Web\bin\Castle.Core.dll
