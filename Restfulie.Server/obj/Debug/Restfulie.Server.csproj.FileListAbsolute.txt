@@ -1,7 +1,0 @@
-C:\Projetos\Restfulie\Restfulie.Server\bin\Debug\Restfulie.Server.dll
-C:\Projetos\Restfulie\Restfulie.Server\bin\Debug\Restfulie.Server.pdb
-C:\Projetos\Restfulie\Restfulie.Server\obj\Debug\ResolveAssemblyReference.cache
-C:\Projetos\Restfulie\Restfulie.Server\obj\Debug\Restfulie.Server.dll
-C:\Projetos\Restfulie\Restfulie.Server\obj\Debug\Restfulie.Server.pdb
-C:\Projetos\Restfulie\Restfulie.Server\bin\Debug\Castle.Core.dll
-C:\Projetos\Restfulie\Restfulie.Server\bin\Debug\Castle.DynamicProxy2.dll
