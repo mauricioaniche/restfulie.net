@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Restfulie.Server.UrlGenerators;
@@ -19,6 +20,14 @@ namespace Restfulie.Server.Tests.Transitions
 
             Assert.AreEqual("pay", transit.All.First().Name);
             Assert.AreEqual("http://Some/SomeSimpleAction", transit.All.First().Url);
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void ShouldDetectWrongUseOfFluentAPI()
+        {
+            var transit = new Server.Transitions(new Mock<IUrlGenerator>().Object);
+            transit.Uses<SomeController>().SomeSimpleAction();
         }
 
     }

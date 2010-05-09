@@ -22,6 +22,7 @@ namespace Restfulie.Server
 
         public T Uses<T>() where T : Controller
         {
+            if(string.IsNullOrEmpty(currentName)) throw new ArgumentException("missing name for transition");
             return generator.CreateClassProxy<T>(interceptor);
         }
 
