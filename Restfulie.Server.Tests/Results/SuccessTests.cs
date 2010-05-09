@@ -1,0 +1,67 @@
+﻿using System.IO;
+using System.Web;
+using System.Web.Mvc;
+using Moq;
+using NUnit.Framework;
+using Restfulie.Server.Results;
+using Restfulie.Server.Serializers;
+
+namespace Restfulie.Server.Tests.Results
+{
+    [TestFixture]
+    public class SuccessTests
+    {
+        private Mock<HttpResponseBase> response;
+        private Mock<HttpContextBase> http;
+        private Mock<ControllerContext> context;
+        private MemoryStream stream;
+        private Mock<ISerializer> serializer;
+        private SomeResource aSimpleResource;
+
+        [SetUp]
+        public void SetUp()
+        {
+            response = new Mock<HttpResponseBase>();
+            http = new Mock<HttpContextBase>();
+            context = new Mock<ControllerContext>();
+
+            http.Setup(h => h.Response).Returns(response.Object);
+            context.Setup(c => c.HttpContext).Returns(http.Object);
+            
+            stream = new MemoryStream();
+            serializer = new Mock<ISerializer>();
+
+            aSimpleResource = new SomeResource { Amount = 123.45, Name = "John Doe" };
+        }
+
+        [Test]
+        public void ShouldReturnStatusCode200()
+        {
+            response.SetupSet(c => c.StatusCode = (int)StatusCodes.Success);
+
+            var result = new Success();
+            result.ExecuteResult(context.Object);
+
+            response.VerifyAll();
+        }
+
+        [Test]
+        public void ShouldReturnResource()
+        {
+            response.Setup(p => p.Output).Returns(new StreamWriter(stream));
+
+            serializer.Setup(s => s.Serialize(aSimpleResource)).Returns(
+                "<SomeResource><Name>John Doe</name><amount>123.45</amount></SomeResource>");
+            var result = new Success(aSimpleResource, serializer.Object);
+
+            result.ExecuteResult(context.Object);
+
+            stream.Seek(0, SeekOrigin.Begin);
+            var serializedResource = new StreamReader(stream).ReadToEnd();
+
+            Assert.That(serializedResource.Contains("John Doe"));
+            Assert.That(serializedResource.Contains("123.45"));
+            serializer.VerifyAll();
+        }
+    }
+}
