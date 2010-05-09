@@ -13,10 +13,6 @@ namespace Restfulie.Server
         private string currentName;
         public IList<Transition> All { get; private set; }
 
-        public Transitions() : this(new AspNetMvcUrlGenerator())
-        {
-        }
-
         public Transitions(IUrlGenerator urlGenerator)
         {
             generator = new ProxyGenerator();
