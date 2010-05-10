@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Restfulie.Server
+﻿namespace Restfulie.Server
 {
     public class Transition
     {

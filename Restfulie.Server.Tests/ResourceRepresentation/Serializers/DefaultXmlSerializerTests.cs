@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 using Restfulie.Server.ResourceRepresentation.Serializers;
 using Restfulie.Server.Tests.Fixtures;

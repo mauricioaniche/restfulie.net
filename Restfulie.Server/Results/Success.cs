@@ -1,5 +1,4 @@
-﻿using System;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Restfulie.Server.ResourceRepresentation;
 
 namespace Restfulie.Server.Results

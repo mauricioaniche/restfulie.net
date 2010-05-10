@@ -1,6 +1,4 @@
-﻿using System;
-using System.Runtime.Serialization;
-using Restfulie.Server.ResourceRepresentation.Serializers;
+﻿using Restfulie.Server.ResourceRepresentation.Serializers;
 using Restfulie.Server.ResourceRepresentation.UrlGenerators;
 
 namespace Restfulie.Server.ResourceRepresentation
