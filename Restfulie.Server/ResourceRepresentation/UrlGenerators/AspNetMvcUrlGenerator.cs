@@ -11,7 +11,13 @@ namespace Restfulie.Server.ResourceRepresentation.UrlGenerators
             var httpContextWrapper = new HttpContextWrapper(HttpContext.Current);
             var urlHelper = new UrlHelper(new RequestContext(httpContextWrapper, RouteTable.Routes.GetRouteData(httpContextWrapper)));
 
-            return urlHelper.Action(action, controller);
+            return FullApplicationPath(httpContextWrapper.Request) + urlHelper.Action(action, controller);
         }
+
+        private string FullApplicationPath(HttpRequestBase request)
+        {
+            var url = request.Url.AbsoluteUri.Replace(request.Url.AbsolutePath, string.Empty) + request.ApplicationPath;
+            return url.EndsWith("/") ? url.Substring(0, url.Length - 1) : url;
+}
     }
 }
