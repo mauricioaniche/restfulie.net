@@ -2,7 +2,7 @@
 using System.Linq;
 using Moq;
 using NUnit.Framework;
-using Restfulie.Server.UrlGenerators;
+using Restfulie.Server.ResourceRepresentation.UrlGenerators;
 
 namespace Restfulie.Server.Tests.Transitions
 {
@@ -12,12 +12,15 @@ namespace Restfulie.Server.Tests.Transitions
         [Test]
         public void ShouldTransitToAControllerAction()
         {
-            var urlGenerator = BuildUrlGenerator();
+            var urlGenerator = new Mock<IUrlGenerator>();
+            urlGenerator.Setup(ug => ug.For("Some", "SomeSimpleAction")).Returns("http://Some/SomeSimpleAction");
 
             var transit = new Server.Transitions(urlGenerator.Object);
             transit.Named("pay").Uses<SomeController>().SomeSimpleAction();
 
             Assert.AreEqual("pay", transit.All.First().Name);
+            Assert.AreEqual("Some", transit.All.First().Controller);
+            Assert.AreEqual("SomeSimpleAction", transit.All.First().Action);
             Assert.AreEqual("http://Some/SomeSimpleAction", transit.All.First().Url);
         }
 
@@ -30,24 +33,15 @@ namespace Restfulie.Server.Tests.Transitions
         }
 
         [Test]
-        public void ShouldWorkWhenUsingTheAPIFluently()
+        public void ShouldWorkWhenUsingTheAPIFluentlyInARow()
         {
-            var urlGenerator = BuildUrlGenerator();
-
-            var transit = new Server.Transitions(urlGenerator.Object);
+            var transit = new Server.Transitions(new Mock<IUrlGenerator>().Object);
             transit.Named("pay").Uses<SomeController>().SomeSimpleAction();
             transit.Named("cancel").Uses<SomeController>().SomeSimpleAction();
 
             Assert.AreEqual(2, transit.All.Count);
             Assert.IsNotNull(transit.All.Where(t => t.Name == "pay").Single());
             Assert.IsNotNull(transit.All.Where(t => t.Name == "cancel").Single());
-        }
-
-        private Mock<IUrlGenerator> BuildUrlGenerator()
-        {
-            var urlGenerator = new Mock<IUrlGenerator>(MockBehavior.Strict);
-            urlGenerator.Setup(p => p.For("SomeSimpleAction", "Some")).Returns("http://Some/SomeSimpleAction");
-            return urlGenerator;
         }
     }
 }

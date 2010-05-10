@@ -62,12 +62,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Results\BadRequestTests.cs" />
-    <Compile Include="Serializers\DefaultXmlSerializerTests.cs" />
+    <Compile Include="ResourceRepresentation\Results\BadRequestTests.cs" />
+    <Compile Include="ResourceRepresentation\Serializers\DefaultXmlSerializerTests.cs" />
+    <Compile Include="ResourceRepresentation\XmlAndHypermediaRepresentationTests.cs" />
     <Compile Include="SomeController.cs" />
     <Compile Include="SomeResource.cs" />
-    <Compile Include="Results\SuccessTests.cs" />
-    <Compile Include="Transitions\TransitionsTests.cs" />
+    <Compile Include="ResourceRepresentation\Results\SuccessTests.cs" />
+    <Compile Include="TransitionsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Restfulie.Server\Restfulie.Server.csproj">

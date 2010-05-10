@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Web.Mvc;
-using Restfulie.Server.Serializers;
+using Restfulie.Server.ResourceRepresentation;
 
 namespace Restfulie.Server.Results
 {
     public class Success : RestfulieResult
     {
         private readonly IBehaveAsResource resource;
-        private readonly ISerializer serializer;
+        private readonly IRepresentationBuilder builder;
 
         public Success()
         {
-            serializer = new DefaultXmlSerializer();
+            builder = new RepresentationFactory().GetDefault();
         }
 
         public Success(IBehaveAsResource resource) : this()
@@ -19,10 +19,10 @@ namespace Restfulie.Server.Results
             this.resource = resource;
         }
 
-        public Success(IBehaveAsResource resource, ISerializer serializer)
+        public Success(IBehaveAsResource resource, IRepresentationBuilder builder)
         {
             this.resource = resource;
-            this.serializer = serializer;
+            this.builder = builder;
         }
 
         public override void ExecuteResult(ControllerContext context)
@@ -30,8 +30,8 @@ namespace Restfulie.Server.Results
             SetStatusCode(context,StatusCodes.Success);
 
             if(ResourceWasPassed())
-            {
-                Write(context, serializer.Serialize(resource));
+            {   
+                Write(context, builder.Build(resource));
             }
         }
 
