@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using Restfulie.Server.ResourceRepresentation.Serializers;
+using Restfulie.Server.Tests.Fixtures;
 
 namespace Restfulie.Server.Tests.ResourceRepresentation.Serializers
 {

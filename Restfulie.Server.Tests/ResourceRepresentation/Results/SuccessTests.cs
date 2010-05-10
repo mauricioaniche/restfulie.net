@@ -5,6 +5,7 @@ using Moq;
 using NUnit.Framework;
 using Restfulie.Server.ResourceRepresentation;
 using Restfulie.Server.Results;
+using Restfulie.Server.Tests.Fixtures;
 
 namespace Restfulie.Server.Tests.ResourceRepresentation.Results
 {

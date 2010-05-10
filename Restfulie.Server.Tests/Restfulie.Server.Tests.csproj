@@ -65,8 +65,8 @@
     <Compile Include="ResourceRepresentation\Results\BadRequestTests.cs" />
     <Compile Include="ResourceRepresentation\Serializers\DefaultXmlSerializerTests.cs" />
     <Compile Include="ResourceRepresentation\XmlAndHypermediaRepresentationTests.cs" />
-    <Compile Include="SomeController.cs" />
-    <Compile Include="SomeResource.cs" />
+    <Compile Include="Fixtures\SomeController.cs" />
+    <Compile Include="Fixtures\SomeResource.cs" />
     <Compile Include="ResourceRepresentation\Results\SuccessTests.cs" />
     <Compile Include="TransitionsTests.cs" />
   </ItemGroup>

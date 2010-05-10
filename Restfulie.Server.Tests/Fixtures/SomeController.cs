@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Restfulie.Server.Tests
+namespace Restfulie.Server.Tests.Fixtures
 {
     public class SomeController : Controller
     {

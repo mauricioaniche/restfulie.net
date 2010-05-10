@@ -3,6 +3,7 @@ using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Restfulie.Server.ResourceRepresentation.UrlGenerators;
+using Restfulie.Server.Tests.Fixtures;
 
 namespace Restfulie.Server.Tests.Transitions
 {

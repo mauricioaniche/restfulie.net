@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Restfulie.Server.Tests
+namespace Restfulie.Server.Tests.Fixtures
 {
     [Serializable]
     public class SomeResource : IBehaveAsResource

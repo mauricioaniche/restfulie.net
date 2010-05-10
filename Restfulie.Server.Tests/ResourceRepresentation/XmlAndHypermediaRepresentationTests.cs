@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Restfulie.Server.ResourceRepresentation;
 using Restfulie.Server.ResourceRepresentation.Serializers;
 using Restfulie.Server.ResourceRepresentation.UrlGenerators;
+using Restfulie.Server.Tests.Fixtures;
 
 namespace Restfulie.Server.Tests.ResourceRepresentation
 {
