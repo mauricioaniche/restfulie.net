@@ -9,7 +9,7 @@ namespace Web.Controllers
     [ActAsRestfulie]
     public class OrdersController : Controller
     {
-        public ActionResult Index()
+        public virtual ActionResult Index()
         {
             var order = new Order {Amount = 333.44, Date = DateTime.Now};
             return new Success(order);
