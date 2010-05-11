@@ -5,7 +5,7 @@ using Moq;
 using NUnit.Framework;
 using Restfulie.Server.Results;
 
-namespace Restfulie.Server.Tests.ResourceRepresentation.Results
+namespace Restfulie.Server.Tests.Results
 {
     [TestFixture]
     public class BadRequestTests

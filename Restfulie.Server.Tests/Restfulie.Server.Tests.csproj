@@ -62,12 +62,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResourceRepresentation\Results\BadRequestTests.cs" />
+    <Compile Include="Results\BadRequestTests.cs" />
     <Compile Include="ResourceRepresentation\Serializers\DefaultXmlSerializerTests.cs" />
     <Compile Include="ResourceRepresentation\XmlAndHypermediaRepresentationTests.cs" />
     <Compile Include="Fixtures\SomeController.cs" />
     <Compile Include="Fixtures\SomeResource.cs" />
-    <Compile Include="ResourceRepresentation\Results\SuccessTests.cs" />
+    <Compile Include="Results\SuccessTests.cs" />
     <Compile Include="TransitionsTests.cs" />
   </ItemGroup>
   <ItemGroup>
