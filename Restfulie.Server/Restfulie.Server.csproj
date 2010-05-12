@@ -66,6 +66,7 @@
     <Compile Include="Marshalling\RepresentationFactory.cs" />
     <Compile Include="Marshalling\DefaultRepresentation.cs" />
     <Compile Include="Marshalling\IRepresentationBuilder.cs" />
+    <Compile Include="Negotitation\AcceptHeaderToSerializer.cs" />
     <Compile Include="Results\BadRequest.cs" />
     <Compile Include="Results\RestfulieResult.cs" />
     <Compile Include="Marshalling\Serializers\XmlAndHypermediaSerializer.cs" />

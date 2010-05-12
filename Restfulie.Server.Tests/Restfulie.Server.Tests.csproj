@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Negotiation\AcceptHeaderToSerializerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\BadRequestTests.cs" />
     <Compile Include="Marshalling\Serializers\XmlAndHypermediaSerializerTests.cs" />
