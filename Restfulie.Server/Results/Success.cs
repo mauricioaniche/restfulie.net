@@ -21,7 +21,7 @@ namespace Restfulie.Server.Results
 
             if(ResourceWasPassed())
             {   
-                Write(context, RepresentationBuilder.Build(resource));
+                Write(context, MarshallerBuilder.Build(resource));
             }
         }
 

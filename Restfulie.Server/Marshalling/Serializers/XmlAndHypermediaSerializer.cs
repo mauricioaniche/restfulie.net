@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace Restfulie.Server.Marshalling.Serializers
 {
-    public class XmlAndHypermediaSerializer : ISerializer
+    public class XmlAndHypermediaSerializer : IResourceSerializer
     {
         public string Serialize(IBehaveAsResource resource, IList<Transition> transitions)
         {

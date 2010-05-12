@@ -1,6 +1,6 @@
 ﻿namespace Restfulie.Server.Marshalling
 {
-    public interface IRepresentationBuilder
+    public interface IResourceRepresentation
     {
         string Build(IBehaveAsResource resource);
     }

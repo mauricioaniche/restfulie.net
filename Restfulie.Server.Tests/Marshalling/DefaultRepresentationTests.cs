@@ -15,7 +15,7 @@ namespace Restfulie.Server.Tests.Marshalling
         public void ShouldBuildRepresentation()
         {
             var transitions = new Mock<Transitions>(new Mock<IUrlGenerator>().Object);
-            var serializer = new Mock<ISerializer>(MockBehavior.Strict);
+            var serializer = new Mock<IResourceSerializer>(MockBehavior.Strict);
 
             var resource = new SomeResource();
 

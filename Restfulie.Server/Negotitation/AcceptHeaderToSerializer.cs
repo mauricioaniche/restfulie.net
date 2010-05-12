@@ -27,9 +27,9 @@ namespace Restfulie.Server.Negotitation
             throw new MediaTypeNotSupportedException();
         }
 
-        public ISerializer For(string mediaType)
+        public IResourceSerializer For(string mediaType)
         {
-            return (ISerializer)Activator.CreateInstance(SearchFor(mediaType));
+            return (IResourceSerializer)Activator.CreateInstance(SearchFor(mediaType));
         }
     }
 }

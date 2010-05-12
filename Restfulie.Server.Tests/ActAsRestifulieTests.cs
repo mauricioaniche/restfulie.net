@@ -2,6 +2,7 @@
 using Moq;
 using NUnit.Framework;
 using Restfulie.Server.Exceptions;
+using Restfulie.Server.Marshalling;
 using Restfulie.Server.Negotitation;
 using Restfulie.Server.Results;
 
@@ -15,13 +16,13 @@ namespace Restfulie.Server.Tests
         {
             var context = new ActionExecutingContext();
 
-            var factory = new Mock<IRepresentationFactory>();
-            factory.Setup(f => f.BasedOnMediaType(It.IsAny<string>())).Throws(new MediaTypeNotSupportedException());
+            var marshaller = new Mock<IRepresentationFactory>();
+            marshaller.Setup(f => f.BasedOnMediaType(It.IsAny<string>())).Throws(new MediaTypeNotSupportedException());
 
             var acceptHeader = new Mock<IAcceptHeaderFinder>();
             acceptHeader.Setup(ah => ah.FindIn(context)).Returns("some-crazy-media-type");
 
-            var filter = new ActAsRestfulie(factory.Object, acceptHeader.Object);
+            var filter = new ActAsRestfulie(marshaller.Object, acceptHeader.Object);
             
             filter.OnActionExecuting(context);
 

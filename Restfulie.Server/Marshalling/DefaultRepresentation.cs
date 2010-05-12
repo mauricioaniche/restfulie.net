@@ -2,12 +2,12 @@
 
 namespace Restfulie.Server.Marshalling
 {
-    public class DefaultRepresentation : IRepresentationBuilder
+    public class DefaultRepresentation : IResourceRepresentation
     {
         private readonly Transitions transitions;
-        private readonly ISerializer serializer;
+        private readonly IResourceSerializer serializer;
 
-        public DefaultRepresentation(Transitions transitions, ISerializer serializer)
+        public DefaultRepresentation(Transitions transitions, IResourceSerializer serializer)
         {
             this.transitions = transitions;
             this.serializer = serializer;

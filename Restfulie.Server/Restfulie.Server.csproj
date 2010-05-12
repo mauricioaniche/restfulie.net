@@ -64,10 +64,10 @@
     <Compile Include="ActAsRestfulie.cs" />
     <Compile Include="Exceptions\MediaTypeNotSupportedException.cs" />
     <Compile Include="IBehaveAsResource.cs" />
-    <Compile Include="IRepresentationFactory.cs" />
-    <Compile Include="Marshalling\RepresentationFactory.cs" />
+    <Compile Include="Marshalling\IRepresentationFactory.cs" />
+    <Compile Include="Marshalling\DefaultRepresentationFactory.cs" />
     <Compile Include="Marshalling\DefaultRepresentation.cs" />
-    <Compile Include="Marshalling\IRepresentationBuilder.cs" />
+    <Compile Include="Marshalling\IResourceRepresentation.cs" />
     <Compile Include="Negotitation\AcceptHeaderToSerializer.cs" />
     <Compile Include="Negotitation\DefaultAcceptHeaderFinder.cs" />
     <Compile Include="Negotitation\IAcceptHeaderFinder.cs" />
@@ -75,7 +75,7 @@
     <Compile Include="Results\NotAcceptable.cs" />
     <Compile Include="Results\RestfulieResult.cs" />
     <Compile Include="Marshalling\Serializers\XmlAndHypermediaSerializer.cs" />
-    <Compile Include="Marshalling\Serializers\ISerializer.cs" />
+    <Compile Include="Marshalling\Serializers\IResourceSerializer.cs" />
     <Compile Include="Results\StatusCodes.cs" />
     <Compile Include="Results\Success.cs" />
     <Compile Include="Marshalling\UrlGenerators\IUrlGenerator.cs" />
