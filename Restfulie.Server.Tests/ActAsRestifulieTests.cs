@@ -11,7 +11,7 @@ namespace Restfulie.Server.Tests
     public class ActAsRestifulieTests
     {
         [Test]
-        public void ShouldReturnNotAcceptableWhenMediaTypeIsNotValid()
+        public void ShouldReturnNotAcceptableWhenMediaTypeIsNotSupported()
         {
             var context = new ActionExecutingContext();
 
