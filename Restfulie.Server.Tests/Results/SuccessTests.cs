@@ -10,11 +10,8 @@ using Restfulie.Server.Tests.Fixtures;
 namespace Restfulie.Server.Tests.Results
 {
     [TestFixture]
-    public class SuccessTests
+    public class SuccessTests : ResultsTestBase
     {
-        private Mock<HttpResponseBase> response;
-        private Mock<HttpContextBase> http;
-        private Mock<ControllerContext> context;
         private MemoryStream stream;
         private Mock<IRepresentationBuilder> builder;
         private SomeResource aSimpleResource;
@@ -22,13 +19,8 @@ namespace Restfulie.Server.Tests.Results
         [SetUp]
         public void SetUp()
         {
-            response = new Mock<HttpResponseBase>();
-            http = new Mock<HttpContextBase>();
-            context = new Mock<ControllerContext>();
+            SetUpRequest();
 
-            http.Setup(h => h.Response).Returns(response.Object);
-            context.Setup(c => c.HttpContext).Returns(http.Object);
-            
             stream = new MemoryStream();
             builder = new Mock<IRepresentationBuilder>();
 

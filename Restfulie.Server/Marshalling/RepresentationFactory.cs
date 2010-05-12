@@ -3,7 +3,7 @@ using Restfulie.Server.Negotitation;
 
 namespace Restfulie.Server.Marshalling
 {
-    public class RepresentationFactory
+    public class RepresentationFactory : IRepresentationFactory
     {
         public IRepresentationBuilder BasedOnMediaType(string mediaType)
         {
