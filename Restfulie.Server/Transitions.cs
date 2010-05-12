@@ -12,7 +12,7 @@ namespace Restfulie.Server
         private readonly TransitionInterceptor interceptor;
         private readonly ProxyGenerator generator;
         private string currentName;
-        public IList<Transition> All { get; private set; }
+        public virtual IList<Transition> All { get; private set; }
 
         public Transitions(IUrlGenerator urlGenerator)
         {

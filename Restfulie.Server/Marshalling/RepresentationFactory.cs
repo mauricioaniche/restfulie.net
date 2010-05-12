@@ -1,18 +1,15 @@
-﻿using Restfulie.Server.Marshalling.Serializers;
-using Restfulie.Server.Marshalling.UrlGenerators;
+﻿using Restfulie.Server.Marshalling.UrlGenerators;
+using Restfulie.Server.Negotitation;
 
 namespace Restfulie.Server.Marshalling
 {
     public class RepresentationFactory
     {
-        public IRepresentationBuilder GetDefault()
+        public IRepresentationBuilder BasedOnMediaType(string mediaType)
         {
-            return new DefaultRepresentation(new AspNetMvcUrlGenerator(), new XmlAndHypermediaSerializer());
-        }
-
-        public IRepresentationBuilder GetDefault(ISerializer serializer)
-        {
-            return new DefaultRepresentation(new AspNetMvcUrlGenerator(), serializer);
+            return new DefaultRepresentation(
+                new Transitions(new AspNetMvcUrlGenerator()), 
+                new AcceptHeaderToSerializer().For(mediaType));
         }
     }
 }

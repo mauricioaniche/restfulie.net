@@ -1,22 +1,20 @@
 ﻿using Restfulie.Server.Marshalling.Serializers;
-using Restfulie.Server.Marshalling.UrlGenerators;
 
 namespace Restfulie.Server.Marshalling
 {
     public class DefaultRepresentation : IRepresentationBuilder
     {
-        private readonly IUrlGenerator urlGenerator;
+        private readonly Transitions transitions;
         private readonly ISerializer serializer;
 
-        public DefaultRepresentation(IUrlGenerator urlGenerator, ISerializer serializer)
+        public DefaultRepresentation(Transitions transitions, ISerializer serializer)
         {
-            this.urlGenerator = urlGenerator;
+            this.transitions = transitions;
             this.serializer = serializer;
         }
 
         public string Build(IBehaveAsResource resource)
         {
-            var transitions = new Transitions(urlGenerator);
             resource.Transitions(transitions);
 
             return serializer.Serialize(resource, transitions.All);

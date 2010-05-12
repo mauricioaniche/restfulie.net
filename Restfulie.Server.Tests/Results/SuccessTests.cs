@@ -40,7 +40,11 @@ namespace Restfulie.Server.Tests.Results
         {
             response.SetupSet(c => c.StatusCode = (int)StatusCodes.Success);
 
-            var result = new Success();
+            var result = new Success
+                             {
+                                 RepresentationBuilder = new Mock<IRepresentationBuilder>().Object
+                             };
+
             result.ExecuteResult(context.Object);
 
             response.VerifyAll();
@@ -53,7 +57,7 @@ namespace Restfulie.Server.Tests.Results
 
             builder.Setup(s => s.Build(aSimpleResource)).Returns(
                 "<SomeResource><Name>John Doe</name><amount>123.45</amount></SomeResource>");
-            var result = new Success(aSimpleResource, builder.Object);
+            var result = new Success(aSimpleResource) {RepresentationBuilder = builder.Object};
 
             result.ExecuteResult(context.Object);
 

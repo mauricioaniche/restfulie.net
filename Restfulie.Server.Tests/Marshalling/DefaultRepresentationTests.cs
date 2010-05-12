@@ -14,19 +14,29 @@ namespace Restfulie.Server.Tests.Marshalling
         [Test]
         public void ShouldBuildRepresentation()
         {
-            var urlGenerator = new Mock<IUrlGenerator>(MockBehavior.Strict);
+            var transitions = new Mock<Transitions>(new Mock<IUrlGenerator>().Object);
             var serializer = new Mock<ISerializer>(MockBehavior.Strict);
 
             var resource = new SomeResource();
 
-            urlGenerator.Setup(ug => ug.For("Some", "SomeSimpleAction")).Returns("http://Some/SomeSimpleAction");
-            serializer.Setup(s => s.Serialize(resource, It.IsAny<IList<Transition>>())).Returns("some url here");
+            transitions.SetupGet(t => t.All).Returns(SomeTransitions());
+            serializer.Setup(s => s.Serialize(resource, It.IsAny<IList<Transition>>())).Returns(URL());
 
-            var builder = new DefaultRepresentation(urlGenerator.Object, serializer.Object);
+            var builder = new DefaultRepresentation(transitions.Object, serializer.Object);
             builder.Build(resource);
             
-            urlGenerator.VerifyAll();
+            transitions.VerifyAll();
             serializer.VerifyAll();
+        }
+
+        private List<Transition> SomeTransitions()
+        {
+            return new List<Transition> {new Transition("pay", "Order","Pay",URL())};
+        }
+
+        private string URL()
+        {
+            return "http://some-url-here/";
         }
     }
 }
