@@ -16,7 +16,7 @@ namespace Restfulie.Server.Tests
             var urlGenerator = new Mock<IUrlGenerator>();
             urlGenerator.Setup(ug => ug.For("Some", "SomeSimpleAction")).Returns("http://Some/SomeSimpleAction");
 
-            var transit = new Server.Transitions(urlGenerator.Object);
+            var transit = new Transitions(urlGenerator.Object);
             transit.Named("pay").Uses<SomeController>().SomeSimpleAction();
 
             Assert.AreEqual("pay", transit.All.First().Name);
