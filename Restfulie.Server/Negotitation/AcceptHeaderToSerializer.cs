@@ -7,27 +7,30 @@ namespace Restfulie.Server.Negotitation
 {
     public class AcceptHeaderToSerializer
     {
-        private static readonly IDictionary<string, Type> Types;
-        private static readonly IDictionary<string, string> Synonims;
+        private static readonly IDictionary<string, Type> MediaTypes;
 
         static AcceptHeaderToSerializer()
         {
-            Types = new Dictionary<string, Type>
-                        {
-                            {"xml", typeof (XmlAndHypermediaSerializer)}
-                        };
-
-            Synonims = new Dictionary<string, string>
+            MediaTypes = new Dictionary<string, Type>
                            {
-                               {"application/xml", "xml"}
+                               {"application/xml", typeof (XmlAndHypermediaSerializer)}
                            };
+        }
+
+        private Type SearchFor(string expression)
+        {
+            foreach(var mediaType in MediaTypes)
+            {
+                if (expression.Contains(mediaType.Key)) return mediaType.Value;
+            }
+
+            throw new MediaTypeNotSupportedException();
         }
 
         public ISerializer For(string mediaType)
         {
-            if (!Synonims.ContainsKey(mediaType)) throw new MediaTypeNotSupportedException();
 
-            return (ISerializer)Activator.CreateInstance(Types[Synonims[mediaType]]);
+            return (ISerializer)Activator.CreateInstance(SearchFor(mediaType));
         }
     }
 }

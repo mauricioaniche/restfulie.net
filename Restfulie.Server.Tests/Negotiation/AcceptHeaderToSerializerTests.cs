@@ -17,6 +17,14 @@ namespace Restfulie.Server.Tests.Negotiation
         }
 
         [Test]
+        public void ShouldUnderstandMediaTypeExpression()
+        {
+            var serializer = new AcceptHeaderToSerializer().For("application/xml;q=0.2");
+
+            Assert.IsTrue(serializer is XmlAndHypermediaSerializer);
+        }
+
+        [Test]
         [ExpectedException(typeof(MediaTypeNotSupportedException))]
         public void ShouldThrowAnExceptionIfMediaTypeIsInvalid()
         {
