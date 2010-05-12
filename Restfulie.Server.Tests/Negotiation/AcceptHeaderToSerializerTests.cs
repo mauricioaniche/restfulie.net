@@ -25,6 +25,14 @@ namespace Restfulie.Server.Tests.Negotiation
         }
 
         [Test]
+        public void ShouldReturnDefaultIfMediaTypeIsNotProvided()
+        {
+            var serializer = new AcceptHeaderToSerializer().For(null);
+
+            Assert.IsTrue(serializer is XmlAndHypermediaSerializer);
+        }
+
+        [Test]
         [ExpectedException(typeof(MediaTypeNotSupportedException))]
         public void ShouldThrowAnExceptionIfMediaTypeIsInvalid()
         {

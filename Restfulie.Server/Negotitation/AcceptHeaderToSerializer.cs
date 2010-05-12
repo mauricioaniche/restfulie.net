@@ -8,6 +8,7 @@ namespace Restfulie.Server.Negotitation
     public class AcceptHeaderToSerializer
     {
         private static readonly IDictionary<string, Type> MediaTypes;
+        private static readonly Type DefaultMediaType;
 
         static AcceptHeaderToSerializer()
         {
@@ -15,6 +16,8 @@ namespace Restfulie.Server.Negotitation
                            {
                                {"application/xml", typeof (XmlAndHypermediaSerializer)}
                            };
+
+            DefaultMediaType = typeof (XmlAndHypermediaSerializer);
         }
 
         private Type SearchFor(string expression)
@@ -29,7 +32,8 @@ namespace Restfulie.Server.Negotitation
 
         public IResourceSerializer For(string mediaType)
         {
-            return (IResourceSerializer)Activator.CreateInstance(SearchFor(mediaType));
+            return (IResourceSerializer)Activator.CreateInstance(
+                string.IsNullOrEmpty(mediaType) ? DefaultMediaType : SearchFor(mediaType));
         }
     }
 }
