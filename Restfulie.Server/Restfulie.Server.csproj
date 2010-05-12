@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActAsRestfulie.cs" />
+    <Compile Include="Exceptions\MediaTypeNotSupportedException.cs" />
     <Compile Include="IBehaveAsResource.cs" />
     <Compile Include="Marshalling\RepresentationFactory.cs" />
     <Compile Include="Marshalling\DefaultRepresentation.cs" />

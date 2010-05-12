@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Restfulie.Server.Exceptions;
 using Restfulie.Server.Marshalling.Serializers;
 
 namespace Restfulie.Server.Negotitation
@@ -22,9 +23,11 @@ namespace Restfulie.Server.Negotitation
                            };
         }
 
-        public ISerializer For(string mimeType)
+        public ISerializer For(string mediaType)
         {
-            return (ISerializer)Activator.CreateInstance(Types[Synonims[mimeType]]);
+            if (!Synonims.ContainsKey(mediaType)) throw new MediaTypeNotSupportedException();
+
+            return (ISerializer)Activator.CreateInstance(Types[Synonims[mediaType]]);
         }
     }
 }
