@@ -33,9 +33,11 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers
             var resource = new SomeResource { Amount = 123.45, Name = "John Doe" };
 
             var xml = serializer.Serialize(resource,
-                                           new List<Transition> { new Transition("pay", "controller", "action", "url") });
+                                           new List<Transition> { new Transition("pay", "controller", "action", "http://some/url") });
 
-            Assert.That(xml.Contains("rel=\"pay\""));  
+            Assert.That(xml.Contains("rel=\"pay\""));
+            Assert.That(xml.Contains("<atom:link"));
+            Assert.That(xml.Contains("http://some/url")); 
         }
     }
 }
