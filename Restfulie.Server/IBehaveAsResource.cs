@@ -2,6 +2,6 @@
 {
     public interface IBehaveAsResource
     {
-        void Transitions(Transitions transitions);
+        void SetTransitions(Transitions transitions);
     }
 }

@@ -15,7 +15,7 @@ namespace Restfulie.Server.Marshalling
 
         public string Build(IBehaveAsResource resource)
         {
-            resource.Transitions(transitions);
+            resource.SetTransitions(transitions);
 
             return serializer.Serialize(resource, transitions.All);
         }
