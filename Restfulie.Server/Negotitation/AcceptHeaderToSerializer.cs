@@ -14,7 +14,9 @@ namespace Restfulie.Server.Negotitation
         {
             MediaTypes = new Dictionary<string, Type>
                            {
-                               {"application/xml", typeof (XmlAndHypermediaSerializer)}
+                               {"application/xml", typeof (XmlAndHypermediaSerializer)},
+                               {"text/xml", typeof (XmlAndHypermediaSerializer)},
+                               {"xml", typeof (XmlAndHypermediaSerializer)}
                            };
 
             DefaultSerializer = typeof (XmlAndHypermediaSerializer);
