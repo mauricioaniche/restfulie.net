@@ -1,4 +1,4 @@
-﻿namespace Restfulie.Server.ResourceRepresentation.UrlGenerators
+﻿namespace Restfulie.Server.Marshalling.UrlGenerators
 {
     public interface IUrlGenerator
     {

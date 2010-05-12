@@ -1,14 +1,14 @@
-﻿using Restfulie.Server.ResourceRepresentation.Serializers;
-using Restfulie.Server.ResourceRepresentation.UrlGenerators;
+﻿using Restfulie.Server.Marshalling.Serializers;
+using Restfulie.Server.Marshalling.UrlGenerators;
 
-namespace Restfulie.Server.ResourceRepresentation
+namespace Restfulie.Server.Marshalling
 {
-    public class XMLAndHypermediaRepresentation : IRepresentationBuilder
+    public class DefaultRepresentation : IRepresentationBuilder
     {
         private readonly IUrlGenerator urlGenerator;
         private readonly ISerializer serializer;
 
-        public XMLAndHypermediaRepresentation(IUrlGenerator urlGenerator, ISerializer serializer)
+        public DefaultRepresentation(IUrlGenerator urlGenerator, ISerializer serializer)
         {
             this.urlGenerator = urlGenerator;
             this.serializer = serializer;

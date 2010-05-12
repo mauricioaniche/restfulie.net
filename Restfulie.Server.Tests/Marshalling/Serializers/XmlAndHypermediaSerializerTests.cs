@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
-using Restfulie.Server.ResourceRepresentation.Serializers;
+using Restfulie.Server.Marshalling.Serializers;
 using Restfulie.Server.Tests.Fixtures;
 
-namespace Restfulie.Server.Tests.ResourceRepresentation.Serializers
+namespace Restfulie.Server.Tests.Marshalling.Serializers
 {
     [TestFixture]
-    public class DefaultXmlSerializerTests
+    public class XmlAndHypermediaSerializerTests
     {
-        private DefaultXmlSerializer serializer;
+        private XmlAndHypermediaSerializer serializer;
 
         [SetUp]
         public void SetUp()
         {
-            serializer = new DefaultXmlSerializer();   
+            serializer = new XmlAndHypermediaSerializer();   
         }
 
         [Test]

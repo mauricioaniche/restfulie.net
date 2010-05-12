@@ -1,4 +1,4 @@
-﻿namespace Restfulie.Server.ResourceRepresentation
+﻿namespace Restfulie.Server.Marshalling
 {
     public interface IRepresentationBuilder
     {

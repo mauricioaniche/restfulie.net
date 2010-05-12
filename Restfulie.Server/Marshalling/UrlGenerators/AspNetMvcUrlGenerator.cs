@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Restfulie.Server.ResourceRepresentation.UrlGenerators
+namespace Restfulie.Server.Marshalling.UrlGenerators
 {
     public class AspNetMvcUrlGenerator : IUrlGenerator
     {
@@ -18,6 +18,6 @@ namespace Restfulie.Server.ResourceRepresentation.UrlGenerators
         {
             var url = request.Url.AbsoluteUri.Replace(request.Url.AbsolutePath, string.Empty) + request.ApplicationPath;
             return url.EndsWith("/") ? url.Substring(0, url.Length - 1) : url;
-}
+        }
     }
 }

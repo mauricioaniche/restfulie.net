@@ -63,8 +63,8 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\BadRequestTests.cs" />
-    <Compile Include="ResourceRepresentation\Serializers\DefaultXmlSerializerTests.cs" />
-    <Compile Include="ResourceRepresentation\XmlAndHypermediaRepresentationTests.cs" />
+    <Compile Include="Marshalling\Serializers\XmlAndHypermediaSerializerTests.cs" />
+    <Compile Include="Marshalling\DefaultRepresentationTests.cs" />
     <Compile Include="Fixtures\SomeController.cs" />
     <Compile Include="Fixtures\SomeResource.cs" />
     <Compile Include="Results\SuccessTests.cs" />

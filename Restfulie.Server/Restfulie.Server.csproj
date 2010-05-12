@@ -63,21 +63,21 @@
   <ItemGroup>
     <Compile Include="ActAsRestfulie.cs" />
     <Compile Include="IBehaveAsResource.cs" />
-    <Compile Include="ResourceRepresentation\RepresentationFactory.cs" />
-    <Compile Include="ResourceRepresentation\XMLAndHypermediaRepresentation.cs" />
-    <Compile Include="ResourceRepresentation\IRepresentationBuilder.cs" />
+    <Compile Include="Marshalling\RepresentationFactory.cs" />
+    <Compile Include="Marshalling\DefaultRepresentation.cs" />
+    <Compile Include="Marshalling\IRepresentationBuilder.cs" />
     <Compile Include="Results\BadRequest.cs" />
     <Compile Include="Results\RestfulieResult.cs" />
-    <Compile Include="ResourceRepresentation\Serializers\DefaultXmlSerializer.cs" />
-    <Compile Include="ResourceRepresentation\Serializers\ISerializer.cs" />
+    <Compile Include="Marshalling\Serializers\XmlAndHypermediaSerializer.cs" />
+    <Compile Include="Marshalling\Serializers\ISerializer.cs" />
     <Compile Include="Results\StatusCodes.cs" />
     <Compile Include="Results\Success.cs" />
-    <Compile Include="ResourceRepresentation\UrlGenerators\IUrlGenerator.cs" />
+    <Compile Include="Marshalling\UrlGenerators\IUrlGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Transition.cs" />
     <Compile Include="Transitions.cs" />
     <Compile Include="TransitionInterceptor.cs" />
-    <Compile Include="ResourceRepresentation\UrlGenerators\AspNetMvcUrlGenerator.cs" />
+    <Compile Include="Marshalling\UrlGenerators\AspNetMvcUrlGenerator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

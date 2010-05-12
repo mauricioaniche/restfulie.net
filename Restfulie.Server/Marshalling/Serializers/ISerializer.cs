@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Restfulie.Server.ResourceRepresentation.Serializers
+namespace Restfulie.Server.Marshalling.Serializers
 {
     public interface ISerializer
     {

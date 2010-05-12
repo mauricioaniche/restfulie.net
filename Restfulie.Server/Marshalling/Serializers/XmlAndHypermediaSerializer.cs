@@ -3,9 +3,9 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Restfulie.Server.ResourceRepresentation.Serializers
+namespace Restfulie.Server.Marshalling.Serializers
 {
-    public class DefaultXmlSerializer : ISerializer
+    public class XmlAndHypermediaSerializer : ISerializer
     {
         public string Serialize(IBehaveAsResource resource, IList<Transition> transitions)
         {

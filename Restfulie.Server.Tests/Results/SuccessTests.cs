@@ -3,7 +3,7 @@ using System.Web;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
-using Restfulie.Server.ResourceRepresentation;
+using Restfulie.Server.Marshalling;
 using Restfulie.Server.Results;
 using Restfulie.Server.Tests.Fixtures;
 

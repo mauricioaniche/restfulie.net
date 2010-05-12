@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Castle.DynamicProxy;
-using Restfulie.Server.ResourceRepresentation.UrlGenerators;
+using Restfulie.Server.Marshalling.UrlGenerators;
 
 namespace Restfulie.Server
 {
