@@ -6,17 +6,17 @@ namespace Restfulie.Server.Negotitation
 {
     public class AcceptHeaderToSerializer
     {
-        private static IDictionary<string, Type> types;
-        private static IDictionary<string, string> synonims;
+        private static readonly IDictionary<string, Type> Types;
+        private static readonly IDictionary<string, string> Synonims;
 
         static AcceptHeaderToSerializer()
         {
-            types = new Dictionary<string, Type>
+            Types = new Dictionary<string, Type>
                         {
                             {"xml", typeof (XmlAndHypermediaSerializer)}
                         };
 
-            synonims = new Dictionary<string, string>
+            Synonims = new Dictionary<string, string>
                            {
                                {"application/xml", "xml"}
                            };
@@ -24,7 +24,7 @@ namespace Restfulie.Server.Negotitation
 
         public ISerializer For(string mimeType)
         {
-            return (ISerializer)Activator.CreateInstance(types[synonims[mimeType]]);
+            return (ISerializer)Activator.CreateInstance(Types[Synonims[mimeType]]);
         }
     }
 }
