@@ -29,14 +29,14 @@ namespace Restfulie.Server.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void ShouldDetectWrongUseOfFluentAPI()
         {
-            var transit = new Server.Transitions(new Mock<IUrlGenerator>().Object);
+            var transit = new Transitions(new Mock<IUrlGenerator>().Object);
             transit.Uses<SomeController>().SomeSimpleAction();
         }
 
         [Test]
         public void ShouldWorkWhenUsingTheAPIFluentlyInARow()
         {
-            var transit = new Server.Transitions(new Mock<IUrlGenerator>().Object);
+            var transit = new Transitions(new Mock<IUrlGenerator>().Object);
             transit.Named("pay").Uses<SomeController>().SomeSimpleAction();
             transit.Named("cancel").Uses<SomeController>().SomeSimpleAction();
 
