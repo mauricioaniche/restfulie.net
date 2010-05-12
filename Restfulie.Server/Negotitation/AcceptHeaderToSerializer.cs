@@ -29,7 +29,6 @@ namespace Restfulie.Server.Negotitation
 
         public ISerializer For(string mediaType)
         {
-
             return (ISerializer)Activator.CreateInstance(SearchFor(mediaType));
         }
     }
