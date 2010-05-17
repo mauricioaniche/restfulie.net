@@ -14,13 +14,13 @@ namespace Restfulie.Server.Tests.Marshalling
         [Test]
         public void ShouldBuildRepresentation()
         {
-            var transitions = new Mock<Transitions>(new Mock<IUrlGenerator>().Object);
+            var transitions = new Mock<Relations>(new Mock<IUrlGenerator>().Object);
             var serializer = new Mock<IResourceSerializer>(MockBehavior.Strict);
 
             var resource = new SomeResource();
 
             transitions.SetupGet(t => t.All).Returns(SomeTransitions());
-            serializer.Setup(s => s.Serialize(resource, It.IsAny<IList<Transition>>())).Returns(URL());
+            serializer.Setup(s => s.Serialize(resource, It.IsAny<IList<Relation>>())).Returns(URL());
 
             var builder = new DefaultRepresentation(transitions.Object, serializer.Object);
             builder.Build(resource);
@@ -29,9 +29,9 @@ namespace Restfulie.Server.Tests.Marshalling
             serializer.VerifyAll();
         }
 
-        private List<Transition> SomeTransitions()
+        private List<Relation> SomeTransitions()
         {
-            return new List<Transition> {new Transition("pay", "Order","Pay",URL())};
+            return new List<Relation> {new Relation("pay", "Order","Pay",URL())};
         }
 
         private string URL()

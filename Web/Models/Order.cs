@@ -9,9 +9,9 @@ namespace Web.Models
         public DateTime Date { get; set; }
         public double Amount { get; set; }
 
-        public void SetTransitions(Transitions transitions)
+        public void SetRelations(Relations relations)
         {
-            transitions.Named("pay").Uses<OrdersController>().Index();
+            relations.Named("pay").Uses<OrdersController>().Index();
         }
     }
 }

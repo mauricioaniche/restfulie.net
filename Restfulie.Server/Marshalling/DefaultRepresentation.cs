@@ -4,20 +4,20 @@ namespace Restfulie.Server.Marshalling
 {
     public class DefaultRepresentation : IResourceRepresentation
     {
-        private readonly Transitions transitions;
+        private readonly Relations relations;
         private readonly IResourceSerializer serializer;
 
-        public DefaultRepresentation(Transitions transitions, IResourceSerializer serializer)
+        public DefaultRepresentation(Relations relations, IResourceSerializer serializer)
         {
-            this.transitions = transitions;
+            this.relations = relations;
             this.serializer = serializer;
         }
 
         public string Build(IBehaveAsResource resource)
         {
-            resource.SetTransitions(transitions);
+            resource.SetRelations(relations);
 
-            return serializer.Serialize(resource, transitions.All);
+            return serializer.Serialize(resource, relations.All);
         }
     }
 }

@@ -4,11 +4,11 @@ namespace Restfulie.Server
 {
     class TransitionInterceptor : IInterceptor
     {
-        private readonly Transitions transitions;
+        private readonly Relations relations;
 
-        public TransitionInterceptor(Transitions transitions)
+        public TransitionInterceptor(Relations relations)
         {
-            this.transitions = transitions;
+            this.relations = relations;
         }
 
         public void Intercept(IInvocation invocation)
@@ -16,7 +16,7 @@ namespace Restfulie.Server
             var action = invocation.Method.Name;
             var controller = invocation.TargetType.Name.Replace("Controller", "");
 
-            transitions.AddTransition(controller, action);
+            relations.AddTransition(controller, action);
         }
     }
 }

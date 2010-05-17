@@ -75,7 +75,7 @@
     <Compile Include="Results\NotAcceptableTests.cs" />
     <Compile Include="Results\ResultsTestBase.cs" />
     <Compile Include="Results\SuccessTests.cs" />
-    <Compile Include="TransitionsTests.cs" />
+    <Compile Include="RelationsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Restfulie.Server\Restfulie.Server.csproj">

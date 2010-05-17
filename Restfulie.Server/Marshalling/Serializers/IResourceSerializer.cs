@@ -4,6 +4,6 @@ namespace Restfulie.Server.Marshalling.Serializers
 {
     public interface IResourceSerializer
     {
-        string Serialize(IBehaveAsResource resource, IList<Transition> transitions);
+        string Serialize(IBehaveAsResource resource, IList<Relation> transitions);
     }
 }

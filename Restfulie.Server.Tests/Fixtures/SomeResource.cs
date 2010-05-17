@@ -8,9 +8,9 @@ namespace Restfulie.Server.Tests.Fixtures
         public string Name { get; set; }
         public double Amount { get; set; }
 
-        public void SetTransitions(Server.Transitions transitions)
+        public void SetRelations(Server.Relations relations)
         {
-            transitions.Named("pay").Uses<SomeController>().SomeSimpleAction();
+            relations.Named("pay").Uses<SomeController>().SomeSimpleAction();
         }
     }
 }

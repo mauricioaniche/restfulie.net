@@ -7,7 +7,7 @@ namespace Restfulie.Server.Marshalling.Serializers
 {
     public class XmlAndHypermediaSerializer : IResourceSerializer
     {
-        public string Serialize(IBehaveAsResource resource, IList<Transition> transitions)
+        public string Serialize(IBehaveAsResource resource, IList<Relation> transitions)
         {
             return PutTransitionsOn(GetXmlBasedOn(resource), transitions);
         }
@@ -26,7 +26,7 @@ namespace Restfulie.Server.Marshalling.Serializers
             return xmlDocument;
         }
 
-        private string PutTransitionsOn(XmlDocument xmlDocument, IList<Transition> transitions)
+        private string PutTransitionsOn(XmlDocument xmlDocument, IList<Relation> transitions)
         {
             foreach (var state in transitions)
             {

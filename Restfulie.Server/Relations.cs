@@ -6,35 +6,35 @@ using Restfulie.Server.Marshalling.UrlGenerators;
 
 namespace Restfulie.Server
 {
-    public class Transitions
+    public class Relations
     {
         private readonly IUrlGenerator urlGenerator;
         private readonly TransitionInterceptor interceptor;
-        private readonly ProxyGenerator generator;
+        private readonly ProxyGenerator proxifier;
         private string currentName;
-        public virtual IList<Transition> All { get; private set; }
+        public virtual IList<Relation> All { get; private set; }
 
-        public Transitions(IUrlGenerator urlGenerator)
+        public Relations(IUrlGenerator urlGenerator)
         {
             this.urlGenerator = urlGenerator;
-            generator = new ProxyGenerator();
-            All = new List<Transition>();
+            proxifier = new ProxyGenerator();
+            All = new List<Relation>();
             interceptor = new TransitionInterceptor(this);
         }
 
         public T Uses<T>() where T : Controller
         {
             if(string.IsNullOrEmpty(currentName)) throw new ArgumentException("missing name for transition");
-            return generator.CreateClassProxy<T>(interceptor);
+            return proxifier.CreateClassProxy<T>(interceptor);
         }
 
         public void AddTransition(string controller, string action)
         {
-            All.Add(new Transition(currentName, controller, action, urlGenerator.For(controller, action)));
+            All.Add(new Relation(currentName, controller, action, urlGenerator.For(controller, action)));
             currentName = string.Empty;
         } 
 
-        public Transitions Named(string name)
+        public Relations Named(string name)
         {
             currentName = name;
             return this;

@@ -8,7 +8,7 @@ namespace Restfulie.Server.Marshalling
         public IResourceRepresentation BasedOnMediaType(string mediaType)
         {
             return new DefaultRepresentation(
-                new Transitions(new AspNetMvcUrlGenerator()), 
+                new Relations(new AspNetMvcUrlGenerator()), 
                 new AcceptHeaderToSerializer().For(mediaType));
         }
     }
