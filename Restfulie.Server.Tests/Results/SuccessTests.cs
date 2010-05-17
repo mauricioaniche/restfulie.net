@@ -1,6 +1,4 @@
 ﻿using System.IO;
-using System.Web;
-using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
 using Restfulie.Server.Marshalling;
@@ -34,7 +32,7 @@ namespace Restfulie.Server.Tests.Results
 
             var result = new Success
                              {
-                                 MarshallerBuilder = new Mock<IResourceRepresentation>().Object
+                                 Representation = new Mock<IResourceRepresentation>().Object
                              };
 
             result.ExecuteResult(context.Object);
@@ -49,7 +47,7 @@ namespace Restfulie.Server.Tests.Results
 
             builder.Setup(s => s.Build(aSimpleResource)).Returns(
                 "<SomeResource><Name>John Doe</name><amount>123.45</amount></SomeResource>");
-            var result = new Success(aSimpleResource) {MarshallerBuilder = builder.Object};
+            var result = new Success(aSimpleResource) {Representation = builder.Object};
 
             result.ExecuteResult(context.Object);
 

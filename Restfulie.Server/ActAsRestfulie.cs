@@ -9,19 +9,19 @@ namespace Restfulie.Server
 {
     public class ActAsRestfulie : ActionFilterAttribute
     {
-        private IResourceRepresentation builder;
-        private readonly IRepresentationFactory marshaller;
+        private IResourceRepresentation representation;
+        private readonly IRepresentationFactory representationFactory;
         private readonly IAcceptHeaderFinder acceptHeader;
 
         public ActAsRestfulie()
         {
-            marshaller = new DefaultRepresentationFactory();
+            representationFactory = new DefaultRepresentationFactory();
             acceptHeader = new DefaultAcceptHeaderFinder();
         }
 
         public ActAsRestfulie(IRepresentationFactory factory, IAcceptHeaderFinder finder)
         {
-            this.marshaller = factory;
+            this.representationFactory = factory;
             this.acceptHeader = finder;
         }
 
@@ -29,7 +29,7 @@ namespace Restfulie.Server
         {
             try
             {
-                builder = marshaller.BasedOnMediaType(acceptHeader.FindIn(filterContext));
+                representation = representationFactory.BasedOnMediaType(acceptHeader.FindIn(filterContext));
             }
             catch(MediaTypeNotSupportedException)
             {
@@ -43,7 +43,7 @@ namespace Restfulie.Server
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
             var result = (RestfulieResult)filterContext.Result;
-            result.MarshallerBuilder = builder;
+            result.Representation = representation;
 
             base.OnResultExecuting(filterContext);
         }
