@@ -9,7 +9,8 @@ namespace Restfulie.Server.Marshalling
         {
             return new DefaultRepresentation(
                 new Relations(new AspNetMvcUrlGenerator()), 
-                new AcceptHeaderToSerializer().For(mediaType));
+                new AcceptHeaderToSerializer().For(mediaType),
+                new DefaultInflections());
         }
     }
 }

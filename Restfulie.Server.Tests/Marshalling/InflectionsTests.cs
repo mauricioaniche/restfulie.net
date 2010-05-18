@@ -9,7 +9,7 @@ namespace Restfulie.Server.Tests.Marshalling
         [Test]
         public void ShouldInflectAName()
         {
-            Assert.AreEqual("SomeResources", new Inflections().Inflect("SomeResource"));
+            Assert.AreEqual("SomeResources", new DefaultInflections().Inflect("SomeResource"));
         }
     }
 }

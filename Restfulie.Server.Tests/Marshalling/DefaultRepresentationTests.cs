@@ -13,12 +13,16 @@ namespace Restfulie.Server.Tests.Marshalling
     {
         private Mock<Relations> relations;
         private Mock<IResourceSerializer> serializer;
+        private Mock<IInflections> inflections;
 
         [SetUp]
         public void SetUp()
         {
             relations = new Mock<Relations>(new Mock<IUrlGenerator>().Object);
-            serializer = new Mock<IResourceSerializer>(MockBehavior.Strict);            
+            serializer = new Mock<IResourceSerializer>(MockBehavior.Strict);
+            inflections = new Mock<IInflections>(MockBehavior.Strict);
+
+            inflections.Setup(i => i.Inflect("SomeResource")).Returns("SomeResources");
         }
 
         [Test]
@@ -29,7 +33,7 @@ namespace Restfulie.Server.Tests.Marshalling
             relations.SetupGet(t => t.All).Returns(SomeTransitions());
             serializer.Setup(s => s.Serialize(resource, It.IsAny<IList<Relation>>())).Returns(SerializedResource());
 
-            var builder = new DefaultRepresentation(relations.Object, serializer.Object);
+            var builder = new DefaultRepresentation(relations.Object, serializer.Object, inflections.Object);
             builder.Build(resource);
             
             relations.VerifyAll();
@@ -42,9 +46,9 @@ namespace Restfulie.Server.Tests.Marshalling
             var resources = new List<IBehaveAsResource> {new SomeResource(), new SomeResource()};
 
             relations.Setup(t => t.All).Returns(SomeTransitions());
-            serializer.Setup(s => s.Serialize(It.IsAny<IDictionary<IBehaveAsResource, IList<Relation>>>())).Returns(SerializedResource());
+            serializer.Setup(s => s.Serialize(It.IsAny<IDictionary<IBehaveAsResource, IList<Relation>>>(), "SomeResources")).Returns(SerializedResource());
             
-            var builder = new DefaultRepresentation(relations.Object, serializer.Object);
+            var builder = new DefaultRepresentation(relations.Object, serializer.Object, inflections.Object);
             builder.Build(resources);
 
             relations.VerifyAll();

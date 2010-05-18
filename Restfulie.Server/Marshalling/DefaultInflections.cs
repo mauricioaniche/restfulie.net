@@ -2,7 +2,7 @@
 
 namespace Restfulie.Server.Marshalling
 {
-    public class Inflections : IInflections
+    public class DefaultInflections : IInflections
     {
         public string Inflect(string name)
         {

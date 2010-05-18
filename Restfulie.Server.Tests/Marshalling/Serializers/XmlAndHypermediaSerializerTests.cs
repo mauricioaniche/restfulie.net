@@ -49,7 +49,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers
                                               {new SomeResource {Amount = 67.89, Name = "Sally Doe"}, SomeRelations()}
                                           };
 
-            var xml = serializer.Serialize(resourcesXrelations);
+            var xml = serializer.Serialize(resourcesXrelations, "SomeResources");
 
             Assert.That(xml.Contains("John Doe"));
             Assert.That(xml.Contains("Sally Doe"));

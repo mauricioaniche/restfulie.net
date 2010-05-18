@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Linq;
 
 namespace Restfulie.Server.Marshalling.Serializers
 {
@@ -14,7 +15,7 @@ namespace Restfulie.Server.Marshalling.Serializers
             return PutTransitionsOn(GetXmlBasedOn(resource), transitions).InnerXml;
         }
 
-        public string Serialize(IDictionary<IBehaveAsResource, IList<Relation>> resources)
+        public string Serialize(IDictionary<IBehaveAsResource, IList<Relation>> resources, string rootName)
         {
             var resourcesInXml = new StringBuilder();
 
@@ -24,7 +25,7 @@ namespace Restfulie.Server.Marshalling.Serializers
             }
 
             var xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml("<SomeResources>" + resourcesInXml + "</SomeResources>");
+            xmlDocument.LoadXml("<" + rootName + ">" + resourcesInXml + "</" + rootName + ">");
            
             return xmlDocument.InnerXml;
         }
