@@ -54,7 +54,6 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers
             Assert.That(xml.Contains("John Doe"));
             Assert.That(xml.Contains("Sally Doe"));
             Assert.That(xml.Contains("<SomeResources>"));
-            Console.WriteLine(xml);
         }
 
         private IList<Relation> SomeRelations()

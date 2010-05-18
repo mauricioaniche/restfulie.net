@@ -64,6 +64,8 @@
     <Compile Include="ActAsRestfulie.cs" />
     <Compile Include="Exceptions\MediaTypeNotSupportedException.cs" />
     <Compile Include="IBehaveAsResource.cs" />
+    <Compile Include="Marshalling\IInflections.cs" />
+    <Compile Include="Marshalling\Inflections.cs" />
     <Compile Include="Marshalling\IRepresentationFactory.cs" />
     <Compile Include="Marshalling\DefaultRepresentationFactory.cs" />
     <Compile Include="Marshalling\DefaultRepresentation.cs" />
