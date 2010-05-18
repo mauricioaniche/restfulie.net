@@ -11,32 +11,54 @@ namespace Restfulie.Server.Tests.Marshalling
     [TestFixture]
     public class DefaultRepresentationTests
     {
-        [Test]
-        public void ShouldBuildRepresentation()
-        {
-            var transitions = new Mock<Relations>(new Mock<IUrlGenerator>().Object);
-            var serializer = new Mock<IResourceSerializer>(MockBehavior.Strict);
+        private Mock<Relations> relations;
+        private Mock<IResourceSerializer> serializer;
 
+        [SetUp]
+        public void SetUp()
+        {
+            relations = new Mock<Relations>(new Mock<IUrlGenerator>().Object);
+            serializer = new Mock<IResourceSerializer>(MockBehavior.Strict);            
+        }
+
+        [Test]
+        public void ShouldBuildResourceRepresentation()
+        {
             var resource = new SomeResource();
 
-            transitions.SetupGet(t => t.All).Returns(SomeTransitions());
-            serializer.Setup(s => s.Serialize(resource, It.IsAny<IList<Relation>>())).Returns(URL());
+            relations.SetupGet(t => t.All).Returns(SomeTransitions());
+            serializer.Setup(s => s.Serialize(resource, It.IsAny<IList<Relation>>())).Returns(SerializedResource());
 
-            var builder = new DefaultRepresentation(transitions.Object, serializer.Object);
+            var builder = new DefaultRepresentation(relations.Object, serializer.Object);
             builder.Build(resource);
             
-            transitions.VerifyAll();
+            relations.VerifyAll();
+            serializer.VerifyAll();
+        }
+
+        [Test]
+        public void ShouldBuildListRepresentation()
+        {
+            var resources = new List<IBehaveAsResource> {new SomeResource(), new SomeResource()};
+
+            relations.Setup(t => t.All).Returns(SomeTransitions());
+            serializer.Setup(s => s.Serialize(It.IsAny<IDictionary<IBehaveAsResource, IList<Relation>>>())).Returns(SerializedResource());
+            
+            var builder = new DefaultRepresentation(relations.Object, serializer.Object);
+            builder.Build(resources);
+
+            relations.VerifyAll();
             serializer.VerifyAll();
         }
 
         private List<Relation> SomeTransitions()
         {
-            return new List<Relation> {new Relation("pay", "Order","Pay",URL())};
+            return new List<Relation> {new Relation("pay", "Order","Pay",SerializedResource())};
         }
 
-        private string URL()
+        private string SerializedResource()
         {
-            return "http://some-url-here/";
+            return "resource here";
         }
     }
 }

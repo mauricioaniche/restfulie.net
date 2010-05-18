@@ -39,5 +39,10 @@ namespace Restfulie.Server
             currentName = name;
             return this;
         }
+
+        public void Reset()
+        {
+            All.Clear();
+        }
     }
 }

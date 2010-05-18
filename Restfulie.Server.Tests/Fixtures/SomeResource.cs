@@ -8,7 +8,7 @@ namespace Restfulie.Server.Tests.Fixtures
         public string Name { get; set; }
         public double Amount { get; set; }
 
-        public void SetRelations(Server.Relations relations)
+        public void SetRelations(Relations relations)
         {
             relations.Named("pay").Uses<SomeController>().SomeSimpleAction();
         }

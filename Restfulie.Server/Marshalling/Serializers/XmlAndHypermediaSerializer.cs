@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
@@ -10,6 +11,11 @@ namespace Restfulie.Server.Marshalling.Serializers
         public string Serialize(IBehaveAsResource resource, IList<Relation> transitions)
         {
             return PutTransitionsOn(GetXmlBasedOn(resource), transitions);
+        }
+
+        public string Serialize(IDictionary<IBehaveAsResource, IList<Relation>> resources)
+        {
+            return "";
         }
 
         private XmlDocument GetXmlBasedOn(IBehaveAsResource resource)

@@ -24,7 +24,15 @@ namespace Restfulie.Server.Marshalling
 
         public string Build(IEnumerable<IBehaveAsResource> resources)
         {
-            return "";
+            var resourcesXrelations = new Dictionary<IBehaveAsResource, IList<Relation>>();
+            foreach(var resource in resources)
+            {
+                resource.SetRelations(relations);
+                resourcesXrelations.Add(resource, relations.All);
+                relations.Reset();
+            }
+
+            return serializer.Serialize(resourcesXrelations);
         }
     }
 }
