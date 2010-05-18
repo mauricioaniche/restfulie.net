@@ -1,4 +1,6 @@
-﻿using Restfulie.Server.Marshalling.Serializers;
+﻿using System;
+using System.Collections.Generic;
+using Restfulie.Server.Marshalling.Serializers;
 
 namespace Restfulie.Server.Marshalling
 {
@@ -18,6 +20,11 @@ namespace Restfulie.Server.Marshalling
             resource.SetRelations(relations);
 
             return serializer.Serialize(resource, relations.All);
+        }
+
+        public string Build(IEnumerable<IBehaveAsResource> resources)
+        {
+            return "";
         }
     }
 }

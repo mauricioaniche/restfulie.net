@@ -58,5 +58,24 @@ namespace Restfulie.Server.Tests.Results
             Assert.That(serializedResource.Contains("123.45"));
             builder.VerifyAll();
         }
+
+        [Test]
+        public void ShouldReturnListOfResource()
+        {
+            var resources = new System.Collections.Generic.List<IBehaveAsResource> {aSimpleResource, aSimpleResource};
+            response.Setup(p => p.Output).Returns(new StreamWriter(stream));
+
+            builder.Setup(s => s.Build(resources)).Returns("List Of Resources here");
+            var result = new Success(resources) 
+            { Representation = builder.Object };
+
+            result.ExecuteResult(context.Object);
+
+            stream.Seek(0, SeekOrigin.Begin);
+            var serializedResource = new StreamReader(stream).ReadToEnd();
+
+            Assert.That(serializedResource.Contains("List Of Resources here"));
+            builder.VerifyAll();            
+        }
     }
 }
