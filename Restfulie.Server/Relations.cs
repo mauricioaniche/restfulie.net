@@ -12,13 +12,13 @@ namespace Restfulie.Server
         private readonly TransitionInterceptor interceptor;
         private readonly ProxyGenerator proxifier;
         private string currentName;
-        public virtual IList<Relation> All { get; private set; }
+        private readonly IList<Relation> all;
 
         public Relations(IUrlGenerator urlGenerator)
         {
             this.urlGenerator = urlGenerator;
             proxifier = new ProxyGenerator();
-            All = new List<Relation>();
+            all = new List<Relation>();
             interceptor = new TransitionInterceptor(this);
         }
 
@@ -30,7 +30,7 @@ namespace Restfulie.Server
 
         public void AddTransition(string controller, string action)
         {
-            All.Add(new Relation(currentName, controller, action, urlGenerator.For(controller, action)));
+            all.Add(new Relation(currentName, controller, action, urlGenerator.For(controller, action)));
             currentName = string.Empty;
         } 
 
@@ -40,9 +40,12 @@ namespace Restfulie.Server
             return this;
         }
 
-        public void Reset()
+        public virtual IList<Relation> GetAll()
         {
-            All.Clear();
+            var allRelations = new List<Relation>(all);
+            all.Clear();
+
+            return allRelations;
         }
     }
 }

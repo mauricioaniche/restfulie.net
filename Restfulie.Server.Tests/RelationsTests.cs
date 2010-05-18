@@ -19,10 +19,12 @@ namespace Restfulie.Server.Tests
             var relations = new Relations(urlGenerator.Object);
             relations.Named("pay").Uses<SomeController>().SomeSimpleAction();
 
-            Assert.AreEqual("pay", relations.All.First().Name);
-            Assert.AreEqual("Some", relations.All.First().Controller);
-            Assert.AreEqual("SomeSimpleAction", relations.All.First().Action);
-            Assert.AreEqual("http://Some/SomeSimpleAction", relations.All.First().Url);
+            var all = relations.GetAll();
+
+            Assert.AreEqual("pay", all.First().Name);
+            Assert.AreEqual("Some", all.First().Controller);
+            Assert.AreEqual("SomeSimpleAction", all.First().Action);
+            Assert.AreEqual("http://Some/SomeSimpleAction", all.First().Url);
         }
 
         [Test]
@@ -40,9 +42,11 @@ namespace Restfulie.Server.Tests
             relations.Named("pay").Uses<SomeController>().SomeSimpleAction();
             relations.Named("cancel").Uses<SomeController>().SomeSimpleAction();
 
-            Assert.AreEqual(2, relations.All.Count);
-            Assert.IsNotNull(relations.All.Where(t => t.Name == "pay").Single());
-            Assert.IsNotNull(relations.All.Where(t => t.Name == "cancel").Single());
+            var all = relations.GetAll();
+
+            Assert.AreEqual(2, all.Count);
+            Assert.IsNotNull(all.Where(t => t.Name == "pay").Single());
+            Assert.IsNotNull(all.Where(t => t.Name == "cancel").Single());
         }
     }
 }

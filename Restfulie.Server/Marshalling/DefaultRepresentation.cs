@@ -20,9 +20,9 @@ namespace Restfulie.Server.Marshalling
 
         public string Build(IBehaveAsResource resource)
         {
-            resource.SetRelations(relations);
+            var all = resource.GetRelations(relations);
 
-            return serializer.Serialize(resource, relations.All);
+            return serializer.Serialize(resource, all);
         }
 
         public string Build(IEnumerable<IBehaveAsResource> resources)
@@ -30,9 +30,8 @@ namespace Restfulie.Server.Marshalling
             var listOfResources = new Dictionary<IBehaveAsResource, IList<Relation>>();
             foreach(var resource in resources)
             {
-                resource.SetRelations(relations);
-                listOfResources.Add(resource, relations.All);
-                relations.Reset();
+                var allRelations = resource.GetRelations(relations);
+                listOfResources.Add(resource, allRelations);
             }
 
             var rootName = inflections.Inflect(resources.First().GetType().Name);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Restfulie.Server;
 using Web.Controllers;
 
@@ -9,9 +10,11 @@ namespace Web.Models
         public DateTime Date { get; set; }
         public double Amount { get; set; }
 
-        public void SetRelations(Relations relations)
+        public IList<Relation> GetRelations(Relations relations)
         {
             relations.Named("pay").Uses<OrdersController>().Index();
+
+            return relations.GetAll();
         }
     }
 }

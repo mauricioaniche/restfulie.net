@@ -1,7 +1,9 @@
-﻿namespace Restfulie.Server
+﻿using System.Collections.Generic;
+
+namespace Restfulie.Server
 {
     public interface IBehaveAsResource
     {
-        void SetRelations(Relations relations);
+        IList<Relation> GetRelations(Relations relations);
     }
 }

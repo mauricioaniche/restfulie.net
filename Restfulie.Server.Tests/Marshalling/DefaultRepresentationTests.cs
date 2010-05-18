@@ -30,7 +30,7 @@ namespace Restfulie.Server.Tests.Marshalling
         {
             var resource = new SomeResource();
 
-            relations.SetupGet(t => t.All).Returns(SomeTransitions());
+            relations.Setup(t => t.GetAll()).Returns(SomeTransitions());
             serializer.Setup(s => s.Serialize(resource, It.IsAny<IList<Relation>>())).Returns(SerializedResource());
 
             var builder = new DefaultRepresentation(relations.Object, serializer.Object, inflections.Object);
@@ -45,7 +45,7 @@ namespace Restfulie.Server.Tests.Marshalling
         {
             var resources = new List<IBehaveAsResource> {new SomeResource(), new SomeResource()};
 
-            relations.Setup(t => t.All).Returns(SomeTransitions());
+            relations.Setup(t => t.GetAll()).Returns(SomeTransitions());
             serializer.Setup(s => s.Serialize(It.IsAny<IDictionary<IBehaveAsResource, IList<Relation>>>(), "SomeResources")).Returns(SerializedResource());
             
             var builder = new DefaultRepresentation(relations.Object, serializer.Object, inflections.Object);
