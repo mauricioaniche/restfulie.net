@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Restfulie.Server;
 using Restfulie.Server.Results;
@@ -11,9 +12,13 @@ namespace Web.Controllers
     {
         public virtual ActionResult Index()
         {
-            var order = new Order {Amount = 333.44, Date = DateTime.Now};
-            return new Success(order);
-        }
+            var orders = new List<IBehaveAsResource>()
+                             {
+                                 new Order {Amount = 333.44, Date = DateTime.Now},
+                                 new Order {Amount = 555.66, Date = DateTime.Now}
+                             };
 
+            return new Success(orders);
+        }
     }
 }
