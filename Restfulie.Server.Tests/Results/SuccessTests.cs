@@ -66,8 +66,7 @@ namespace Restfulie.Server.Tests.Results
             response.Setup(p => p.Output).Returns(new StreamWriter(stream));
 
             builder.Setup(s => s.Build(resources)).Returns("List Of Resources here");
-            var result = new Success(resources) 
-            { Representation = builder.Object };
+            var result = new Success(resources) { Representation = builder.Object };
 
             result.ExecuteResult(context.Object);
 
