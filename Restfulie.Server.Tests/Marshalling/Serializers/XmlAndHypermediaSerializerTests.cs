@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Restfulie.Server.Marshalling.Serializers;
 using Restfulie.Server.Tests.Fixtures;
@@ -32,12 +33,33 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers
         {
             var resource = new SomeResource { Amount = 123.45, Name = "John Doe" };
 
-            var xml = serializer.Serialize(resource,
-                                           new List<Relation> { new Relation("pay", "controller", "action", "http://some/url") });
+            var xml = serializer.Serialize(resource, SomeRelations());
 
             Assert.That(xml.Contains("rel=\"pay\""));
             Assert.That(xml.Contains("<atom:link"));
             Assert.That(xml.Contains("http://some/url")); 
+        }
+
+        [Test]
+        public void ShouldSerializeAListOfResources()
+        {
+            var resourcesXrelations = new Dictionary<IBehaveAsResource, IList<Relation>>
+                                          {
+                                              {new SomeResource {Amount = 123.45, Name = "John Doe"}, SomeRelations()},
+                                              {new SomeResource {Amount = 67.89, Name = "Sally Doe"}, SomeRelations()}
+                                          };
+
+            var xml = serializer.Serialize(resourcesXrelations);
+
+            Assert.That(xml.Contains("John Doe"));
+            Assert.That(xml.Contains("Sally Doe"));
+            Assert.That(xml.Contains("<SomeResources>"));
+            Console.WriteLine(xml);
+        }
+
+        private IList<Relation> SomeRelations()
+        {
+            return new List<Relation> {new Relation("pay", "controller", "action", "http://some/url")};
         }
     }
 }

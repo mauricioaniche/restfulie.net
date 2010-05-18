@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -10,12 +11,22 @@ namespace Restfulie.Server.Marshalling.Serializers
     {
         public string Serialize(IBehaveAsResource resource, IList<Relation> transitions)
         {
-            return PutTransitionsOn(GetXmlBasedOn(resource), transitions);
+            return PutTransitionsOn(GetXmlBasedOn(resource), transitions).InnerXml;
         }
 
         public string Serialize(IDictionary<IBehaveAsResource, IList<Relation>> resources)
         {
-            return "";
+            var resourcesInXml = new StringBuilder();
+
+            foreach(var resource in resources)
+            {
+                resourcesInXml.Append(PutTransitionsOn(GetXmlBasedOn(resource.Key), resource.Value).DocumentElement.OuterXml);
+            }
+
+            var xmlDocument = new XmlDocument();
+            xmlDocument.LoadXml("<SomeResources>" + resourcesInXml + "</SomeResources>");
+           
+            return xmlDocument.InnerXml;
         }
 
         private XmlDocument GetXmlBasedOn(IBehaveAsResource resource)
@@ -32,7 +43,7 @@ namespace Restfulie.Server.Marshalling.Serializers
             return xmlDocument;
         }
 
-        private string PutTransitionsOn(XmlDocument xmlDocument, IList<Relation> transitions)
+        private XmlDocument PutTransitionsOn(XmlDocument xmlDocument, IList<Relation> transitions)
         {
             foreach (var state in transitions)
             {
@@ -45,7 +56,7 @@ namespace Restfulie.Server.Marshalling.Serializers
                 xmlDocument.DocumentElement.AppendChild(transition);
             }
 
-            return xmlDocument.InnerXml;
+            return xmlDocument;
         }
     }
 }
