@@ -25,15 +25,24 @@ namespace Restfulie.Server.Results
         public override void ExecuteResult(ControllerContext context)
         {
             SetStatusCode(context,StatusCodes.Success);
+            WriteResource(context);
+        }
 
+        private void WriteResource(ControllerContext context)
+        {
             if(ResourceWasPassed())
             {   
                 Write(context, Representation.Build(resource));
             }
-            if(resources!=null)
+            if(ResourcesWerePassed())
             {
                 Write(context, Representation.Build(resources));
             }
+        }
+
+        private bool ResourcesWerePassed()
+        {
+            return resources!=null;
         }
 
         private bool ResourceWasPassed()
