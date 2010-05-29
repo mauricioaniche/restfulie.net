@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Restfulie.Server.Exceptions;
 using Restfulie.Server.Unmarshalling.Deserializers;
 
-namespace Restfulie.Server.Negotitation
+namespace Restfulie.Server.Negotiation
 {
     public class ContentTypeToDeserializer
     {
@@ -13,11 +13,11 @@ namespace Restfulie.Server.Negotitation
         static ContentTypeToDeserializer()
         {
             MediaTypes = new Dictionary<string, Type>
-                           {
-                               {"application/xml", typeof (XmlDeserializer)},
-                               {"text/xml", typeof (XmlDeserializer)},
-                               {"xml", typeof (XmlDeserializer)}
-                           };
+                             {
+                                 {"application/xml", typeof (XmlDeserializer)},
+                                 {"text/xml", typeof (XmlDeserializer)},
+                                 {"xml", typeof (XmlDeserializer)}
+                             };
 
             DefaultSerializer = typeof (XmlDeserializer);
         }
@@ -35,7 +35,7 @@ namespace Restfulie.Server.Negotitation
         public IResourceDeserializer For(string mediaType)
         {
             return (IResourceDeserializer)Activator.CreateInstance(
-                string.IsNullOrEmpty(mediaType) ? DefaultSerializer : SearchFor(mediaType));
+                                              string.IsNullOrEmpty(mediaType) ? DefaultSerializer : SearchFor(mediaType));
         }
     }
 }

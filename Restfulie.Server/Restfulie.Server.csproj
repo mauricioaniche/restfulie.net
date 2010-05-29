@@ -71,10 +71,10 @@
     <Compile Include="Marshalling\DefaultRepresentationFactory.cs" />
     <Compile Include="Marshalling\DefaultRepresentation.cs" />
     <Compile Include="Marshalling\IResourceRepresentation.cs" />
-    <Compile Include="Negotitation\AcceptHeaderToSerializer.cs" />
-    <Compile Include="Negotitation\ContentTypeToDeserializer.cs" />
-    <Compile Include="Negotitation\DefaultRequestInfoFinder.cs" />
-    <Compile Include="Negotitation\IRequestInfoFinder.cs" />
+    <Compile Include="Negotiation\AcceptHeaderToSerializer.cs" />
+    <Compile Include="Negotiation\ContentTypeToDeserializer.cs" />
+    <Compile Include="Negotiation\DefaultRequestInfoFinder.cs" />
+    <Compile Include="Negotiation\IRequestInfoFinder.cs" />
     <Compile Include="Results\BadRequest.cs" />
     <Compile Include="Results\NotAcceptable.cs" />
     <Compile Include="Results\RestfulieResult.cs" />

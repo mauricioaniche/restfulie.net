@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using Restfulie.Server.Exceptions;
 using Restfulie.Server.Marshalling;
-using Restfulie.Server.Negotitation;
+using Restfulie.Server.Negotiation;
 using Restfulie.Server.Results;
 using Restfulie.Server.Unmarshalling;
 

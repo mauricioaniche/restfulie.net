@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Restfulie.Server.Negotitation
+namespace Restfulie.Server.Negotiation
 {
     public interface IRequestInfoFinder
     {

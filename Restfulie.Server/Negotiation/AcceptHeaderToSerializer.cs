@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Restfulie.Server.Exceptions;
 using Restfulie.Server.Marshalling.Serializers;
 
-namespace Restfulie.Server.Negotitation
+namespace Restfulie.Server.Negotiation
 {
     public class AcceptHeaderToSerializer
     {
@@ -13,11 +13,11 @@ namespace Restfulie.Server.Negotitation
         static AcceptHeaderToSerializer()
         {
             MediaTypes = new Dictionary<string, Type>
-                           {
-                               {"application/xml", typeof (XmlAndHypermediaSerializer)},
-                               {"text/xml", typeof (XmlAndHypermediaSerializer)},
-                               {"xml", typeof (XmlAndHypermediaSerializer)}
-                           };
+                             {
+                                 {"application/xml", typeof (XmlAndHypermediaSerializer)},
+                                 {"text/xml", typeof (XmlAndHypermediaSerializer)},
+                                 {"xml", typeof (XmlAndHypermediaSerializer)}
+                             };
 
             DefaultSerializer = typeof (XmlAndHypermediaSerializer);
         }
@@ -35,7 +35,7 @@ namespace Restfulie.Server.Negotitation
         public IResourceSerializer For(string mediaType)
         {
             return (IResourceSerializer)Activator.CreateInstance(
-                string.IsNullOrEmpty(mediaType) ? DefaultSerializer : SearchFor(mediaType));
+                                            string.IsNullOrEmpty(mediaType) ? DefaultSerializer : SearchFor(mediaType));
         }
     }
 }

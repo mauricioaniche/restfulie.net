@@ -1,5 +1,5 @@
 ﻿using Restfulie.Server.Marshalling.UrlGenerators;
-using Restfulie.Server.Negotitation;
+using Restfulie.Server.Negotiation;
 
 namespace Restfulie.Server.Marshalling
 {

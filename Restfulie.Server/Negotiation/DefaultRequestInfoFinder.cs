@@ -2,7 +2,7 @@
 using System.IO;
 using System.Web.Mvc;
 
-namespace Restfulie.Server.Negotitation
+namespace Restfulie.Server.Negotiation
 {
     public class DefaultRequestInfoFinder : IRequestInfoFinder
     {

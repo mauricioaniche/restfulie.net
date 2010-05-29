@@ -1,4 +1,4 @@
-﻿using Restfulie.Server.Negotitation;
+﻿using Restfulie.Server.Negotiation;
 
 namespace Restfulie.Server.Unmarshalling
 {

@@ -4,7 +4,7 @@ using Moq;
 using NUnit.Framework;
 using Restfulie.Server.Exceptions;
 using Restfulie.Server.Marshalling;
-using Restfulie.Server.Negotitation;
+using Restfulie.Server.Negotiation;
 using Restfulie.Server.Results;
 using Restfulie.Server.Tests.Fixtures;
 using Restfulie.Server.Unmarshalling;
