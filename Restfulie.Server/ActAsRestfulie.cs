@@ -51,6 +51,11 @@ namespace Restfulie.Server
                 filterContext.Result = new NotAcceptable();
                 return;
             }
+            catch(ContentTypeNotSupportedException)
+            {
+                filterContext.Result = new BadRequest();
+                return;
+            }
 
             base.OnActionExecuting(filterContext);
         }

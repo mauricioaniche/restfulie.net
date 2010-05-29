@@ -63,5 +63,22 @@ namespace Restfulie.Server.Tests
 
             Assert.AreEqual(resource, context.ActionParameters["Resource"]);
         }
+
+        [Test]
+        public void ShouldReturnBadRequestWhenContentTypeIsNotSupported()
+        {
+            unmarshallerFactory.Setup(f => f.BasedOn(It.IsAny<string>())).Throws(new ContentTypeNotSupportedException());
+            requestInfo.Setup(ah => ah.GetContentTypeIn(context)).Returns("some-crazy-media-type");
+
+            var filter = new ActAsRestfulie(marshallerFactory.Object, unmarshallerFactory.Object, requestInfo.Object)
+                             {
+                                 Name = "Resource",
+                                 Type = typeof (SomeResource)
+                             };
+
+            filter.OnActionExecuting(context);
+
+            Assert.IsTrue(context.Result is BadRequest);
+        }
     }
 }
