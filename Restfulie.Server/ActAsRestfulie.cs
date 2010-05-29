@@ -39,10 +39,12 @@ namespace Restfulie.Server
             {
                 representation = marshallerFactory.BasedOnMediaType(requestInfo.GetAcceptHeaderIn(filterContext));
 
-                var unmarshaller = unmarshallerFactory.BasedOn(requestInfo.GetContentTypeIn(filterContext));
-                var resource = unmarshaller.ToResource(requestInfo.GetContent(filterContext), Type);
-                filterContext.ActionParameters[Name] = resource;
-                
+                if (AResourceShouldBeUnmarshalled())
+                {
+                    var unmarshaller = unmarshallerFactory.BasedOn(requestInfo.GetContentTypeIn(filterContext));
+                    var resource = unmarshaller.ToResource(requestInfo.GetContent(filterContext), Type);
+                    filterContext.ActionParameters[Name] = resource;
+                }
             }
             catch(MediaTypeNotSupportedException)
             {
@@ -51,6 +53,11 @@ namespace Restfulie.Server
             }
 
             base.OnActionExecuting(filterContext);
+        }
+
+        private bool AResourceShouldBeUnmarshalled()
+        {
+            return !string.IsNullOrEmpty(Name) && Type != null;
         }
 
         public override void OnResultExecuting(ResultExecutingContext filterContext)
