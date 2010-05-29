@@ -67,6 +67,7 @@
     <Compile Include="ActAsRestfulieTests.cs" />
     <Compile Include="Marshalling\InflectionsTests.cs" />
     <Compile Include="Negotiation\AcceptHeaderToSerializerTests.cs" />
+    <Compile Include="Negotiation\ContentTypeToDeserializerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\BadRequestTests.cs" />
     <Compile Include="Marshalling\Serializers\XmlAndHypermediaSerializerTests.cs" />

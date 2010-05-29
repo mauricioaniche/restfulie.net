@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActAsRestfulie.cs" />
+    <Compile Include="Exceptions\ContentTypeNotSupportedException.cs" />
     <Compile Include="Exceptions\MediaTypeNotSupportedException.cs" />
     <Compile Include="IBehaveAsResource.cs" />
     <Compile Include="Marshalling\IInflections.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Marshalling\DefaultRepresentation.cs" />
     <Compile Include="Marshalling\IResourceRepresentation.cs" />
     <Compile Include="Negotitation\AcceptHeaderToSerializer.cs" />
+    <Compile Include="Negotitation\ContentTypeToDeserializer.cs" />
     <Compile Include="Negotitation\DefaultAcceptHeaderFinder.cs" />
     <Compile Include="Negotitation\IAcceptHeaderFinder.cs" />
     <Compile Include="Results\BadRequest.cs" />
