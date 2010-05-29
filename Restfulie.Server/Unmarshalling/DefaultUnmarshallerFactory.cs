@@ -2,7 +2,7 @@
 
 namespace Restfulie.Server.Unmarshalling
 {
-    public class ResourceUnmarshallerFactory : IUnmarshallerFactory
+    public class DefaultUnmarshallerFactory : IUnmarshallerFactory
     {
         public IResourceUnmarshaller BasedOn(string contentType)
         {

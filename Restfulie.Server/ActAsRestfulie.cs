@@ -4,35 +4,45 @@ using Restfulie.Server.Exceptions;
 using Restfulie.Server.Marshalling;
 using Restfulie.Server.Negotitation;
 using Restfulie.Server.Results;
+using Restfulie.Server.Unmarshalling;
 
 namespace Restfulie.Server
 {
     public class ActAsRestfulie : ActionFilterAttribute
     {
         private IResourceRepresentation representation;
-        private readonly IRepresentationFactory representationFactory;
-        private readonly IAcceptHeaderFinder acceptHeader;
+
+        private readonly IRepresentationFactory marshallerFactory;
+        private readonly IUnmarshallerFactory unmarshallerFactory;
+        private readonly IRequestInfoFinder requestInfo;
 
         public string Name { get; set; }
         public Type Type { get; set; }
 
         public ActAsRestfulie()
         {
-            representationFactory = new DefaultRepresentationFactory();
-            acceptHeader = new DefaultAcceptHeaderFinder();
+            marshallerFactory = new DefaultRepresentationFactory();
+            unmarshallerFactory = new DefaultUnmarshallerFactory();
+            requestInfo = new DefaultRequestInfoFinder();
         }
 
-        public ActAsRestfulie(IRepresentationFactory factory, IAcceptHeaderFinder finder)
+        public ActAsRestfulie(IRepresentationFactory factory,IUnmarshallerFactory unmarshallerFactory, IRequestInfoFinder finder)
         {
-            this.representationFactory = factory;
-            this.acceptHeader = finder;
+            this.marshallerFactory = factory;
+            this.unmarshallerFactory = unmarshallerFactory;
+            this.requestInfo = finder;
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             try
             {
-                representation = representationFactory.BasedOnMediaType(acceptHeader.FindIn(filterContext));
+                representation = marshallerFactory.BasedOnMediaType(requestInfo.GetAcceptHeaderIn(filterContext));
+
+                var unmarshaller = unmarshallerFactory.BasedOn(requestInfo.GetContentTypeIn(filterContext));
+                var resource = unmarshaller.ToResource(requestInfo.GetContent(filterContext), Type);
+                filterContext.ActionParameters[Name] = resource;
+                
             }
             catch(MediaTypeNotSupportedException)
             {

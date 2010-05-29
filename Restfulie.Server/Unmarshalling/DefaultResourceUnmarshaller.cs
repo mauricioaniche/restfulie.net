@@ -1,4 +1,5 @@
-﻿using Restfulie.Server.Unmarshalling.Deserializers;
+﻿using System;
+using Restfulie.Server.Unmarshalling.Deserializers;
 
 namespace Restfulie.Server.Unmarshalling
 {
@@ -11,9 +12,9 @@ namespace Restfulie.Server.Unmarshalling
             this.deserializer = deserializer;
         }
 
-        public T ToResource<T>(string xml) where T : IBehaveAsResource
+        public IBehaveAsResource ToResource(string xml, Type objectType)
         {
-            return deserializer.Deserialize<T>(xml);
+            return deserializer.Deserialize(xml, objectType);
         }
     }
 }

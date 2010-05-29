@@ -8,12 +8,6 @@ namespace Restfulie.Server.Unmarshalling.Deserializers
 {
     public class XmlDeserializer : IResourceDeserializer
     {
-        public T Deserialize<T>(string xml) where T : IBehaveAsResource
-        {
-            var serializer = new XmlSerializer(typeof(T));
-            return (T)serializer.Deserialize(AStreamWith(xml));
-        }
-
         private Stream AStreamWith(string xml)
         {
             var byteArray = new List<byte>();
@@ -23,6 +17,12 @@ namespace Restfulie.Server.Unmarshalling.Deserializers
             }
 
             return new MemoryStream(byteArray.ToArray());
+        }
+
+        public IBehaveAsResource Deserialize(string xml, Type objectType)
+        {
+            var serializer = new XmlSerializer(objectType);
+            return (IBehaveAsResource)serializer.Deserialize(AStreamWith(xml));
         }
     }
 }

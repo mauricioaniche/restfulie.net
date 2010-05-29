@@ -12,7 +12,7 @@ namespace Restfulie.Server.Tests.Unmarshalling.Deserializers
         {
             const string xml = "<SomeResource><Name>Some name</Name><Amount>100.00</Amount></SomeResource>";
             var deserializer = new XmlDeserializer();
-            var resource = deserializer.Deserialize<SomeResource>(xml);
+            var resource = deserializer.Deserialize(xml, typeof(SomeResource)) as SomeResource;
 
             Assert.AreEqual("Some name", resource.Name);
             Assert.AreEqual(100M, resource.Amount);

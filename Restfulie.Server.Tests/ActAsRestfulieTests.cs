@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
 using Restfulie.Server.Exceptions;
@@ -6,24 +7,36 @@ using Restfulie.Server.Marshalling;
 using Restfulie.Server.Negotitation;
 using Restfulie.Server.Results;
 using Restfulie.Server.Tests.Fixtures;
+using Restfulie.Server.Unmarshalling;
 
 namespace Restfulie.Server.Tests
 {
     [TestFixture]
     public class ActAsRestfulieTests
     {
+        private Mock<IRequestInfoFinder> requestInfo;
+        private ActionExecutingContext context;
+        private Mock<IRepresentationFactory> marshallerFactory;
+        private Mock<IUnmarshallerFactory> unmarshallerFactory;
+
+        [SetUp]
+        public void SetUp()
+        {
+            context = new ActionExecutingContext();
+            context.ActionParameters = new Dictionary<string, object>();
+
+            marshallerFactory = new Mock<IRepresentationFactory>();
+            requestInfo = new Mock<IRequestInfoFinder>();
+            unmarshallerFactory = new Mock<IUnmarshallerFactory>();
+        }
+
         [Test]
         public void ShouldReturnNotAcceptableWhenMediaTypeIsNotSupported()
         {
-            var context = new ActionExecutingContext();
+            marshallerFactory.Setup(f => f.BasedOnMediaType(It.IsAny<string>())).Throws(new MediaTypeNotSupportedException());
+            requestInfo.Setup(ah => ah.GetAcceptHeaderIn(context)).Returns("some-crazy-media-type");
 
-            var marshaller = new Mock<IRepresentationFactory>();
-            marshaller.Setup(f => f.BasedOnMediaType(It.IsAny<string>())).Throws(new MediaTypeNotSupportedException());
-
-            var acceptHeader = new Mock<IAcceptHeaderFinder>();
-            acceptHeader.Setup(ah => ah.FindIn(context)).Returns("some-crazy-media-type");
-
-            var filter = new ActAsRestfulie(marshaller.Object, acceptHeader.Object);
+            var filter = new ActAsRestfulie(marshallerFactory.Object, unmarshallerFactory.Object, requestInfo.Object);
             
             filter.OnActionExecuting(context);
 
@@ -31,23 +44,24 @@ namespace Restfulie.Server.Tests
         }
 
         [Test]
-        [Ignore]
         public void ShouldUnmarshallResource()
         {
-            var context = new ActionExecutingContext();
-
-            var marshaller = new Mock<IRepresentationFactory>();
-            var acceptHeader = new Mock<IAcceptHeaderFinder>();
-
-            var filter = new ActAsRestfulie(marshaller.Object, acceptHeader.Object)
+            var filter = new ActAsRestfulie(marshallerFactory.Object, unmarshallerFactory.Object, requestInfo.Object)
                              {
                                  Name = "Resource",
                                  Type = typeof (SomeResource)
                              };
 
+            var resource = new SomeResource {Amount = 123, Name = "Some name"};
+            var unmarshaller = new Mock<IResourceUnmarshaller>();
+            unmarshaller.Setup(u => u.ToResource("some xml", typeof (SomeResource))).Returns(resource);
+            requestInfo.Setup(ah => ah.GetContentTypeIn(context)).Returns("application/xml");
+            requestInfo.Setup(ah => ah.GetContent(context)).Returns("some xml");
+            unmarshallerFactory.Setup(m => m.BasedOn("application/xml")).Returns(unmarshaller.Object);
+
             filter.OnActionExecuting(context);
 
-            Assert.IsNotNull(context.ActionParameters["Resource"]);
+            Assert.AreEqual(resource, context.ActionParameters["Resource"]);
         }
     }
 }

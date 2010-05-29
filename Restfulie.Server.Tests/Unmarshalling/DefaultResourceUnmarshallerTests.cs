@@ -19,9 +19,9 @@ namespace Restfulie.Server.Tests.Unmarshalling
             var deserializer = new Mock<IResourceDeserializer>();
             var unmarshaller = new DefaultResourceUnmarshaller(deserializer.Object);
 
-            deserializer.Setup(d => d.Deserialize<SomeResource>(SomeXML())).Returns(new SomeResource());
+            deserializer.Setup(d => d.Deserialize(SomeXML(), typeof(SomeResource))).Returns(new SomeResource());
             
-            var resource = unmarshaller.ToResource<SomeResource>(SomeXML());
+            var resource = unmarshaller.ToResource(SomeXML(), typeof(SomeResource));
 
             Assert.AreEqual(typeof(SomeResource), resource.GetType());
         }

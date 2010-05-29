@@ -1,7 +1,9 @@
-﻿namespace Restfulie.Server.Unmarshalling
+﻿using System;
+
+namespace Restfulie.Server.Unmarshalling
 {
     public interface IResourceUnmarshaller
     {
-        T ToResource<T>(string xml) where T : IBehaveAsResource;
+        IBehaveAsResource ToResource(string xml, Type objectType);
     }
 }

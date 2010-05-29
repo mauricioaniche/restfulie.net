@@ -73,10 +73,8 @@
     <Compile Include="Marshalling\IResourceRepresentation.cs" />
     <Compile Include="Negotitation\AcceptHeaderToSerializer.cs" />
     <Compile Include="Negotitation\ContentTypeToDeserializer.cs" />
-    <Compile Include="Negotitation\DefaultAcceptHeaderFinder.cs" />
-    <Compile Include="Negotitation\DefaultContentTypeFinder.cs" />
-    <Compile Include="Negotitation\IAcceptHeaderFinder.cs" />
-    <Compile Include="Negotitation\IContentTypeFinder.cs" />
+    <Compile Include="Negotitation\DefaultRequestInfoFinder.cs" />
+    <Compile Include="Negotitation\IRequestInfoFinder.cs" />
     <Compile Include="Results\BadRequest.cs" />
     <Compile Include="Results\NotAcceptable.cs" />
     <Compile Include="Results\RestfulieResult.cs" />
@@ -95,7 +93,7 @@
     <Compile Include="Unmarshalling\Deserializers\XmlDeserializer.cs" />
     <Compile Include="Unmarshalling\IResourceUnmarshaller.cs" />
     <Compile Include="Unmarshalling\IUnmarshallerFactory.cs" />
-    <Compile Include="Unmarshalling\ResourceUnmarshallerFactory.cs" />
+    <Compile Include="Unmarshalling\DefaultUnmarshallerFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
