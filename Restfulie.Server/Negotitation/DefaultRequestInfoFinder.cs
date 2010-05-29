@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Web.Mvc;
 
 namespace Restfulie.Server.Negotitation
@@ -17,7 +18,7 @@ namespace Restfulie.Server.Negotitation
 
         public string GetContent(ControllerContext context)
         {
-            throw new NotImplementedException();
+            return new StreamReader(context.RequestContext.HttpContext.Request.InputStream).ReadToEnd();
         }
     }
 }
