@@ -13,6 +13,9 @@ namespace Restfulie.Server
         private readonly IRepresentationFactory representationFactory;
         private readonly IAcceptHeaderFinder acceptHeader;
 
+        public string Name { get; set; }
+        public Type Type { get; set; }
+
         public ActAsRestfulie()
         {
             representationFactory = new DefaultRepresentationFactory();
