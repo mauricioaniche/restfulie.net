@@ -10,7 +10,7 @@ namespace Restfulie.Server
 {
     public class ActAsRestfulie : ActionFilterAttribute
     {
-        private IResourceRepresentation representation;
+        private IResourceRepresentation marshaller;
 
         private readonly IRepresentationFactory marshallerFactory;
         private readonly IUnmarshallerFactory unmarshallerFactory;
@@ -37,7 +37,7 @@ namespace Restfulie.Server
         {
             try
             {
-                representation = marshallerFactory.BasedOnMediaType(requestInfo.GetAcceptHeaderIn(filterContext));
+                marshaller = marshallerFactory.BasedOnMediaType(requestInfo.GetAcceptHeaderIn(filterContext));
 
                 if (AResourceShouldBeUnmarshalled())
                 {
@@ -68,7 +68,7 @@ namespace Restfulie.Server
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
             var result = (RestfulieResult)filterContext.Result;
-            result.Representation = representation;
+            result.Representation = marshaller;
 
             base.OnResultExecuting(filterContext);
         }
