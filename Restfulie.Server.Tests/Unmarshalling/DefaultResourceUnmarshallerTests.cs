@@ -39,7 +39,7 @@ namespace Restfulie.Server.Tests.Unmarshalling
             deserializer.Setup(d => d.Deserialize(string.Empty, typeof (SomeResource))).Throws(new Exception());
             var resource = unmarshaller.ToResource(string.Empty, typeof (SomeResource));
 
-            Assert.AreEqual(null, resource);
+            Assert.IsNull(resource);
         }
 
         private string SomeXML()
