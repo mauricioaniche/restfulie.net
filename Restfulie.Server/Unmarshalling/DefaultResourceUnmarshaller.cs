@@ -2,7 +2,7 @@
 
 namespace Restfulie.Server.Unmarshalling
 {
-    public class DefaultResourceUnmarshaller
+    public class DefaultResourceUnmarshaller : IResourceUnmarshaller
     {
         private readonly IResourceDeserializer deserializer;
 

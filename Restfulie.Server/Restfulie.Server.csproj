@@ -93,6 +93,9 @@
     <Compile Include="Unmarshalling\DefaultResourceUnmarshaller.cs" />
     <Compile Include="Unmarshalling\Deserializers\IResourceDeserializer.cs" />
     <Compile Include="Unmarshalling\Deserializers\XmlDeserializer.cs" />
+    <Compile Include="Unmarshalling\IResourceUnmarshaller.cs" />
+    <Compile Include="Unmarshalling\IUnmarshallerFactory.cs" />
+    <Compile Include="Unmarshalling\ResourceUnmarshallerFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
