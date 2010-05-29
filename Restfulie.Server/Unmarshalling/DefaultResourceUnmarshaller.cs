@@ -14,7 +14,7 @@ namespace Restfulie.Server.Unmarshalling
 
         public IBehaveAsResource ToResource(string xml, Type objectType)
         {
-            return deserializer.Deserialize(xml, objectType);
+            return string.IsNullOrEmpty(xml) ? null : deserializer.Deserialize(xml, objectType);
         }
     }
 }

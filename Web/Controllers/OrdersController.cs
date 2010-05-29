@@ -7,9 +7,9 @@ using Web.Models;
 
 namespace Web.Controllers
 {
-    [ActAsRestfulie]
     public class OrdersController : Controller
     {
+        [ActAsRestfulie]
         public virtual ActionResult Index()
         {
             var orders = new List<IBehaveAsResource>()
@@ -19,6 +19,12 @@ namespace Web.Controllers
                              };
 
             return new Success(orders);
+        }
+
+        [ActAsRestfulie(Name = "order", Type = typeof(Order))]
+        public virtual ActionResult DoSomething(Order order)
+        {
+            return new Success(order);
         }
     }
 }

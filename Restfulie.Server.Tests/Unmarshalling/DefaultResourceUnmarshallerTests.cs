@@ -13,17 +13,33 @@ namespace Restfulie.Server.Tests.Unmarshalling
     [TestFixture]
     public class DefaultResourceUnmarshallerTests
     {
+        private Mock<IResourceDeserializer> deserializer;
+        private DefaultResourceUnmarshaller unmarshaller;
+
+        [SetUp]
+        public void SetUp()
+        {
+            deserializer = new Mock<IResourceDeserializer>();
+            unmarshaller = new DefaultResourceUnmarshaller(deserializer.Object);
+        }
+
         [Test]
         public void ShouldUnmarshallResource()
         {
-            var deserializer = new Mock<IResourceDeserializer>();
-            var unmarshaller = new DefaultResourceUnmarshaller(deserializer.Object);
-
             deserializer.Setup(d => d.Deserialize(SomeXML(), typeof(SomeResource))).Returns(new SomeResource());
             
             var resource = unmarshaller.ToResource(SomeXML(), typeof(SomeResource));
 
             Assert.AreEqual(typeof(SomeResource), resource.GetType());
+        }
+
+        [Test]
+        public void ShouldNotUnmarshallIfNothingWasPassed()
+        {
+            deserializer.Setup(d => d.Deserialize(string.Empty, typeof (SomeResource))).Throws(new Exception());
+            var resource = unmarshaller.ToResource(string.Empty, typeof (SomeResource));
+
+            Assert.AreEqual(null, resource);
         }
 
         private string SomeXML()
