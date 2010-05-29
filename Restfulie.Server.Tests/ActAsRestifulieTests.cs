@@ -15,7 +15,7 @@ namespace Restfulie.Server.Tests
         public void ShouldReturnNotAcceptableWhenMediaTypeIsNotSupported()
         {
             var context = new ActionExecutingContext();
-
+			
             var marshaller = new Mock<IRepresentationFactory>();
             marshaller.Setup(f => f.BasedOnMediaType(It.IsAny<string>())).Throws(new MediaTypeNotSupportedException());
 

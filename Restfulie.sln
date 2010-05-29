@@ -9,18 +9,32 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{5
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		AutomatedDebug|Any CPU = AutomatedDebug|Any CPU
+		AutomatedRelease|Any CPU = AutomatedRelease|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94F2996B-1DC4-4C6B-9612-E16B61375B92}.AutomatedDebug|Any CPU.ActiveCfg = AutomatedDebug|Any CPU
+		{94F2996B-1DC4-4C6B-9612-E16B61375B92}.AutomatedDebug|Any CPU.Build.0 = AutomatedDebug|Any CPU	
+		{94F2996B-1DC4-4C6B-9612-E16B61375B92}.AutomatedRelease|Any CPU.ActiveCfg = AutomatedRelease|Any CPU
+		{94F2996B-1DC4-4C6B-9612-E16B61375B92}.AutomatedRelease|Any CPU.Build.0 = AutomatedRelease|Any CPU				
 		{94F2996B-1DC4-4C6B-9612-E16B61375B92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{94F2996B-1DC4-4C6B-9612-E16B61375B92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94F2996B-1DC4-4C6B-9612-E16B61375B92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94F2996B-1DC4-4C6B-9612-E16B61375B92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33F7784D-7DBF-4ACA-A5E5-F83E78BB0B6C}.AutomatedDebug|Any CPU.ActiveCfg = AutomatedDebug|Any CPU
+		{33F7784D-7DBF-4ACA-A5E5-F83E78BB0B6C}.AutomatedDebug|Any CPU.Build.0 = AutomatedDebug|Any CPU	
+		{33F7784D-7DBF-4ACA-A5E5-F83E78BB0B6C}.AutomatedRelease|Any CPU.ActiveCfg = AutomatedRelease|Any CPU
+		{33F7784D-7DBF-4ACA-A5E5-F83E78BB0B6C}.AutomatedRelease|Any CPU.Build.0 = AutomatedRelease|Any CPU
 		{33F7784D-7DBF-4ACA-A5E5-F83E78BB0B6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{33F7784D-7DBF-4ACA-A5E5-F83E78BB0B6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33F7784D-7DBF-4ACA-A5E5-F83E78BB0B6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33F7784D-7DBF-4ACA-A5E5-F83E78BB0B6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CDAB2A7-3BDF-4AB3-BCBB-CA0D3D84A381}.AutomatedDebug|Any CPU.ActiveCfg = AutomatedDebug|Any CPU
+		{5CDAB2A7-3BDF-4AB3-BCBB-CA0D3D84A381}.AutomatedDebug|Any CPU.Build.0 = AutomatedDebug|Any CPU	
+		{5CDAB2A7-3BDF-4AB3-BCBB-CA0D3D84A381}.AutomatedRelease|Any CPU.ActiveCfg = AutomatedRelease|Any CPU
+		{5CDAB2A7-3BDF-4AB3-BCBB-CA0D3D84A381}.AutomatedRelease|Any CPU.Build.0 = AutomatedRelease|Any CPU
 		{5CDAB2A7-3BDF-4AB3-BCBB-CA0D3D84A381}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5CDAB2A7-3BDF-4AB3-BCBB-CA0D3D84A381}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CDAB2A7-3BDF-4AB3-BCBB-CA0D3D84A381}.Release|Any CPU.ActiveCfg = Release|Any CPU
