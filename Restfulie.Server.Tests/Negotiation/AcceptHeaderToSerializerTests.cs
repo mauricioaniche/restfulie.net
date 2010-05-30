@@ -33,10 +33,11 @@ namespace Restfulie.Server.Tests.Negotiation
         }
 
         [Test]
-        [ExpectedException(typeof(MediaTypeNotSupportedException))]
         public void ShouldThrowAnExceptionIfMediaTypeIsInvalid()
         {
-            new AcceptHeaderToSerializer().For("some-crazy-media-type");
+        	Assert.Throws<MediaTypeNotSupportedException>(() => 
+				new AcceptHeaderToSerializer().For("some-crazy-media-type"));
+            
         }
     }
 }

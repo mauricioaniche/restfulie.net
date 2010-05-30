@@ -28,11 +28,11 @@ namespace Restfulie.Server.Tests
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         public void ShouldDetectWrongUseOfFluentAPI()
         {
             var relations = new Relations(new Mock<IUrlGenerator>().Object);
-            relations.Uses<SomeController>().SomeSimpleAction();
+            Assert.Throws<ArgumentException>(() =>
+			relations.Uses<SomeController>().SomeSimpleAction());
         }
 
         [Test]
