@@ -25,6 +25,7 @@ namespace Restfulie.Server.Results
         public override void ExecuteResult(ControllerContext context)
         {
             SetStatusCode(context,StatusCodes.Success);
+            SetContentType(context, Marshaller.MediaType);
             WriteResource(context);
         }
 

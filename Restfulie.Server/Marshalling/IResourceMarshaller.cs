@@ -6,5 +6,6 @@ namespace Restfulie.Server.Marshalling
     {
         string Build(IBehaveAsResource resource);
         string Build(IEnumerable<IBehaveAsResource> resources);
+        string MediaType { get; }
     }
 }

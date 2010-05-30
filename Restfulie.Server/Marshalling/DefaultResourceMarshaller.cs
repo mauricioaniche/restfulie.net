@@ -37,5 +37,10 @@ namespace Restfulie.Server.Marshalling
             var rootName = inflections.Inflect(resources.First().GetType().Name);
             return serializer.Serialize(listOfResources, rootName);
         }
+
+        public string MediaType
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

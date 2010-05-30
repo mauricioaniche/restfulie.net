@@ -41,6 +41,24 @@ namespace Restfulie.Server.Tests.Results
         }
 
         [Test]
+        public void ShouldReturnContentType()
+        {
+            response.SetupSet(c => c.ContentType = "application/xml");
+
+            var marshaller = new Mock<IResourceMarshaller>();
+            marshaller.SetupGet(m => m.MediaType).Returns("application/xml");
+
+            var result = new Success
+                             {
+                                 Marshaller = marshaller.Object
+                             };
+
+            result.ExecuteResult(context.Object);
+
+            response.VerifyAll();
+        }
+
+        [Test]
         public void ShouldReturnResource()
         {
             response.Setup(p => p.Output).Returns(new StreamWriter(stream));

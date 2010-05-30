@@ -12,6 +12,11 @@ namespace Restfulie.Server.Results
             context.HttpContext.Response.StatusCode = (int)status;
         }
 
+        protected void SetContentType(ControllerContext context, string type)
+        {
+            context.HttpContext.Response.ContentType = type;
+        }
+
         protected void Write(ControllerContext context, string content)
         {
             context.HttpContext.Response.Output.Write(content);
