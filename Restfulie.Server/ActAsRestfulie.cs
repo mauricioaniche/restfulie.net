@@ -33,6 +33,14 @@ namespace Restfulie.Server
             this.requestInfo = finder;
         }
 
+        public override void OnResultExecuting(ResultExecutingContext filterContext)
+        {
+            var result = (RestfulieResult)filterContext.Result;
+            result.Marshaller = marshaller;
+
+            base.OnResultExecuting(filterContext);
+        }
+
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             try
@@ -63,14 +71,6 @@ namespace Restfulie.Server
         private bool AResourceShouldBeUnmarshalled()
         {
             return !string.IsNullOrEmpty(Name) && Type != null;
-        }
-
-        public override void OnResultExecuting(ResultExecutingContext filterContext)
-        {
-            var result = (RestfulieResult)filterContext.Result;
-            result.Marshaller = marshaller;
-
-            base.OnResultExecuting(filterContext);
         }
     }
 }
