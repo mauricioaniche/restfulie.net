@@ -21,6 +21,12 @@ namespace Web.Controllers
             return new Success(orders);
         }
 
+        [ActAsRestfulie]
+        public virtual ActionResult One()
+        {
+            return new Success(new Order {Amount = 333.44, Date = DateTime.Now});
+        }
+
         [ActAsRestfulie(Name = "order", Type = typeof(Order))]
         public virtual ActionResult DoSomething(Order order)
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Restfulie.Server.Exceptions;
 using Restfulie.Server.Marshalling.Serializers;
+using Restfulie.Server.Marshalling.Serializers.AtomPlusXml;
 
 namespace Restfulie.Server.Negotiation
 {
@@ -16,7 +17,10 @@ namespace Restfulie.Server.Negotiation
                              {
                                  {"application/xml", typeof (XmlAndHypermediaSerializer)},
                                  {"text/xml", typeof (XmlAndHypermediaSerializer)},
-                                 {"xml", typeof (XmlAndHypermediaSerializer)}
+                                 {"xml", typeof (XmlAndHypermediaSerializer)},
+                                 {"application/atom", typeof (AtomPlusXmlSerializer)},
+                                 {"application/atom+xml", typeof (AtomPlusXmlSerializer)},
+                                 {"atom", typeof (AtomPlusXmlSerializer)}
                              };
 
             DefaultSerializer = typeof (XmlAndHypermediaSerializer);

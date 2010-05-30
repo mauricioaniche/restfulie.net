@@ -71,6 +71,10 @@
     <Compile Include="Marshalling\DefaultMarshallerFactory.cs" />
     <Compile Include="Marshalling\DefaultResourceMarshaller.cs" />
     <Compile Include="Marshalling\IResourceMarshaller.cs" />
+    <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializer.cs" />
+    <Compile Include="Marshalling\Serializers\AtomPlusXml\Feed.cs" />
+    <Compile Include="Marshalling\Serializers\AtomPlusXml\Entry.cs" />
+    <Compile Include="Marshalling\Serializers\AtomPlusXml\Link.cs" />
     <Compile Include="Negotiation\AcceptHeaderToSerializer.cs" />
     <Compile Include="Negotiation\ContentTypeToDeserializer.cs" />
     <Compile Include="Negotiation\DefaultRequestInfoFinder.cs" />
