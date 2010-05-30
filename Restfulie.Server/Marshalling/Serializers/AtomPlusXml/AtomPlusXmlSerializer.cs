@@ -91,10 +91,12 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 
             foreach (var link in item.Links)
             {
-                element.Add(new XElement("link",
+                element.Add(new XElement(ns + "link",
                                          new XAttribute("rel", link.Rel),
                                          new XAttribute("href", link.HRef)));
             }
+
+            element.Add(new XElement(ns + "content", item.Content));
             return element;
         }
     }

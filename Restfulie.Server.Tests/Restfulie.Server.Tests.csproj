@@ -67,11 +67,14 @@
     <Compile Include="ActAsRestfulieTests.cs" />
     <Compile Include="Fixtures\SomeResult.cs" />
     <Compile Include="Marshalling\InflectionsTests.cs" />
+    <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializerTests.cs" />
+    <Compile Include="Marshalling\Serializers\AtomPlusXml\EntryTests.cs" />
+    <Compile Include="Marshalling\Serializers\AtomPlusXml\FeedTests.cs" />
     <Compile Include="Negotiation\AcceptHeaderToSerializerTests.cs" />
     <Compile Include="Negotiation\ContentTypeToDeserializerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\BadRequestTests.cs" />
-    <Compile Include="Marshalling\Serializers\XmlAndHypermediaSerializerTests.cs" />
+    <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlAndHypermediaSerializerTests.cs" />
     <Compile Include="Marshalling\DefaultResourceMarshallerTests.cs" />
     <Compile Include="Fixtures\SomeController.cs" />
     <Compile Include="Fixtures\SomeResource.cs" />

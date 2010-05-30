@@ -7,7 +7,7 @@ using Restfulie.Server.Marshalling.Serializers;
 using Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia;
 using Restfulie.Server.Tests.Fixtures;
 
-namespace Restfulie.Server.Tests.Marshalling.Serializers
+namespace Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia
 {
     [TestFixture]
     public class XmlAndHypermediaSerializerTests
