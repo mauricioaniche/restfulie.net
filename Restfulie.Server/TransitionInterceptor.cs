@@ -18,14 +18,14 @@ namespace Restfulie.Server
             var controller = invocation.TargetType.Name.Replace("Controller", "");
 
             var values = new Dictionary<string, object>();
-            var i = 0;
+            var argValues = invocation.Arguments.GetEnumerator();
             foreach (var argument in invocation.GetConcreteMethod().GetParameters())
             {
-                if (invocation.Arguments[i] != null)
+                argValues.MoveNext();
+                if (argValues.Current != null)
                 {
-                    values.Add(argument.Name, invocation.Arguments[i]);
+                    values.Add(argument.Name, argValues.Current);
                 }
-                i++;
             }
 
             relations.AddTransition(controller, action, values);
