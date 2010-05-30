@@ -2,6 +2,6 @@
 {
     public interface IUnmarshallerFactory
     {
-        IResourceUnmarshaller BasedOn(string contentType);
+        IResourceUnmarshaller BasedOnContentType(string contentType);
     }
 }

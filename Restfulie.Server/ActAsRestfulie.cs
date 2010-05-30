@@ -41,7 +41,7 @@ namespace Restfulie.Server
 
                 if (AResourceShouldBeUnmarshalled())
                 {
-                    var unmarshaller = unmarshallerFactory.BasedOn(requestInfo.GetContentTypeIn(filterContext));
+                    var unmarshaller = unmarshallerFactory.BasedOnContentType(requestInfo.GetContentTypeIn(filterContext));
                     var resource = unmarshaller.ToResource(requestInfo.GetContent(filterContext), Type);
                     filterContext.ActionParameters[Name] = resource;
                 }

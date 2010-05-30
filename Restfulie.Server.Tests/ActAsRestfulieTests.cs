@@ -57,7 +57,7 @@ namespace Restfulie.Server.Tests
             unmarshaller.Setup(u => u.ToResource("some xml", typeof (SomeResource))).Returns(resource);
             requestInfo.Setup(ah => ah.GetContentTypeIn(context)).Returns("application/xml");
             requestInfo.Setup(ah => ah.GetContent(context)).Returns("some xml");
-            unmarshallerFactory.Setup(m => m.BasedOn("application/xml")).Returns(unmarshaller.Object);
+            unmarshallerFactory.Setup(m => m.BasedOnContentType("application/xml")).Returns(unmarshaller.Object);
 
             filter.OnActionExecuting(context);
 
@@ -67,7 +67,7 @@ namespace Restfulie.Server.Tests
         [Test]
         public void ShouldReturnBadRequestWhenContentTypeIsNotSupported()
         {
-            unmarshallerFactory.Setup(f => f.BasedOn(It.IsAny<string>())).Throws(new ContentTypeNotSupportedException());
+            unmarshallerFactory.Setup(f => f.BasedOnContentType(It.IsAny<string>())).Throws(new ContentTypeNotSupportedException());
             requestInfo.Setup(ah => ah.GetContentTypeIn(context)).Returns("some-crazy-media-type");
 
             var filter = new ActAsRestfulie(marshallerFactory.Object, unmarshallerFactory.Object, requestInfo.Object)
