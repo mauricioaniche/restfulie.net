@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Restfulie.Server.Results
+﻿namespace Restfulie.Server.Results
 {
     public class SeeOther : RestfulieResult
     {
