@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using NUnit.Framework;
 using Restfulie.Server.Marshalling.Serializers;
+using Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia;
 using Restfulie.Server.Tests.Fixtures;
 
 namespace Restfulie.Server.Tests.Marshalling.Serializers

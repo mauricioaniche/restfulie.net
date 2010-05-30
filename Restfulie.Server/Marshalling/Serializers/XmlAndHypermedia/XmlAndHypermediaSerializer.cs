@@ -6,7 +6,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Linq;
 
-namespace Restfulie.Server.Marshalling.Serializers
+namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
 {
     public class XmlAndHypermediaSerializer : IResourceSerializer
     {

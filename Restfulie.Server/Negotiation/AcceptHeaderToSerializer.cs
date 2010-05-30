@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Restfulie.Server.Exceptions;
 using Restfulie.Server.Marshalling.Serializers;
 using Restfulie.Server.Marshalling.Serializers.AtomPlusXml;
+using Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia;
 
 namespace Restfulie.Server.Negotiation
 {

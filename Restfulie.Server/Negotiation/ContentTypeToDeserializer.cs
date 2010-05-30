@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Restfulie.Server.Exceptions;
 using Restfulie.Server.Unmarshalling.Deserializers;
+using Restfulie.Server.Unmarshalling.Deserializers.Xml;
 
 namespace Restfulie.Server.Negotiation
 {

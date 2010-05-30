@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using Restfulie.Server.Tests.Fixtures;
-using Restfulie.Server.Unmarshalling.Deserializers;
+using Restfulie.Server.Unmarshalling.Deserializers.Xml;
 
 namespace Restfulie.Server.Tests.Unmarshalling.Deserializers
 {

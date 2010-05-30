@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 using Restfulie.Server.Exceptions;
-using Restfulie.Server.Marshalling.Serializers;
+using Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia;
 using Restfulie.Server.Negotiation;
 
 namespace Restfulie.Server.Tests.Negotiation

@@ -82,7 +82,7 @@
     <Compile Include="Results\BadRequest.cs" />
     <Compile Include="Results\NotAcceptable.cs" />
     <Compile Include="Results\RestfulieResult.cs" />
-    <Compile Include="Marshalling\Serializers\XmlAndHypermediaSerializer.cs" />
+    <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlAndHypermediaSerializer.cs" />
     <Compile Include="Marshalling\Serializers\IResourceSerializer.cs" />
     <Compile Include="Results\StatusCodes.cs" />
     <Compile Include="Results\Success.cs" />
@@ -94,7 +94,7 @@
     <Compile Include="Marshalling\UrlGenerators\AspNetMvcUrlGenerator.cs" />
     <Compile Include="Unmarshalling\DefaultResourceUnmarshaller.cs" />
     <Compile Include="Unmarshalling\Deserializers\IResourceDeserializer.cs" />
-    <Compile Include="Unmarshalling\Deserializers\XmlDeserializer.cs" />
+    <Compile Include="Unmarshalling\Deserializers\Xml\XmlDeserializer.cs" />
     <Compile Include="Unmarshalling\IResourceUnmarshaller.cs" />
     <Compile Include="Unmarshalling\IUnmarshallerFactory.cs" />
     <Compile Include="Unmarshalling\DefaultUnmarshallerFactory.cs" />

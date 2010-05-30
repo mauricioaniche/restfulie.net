@@ -4,7 +4,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace Restfulie.Server.Unmarshalling.Deserializers
+namespace Restfulie.Server.Unmarshalling.Deserializers.Xml
 {
     public class XmlDeserializer : IResourceDeserializer
     {
