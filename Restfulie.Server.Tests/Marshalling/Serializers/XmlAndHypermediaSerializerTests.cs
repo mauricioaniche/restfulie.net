@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Moq;
 using NUnit.Framework;
+using Restfulie.Server.Marshalling;
 using Restfulie.Server.Marshalling.Serializers;
 using Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia;
 using Restfulie.Server.Tests.Fixtures;
@@ -11,11 +13,14 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers
     public class XmlAndHypermediaSerializerTests
     {
         private IResourceSerializer serializer;
+        private Mock<IInflections> inflections;
 
         [SetUp]
         public void SetUp()
         {
-            serializer = new XmlAndHypermediaSerializer();   
+            inflections = new Mock<IInflections>();
+            inflections.Setup(i => i.Inflect(It.IsAny<String>())).Returns("SomeResources");
+            serializer = new XmlAndHypermediaSerializer(inflections.Object);   
         }
 
         [Test]
@@ -50,7 +55,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers
                                               {new SomeResource {Amount = 67.89, Name = "Sally Doe"}, SomeRelations()}
                                           };
 
-            var xml = serializer.Serialize(resourcesXrelations, "SomeResources");
+            var xml = serializer.Serialize(resourcesXrelations);
 
             Assert.That(xml.Contains("John Doe"));
             Assert.That(xml.Contains("Sally Doe"));

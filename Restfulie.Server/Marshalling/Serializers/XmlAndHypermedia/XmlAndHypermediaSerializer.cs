@@ -10,12 +10,19 @@ namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
 {
     public class XmlAndHypermediaSerializer : IResourceSerializer
     {
+        private readonly IInflections inflections;
+
+        public XmlAndHypermediaSerializer(IInflections inflections)
+        {
+            this.inflections = inflections;
+        }
+
         public string Serialize(IBehaveAsResource resource, IList<Relation> transitions)
         {
             return PutTransitionsOn(GetXmlBasedOn(resource), transitions).InnerXml;
         }
 
-        public string Serialize(IDictionary<IBehaveAsResource, IList<Relation>> resources, string rootName)
+        public string Serialize(IDictionary<IBehaveAsResource, IList<Relation>> resources)
         {
             var resourcesInXml = new StringBuilder();
 
@@ -24,6 +31,7 @@ namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
                 resourcesInXml.Append(PutTransitionsOn(GetXmlBasedOn(resource.Key), resource.Value).DocumentElement.OuterXml);
             }
 
+            var rootName = inflections.Inflect(resources.First().Key.GetType().Name);
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml("<" + rootName + ">" + resourcesInXml + "</" + rootName + ">");
            

@@ -29,7 +29,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
             return SerializeEntry(item).ToString();
         }
 
-        public string Serialize(IDictionary<IBehaveAsResource, IList<Relation>> resources, string rootName)
+        public string Serialize(IDictionary<IBehaveAsResource, IList<Relation>> resources)
         {
             throw new NotImplementedException();
         }

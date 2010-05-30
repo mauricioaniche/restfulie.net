@@ -15,12 +15,12 @@ namespace Restfulie.Server.Negotiation
         {
             MediaTypes = new Dictionary<string, Type>
                              {
-                                 {"application/xml", typeof (XmlDeserializer)},
-                                 {"text/xml", typeof (XmlDeserializer)},
-                                 {"xml", typeof (XmlDeserializer)}
+                                 {"application/xml", typeof (XmlDeserializerFactory)},
+                                 {"text/xml", typeof (XmlDeserializerFactory)},
+                                 {"xml", typeof (XmlDeserializerFactory)}
                              };
 
-            DefaultSerializer = typeof (XmlDeserializer);
+            DefaultSerializer = typeof(XmlDeserializerFactory);
         }
 
         private Type SearchFor(string expression)
@@ -35,8 +35,10 @@ namespace Restfulie.Server.Negotiation
 
         public IResourceDeserializer For(string mediaType)
         {
-            return (IResourceDeserializer)Activator.CreateInstance(
+            var factory = (IDeserializerFactory)Activator.CreateInstance(
                                               string.IsNullOrEmpty(mediaType) ? DefaultSerializer : SearchFor(mediaType));
+
+            return factory.Create();
         }
     }
 }

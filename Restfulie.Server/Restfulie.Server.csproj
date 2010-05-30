@@ -71,10 +71,13 @@
     <Compile Include="Marshalling\DefaultMarshallerFactory.cs" />
     <Compile Include="Marshalling\DefaultResourceMarshaller.cs" />
     <Compile Include="Marshalling\IResourceMarshaller.cs" />
+    <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializerFactory.cs" />
+    <Compile Include="Marshalling\Serializers\ISerializerFactory.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializer.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\Feed.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\Entry.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\Link.cs" />
+    <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlAndHypermediaSerializerFactory.cs" />
     <Compile Include="Negotiation\AcceptHeaderToSerializer.cs" />
     <Compile Include="Negotiation\ContentTypeToDeserializer.cs" />
     <Compile Include="Negotiation\DefaultRequestInfoFinder.cs" />
@@ -93,8 +96,10 @@
     <Compile Include="TransitionInterceptor.cs" />
     <Compile Include="Marshalling\UrlGenerators\AspNetMvcUrlGenerator.cs" />
     <Compile Include="Unmarshalling\DefaultResourceUnmarshaller.cs" />
+    <Compile Include="Unmarshalling\Deserializers\IDeserializerFactory.cs" />
     <Compile Include="Unmarshalling\Deserializers\IResourceDeserializer.cs" />
     <Compile Include="Unmarshalling\Deserializers\Xml\XmlDeserializer.cs" />
+    <Compile Include="Unmarshalling\Deserializers\Xml\XmlDeserializerFactory.cs" />
     <Compile Include="Unmarshalling\IResourceUnmarshaller.cs" />
     <Compile Include="Unmarshalling\IUnmarshallerFactory.cs" />
     <Compile Include="Unmarshalling\DefaultUnmarshallerFactory.cs" />

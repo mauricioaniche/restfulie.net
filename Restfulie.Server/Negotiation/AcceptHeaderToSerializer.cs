@@ -16,15 +16,15 @@ namespace Restfulie.Server.Negotiation
         {
             MediaTypes = new Dictionary<string, Type>
                              {
-                                 {"application/xml", typeof (XmlAndHypermediaSerializer)},
-                                 {"text/xml", typeof (XmlAndHypermediaSerializer)},
-                                 {"xml", typeof (XmlAndHypermediaSerializer)},
-                                 {"application/atom", typeof (AtomPlusXmlSerializer)},
-                                 {"application/atom+xml", typeof (AtomPlusXmlSerializer)},
-                                 {"atom", typeof (AtomPlusXmlSerializer)}
+                                 {"application/xml", typeof (XmlAndHypermediaSerializerFactory)},
+                                 {"text/xml", typeof (XmlAndHypermediaSerializerFactory)},
+                                 {"xml", typeof (XmlAndHypermediaSerializerFactory)},
+                                 {"application/atom", typeof (AtomPlusXmlSerializerFactory)},
+                                 {"application/atom+xml", typeof (AtomPlusXmlSerializerFactory)},
+                                 {"atom", typeof (AtomPlusXmlSerializerFactory)}
                              };
 
-            DefaultSerializer = typeof (XmlAndHypermediaSerializer);
+            DefaultSerializer = typeof(XmlAndHypermediaSerializerFactory);
         }
 
         private Type SearchFor(string expression)
@@ -39,8 +39,10 @@ namespace Restfulie.Server.Negotiation
 
         public IResourceSerializer For(string mediaType)
         {
-            return (IResourceSerializer)Activator.CreateInstance(
+            var factory = (ISerializerFactory) Activator.CreateInstance(
                                             string.IsNullOrEmpty(mediaType) ? DefaultSerializer : SearchFor(mediaType));
+
+            return factory.Create();
         }
     }
 }
