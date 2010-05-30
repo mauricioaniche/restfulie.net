@@ -45,15 +45,18 @@ namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
 
         private XmlDocument GetXmlBasedOn(IBehaveAsResource resource)
         {
-            var stream = new MemoryStream();
-            var s = new XmlSerializer(resource.GetType());
-            s.Serialize(stream, resource);
-            stream.Seek(0, SeekOrigin.Begin);
+            var writerSettings = new XmlWriterSettings { OmitXmlDeclaration = true };
+            var stringWriter = new StringWriter();
+            using (var xmlWriter = XmlWriter.Create(stringWriter, writerSettings))
+            {
+                var noNamespaces = new XmlSerializerNamespaces();
+                noNamespaces.Add("", "");
+                new XmlSerializer(resource.GetType()).Serialize(xmlWriter, resource, noNamespaces);
+            }
 
             var xmlDocument = new XmlDocument();
-            xmlDocument.Load(stream);
+            xmlDocument.Load(new MemoryStream(Encoding.UTF8.GetBytes(stringWriter.ToString())));
 
-            stream.Close();
             return xmlDocument;
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -53,11 +54,16 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 
         private string SerializeResource(IBehaveAsResource resource)
         {
-            var stream = new MemoryStream();
-            new XmlSerializer(resource.GetType()).Serialize(stream, resource);
+            var writerSettings = new XmlWriterSettings {OmitXmlDeclaration = true};
+            var stringWriter = new StringWriter();
+            using (var xmlWriter = XmlWriter.Create(stringWriter, writerSettings))
+            {
+                var noNamespaces = new XmlSerializerNamespaces();
+                noNamespaces.Add("", "");
+                new XmlSerializer(resource.GetType()).Serialize(xmlWriter, resource, noNamespaces);
+            }
 
-            stream.Seek(0, SeekOrigin.Begin);
-            return new StreamReader(stream).ReadToEnd();
+            return stringWriter.ToString();
         }
 
         private XDocument FeedInXml(Feed atomFeeds)
@@ -83,8 +89,6 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
         {
             var element = new XElement(ns + "entry",
                                        new XElement(ns + "title", item.Title),
-                                       //id must be constant and unique, otherwise each update
-                                       //by feed readers will be duplicating all entries
                                        new XElement(ns + "id", item.Id),
                                        new XElement(ns + "updated",
                                                     item.PublicDate.ToString("yyyy-MM-dd\\THH:mm:ss%K")));
@@ -96,7 +100,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
                                          new XAttribute("href", link.HRef)));
             }
 
-            element.Add(new XElement(ns + "content", item.Content));
+            element.Add(new XElement(ns + "content", new XCData(item.Content)));
             return element;
         }
     }
