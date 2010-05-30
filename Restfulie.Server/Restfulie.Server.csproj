@@ -104,6 +104,7 @@
     <Compile Include="Results\BadRequest.cs" />
     <Compile Include="Results\Created.cs" />
     <Compile Include="Results\NotAcceptable.cs" />
+    <Compile Include="Results\PreConditionFailed.cs" />
     <Compile Include="Results\RestfulieResult.cs" />
     <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlAndHypermediaSerializer.cs" />
     <Compile Include="Marshalling\Serializers\IResourceSerializer.cs" />

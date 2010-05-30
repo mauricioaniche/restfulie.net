@@ -7,6 +7,7 @@
         SeeOther = 303,
         BadRequest = 400,
         NotAcceptable = 406,
+        PreConditionFailed = 412,
         UnsupportedMediaType = 415
     }
 }
