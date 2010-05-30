@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -65,7 +66,7 @@ namespace Restfulie.Server.Tests
         }
 
         [Test]
-        public void ShouldReturnBadRequestWhenContentTypeIsNotSupported()
+        public void ShouldReturnUnsupportedMediaTypeWhenContentTypeIsNotSupported()
         {
             unmarshallerFactory.Setup(f => f.BasedOnContentType(It.IsAny<string>())).Throws(new ContentTypeNotSupportedException());
             requestInfo.Setup(ah => ah.GetContentTypeIn(context)).Returns("some-crazy-media-type");
@@ -79,6 +80,25 @@ namespace Restfulie.Server.Tests
             filter.OnActionExecuting(context);
 
             Assert.IsTrue(context.Result is UnsupportedMediaType);
+        }
+
+        [Test]
+        public void ShouldReturnBadRequestWhenUnmarshallingFails()
+        {
+            var unmarshaller = new Mock<IResourceUnmarshaller>();
+            unmarshaller.Setup(u => u.ToResource(It.IsAny<string>(), It.IsAny<Type>())).Throws(
+                new UnmarshallingException("message"));
+            unmarshallerFactory.Setup(f => f.BasedOnContentType(It.IsAny<string>())).Returns(unmarshaller.Object);
+
+            var filter = new ActAsRestfulie(marshallerFactory.Object, unmarshallerFactory.Object, requestInfo.Object)
+            {
+                Name = "Resource",
+                Type = typeof(SomeResource)
+            };
+
+            filter.OnActionExecuting(context);
+
+            Assert.IsTrue(context.Result is BadRequest);
         }
     }
 }

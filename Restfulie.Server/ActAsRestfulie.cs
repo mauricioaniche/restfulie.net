@@ -64,6 +64,11 @@ namespace Restfulie.Server
                 filterContext.Result = new UnsupportedMediaType();
                 return;
             }
+            catch(UnmarshallingException e)
+            {
+                filterContext.Result = new BadRequest(e.Message);
+                return;
+            }
 
             base.OnActionExecuting(filterContext);
         }
