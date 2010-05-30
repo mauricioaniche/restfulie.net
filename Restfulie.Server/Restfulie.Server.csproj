@@ -67,10 +67,10 @@
     <Compile Include="IBehaveAsResource.cs" />
     <Compile Include="Marshalling\IInflections.cs" />
     <Compile Include="Marshalling\DefaultInflections.cs" />
-    <Compile Include="Marshalling\IRepresentationFactory.cs" />
-    <Compile Include="Marshalling\DefaultRepresentationFactory.cs" />
-    <Compile Include="Marshalling\DefaultRepresentation.cs" />
-    <Compile Include="Marshalling\IResourceRepresentation.cs" />
+    <Compile Include="Marshalling\IMarshallerFactory.cs" />
+    <Compile Include="Marshalling\DefaultMarshallerFactory.cs" />
+    <Compile Include="Marshalling\DefaultResourceMarshaller.cs" />
+    <Compile Include="Marshalling\IResourceMarshaller.cs" />
     <Compile Include="Negotiation\AcceptHeaderToSerializer.cs" />
     <Compile Include="Negotiation\ContentTypeToDeserializer.cs" />
     <Compile Include="Negotiation\DefaultRequestInfoFinder.cs" />

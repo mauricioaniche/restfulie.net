@@ -16,7 +16,7 @@ namespace Restfulie.Server.Tests
     {
         private Mock<IRequestInfoFinder> requestInfo;
         private ActionExecutingContext context;
-        private Mock<IRepresentationFactory> marshallerFactory;
+        private Mock<IMarshallerFactory> marshallerFactory;
         private Mock<IUnmarshallerFactory> unmarshallerFactory;
 
         [SetUp]
@@ -25,7 +25,7 @@ namespace Restfulie.Server.Tests
             context = new ActionExecutingContext();
             context.ActionParameters = new Dictionary<string, object>();
 
-            marshallerFactory = new Mock<IRepresentationFactory>();
+            marshallerFactory = new Mock<IMarshallerFactory>();
             requestInfo = new Mock<IRequestInfoFinder>();
             unmarshallerFactory = new Mock<IUnmarshallerFactory>();
         }

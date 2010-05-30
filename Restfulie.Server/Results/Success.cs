@@ -32,11 +32,11 @@ namespace Restfulie.Server.Results
         {
             if(ResourceWasPassed())
             {   
-                Write(context, Representation.Build(resource));
+                Write(context, Marshaller.Build(resource));
             }
             if(ResourcesWerePassed())
             {
-                Write(context, Representation.Build(resources));
+                Write(context, Marshaller.Build(resources));
             }
         }
 

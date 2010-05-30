@@ -3,11 +3,11 @@ using Restfulie.Server.Negotiation;
 
 namespace Restfulie.Server.Marshalling
 {
-    public class DefaultRepresentationFactory : IRepresentationFactory
+    public class DefaultMarshallerFactory : IMarshallerFactory
     {
-        public IResourceRepresentation BasedOnMediaType(string mediaType)
+        public IResourceMarshaller BasedOnMediaType(string mediaType)
         {
-            return new DefaultRepresentation(
+            return new DefaultResourceMarshaller(
                 new Relations(new AspNetMvcUrlGenerator()), 
                 new AcceptHeaderToSerializer().For(mediaType),
                 new DefaultInflections());

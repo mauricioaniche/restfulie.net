@@ -9,7 +9,7 @@ using Restfulie.Server.Tests.Fixtures;
 namespace Restfulie.Server.Tests.Marshalling
 {
     [TestFixture]
-    public class DefaultRepresentationTests
+    public class DefaultResourceMarshallerTests
     {
         private Mock<Relations> relations;
         private Mock<IResourceSerializer> serializer;
@@ -33,7 +33,7 @@ namespace Restfulie.Server.Tests.Marshalling
             relations.Setup(t => t.GetAll()).Returns(SomeTransitions());
             serializer.Setup(s => s.Serialize(resource, It.IsAny<IList<Relation>>())).Returns(SerializedResource());
 
-            var builder = new DefaultRepresentation(relations.Object, serializer.Object, inflections.Object);
+            var builder = new DefaultResourceMarshaller(relations.Object, serializer.Object, inflections.Object);
             builder.Build(resource);
             
             relations.VerifyAll();
@@ -48,7 +48,7 @@ namespace Restfulie.Server.Tests.Marshalling
             relations.Setup(t => t.GetAll()).Returns(SomeTransitions());
             serializer.Setup(s => s.Serialize(It.IsAny<IDictionary<IBehaveAsResource, IList<Relation>>>(), "SomeResources")).Returns(SerializedResource());
             
-            var builder = new DefaultRepresentation(relations.Object, serializer.Object, inflections.Object);
+            var builder = new DefaultResourceMarshaller(relations.Object, serializer.Object, inflections.Object);
             builder.Build(resources);
 
             relations.VerifyAll();

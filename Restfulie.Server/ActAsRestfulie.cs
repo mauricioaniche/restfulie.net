@@ -10,9 +10,9 @@ namespace Restfulie.Server
 {
     public class ActAsRestfulie : ActionFilterAttribute
     {
-        private IResourceRepresentation marshaller;
+        private IResourceMarshaller marshaller;
 
-        private readonly IRepresentationFactory marshallerFactory;
+        private readonly IMarshallerFactory marshallerFactory;
         private readonly IUnmarshallerFactory unmarshallerFactory;
         private readonly IRequestInfoFinder requestInfo;
 
@@ -21,12 +21,12 @@ namespace Restfulie.Server
 
         public ActAsRestfulie()
         {
-            marshallerFactory = new DefaultRepresentationFactory();
+            marshallerFactory = new DefaultMarshallerFactory();
             unmarshallerFactory = new DefaultUnmarshallerFactory();
             requestInfo = new DefaultRequestInfoFinder();
         }
 
-        public ActAsRestfulie(IRepresentationFactory factory,IUnmarshallerFactory unmarshallerFactory, IRequestInfoFinder finder)
+        public ActAsRestfulie(IMarshallerFactory factory,IUnmarshallerFactory unmarshallerFactory, IRequestInfoFinder finder)
         {
             this.marshallerFactory = factory;
             this.unmarshallerFactory = unmarshallerFactory;
@@ -68,7 +68,7 @@ namespace Restfulie.Server
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
             var result = (RestfulieResult)filterContext.Result;
-            result.Representation = marshaller;
+            result.Marshaller = marshaller;
 
             base.OnResultExecuting(filterContext);
         }

@@ -11,7 +11,7 @@ namespace Restfulie.Server.Tests.Results
     public class SuccessTests : ResultsTestBase
     {
         private MemoryStream stream;
-        private Mock<IResourceRepresentation> builder;
+        private Mock<IResourceMarshaller> builder;
         private SomeResource aSimpleResource;
 
         [SetUp]
@@ -20,7 +20,7 @@ namespace Restfulie.Server.Tests.Results
             SetUpRequest();
 
             stream = new MemoryStream();
-            builder = new Mock<IResourceRepresentation>();
+            builder = new Mock<IResourceMarshaller>();
 
             aSimpleResource = new SomeResource { Amount = 123.45, Name = "John Doe" };
         }
@@ -32,7 +32,7 @@ namespace Restfulie.Server.Tests.Results
 
             var result = new Success
                              {
-                                 Representation = new Mock<IResourceRepresentation>().Object
+                                 Marshaller = new Mock<IResourceMarshaller>().Object
                              };
 
             result.ExecuteResult(context.Object);
@@ -47,7 +47,7 @@ namespace Restfulie.Server.Tests.Results
 
             builder.Setup(s => s.Build(aSimpleResource)).Returns(
                 "<SomeResource><Name>John Doe</name><amount>123.45</amount></SomeResource>");
-            var result = new Success(aSimpleResource) {Representation = builder.Object};
+            var result = new Success(aSimpleResource) {Marshaller = builder.Object};
 
             result.ExecuteResult(context.Object);
 
@@ -66,7 +66,7 @@ namespace Restfulie.Server.Tests.Results
             response.Setup(p => p.Output).Returns(new StreamWriter(stream));
 
             builder.Setup(s => s.Build(resources)).Returns("List Of Resources here");
-            var result = new Success(resources) { Representation = builder.Object };
+            var result = new Success(resources) { Marshaller = builder.Object };
 
             result.ExecuteResult(context.Object);
 

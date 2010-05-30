@@ -5,7 +5,7 @@ namespace Restfulie.Server.Results
 {
     public abstract class RestfulieResult : ActionResult
     {
-        public IResourceRepresentation Representation { get; set; }
+        public IResourceMarshaller Marshaller { get; set; }
 
         protected void SetStatusCode(ControllerContext context, StatusCodes status)
         {

@@ -2,7 +2,7 @@
 
 namespace Restfulie.Server.Marshalling
 {
-    public interface IResourceRepresentation
+    public interface IResourceMarshaller
     {
         string Build(IBehaveAsResource resource);
         string Build(IEnumerable<IBehaveAsResource> resources);
