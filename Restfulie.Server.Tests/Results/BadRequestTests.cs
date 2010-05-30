@@ -8,24 +8,12 @@ using Restfulie.Server.Results;
 namespace Restfulie.Server.Tests.Results
 {
     [TestFixture]
-    public class BadRequestTests
+    public class BadRequestTests : ResultsTestBase
     {
-        private Mock<HttpResponseBase> response;
-        private Mock<HttpContextBase> http;
-        private Mock<ControllerContext> context;
-        private MemoryStream stream;
-
         [SetUp]
         public void SetUp()
         {
-            response = new Mock<HttpResponseBase>();
-            http = new Mock<HttpContextBase>();
-            context = new Mock<ControllerContext>();
-
-            http.Setup(h => h.Response).Returns(response.Object);
-            context.Setup(c => c.HttpContext).Returns(http.Object);
-
-            stream = new MemoryStream();
+            SetUpRequest();
         }
 
         [Test]
@@ -39,18 +27,5 @@ namespace Restfulie.Server.Tests.Results
             response.VerifyAll();
         }
 
-        [Test]
-        public void ShouldReturnAMessage()
-        {
-            response.Setup(p => p.Output).Returns(new StreamWriter(stream));
-            var result = new BadRequest("error message");
-
-            result.ExecuteResult(context.Object);
-
-            stream.Seek(0, SeekOrigin.Begin);
-            var serializedResource = new StreamReader(stream).ReadToEnd();
-
-            Assert.That(serializedResource.Contains("error message"));
-        }
     }
 }

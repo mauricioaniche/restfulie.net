@@ -65,6 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActAsRestfulieTests.cs" />
+    <Compile Include="Fixtures\SomeResult.cs" />
     <Compile Include="Marshalling\InflectionsTests.cs" />
     <Compile Include="Negotiation\AcceptHeaderToSerializerTests.cs" />
     <Compile Include="Negotiation\ContentTypeToDeserializerTests.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Fixtures\SomeController.cs" />
     <Compile Include="Fixtures\SomeResource.cs" />
     <Compile Include="Results\NotAcceptableTests.cs" />
+    <Compile Include="Results\RestfulieResultTests.cs" />
     <Compile Include="Results\ResultsTestBase.cs" />
     <Compile Include="Results\SuccessTests.cs" />
     <Compile Include="RelationsTests.cs" />
