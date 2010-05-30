@@ -28,9 +28,9 @@ namespace Restfulie.Server
             return proxifier.CreateClassProxy<T>(interceptor);
         }
 
-        public void AddTransition(string controller, string action)
+        public void AddTransition(string controller, string action, IDictionary<string, object> values)
         {
-            all.Add(new Relation(currentName, controller, action, urlGenerator.For(controller, action)));
+            all.Add(new Relation(currentName, controller, action, values, urlGenerator.For(controller, action, values)));
             currentName = string.Empty;
         } 
 

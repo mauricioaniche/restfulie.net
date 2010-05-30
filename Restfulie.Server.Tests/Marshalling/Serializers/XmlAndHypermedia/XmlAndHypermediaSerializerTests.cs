@@ -70,7 +70,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia
 
         private IList<Relation> SomeRelations()
         {
-            return new List<Relation> {new Relation("pay", "controller", "action", "http://some/url")};
+            return new List<Relation> {new Relation("pay", "controller", "action", new Dictionary<string, object>(), "http://some/url")};
         }
     }
 }

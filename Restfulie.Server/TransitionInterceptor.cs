@@ -1,4 +1,5 @@
-﻿using Castle.Core.Interceptor;
+﻿using System.Collections.Generic;
+using Castle.Core.Interceptor;
 
 namespace Restfulie.Server
 {
@@ -16,7 +17,18 @@ namespace Restfulie.Server
             var action = invocation.Method.Name;
             var controller = invocation.TargetType.Name.Replace("Controller", "");
 
-            relations.AddTransition(controller, action);
+            var values = new Dictionary<string, object>();
+            var i = 0;
+            foreach (var argument in invocation.GetConcreteMethod().GetParameters())
+            {
+                if (invocation.Arguments[i] != null)
+                {
+                    values.Add(argument.Name, invocation.Arguments[i]);
+                }
+                i++;
+            }
+
+            relations.AddTransition(controller, action, values);
         }
     }
 }
