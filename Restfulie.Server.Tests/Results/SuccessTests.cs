@@ -11,7 +11,7 @@ namespace Restfulie.Server.Tests.Results
     public class SuccessTests : ResultsTestBase
     {
         private MemoryStream stream;
-        private Mock<IResourceMarshaller> builder;
+        private Mock<IResourceMarshaller> marshaller;
         private SomeResource aSimpleResource;
 
         [SetUp]
@@ -20,7 +20,9 @@ namespace Restfulie.Server.Tests.Results
             SetUpRequest();
 
             stream = new MemoryStream();
-            builder = new Mock<IResourceMarshaller>();
+            response.Setup(p => p.Output).Returns(new StreamWriter(stream));
+
+            marshaller = new Mock<IResourceMarshaller>();
 
             aSimpleResource = new SomeResource { Amount = 123.45, Name = "John Doe" };
         }
@@ -37,18 +39,16 @@ namespace Restfulie.Server.Tests.Results
 
             result.ExecuteResult(context.Object);
 
-            response.VerifyAll();
+            response.VerifySet(c => c.StatusCode = (int)StatusCodes.Success);
         }
 
         [Test]
         public void ShouldReturnContentType()
         {
             response.SetupSet(c => c.ContentType = "application/xml");
-
-            var marshaller = new Mock<IResourceMarshaller>();
             marshaller.SetupGet(m => m.MediaType).Returns("application/xml");
 
-            var result = new Success
+            var result = new Success(new SomeResource())
                              {
                                  Marshaller = marshaller.Object
                              };
@@ -61,11 +61,9 @@ namespace Restfulie.Server.Tests.Results
         [Test]
         public void ShouldReturnResource()
         {
-            response.Setup(p => p.Output).Returns(new StreamWriter(stream));
-
-            builder.Setup(s => s.Build(aSimpleResource)).Returns(
+            marshaller.Setup(s => s.Build(aSimpleResource)).Returns(
                 "<SomeResource><Name>John Doe</name><amount>123.45</amount></SomeResource>");
-            var result = new Success(aSimpleResource) {Marshaller = builder.Object};
+            var result = new Success(aSimpleResource) {Marshaller = marshaller.Object};
 
             result.ExecuteResult(context.Object);
 
@@ -74,17 +72,16 @@ namespace Restfulie.Server.Tests.Results
 
             Assert.That(serializedResource.Contains("John Doe"));
             Assert.That(serializedResource.Contains("123.45"));
-            builder.VerifyAll();
+            marshaller.VerifyAll();
         }
 
         [Test]
         public void ShouldReturnListOfResource()
         {
             var resources = new System.Collections.Generic.List<IBehaveAsResource> {aSimpleResource, aSimpleResource};
-            response.Setup(p => p.Output).Returns(new StreamWriter(stream));
 
-            builder.Setup(s => s.Build(resources)).Returns("List Of Resources here");
-            var result = new Success(resources) { Marshaller = builder.Object };
+            marshaller.Setup(s => s.Build(resources)).Returns("List Of Resources here");
+            var result = new Success(resources) { Marshaller = marshaller.Object };
 
             result.ExecuteResult(context.Object);
 
@@ -92,7 +89,7 @@ namespace Restfulie.Server.Tests.Results
             var serializedResource = new StreamReader(stream).ReadToEnd();
 
             Assert.That(serializedResource.Contains("List Of Resources here"));
-            builder.VerifyAll();            
+            marshaller.VerifyAll();            
         }
     }
 }

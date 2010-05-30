@@ -1,26 +1,94 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 using Restfulie.Server.Marshalling;
 
 namespace Restfulie.Server.Results
 {
     public abstract class RestfulieResult : ActionResult
     {
-        public IResourceMarshaller Marshaller { get; set; }
+        private readonly IEnumerable<IBehaveAsResource> resources;
+        private readonly IBehaveAsResource resource;
+        private readonly string message;
 
-        protected void SetStatusCode(ControllerContext context, StatusCodes status)
+        protected RestfulieResult()
         {
-            context.HttpContext.Response.StatusCode = (int)status;
+            
         }
 
-        protected void SetContentType(ControllerContext context, string type)
+        protected RestfulieResult(IBehaveAsResource resource)
+        {
+            this.resource = resource;
+        }
+
+        protected RestfulieResult(IEnumerable<IBehaveAsResource> resources)
+        {
+            this.resources = resources;
+        }
+
+        protected RestfulieResult(string message)
+        {
+            this.message = message;
+        }
+
+        public IResourceMarshaller Marshaller { get; set; }
+
+        private void SetStatusCode(ControllerContext context, int status)
+        {
+            context.HttpContext.Response.StatusCode = status;
+        }
+
+        private void SetContentType(ControllerContext context, string type)
         {
             context.HttpContext.Response.ContentType = type;
         }
 
-        protected void Write(ControllerContext context, string content)
+        private void Write(ControllerContext context, string content)
         {
             context.HttpContext.Response.Output.Write(content);
             context.HttpContext.Response.Output.Flush();
+        }
+
+        public override sealed void ExecuteResult(ControllerContext context)
+        {
+            SetStatusCode(context, StatusCode);
+            WriteContent(context);
+        }
+
+        protected abstract int StatusCode { get; }
+
+        private void WriteContent(ControllerContext context)
+        {
+            if (ResourceWasPassed())
+            {
+                Write(context, Marshaller.Build(resource));
+                SetContentType(context, Marshaller.MediaType);
+            }
+            else if (ResourcesWerePassed())
+            {
+                Write(context, Marshaller.Build(resources));
+                SetContentType(context, Marshaller.MediaType);
+            }
+            else if (MessageWasPassed())
+            {
+                Write(context, message);
+            }
+        }
+
+
+        private bool ResourcesWerePassed()
+        {
+            return resources != null;
+        }
+
+        private bool ResourceWasPassed()
+        {
+            return resource != null;
+        }
+
+        private bool MessageWasPassed()
+        {
+            return !string.IsNullOrEmpty(message);
         }
     }
 }

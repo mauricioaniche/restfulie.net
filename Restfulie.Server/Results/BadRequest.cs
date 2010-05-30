@@ -1,33 +1,20 @@
-﻿using System.Web.Mvc;
-
-namespace Restfulie.Server.Results
+﻿namespace Restfulie.Server.Results
 {
     public class BadRequest : RestfulieResult
     {
-        private readonly string message;
 
         public BadRequest()
         {
         }
 
-        public BadRequest(string message) : this()
+        public BadRequest(string message) : base(message)
         {
-            this.message = message;
         }
 
-        public override void ExecuteResult(ControllerContext context)
-        {
-            SetStatusCode(context, StatusCodes.BadRequest);
 
-            if(MessageWasPassed())
-            {
-                Write(context, message);
-            }
-        }
-
-        private bool MessageWasPassed()
+        protected override int StatusCode
         {
-            return !string.IsNullOrEmpty(message);
+            get { return (int) StatusCodes.BadRequest; }
         }
     }
 }
