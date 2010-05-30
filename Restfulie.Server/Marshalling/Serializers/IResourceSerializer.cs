@@ -6,5 +6,7 @@ namespace Restfulie.Server.Marshalling.Serializers
     {
         string Serialize(IBehaveAsResource resource, IList<Relation> transitions);
         string Serialize(IDictionary<IBehaveAsResource, IList<Relation>> resources, string rootName);
+
+        string Format { get; }
     }
 }

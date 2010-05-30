@@ -30,6 +30,11 @@ namespace Restfulie.Server.Marshalling.Serializers
             return xmlDocument.InnerXml;
         }
 
+        public string Format
+        {
+            get { return "application/xml"; }
+        }
+
         private XmlDocument GetXmlBasedOn(IBehaveAsResource resource)
         {
             var stream = new MemoryStream();

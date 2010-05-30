@@ -9,7 +9,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers
     [TestFixture]
     public class XmlAndHypermediaSerializerTests
     {
-        private XmlAndHypermediaSerializer serializer;
+        private IResourceSerializer serializer;
 
         [SetUp]
         public void SetUp()
@@ -54,6 +54,12 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers
             Assert.That(xml.Contains("John Doe"));
             Assert.That(xml.Contains("Sally Doe"));
             Assert.That(xml.Contains("<SomeResources>"));
+        }
+
+        [Test]
+        public void ShouldReturnFormat()
+        {
+            Assert.AreEqual("application/xml", serializer.Format);
         }
 
         private IList<Relation> SomeRelations()

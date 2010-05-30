@@ -40,7 +40,7 @@ namespace Restfulie.Server.Marshalling
 
         public string MediaType
         {
-            get { throw new NotImplementedException(); }
+            get { return serializer.Format; }
         }
     }
 }

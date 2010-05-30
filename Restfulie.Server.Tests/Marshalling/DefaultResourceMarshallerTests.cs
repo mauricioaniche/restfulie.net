@@ -55,6 +55,15 @@ namespace Restfulie.Server.Tests.Marshalling
             serializer.VerifyAll();
         }
 
+        [Test]
+        public void ShouldReturnMediaTypeBasedOnSerializerFormat()
+        {
+            serializer.SetupGet(s => s.Format).Returns("format");
+            var builder = new DefaultResourceMarshaller(relations.Object, serializer.Object, inflections.Object);
+   
+            Assert.AreEqual("format", builder.MediaType);
+        }
+
         private List<Relation> SomeTransitions()
         {
             return new List<Relation> {new Relation("pay", "Order","Pay",SerializedResource())};
