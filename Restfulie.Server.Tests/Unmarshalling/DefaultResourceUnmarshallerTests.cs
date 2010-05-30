@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Moq;
 using NUnit.Framework;
+using Restfulie.Server.Exceptions;
 using Restfulie.Server.Tests.Fixtures;
 using Restfulie.Server.Unmarshalling;
 using Restfulie.Server.Unmarshalling.Deserializers;
@@ -40,6 +41,15 @@ namespace Restfulie.Server.Tests.Unmarshalling
             var resource = unmarshaller.ToResource(string.Empty, typeof (SomeResource));
 
             Assert.IsNull(resource);
+        }
+
+
+        [Test]
+        public void ShouldThrowUnmarshallingExceptionIfSomethingFails()
+        {
+            deserializer.Setup(d => d.Deserialize(SomeXML(), typeof(SomeResource))).Throws(new Exception());
+
+            Assert.Throws<UnmarshallingException>(() => unmarshaller.ToResource(SomeXML(), typeof(SomeResource)));
         }
 
         private string SomeXML()

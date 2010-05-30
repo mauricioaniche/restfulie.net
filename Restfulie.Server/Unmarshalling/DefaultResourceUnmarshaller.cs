@@ -1,4 +1,5 @@
 ﻿using System;
+using Restfulie.Server.Exceptions;
 using Restfulie.Server.Unmarshalling.Deserializers;
 
 namespace Restfulie.Server.Unmarshalling
@@ -14,7 +15,14 @@ namespace Restfulie.Server.Unmarshalling
 
         public IBehaveAsResource ToResource(string xml, Type objectType)
         {
-            return string.IsNullOrEmpty(xml) ? null : deserializer.Deserialize(xml, objectType);
+            try
+            {
+                return string.IsNullOrEmpty(xml) ? null : deserializer.Deserialize(xml, objectType);
+            }
+            catch(Exception e)
+            {
+                throw new UnmarshallingException(e.Message);
+            }
         }
     }
 }

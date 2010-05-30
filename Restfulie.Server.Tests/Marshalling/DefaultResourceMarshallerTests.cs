@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
 using Restfulie.Server.Marshalling;
 using Restfulie.Server.Marshalling.Serializers;
 using Restfulie.Server.Marshalling.UrlGenerators;
 using Restfulie.Server.Tests.Fixtures;
+using Restfulie.Server.Exceptions;
 
 namespace Restfulie.Server.Tests.Marshalling
 {

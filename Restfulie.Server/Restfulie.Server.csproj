@@ -82,6 +82,7 @@
     <Compile Include="ActAsRestfulie.cs" />
     <Compile Include="Exceptions\ContentTypeNotSupportedException.cs" />
     <Compile Include="Exceptions\MediaTypeNotSupportedException.cs" />
+    <Compile Include="Exceptions\UnmarshallingException.cs" />
     <Compile Include="IBehaveAsResource.cs" />
     <Compile Include="Marshalling\IInflections.cs" />
     <Compile Include="Marshalling\DefaultInflections.cs" />
