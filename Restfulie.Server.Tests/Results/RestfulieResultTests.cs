@@ -10,7 +10,6 @@ namespace Restfulie.Server.Tests.Results
     [TestFixture]
     public class RestfulieResultTests : ResultsTestBase
     {
-        private MemoryStream stream;
         private SomeResource aSimpleResource;
         private Mock<IResourceMarshaller> marshaller;
 
@@ -18,9 +17,6 @@ namespace Restfulie.Server.Tests.Results
         public void SetUp()
         {
             SetUpRequest();
-
-            stream = new MemoryStream();
-            response.Setup(p => p.Output).Returns(new StreamWriter(stream));
 
             marshaller = new Mock<IResourceMarshaller>();
             aSimpleResource = new SomeResource { Amount = 123.45, Name = "John Doe" };

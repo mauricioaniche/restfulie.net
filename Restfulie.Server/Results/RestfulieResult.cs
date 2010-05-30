@@ -10,6 +10,7 @@ namespace Restfulie.Server.Results
         private readonly IEnumerable<IBehaveAsResource> resources;
         private readonly IBehaveAsResource resource;
         private readonly string message;
+        protected string Location;
         protected abstract int StatusCode { get; }
         public IResourceMarshaller Marshaller { get; set; }
 
@@ -35,13 +36,22 @@ namespace Restfulie.Server.Results
 
         public override sealed void ExecuteResult(ControllerContext context)
         {
-            SetStatusCode(context, StatusCode);
+            SetStatusCode(context);
+            SetLocation(context);
             WriteContent(context);
         }
 
-        private void SetStatusCode(ControllerContext context, int status)
+        private void SetLocation(ControllerContext context)
         {
-            context.HttpContext.Response.StatusCode = status;
+            if (!string.IsNullOrEmpty(Location))
+            {
+                context.HttpContext.Response.RedirectLocation = Location;
+            }
+        }
+
+        private void SetStatusCode(ControllerContext context)
+        {
+            context.HttpContext.Response.StatusCode = StatusCode;
         }
 
         private void SetContentType(ControllerContext context, string type)

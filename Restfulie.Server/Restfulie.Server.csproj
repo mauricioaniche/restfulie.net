@@ -29,7 +29,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-	</PropertyGroup>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AutomatedDebug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
@@ -48,7 +48,6 @@
     <ErrorReport>prompt</ErrorReport>
     <Optimize>true</Optimize>
   </PropertyGroup>
-
   <ItemGroup>
     <Reference Include="Castle.Core, Version=1.2.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -102,6 +101,7 @@
     <Compile Include="Negotiation\DefaultRequestInfoFinder.cs" />
     <Compile Include="Negotiation\IRequestInfoFinder.cs" />
     <Compile Include="Results\BadRequest.cs" />
+    <Compile Include="Results\Created.cs" />
     <Compile Include="Results\NotAcceptable.cs" />
     <Compile Include="Results\RestfulieResult.cs" />
     <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlAndHypermediaSerializer.cs" />

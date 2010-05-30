@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.IO;
+using System.Web;
 using System.Web.Mvc;
 using Moq;
 
@@ -9,6 +10,7 @@ namespace Restfulie.Server.Tests.Results
         protected Mock<HttpResponseBase> response;
         protected Mock<HttpContextBase> http;
         protected Mock<ControllerContext> context;
+        protected MemoryStream stream;
 
         protected void SetUpRequest()
         {
@@ -18,6 +20,9 @@ namespace Restfulie.Server.Tests.Results
 
             http.Setup(h => h.Response).Returns(response.Object);
             context.Setup(c => c.HttpContext).Returns(http.Object);
+
+            stream = new MemoryStream();
+            response.Setup(p => p.Output).Returns(new StreamWriter(stream));
         }
     }
 }

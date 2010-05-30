@@ -36,7 +36,7 @@ namespace Web.Controllers
         [ActAsRestfulie(Name = "order", Type = typeof(Order))]
         public virtual ActionResult ReceiveAResource(Order order)
         {
-            return new Success(order);
+            return new Created(order, "http://www.new.location.com/");
         }
     }
 }

@@ -21,7 +21,7 @@ namespace Restfulie.Server.Tests.Results
 
             result.ExecuteResult(context.Object);
 
-            response.VerifyAll();
+            response.VerifySet(c => c.StatusCode = (int)StatusCodes.NotAcceptable);
         }
     }
 }

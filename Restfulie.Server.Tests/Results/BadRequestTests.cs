@@ -24,7 +24,7 @@ namespace Restfulie.Server.Tests.Results
             var result = new BadRequest();
             result.ExecuteResult(context.Object);
 
-            response.VerifyAll();
+            response.VerifySet(c => c.StatusCode = (int)StatusCodes.BadRequest);
         }
 
     }

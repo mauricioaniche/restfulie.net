@@ -96,6 +96,7 @@
     <Compile Include="Marshalling\DefaultResourceMarshallerTests.cs" />
     <Compile Include="Fixtures\SomeController.cs" />
     <Compile Include="Fixtures\SomeResource.cs" />
+    <Compile Include="Results\CreatedTests.cs" />
     <Compile Include="Results\NotAcceptableTests.cs" />
     <Compile Include="Results\RestfulieResultTests.cs" />
     <Compile Include="Results\ResultsTestBase.cs" />
