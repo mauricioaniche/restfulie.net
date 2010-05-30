@@ -78,7 +78,7 @@ namespace Restfulie.Server.Tests
 
             filter.OnActionExecuting(context);
 
-            Assert.IsTrue(context.Result is BadRequest);
+            Assert.IsTrue(context.Result is UnsupportedMediaType);
         }
     }
 }

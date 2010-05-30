@@ -6,6 +6,7 @@ using Restfulie.Server.Tests.Fixtures;
 
 namespace Restfulie.Server.Tests.Results
 {
+    [TestFixture]
     public class CreatedTests : ResultsTestBase
     {
         [SetUp]

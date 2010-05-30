@@ -61,7 +61,7 @@ namespace Restfulie.Server
             }
             catch(ContentTypeNotSupportedException)
             {
-                filterContext.Result = new BadRequest();
+                filterContext.Result = new UnsupportedMediaType();
                 return;
             }
 

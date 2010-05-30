@@ -112,6 +112,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relation.cs" />
     <Compile Include="Relations.cs" />
+    <Compile Include="Results\UnsupportedMediaType.cs" />
     <Compile Include="TransitionInterceptor.cs" />
     <Compile Include="Marshalling\UrlGenerators\AspNetMvcUrlGenerator.cs" />
     <Compile Include="Unmarshalling\DefaultResourceUnmarshaller.cs" />
