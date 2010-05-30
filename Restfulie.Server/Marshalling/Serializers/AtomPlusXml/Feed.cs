@@ -6,6 +6,11 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 {
     public class Feed
     {
+        public Feed()
+        {
+            Items = new List<Entry>();
+        }
+
         //channel informations
         public string Title { set; get; }
         public string Description { set; get; }
@@ -13,5 +18,6 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
         public string Author { set; get; }
         public List<Entry> Items { set; get; }
         public DateTime Updated { set; get; }
+        public string Id { get; set; }
     }
 }
