@@ -3,11 +3,11 @@ using Restfulie.Server.Unmarshalling.Deserializers;
 
 namespace Restfulie.Server.Unmarshalling
 {
-    public class DefaultResourceUnmarshaller : IResourceUnmarshaller
+    public class RestfulieUnmarshaller : IResourceUnmarshaller
     {
         private readonly IResourceDeserializer deserializer;
 
-        public DefaultResourceUnmarshaller(IResourceDeserializer deserializer)
+        public RestfulieUnmarshaller(IResourceDeserializer deserializer)
         {
             this.deserializer = deserializer;
         }

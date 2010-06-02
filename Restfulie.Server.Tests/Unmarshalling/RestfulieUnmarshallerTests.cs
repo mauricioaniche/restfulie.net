@@ -11,16 +11,16 @@ using Restfulie.Server.Unmarshalling.Deserializers;
 namespace Restfulie.Server.Tests.Unmarshalling
 {
     [TestFixture]
-    public class DefaultResourceUnmarshallerTests
+    public class RestfulieUnmarshallerTests
     {
         private Mock<IResourceDeserializer> deserializer;
-        private DefaultResourceUnmarshaller unmarshaller;
+        private RestfulieUnmarshaller unmarshaller;
 
         [SetUp]
         public void SetUp()
         {
             deserializer = new Mock<IResourceDeserializer>();
-            unmarshaller = new DefaultResourceUnmarshaller(deserializer.Object);
+            unmarshaller = new RestfulieUnmarshaller(deserializer.Object);
         }
 
         [Test]

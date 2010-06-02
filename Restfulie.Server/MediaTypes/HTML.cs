@@ -29,7 +29,7 @@ namespace Restfulie.Server.MediaTypes
         {
             get
             {
-                throw new NotImplementedException();
+                return new AspNetMvcUnmarshaller();
             }
         }
     }

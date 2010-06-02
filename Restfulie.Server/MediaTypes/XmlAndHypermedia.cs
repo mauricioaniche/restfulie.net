@@ -32,7 +32,7 @@ namespace Restfulie.Server.MediaTypes
         {
             get 
             {
-                return new DefaultResourceUnmarshaller(new XmlDeserializer());
+                return new RestfulieUnmarshaller(new XmlDeserializer());
             }
         }
     }
