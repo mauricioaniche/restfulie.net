@@ -6,7 +6,7 @@ namespace Restfulie.Server.MediaTypes
     public interface IMediaType
     {
         string Name { get; }
-        string[] Acronyms { get; }
+        string[] Synonyms { get; }
         IResourceMarshaller Marshaller { get; }
         IResourceUnmarshaller Unmarshaller { get; }
     }

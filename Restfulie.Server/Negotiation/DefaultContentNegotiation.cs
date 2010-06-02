@@ -21,7 +21,7 @@ namespace Restfulie.Server.Negotiation
         {
             foreach (var type in MediaTypes)
             {
-                foreach(var name in type.Acronyms)
+                foreach(var name in type.Synonyms)
                 {
                     if (name.Contains(mediaType)) return type;
                 }
@@ -34,7 +34,7 @@ namespace Restfulie.Server.Negotiation
         {
             foreach (var type in MediaTypes)
             {
-                foreach (var name in type.Acronyms)
+                foreach (var name in type.Synonyms)
                 {
                     if (name.Contains(mediaType)) return type;
                 }

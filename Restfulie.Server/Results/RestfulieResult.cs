@@ -24,7 +24,7 @@ namespace Restfulie.Server.Results
             this.resources = resources;
         }
 
-        public override sealed void ExecuteResult(ControllerContext context)
+        public override void ExecuteResult(ControllerContext context)
         {
             if (HasResource())
             {

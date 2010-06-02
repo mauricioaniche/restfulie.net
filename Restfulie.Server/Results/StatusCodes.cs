@@ -8,6 +8,7 @@
         BadRequest = 400,
         NotAcceptable = 406,
         PreConditionFailed = 412,
-        UnsupportedMediaType = 415
+        UnsupportedMediaType = 415,
+        InternalServerError = 500
     }
 }

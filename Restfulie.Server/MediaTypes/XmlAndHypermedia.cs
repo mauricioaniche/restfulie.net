@@ -13,7 +13,7 @@ namespace Restfulie.Server.MediaTypes
             get { return "application/xml"; }
         }
 
-        public string[] Acronyms
+        public string[] Synonyms
         {
             get { return new[] {"application/xml", "text/xml", "xml"}; }
         }

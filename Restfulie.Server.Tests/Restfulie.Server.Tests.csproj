@@ -96,6 +96,7 @@
     <Compile Include="Fixtures\SomeController.cs" />
     <Compile Include="Fixtures\SomeResource.cs" />
     <Compile Include="Results\CreatedTests.cs" />
+    <Compile Include="Results\InternalServerErrorTests.cs" />
     <Compile Include="Results\NotAcceptableTests.cs" />
     <Compile Include="Results\PreConditionFailedTests.cs" />
     <Compile Include="Results\RestfulieResultTests.cs" />

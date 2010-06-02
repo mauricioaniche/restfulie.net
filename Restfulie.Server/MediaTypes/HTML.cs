@@ -12,7 +12,7 @@ namespace Restfulie.Server.MediaTypes
             get { return "application/html"; }
         }
 
-        public string[] Acronyms
+        public string[] Synonyms
         {
             get { return new[] {"application/html"}; }
         }
