@@ -5,12 +5,12 @@ using Restfulie.Server.Marshalling.Serializers;
 
 namespace Restfulie.Server.Marshalling
 {
-    public class DefaultResourceMarshaller : IResourceMarshaller
+    public class RestfulieMarshaller : IResourceMarshaller
     {
         private readonly Relations relations;
         private readonly IResourceSerializer serializer;
 
-        public DefaultResourceMarshaller(Relations relations, IResourceSerializer serializer)
+        public RestfulieMarshaller(Relations relations, IResourceSerializer serializer)
         {
             this.relations = relations;
             this.serializer = serializer;

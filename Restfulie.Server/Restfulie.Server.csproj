@@ -89,7 +89,7 @@
     <Compile Include="Marshalling\DefaultInflections.cs" />
     <Compile Include="Marshalling\IMarshallerFactory.cs" />
     <Compile Include="Marshalling\DefaultMarshallerFactory.cs" />
-    <Compile Include="Marshalling\DefaultResourceMarshaller.cs" />
+    <Compile Include="Marshalling\RestfulieMarshaller.cs" />
     <Compile Include="Marshalling\IResourceMarshaller.cs" />
     <Compile Include="Marshalling\ResponseInfo.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializerFactory.cs" />

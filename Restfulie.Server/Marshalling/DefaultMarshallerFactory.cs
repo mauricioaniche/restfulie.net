@@ -13,7 +13,7 @@ namespace Restfulie.Server.Marshalling
                 return new AspNetMvcMarshaller(new ViewResult());
             }
             
-            return new DefaultResourceMarshaller(
+            return new RestfulieMarshaller(
                 new Relations(new AspNetMvcUrlGenerator()),
                 new AcceptHeaderToSerializer().For(mediaType));
         }
