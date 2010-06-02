@@ -33,11 +33,11 @@ namespace Restfulie.Server.Results
                                        StatusCode = StatusCode
                                    };
 
-            if (resource != null)
+            if (HasResource())
             {
                 Marshaller.Build(context, resource, responseInfo);
             }
-            else if (resources != null)
+            else if (HasListOfResources())
             {
                 Marshaller.Build(context, resources, responseInfo);
             }
@@ -45,6 +45,16 @@ namespace Restfulie.Server.Results
             {
                 Marshaller.Build(context, responseInfo);
             }
+        }
+
+        private bool HasListOfResources()
+        {
+            return resources != null;
+        }
+
+        private bool HasResource()
+        {
+            return resource != null;
         }
     }
 }
