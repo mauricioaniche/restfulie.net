@@ -10,12 +10,12 @@ namespace Restfulie.Server.MediaTypes
     {
         public string Name
         {
-            get { return "application/atom"; }
+            get { return "application/atom+xml"; }
         }
 
         public string[] Synonyms
         {
-            get { return new[] {"application/atom", "atom"}; }
+            get { return new[] {"application/atom+xml", "atom+xml"}; }
         }
 
         public IResourceMarshaller Marshaller
