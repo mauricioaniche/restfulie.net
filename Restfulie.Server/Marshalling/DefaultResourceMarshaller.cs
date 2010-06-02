@@ -16,36 +16,47 @@ namespace Restfulie.Server.Marshalling
             this.serializer = serializer;
         }
 
-        public void Build(ControllerContext context, MarshallingInfo info)
+        public void Build(ControllerContext context, IBehaveAsResource resource, ResponseInfo info)
         {
-            if (info.HasResource())
-            {
-                var all = info.Resource.GetRelations(relations);
+            var all = resource.GetRelations(relations);
+            var content = serializer.Serialize(resource, all);
 
-                var content = serializer.Serialize(info.Resource, all);
-                Write(context, content);
-                SetContentType(context, serializer.Format);
-            }
-            else if (info.HasResources())
-            {
-                var listOfResources = new Dictionary<IBehaveAsResource, IList<Relation>>();
-                foreach (var resource in info.Resources)
-                {
-                    var allRelations = resource.GetRelations(relations);
-                    listOfResources.Add(resource, allRelations);
-                }
-
-                var content = serializer.Serialize(listOfResources);
-                Write(context, content);
-                SetContentType(context, serializer.Format);
-            }
-            else if (info.HasMessage())
-            {
-                Write(context, info.Message);
-            }
-
+            SetContent(context, content);
             SetStatusCode(context, info.StatusCode);
             SetLocation(context, info.Location);
+            SetContentType(context, serializer.Format);
+        }
+
+        public void Build(ControllerContext context, IEnumerable<IBehaveAsResource> resources, ResponseInfo info)
+        {
+            var listOfResources = new Dictionary<IBehaveAsResource, IList<Relation>>();
+            foreach (var resource in resources)
+            {
+                var allRelations = resource.GetRelations(relations);
+                listOfResources.Add(resource, allRelations);
+            }
+
+            var content = serializer.Serialize(listOfResources);
+
+            SetContent(context, content);
+            SetStatusCode(context, info.StatusCode);
+            SetLocation(context, info.Location);
+            SetContentType(context, serializer.Format);
+        }
+
+        public void Build(ControllerContext context, string message, ResponseInfo info)
+        {
+            SetContent(context, message);
+            SetStatusCode(context, info.StatusCode);
+            SetLocation(context, info.Location);
+            SetContentType(context, serializer.Format);
+        }
+
+        public void Build(ControllerContext context, ResponseInfo info)
+        {
+            SetStatusCode(context, info.StatusCode);
+            SetLocation(context, info.Location);
+            SetContentType(context, serializer.Format);
         }
 
         private void SetLocation(ControllerContext context, string location)
@@ -66,7 +77,7 @@ namespace Restfulie.Server.Marshalling
             context.HttpContext.Response.ContentType = type;
         }
 
-        private void Write(ControllerContext context, string content)
+        private void SetContent(ControllerContext context, string content)
         {
             context.HttpContext.Response.Output.Write(content);
             context.HttpContext.Response.Output.Flush();

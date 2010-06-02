@@ -33,16 +33,28 @@ namespace Restfulie.Server.Results
 
         public override sealed void ExecuteResult(ControllerContext context)
         {
-            Marshaller.Build(
-                context,
-                new MarshallingInfo
-                {
-                    Location = Location,
-                    Message = message,
-                    Resource = resource,
-                    Resources = resources,
-                    StatusCode = StatusCode
-                });
+            var responseInfo = new ResponseInfo
+                                   {
+                                       Location = Location,
+                                       StatusCode = StatusCode
+                                   };
+
+            if (resource != null)
+            {
+                Marshaller.Build(context, resource, responseInfo);
+            }
+            else if (resources != null)
+            {
+                Marshaller.Build(context, resources, responseInfo);
+            }
+            else if (message != null)
+            {
+                Marshaller.Build(context, message, responseInfo);
+            }
+            else
+            {
+                Marshaller.Build(context, responseInfo);
+            }
         }
     }
 }

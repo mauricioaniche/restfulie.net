@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
@@ -27,7 +28,7 @@ namespace Restfulie.Server.Tests.Results
         public void ShouldReturnResource()
         {
             marshaller.Setup(
-                s => s.Build(It.IsAny<ControllerContext>(), It.Is<MarshallingInfo>(m => m.Resource == aSimpleResource)));
+                s => s.Build(It.IsAny<ControllerContext>(), It.Is<IBehaveAsResource>(m => m == aSimpleResource), It.IsAny<ResponseInfo>()));
             var result = new SomeResult(aSimpleResource) { Marshaller = marshaller.Object };
 
             result.ExecuteResult(context.Object);
@@ -41,7 +42,7 @@ namespace Restfulie.Server.Tests.Results
             var resources = new System.Collections.Generic.List<IBehaveAsResource> { aSimpleResource, aSimpleResource };
 
             marshaller.Setup(
-                s => s.Build(It.IsAny<ControllerContext>(), It.Is<MarshallingInfo>(m => m.Resources == resources)));
+                s => s.Build(It.IsAny<ControllerContext>(), It.Is<IEnumerable<IBehaveAsResource>>(a => a == resources),It.IsAny<ResponseInfo>()));
             var result = new SomeResult(resources) { Marshaller = marshaller.Object };
 
             result.ExecuteResult(context.Object);
@@ -53,7 +54,7 @@ namespace Restfulie.Server.Tests.Results
         public void ShouldReturnMessage()
         {
             marshaller.Setup(
-                s => s.Build(It.IsAny<ControllerContext>(), It.Is<MarshallingInfo>(m => m.Message == "msg")));
+                s => s.Build(It.IsAny<ControllerContext>(), It.Is<string>(a => a == "msg") ,It.IsAny<ResponseInfo>()));
             var result = new SomeResult("msg") { Marshaller = marshaller.Object };
 
             result.ExecuteResult(context.Object);
@@ -70,7 +71,7 @@ namespace Restfulie.Server.Tests.Results
 
             result.ExecuteResult(It.IsAny<ControllerContext>());
 
-            marshaller.Verify(m => m.Build(null, It.Is<MarshallingInfo>(info => info.Location == "some/location")));
+            marshaller.Verify(m => m.Build(null, It.Is<ResponseInfo>(info => info.Location == "some/location")));
         }
     }
 }

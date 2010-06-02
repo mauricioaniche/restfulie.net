@@ -55,7 +55,7 @@ namespace Restfulie.Server.Tests.Marshalling
             serializer.Setup(s => s.Serialize(resource, It.IsAny<IList<Relation>>())).Returns(SerializedResource());
 
             var builder = new DefaultResourceMarshaller(relations.Object, serializer.Object);
-            builder.Build(context.Object, new MarshallingInfo{Resource = resource});
+            builder.Build(context.Object, resource, new ResponseInfo());
             
             relations.VerifyAll();
             serializer.VerifyAll();
@@ -71,7 +71,7 @@ namespace Restfulie.Server.Tests.Marshalling
             serializer.Setup(s => s.Serialize(It.IsAny<IDictionary<IBehaveAsResource, IList<Relation>>>())).Returns(SerializedResource());
             
             var builder = new DefaultResourceMarshaller(relations.Object, serializer.Object);
-            builder.Build(context.Object, new MarshallingInfo { Resources = resources});
+            builder.Build(context.Object, resources, new ResponseInfo());
 
             relations.VerifyAll();
             serializer.VerifyAll();
@@ -82,7 +82,7 @@ namespace Restfulie.Server.Tests.Marshalling
         public void ShouldBuildMessageRepresentation()
         {
             var builder = new DefaultResourceMarshaller(relations.Object, serializer.Object);
-            builder.Build(context.Object, new MarshallingInfo { Message = "message" });
+            builder.Build(context.Object, "message", new ResponseInfo());
 
             relations.VerifyAll();
             stream.Verify(s => s.Write(It.Is<string>(msg => msg == "message")));

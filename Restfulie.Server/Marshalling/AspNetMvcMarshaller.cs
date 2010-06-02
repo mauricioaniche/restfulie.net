@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace Restfulie.Server.Marshalling
@@ -12,28 +13,33 @@ namespace Restfulie.Server.Marshalling
             this.viewResult = viewResult;
         }
 
-        public void Build(ControllerContext context, MarshallingInfo info)
+        public void Build(ControllerContext context, IBehaveAsResource resource, ResponseInfo info)
         {
-            viewResult.ViewData = BasedOn(info);
+            viewResult.ViewData = ViewDataWithModel(null);
             viewResult.ExecuteResult(context);
         }
 
-        private ViewDataDictionary BasedOn(MarshallingInfo info)
+        public void Build(ControllerContext context, IEnumerable<IBehaveAsResource> resources, ResponseInfo info)
         {
-            if (info.HasResource())
-            {
-                return new ViewDataDictionary { Model = info.Resource };
-            }
-            if (info.HasResources())
-            {
-                return new ViewDataDictionary { Model = info.Resources };
-            }
-            if (info.HasMessage())
-            {
-                return new ViewDataDictionary { Model = info.Message };
-            }
+            viewResult.ViewData = ViewDataWithModel(null);
+            viewResult.ExecuteResult(context);
+        }
 
-            return new ViewDataDictionary();
+        public void Build(ControllerContext context, string message, ResponseInfo info)
+        {
+            viewResult.ViewData = ViewDataWithModel(null);
+            viewResult.ExecuteResult(context);
+        }
+
+        public void Build(ControllerContext context, ResponseInfo info)
+        {
+            viewResult.ViewData = ViewDataWithModel(null);
+            viewResult.ExecuteResult(context);
+        }
+
+        private ViewDataDictionary ViewDataWithModel(object model)
+        {
+            return new ViewDataDictionary { Model = model };
         }
     }
 }
