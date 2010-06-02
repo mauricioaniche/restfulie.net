@@ -59,5 +59,15 @@ namespace Restfulie.Server.Tests.Results
 
             marshaller.Verify(m => m.Build(null, It.Is<ResponseInfo>(info => info.Location == "some/location")));
         }
+
+        [Test]
+        public void ShouldSetStatusCode()
+        {
+            var result = new SomeResult { Marshaller = marshaller.Object };
+
+            result.ExecuteResult(It.IsAny<ControllerContext>());
+
+            marshaller.Verify(m => m.Build(null, It.Is<ResponseInfo>(info => info.StatusCode == result.StatusCode)));
+        }
     }
 }

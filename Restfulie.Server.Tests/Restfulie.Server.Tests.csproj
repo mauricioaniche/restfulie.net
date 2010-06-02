@@ -104,7 +104,7 @@
     <Compile Include="Results\SuccessTests.cs" />
     <Compile Include="RelationsTests.cs" />
     <Compile Include="Results\UnsupportedMediaTypeTests.cs" />
-    <Compile Include="Unmarshalling\DefaultResourceUnmarshallerTests.cs" />
+    <Compile Include="Unmarshalling\RestfulieUnmarshallerTests.cs" />
     <Compile Include="Unmarshalling\Deserializers\XmlDeserializerTests.cs" />
   </ItemGroup>
   <ItemGroup>

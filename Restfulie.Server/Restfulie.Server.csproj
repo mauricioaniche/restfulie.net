@@ -82,6 +82,7 @@
     <Compile Include="ActAsRestfulie.cs" />
     <Compile Include="Negotiation\ResponseMediaTypeNotSupportedException.cs" />
     <Compile Include="Negotiation\RequestedMediaTypeNotSupportedException.cs" />
+    <Compile Include="Unmarshalling\AspNetMvcUnmarshaller.cs" />
     <Compile Include="Unmarshalling\UnmarshallingException.cs" />
     <Compile Include="IBehaveAsResource.cs" />
     <Compile Include="Marshalling\AspNetMvcMarshaller.cs" />
@@ -119,7 +120,7 @@
     <Compile Include="Results\UnsupportedMediaType.cs" />
     <Compile Include="TransitionInterceptor.cs" />
     <Compile Include="Marshalling\UrlGenerators\AspNetMvcUrlGenerator.cs" />
-    <Compile Include="Unmarshalling\DefaultResourceUnmarshaller.cs" />
+    <Compile Include="Unmarshalling\RestfulieUnmarshaller.cs" />
     <Compile Include="Unmarshalling\Deserializers\IResourceDeserializer.cs" />
     <Compile Include="Unmarshalling\Deserializers\Xml\XmlDeserializer.cs" />
     <Compile Include="Unmarshalling\IResourceUnmarshaller.cs" />
