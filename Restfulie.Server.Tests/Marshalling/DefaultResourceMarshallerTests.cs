@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
@@ -9,7 +8,6 @@ using Restfulie.Server.Marshalling;
 using Restfulie.Server.Marshalling.Serializers;
 using Restfulie.Server.Marshalling.UrlGenerators;
 using Restfulie.Server.Tests.Fixtures;
-using Restfulie.Server.Exceptions;
 
 namespace Restfulie.Server.Tests.Marshalling
 {

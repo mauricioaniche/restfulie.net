@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
 using Restfulie.Server.Marshalling;
-using Restfulie.Server.Results;
 using Restfulie.Server.Tests.Fixtures;
 
 namespace Restfulie.Server.Tests.Results
@@ -39,7 +37,7 @@ namespace Restfulie.Server.Tests.Results
         [Test]
         public void ShouldReturnResources()
         {
-            var resources = new System.Collections.Generic.List<IBehaveAsResource> { aSimpleResource, aSimpleResource };
+            var resources = new List<IBehaveAsResource> { aSimpleResource, aSimpleResource };
 
             marshaller.Setup(
                 s => s.Build(It.IsAny<ControllerContext>(), It.Is<IEnumerable<IBehaveAsResource>>(a => a == resources),It.IsAny<ResponseInfo>()));
