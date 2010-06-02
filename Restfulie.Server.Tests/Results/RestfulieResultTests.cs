@@ -50,18 +50,6 @@ namespace Restfulie.Server.Tests.Results
             marshaller.VerifyAll();
         }
 
-        [Test]
-        public void ShouldReturnMessage()
-        {
-            marshaller.Setup(
-                s => s.Build(It.IsAny<ControllerContext>(), It.Is<string>(a => a == "msg") ,It.IsAny<ResponseInfo>()));
-            var result = new SomeResult("msg") { Marshaller = marshaller.Object };
-
-            result.ExecuteResult(context.Object);
-
-            marshaller.VerifyAll();
-        }
-
 
         [Test]
         public void ShouldSetLocation()

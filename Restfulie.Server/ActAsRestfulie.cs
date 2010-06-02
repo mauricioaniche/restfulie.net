@@ -66,7 +66,7 @@ namespace Restfulie.Server
             }
             catch(UnmarshallingException e)
             {
-                filterContext.Result = new BadRequest(e.Message);
+                filterContext.Result = new BadRequest();
                 return;
             }
 

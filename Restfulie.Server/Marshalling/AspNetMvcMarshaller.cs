@@ -15,19 +15,13 @@ namespace Restfulie.Server.Marshalling
 
         public void Build(ControllerContext context, IBehaveAsResource resource, ResponseInfo info)
         {
-            viewResult.ViewData = ViewDataWithModel(null);
+            viewResult.ViewData = ViewDataWithModel(resource);
             viewResult.ExecuteResult(context);
         }
 
         public void Build(ControllerContext context, IEnumerable<IBehaveAsResource> resources, ResponseInfo info)
         {
-            viewResult.ViewData = ViewDataWithModel(null);
-            viewResult.ExecuteResult(context);
-        }
-
-        public void Build(ControllerContext context, string message, ResponseInfo info)
-        {
-            viewResult.ViewData = ViewDataWithModel(null);
+            viewResult.ViewData = ViewDataWithModel(resources);
             viewResult.ExecuteResult(context);
         }
 

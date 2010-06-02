@@ -13,8 +13,6 @@ namespace Restfulie.Server.Tests.Fixtures
 
         public SomeResult(IEnumerable<IBehaveAsResource> resources) : base(resources){}
 
-        public SomeResult(string message) : base(message) {}
-
         public void SetLocation(string location)
         {
             Location = location;

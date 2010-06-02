@@ -7,7 +7,6 @@ namespace Restfulie.Server.Marshalling
     {
         void Build(ControllerContext context, IBehaveAsResource resource, ResponseInfo info);
         void Build(ControllerContext context, IEnumerable<IBehaveAsResource> resources, ResponseInfo info);
-        void Build(ControllerContext context, string message, ResponseInfo info);
         void Build(ControllerContext context, ResponseInfo info);
     }
 }

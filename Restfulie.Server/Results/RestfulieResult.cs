@@ -9,7 +9,6 @@ namespace Restfulie.Server.Results
     {
         private readonly IEnumerable<IBehaveAsResource> resources;
         private readonly IBehaveAsResource resource;
-        private readonly string message;
         protected string Location;
         public abstract int StatusCode { get; }
         public IResourceMarshaller Marshaller { get; set; }
@@ -24,11 +23,6 @@ namespace Restfulie.Server.Results
         protected RestfulieResult(IEnumerable<IBehaveAsResource> resources)
         {
             this.resources = resources;
-        }
-
-        protected RestfulieResult(string message)
-        {
-            this.message = message;
         }
 
         public override sealed void ExecuteResult(ControllerContext context)
@@ -46,10 +40,6 @@ namespace Restfulie.Server.Results
             else if (resources != null)
             {
                 Marshaller.Build(context, resources, responseInfo);
-            }
-            else if (message != null)
-            {
-                Marshaller.Build(context, message, responseInfo);
             }
             else
             {

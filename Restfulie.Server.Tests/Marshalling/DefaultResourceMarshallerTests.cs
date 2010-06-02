@@ -78,16 +78,6 @@ namespace Restfulie.Server.Tests.Marshalling
             stream.Verify(s => s.Write(It.IsAny<string>()));
         }
 
-        [Test]
-        public void ShouldBuildMessageRepresentation()
-        {
-            var builder = new DefaultResourceMarshaller(relations.Object, serializer.Object);
-            builder.Build(context.Object, "message", new ResponseInfo());
-
-            relations.VerifyAll();
-            stream.Verify(s => s.Write(It.Is<string>(msg => msg == "message")));
-        }
-
         private List<Relation> SomeTransitions()
         {
             return new List<Relation> {new Relation("pay", "Order","Pay", new Dictionary<string, object>(), SerializedResource())};

@@ -44,14 +44,6 @@ namespace Restfulie.Server.Marshalling
             SetContentType(context, serializer.Format);
         }
 
-        public void Build(ControllerContext context, string message, ResponseInfo info)
-        {
-            SetContent(context, message);
-            SetStatusCode(context, info.StatusCode);
-            SetLocation(context, info.Location);
-            SetContentType(context, "text/plain");
-        }
-
         public void Build(ControllerContext context, ResponseInfo info)
         {
             SetStatusCode(context, info.StatusCode);
