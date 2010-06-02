@@ -13,7 +13,8 @@ namespace Restfulie.Server.Negotiation
             MediaTypes = new List<IMediaType>
                              {
                                  new XmlAndHypermedia(), 
-                                 new HTML()
+                                 new HTML(),
+                                 new AtomPlusXml()
                              };
         }
 
@@ -27,7 +28,7 @@ namespace Restfulie.Server.Negotiation
                 }
             }
 
-            throw new MediaTypeNotSupportedException();
+            throw new RequestedMediaTypeNotSupportedException();
         }
 
         public IMediaType ForResponse(string mediaType)
@@ -40,7 +41,7 @@ namespace Restfulie.Server.Negotiation
                 }
             }
 
-            throw new ContentTypeNotSupportedException();
+            throw new ResponseMediaTypeNotSupportedException();
         }
     }
 }

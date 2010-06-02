@@ -23,14 +23,14 @@ namespace Restfulie.Server.Tests.Negotiation
         [Test]
         public void ShouldThrowAnExceptionIfRequestedMediaTypeIsInvalid()
         {
-        	Assert.Throws<MediaTypeNotSupportedException>(() =>
+        	Assert.Throws<RequestedMediaTypeNotSupportedException>(() =>
                 new DefaultContentNegotiation().ForRequest("some-crazy-media-type"));
         }
 
         [Test]
         public void ShouldThrowAnExceptionIfResponseMediaTypeIsInvalid()
         {
-            Assert.Throws<ContentTypeNotSupportedException>(() =>
+            Assert.Throws<ResponseMediaTypeNotSupportedException>(() =>
                 new DefaultContentNegotiation().ForResponse("some-crazy-media-type"));
         }
     }

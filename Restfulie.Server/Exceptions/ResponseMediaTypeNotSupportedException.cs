@@ -2,7 +2,7 @@
 
 namespace Restfulie.Server.Exceptions
 {
-    public class ContentTypeNotSupportedException : Exception
+    public class ResponseMediaTypeNotSupportedException : Exception
     {
     }
 }

@@ -50,7 +50,7 @@ namespace Restfulie.Server.Tests
         [Test]
         public void ShouldReturnNotAcceptableWhenMediaTypeIsNotSupported()
         {
-            contentNegotiation.Setup(f => f.ForRequest(It.IsAny<string>())).Throws(new MediaTypeNotSupportedException());
+            contentNegotiation.Setup(f => f.ForRequest(It.IsAny<string>())).Throws(new RequestedMediaTypeNotSupportedException());
             requestInfo.Setup(ah => ah.GetAcceptHeaderIn(context)).Returns("some-crazy-media-type");
 
             var filter = new ActAsRestfulie(contentNegotiation.Object, requestInfo.Object);
@@ -82,7 +82,7 @@ namespace Restfulie.Server.Tests
         [Test]
         public void ShouldReturnUnsupportedMediaTypeWhenContentTypeIsNotSupported()
         {
-            contentNegotiation.Setup(f => f.ForResponse(It.IsAny<string>())).Throws(new ContentTypeNotSupportedException());
+            contentNegotiation.Setup(f => f.ForResponse(It.IsAny<string>())).Throws(new ResponseMediaTypeNotSupportedException());
             requestInfo.Setup(ah => ah.GetContentTypeIn(context)).Returns("some-crazy-media-type");
 
             var filter = new ActAsRestfulie(contentNegotiation.Object, requestInfo.Object)

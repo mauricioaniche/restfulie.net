@@ -80,8 +80,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActAsRestfulie.cs" />
-    <Compile Include="Exceptions\ContentTypeNotSupportedException.cs" />
-    <Compile Include="Exceptions\MediaTypeNotSupportedException.cs" />
+    <Compile Include="Exceptions\ResponseMediaTypeNotSupportedException.cs" />
+    <Compile Include="Exceptions\RequestedMediaTypeNotSupportedException.cs" />
     <Compile Include="Exceptions\UnmarshallingException.cs" />
     <Compile Include="IBehaveAsResource.cs" />
     <Compile Include="Marshalling\AspNetMvcMarshaller.cs" />
@@ -94,6 +94,7 @@
     <Compile Include="Marshalling\Serializers\AtomPlusXml\Feed.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\Entry.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\Link.cs" />
+    <Compile Include="MediaTypes\AtomPlusXml.cs" />
     <Compile Include="MediaTypes\HTML.cs" />
     <Compile Include="MediaTypes\IMediaType.cs" />
     <Compile Include="MediaTypes\XmlAndHypermedia.cs" />
