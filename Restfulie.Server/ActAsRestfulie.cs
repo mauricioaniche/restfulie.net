@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Web.Mvc;
 using Restfulie.Server.Exceptions;
-using Restfulie.Server.Marshalling;
+using Restfulie.Server.MediaTypes;
 using Restfulie.Server.Negotiation;
 using Restfulie.Server.Results;
-using Restfulie.Server.Unmarshalling;
 
 namespace Restfulie.Server
 {
     public class ActAsRestfulie : ActionFilterAttribute
     {
-        private IResourceMarshaller marshaller;
+        private IMediaType responseMediaType;
+        private IMediaType requestMediaType;
 
-        private readonly IMarshallerFactory marshallerFactory;
-        private readonly IUnmarshallerFactory unmarshallerFactory;
+        private readonly IContentNegotiation contentNegotiation;
         private readonly IRequestInfoFinder requestInfo;
 
         public string Name { get; set; }
@@ -21,22 +20,20 @@ namespace Restfulie.Server
 
         public ActAsRestfulie()
         {
-            marshallerFactory = new DefaultMarshallerFactory();
-            unmarshallerFactory = new DefaultUnmarshallerFactory();
+            contentNegotiation = new DefaultContentNegotiation();
             requestInfo = new DefaultRequestInfoFinder();
         }
 
-        public ActAsRestfulie(IMarshallerFactory factory,IUnmarshallerFactory unmarshallerFactory, IRequestInfoFinder finder)
+        public ActAsRestfulie(IContentNegotiation contentNegotiation, IRequestInfoFinder finder)
         {
-            this.marshallerFactory = factory;
-            this.unmarshallerFactory = unmarshallerFactory;
+            this.contentNegotiation = contentNegotiation;
             this.requestInfo = finder;
         }
 
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
             var result = (RestfulieResult)filterContext.Result;
-            result.Marshaller = marshaller;
+            result.Marshaller = responseMediaType.Marshaller;
 
             base.OnResultExecuting(filterContext);
         }
@@ -45,12 +42,12 @@ namespace Restfulie.Server
         {
             try
             {
-                marshaller = marshallerFactory.BasedOnMediaType(requestInfo.GetAcceptHeaderIn(filterContext));
+                responseMediaType = contentNegotiation.ForRequest(requestInfo.GetAcceptHeaderIn(filterContext));
 
                 if (AResourceShouldBeUnmarshalled())
                 {
-                    var unmarshaller = unmarshallerFactory.BasedOnContentType(requestInfo.GetContentTypeIn(filterContext));
-                    var resource = unmarshaller.ToResource(requestInfo.GetContent(filterContext), Type);
+                    requestMediaType = contentNegotiation.ForResponse(requestInfo.GetContentTypeIn(filterContext));
+                    var resource = requestMediaType.Unmarshaller.ToResource(requestInfo.GetContent(filterContext), Type);
                     filterContext.ActionParameters[Name] = resource;
                 }
             }
@@ -64,7 +61,7 @@ namespace Restfulie.Server
                 filterContext.Result = new UnsupportedMediaType();
                 return;
             }
-            catch(UnmarshallingException e)
+            catch(UnmarshallingException)
             {
                 filterContext.Result = new BadRequest();
                 return;

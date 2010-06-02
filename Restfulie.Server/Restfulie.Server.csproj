@@ -87,22 +87,20 @@
     <Compile Include="Marshalling\AspNetMvcMarshaller.cs" />
     <Compile Include="Marshalling\IInflections.cs" />
     <Compile Include="Marshalling\DefaultInflections.cs" />
-    <Compile Include="Marshalling\IMarshallerFactory.cs" />
-    <Compile Include="Marshalling\DefaultMarshallerFactory.cs" />
     <Compile Include="Marshalling\RestfulieMarshaller.cs" />
     <Compile Include="Marshalling\IResourceMarshaller.cs" />
     <Compile Include="Marshalling\ResponseInfo.cs" />
-    <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializerFactory.cs" />
-    <Compile Include="Marshalling\Serializers\ISerializerFactory.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializer.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\Feed.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\Entry.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\Link.cs" />
-    <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlAndHypermediaSerializerFactory.cs" />
-    <Compile Include="Negotiation\AcceptHeaderToSerializer.cs" />
-    <Compile Include="Negotiation\ContentTypeToDeserializer.cs" />
+    <Compile Include="MediaTypes\HTML.cs" />
+    <Compile Include="MediaTypes\IMediaType.cs" />
+    <Compile Include="MediaTypes\XmlAndHypermedia.cs" />
     <Compile Include="Negotiation\DefaultRequestInfoFinder.cs" />
+    <Compile Include="Negotiation\IContentNegotiation.cs" />
     <Compile Include="Negotiation\IRequestInfoFinder.cs" />
+    <Compile Include="Negotiation\DefaultContentNegotiation.cs" />
     <Compile Include="Results\BadRequest.cs" />
     <Compile Include="Results\Created.cs" />
     <Compile Include="Results\NotAcceptable.cs" />
@@ -121,13 +119,9 @@
     <Compile Include="TransitionInterceptor.cs" />
     <Compile Include="Marshalling\UrlGenerators\AspNetMvcUrlGenerator.cs" />
     <Compile Include="Unmarshalling\DefaultResourceUnmarshaller.cs" />
-    <Compile Include="Unmarshalling\Deserializers\IDeserializerFactory.cs" />
     <Compile Include="Unmarshalling\Deserializers\IResourceDeserializer.cs" />
     <Compile Include="Unmarshalling\Deserializers\Xml\XmlDeserializer.cs" />
-    <Compile Include="Unmarshalling\Deserializers\Xml\XmlDeserializerFactory.cs" />
     <Compile Include="Unmarshalling\IResourceUnmarshaller.cs" />
-    <Compile Include="Unmarshalling\IUnmarshallerFactory.cs" />
-    <Compile Include="Unmarshalling\DefaultUnmarshallerFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
