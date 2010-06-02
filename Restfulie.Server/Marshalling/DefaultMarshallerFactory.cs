@@ -1,4 +1,5 @@
-﻿using Restfulie.Server.Marshalling.UrlGenerators;
+﻿using System.Web.Mvc;
+using Restfulie.Server.Marshalling.UrlGenerators;
 using Restfulie.Server.Negotiation;
 
 namespace Restfulie.Server.Marshalling
@@ -9,7 +10,7 @@ namespace Restfulie.Server.Marshalling
         {
             if (mediaType.Contains("html"))
             {
-                return new AspNetMvcMarshaller();
+                return new AspNetMvcMarshaller(new ViewResult());
             }
             
             return new DefaultResourceMarshaller(
