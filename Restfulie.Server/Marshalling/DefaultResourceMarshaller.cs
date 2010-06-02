@@ -49,7 +49,7 @@ namespace Restfulie.Server.Marshalling
             SetContent(context, message);
             SetStatusCode(context, info.StatusCode);
             SetLocation(context, info.Location);
-            SetContentType(context, serializer.Format);
+            SetContentType(context, "text/plain");
         }
 
         public void Build(ControllerContext context, ResponseInfo info)
