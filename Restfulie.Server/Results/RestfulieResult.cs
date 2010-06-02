@@ -26,24 +26,27 @@ namespace Restfulie.Server.Results
 
         public override sealed void ExecuteResult(ControllerContext context)
         {
-            var responseInfo = new ResponseInfo
-                                   {
-                                       Location = Location,
-                                       StatusCode = StatusCode
-                                   };
-
             if (HasResource())
             {
-                Marshaller.Build(context, resource, responseInfo);
+                Marshaller.Build(context, resource, GetResponseInfo());
             }
             else if (HasListOfResources())
             {
-                Marshaller.Build(context, resources, responseInfo);
+                Marshaller.Build(context, resources, GetResponseInfo());
             }
             else
             {
-                Marshaller.Build(context, responseInfo);
+                Marshaller.Build(context, GetResponseInfo());
             }
+        }
+
+        private ResponseInfo GetResponseInfo()
+        {
+            return new ResponseInfo
+                       {
+                           Location = Location,
+                           StatusCode = StatusCode
+                       };
         }
 
         private bool HasListOfResources()
