@@ -80,9 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActAsRestfulie.cs" />
-    <Compile Include="Exceptions\ResponseMediaTypeNotSupportedException.cs" />
-    <Compile Include="Exceptions\RequestedMediaTypeNotSupportedException.cs" />
-    <Compile Include="Exceptions\UnmarshallingException.cs" />
+    <Compile Include="Negotiation\ResponseMediaTypeNotSupportedException.cs" />
+    <Compile Include="Negotiation\RequestedMediaTypeNotSupportedException.cs" />
+    <Compile Include="Unmarshalling\UnmarshallingException.cs" />
     <Compile Include="IBehaveAsResource.cs" />
     <Compile Include="Marshalling\AspNetMvcMarshaller.cs" />
     <Compile Include="Marshalling\IInflections.cs" />

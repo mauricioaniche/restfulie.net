@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
-using Restfulie.Server.Exceptions;
 using Restfulie.Server.Marshalling;
 using Restfulie.Server.MediaTypes;
 using Restfulie.Server.Negotiation;

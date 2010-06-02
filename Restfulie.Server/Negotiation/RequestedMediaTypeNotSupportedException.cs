@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Restfulie.Server.Exceptions
+namespace Restfulie.Server.Negotiation
 {
     public class RequestedMediaTypeNotSupportedException : Exception
     {

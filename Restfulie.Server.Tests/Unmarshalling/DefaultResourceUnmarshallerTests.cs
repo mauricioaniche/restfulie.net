@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Moq;
 using NUnit.Framework;
-using Restfulie.Server.Exceptions;
 using Restfulie.Server.Tests.Fixtures;
 using Restfulie.Server.Unmarshalling;
 using Restfulie.Server.Unmarshalling.Deserializers;

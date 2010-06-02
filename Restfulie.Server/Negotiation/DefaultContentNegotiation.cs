@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Restfulie.Server.Exceptions;
 using Restfulie.Server.MediaTypes;
 
 namespace Restfulie.Server.Negotiation

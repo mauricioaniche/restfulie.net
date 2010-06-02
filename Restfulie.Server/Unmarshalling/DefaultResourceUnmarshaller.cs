@@ -1,5 +1,4 @@
 ﻿using System;
-using Restfulie.Server.Exceptions;
 using Restfulie.Server.Unmarshalling.Deserializers;
 
 namespace Restfulie.Server.Unmarshalling
