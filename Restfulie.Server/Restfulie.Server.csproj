@@ -84,12 +84,14 @@
     <Compile Include="Exceptions\MediaTypeNotSupportedException.cs" />
     <Compile Include="Exceptions\UnmarshallingException.cs" />
     <Compile Include="IBehaveAsResource.cs" />
+    <Compile Include="Marshalling\AspNetMvcMarshaller.cs" />
     <Compile Include="Marshalling\IInflections.cs" />
     <Compile Include="Marshalling\DefaultInflections.cs" />
     <Compile Include="Marshalling\IMarshallerFactory.cs" />
     <Compile Include="Marshalling\DefaultMarshallerFactory.cs" />
     <Compile Include="Marshalling\DefaultResourceMarshaller.cs" />
     <Compile Include="Marshalling\IResourceMarshaller.cs" />
+    <Compile Include="Marshalling\MarshallingInfo.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializerFactory.cs" />
     <Compile Include="Marshalling\Serializers\ISerializerFactory.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializer.cs" />

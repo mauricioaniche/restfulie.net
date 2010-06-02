@@ -1,32 +1,18 @@
-﻿using Moq;
-using NUnit.Framework;
-using Restfulie.Server.Marshalling;
+﻿using NUnit.Framework;
 using Restfulie.Server.Results;
 
 namespace Restfulie.Server.Tests.Results
 {
     [TestFixture]
-    public class SeeOtherTests : ResultsTestBase
+    public class SeeOtherTests 
     {
-        [SetUp]
-        public void SetUp()
-        {
-            SetUpRequest();
-        }
 
         [Test]
         public void ShouldReturnStatusCode303()
         {
-            response.SetupSet(c => c.StatusCode = (int)StatusCodes.SeeOther);
+            var result = new SeeOther("new location");
 
-            var result = new SeeOther("new location")
-            {
-                Marshaller = new Mock<IResourceMarshaller>().Object
-            };
-
-            result.ExecuteResult(context.Object);
-
-            response.VerifySet(c => c.StatusCode = (int)StatusCodes.SeeOther);
+            Assert.AreEqual((int)StatusCodes.SeeOther, result.StatusCode);
         }
     }
 }

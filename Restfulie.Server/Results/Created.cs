@@ -9,7 +9,12 @@
         }
         public Created(IBehaveAsResource resource) : base(resource) {}
 
-        protected override int StatusCode
+        public Created(string location)
+        {
+            Location = location;
+        }
+
+        public override int StatusCode
         {
             get { return (int)StatusCodes.Created; }
         }

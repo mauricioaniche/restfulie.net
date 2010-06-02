@@ -23,8 +23,10 @@ namespace Restfulie.Server.Tests
         [SetUp]
         public void SetUp()
         {
-            context = new ActionExecutingContext();
-            context.ActionParameters = new Dictionary<string, object>();
+            context = new ActionExecutingContext
+                          {
+                              ActionParameters = new Dictionary<string, object>()
+                          };
 
             marshallerFactory = new Mock<IMarshallerFactory>();
             requestInfo = new Mock<IRequestInfoFinder>();

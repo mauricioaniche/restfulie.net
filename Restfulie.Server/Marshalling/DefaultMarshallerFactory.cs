@@ -7,8 +7,13 @@ namespace Restfulie.Server.Marshalling
     {
         public IResourceMarshaller BasedOnMediaType(string mediaType)
         {
+            if (mediaType.Contains("html"))
+            {
+                return new AspNetMvcMarshaller();
+            }
+            
             return new DefaultResourceMarshaller(
-                new Relations(new AspNetMvcUrlGenerator()), 
+                new Relations(new AspNetMvcUrlGenerator()),
                 new AcceptHeaderToSerializer().For(mediaType));
         }
     }

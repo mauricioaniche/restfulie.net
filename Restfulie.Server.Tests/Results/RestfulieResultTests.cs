@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
 using Restfulie.Server.Marshalling;
@@ -23,68 +24,53 @@ namespace Restfulie.Server.Tests.Results
         }
 
         [Test]
-        public void ShouldReturnContentType()
-        {
-            response.SetupSet(c => c.ContentType = "application/xml");
-            marshaller.SetupGet(m => m.MediaType).Returns("application/xml");
-
-            var result = new SomeResult(new SomeResource())
-            {
-                Marshaller = marshaller.Object
-            };
-
-            result.ExecuteResult(context.Object);
-
-            response.VerifyAll();
-        }
-
-
-        [Test]
         public void ShouldReturnResource()
         {
-            marshaller.Setup(s => s.Build(aSimpleResource)).Returns(
-                "<SomeResource><Name>John Doe</name><amount>123.45</amount></SomeResource>");
+            marshaller.Setup(
+                s => s.Build(It.IsAny<ControllerContext>(), It.Is<MarshallingInfo>(m => m.Resource == aSimpleResource)));
             var result = new SomeResult(aSimpleResource) { Marshaller = marshaller.Object };
 
             result.ExecuteResult(context.Object);
 
-            stream.Seek(0, SeekOrigin.Begin);
-            var serializedResource = new StreamReader(stream).ReadToEnd();
-
-            Assert.That(serializedResource.Contains("John Doe"));
-            Assert.That(serializedResource.Contains("123.45"));
             marshaller.VerifyAll();
         }
 
         [Test]
-        public void ShouldReturnListOfResource()
+        public void ShouldReturnResources()
         {
             var resources = new System.Collections.Generic.List<IBehaveAsResource> { aSimpleResource, aSimpleResource };
 
-            marshaller.Setup(s => s.Build(resources)).Returns("List Of Resources here");
+            marshaller.Setup(
+                s => s.Build(It.IsAny<ControllerContext>(), It.Is<MarshallingInfo>(m => m.Resources == resources)));
             var result = new SomeResult(resources) { Marshaller = marshaller.Object };
 
             result.ExecuteResult(context.Object);
 
-            stream.Seek(0, SeekOrigin.Begin);
-            var serializedResource = new StreamReader(stream).ReadToEnd();
-
-            Assert.That(serializedResource.Contains("List Of Resources here"));
             marshaller.VerifyAll();
         }
 
         [Test]
-        public void ShouldReturnAMessage()
+        public void ShouldReturnMessage()
         {
-            response.Setup(p => p.Output).Returns(new StreamWriter(stream));
-            var result = new SomeResult("error message");
+            marshaller.Setup(
+                s => s.Build(It.IsAny<ControllerContext>(), It.Is<MarshallingInfo>(m => m.Message == "msg")));
+            var result = new SomeResult("msg") { Marshaller = marshaller.Object };
 
             result.ExecuteResult(context.Object);
 
-            stream.Seek(0, SeekOrigin.Begin);
-            var serializedResource = new StreamReader(stream).ReadToEnd();
+            marshaller.VerifyAll();
+        }
 
-            Assert.That(serializedResource.Contains("error message"));
+
+        [Test]
+        public void ShouldSetLocation()
+        {
+            var result = new SomeResult { Marshaller = marshaller.Object };
+            result.SetLocation("some/location");
+
+            result.ExecuteResult(It.IsAny<ControllerContext>());
+
+            marshaller.Verify(m => m.Build(null, It.Is<MarshallingInfo>(info => info.Location == "some/location")));
         }
     }
 }

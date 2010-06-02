@@ -7,7 +7,7 @@ namespace Restfulie.Server.Results
         public UnsupportedMediaType() {}
         public UnsupportedMediaType(string message) : base(message) {}
 
-        protected override int StatusCode
+        public override int StatusCode
         {
             get { return (int) StatusCodes.UnsupportedMediaType; }
         }

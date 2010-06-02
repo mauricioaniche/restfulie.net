@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Web;
+using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
 using Restfulie.Server.Marshalling;
@@ -16,11 +19,31 @@ namespace Restfulie.Server.Tests.Marshalling
         private Mock<Relations> relations;
         private Mock<IResourceSerializer> serializer;
 
+        protected Mock<HttpResponseBase> response;
+        protected Mock<HttpContextBase> http;
+        protected Mock<ControllerContext> context;
+        protected Mock<TextWriter> stream;
+
+        protected void SetUpRequest()
+        {
+            response = new Mock<HttpResponseBase>();
+            http = new Mock<HttpContextBase>();
+            context = new Mock<ControllerContext>();
+
+            http.Setup(h => h.Response).Returns(response.Object);
+            context.Setup(c => c.HttpContext).Returns(http.Object);
+
+            stream = new Mock<TextWriter>();
+            response.Setup(p => p.Output).Returns(stream.Object);
+        }
+
         [SetUp]
         public void SetUp()
         {
             relations = new Mock<Relations>(new Mock<IUrlGenerator>().Object);
-            serializer = new Mock<IResourceSerializer>(MockBehavior.Strict);
+            serializer = new Mock<IResourceSerializer>();
+
+            SetUpRequest();
         }
 
         [Test]
@@ -32,10 +55,11 @@ namespace Restfulie.Server.Tests.Marshalling
             serializer.Setup(s => s.Serialize(resource, It.IsAny<IList<Relation>>())).Returns(SerializedResource());
 
             var builder = new DefaultResourceMarshaller(relations.Object, serializer.Object);
-            builder.Build(resource);
+            builder.Build(context.Object, new MarshallingInfo{Resource = resource});
             
             relations.VerifyAll();
             serializer.VerifyAll();
+            stream.Verify(s => s.Write(It.IsAny<string>()));
         }
 
         [Test]
@@ -47,19 +71,21 @@ namespace Restfulie.Server.Tests.Marshalling
             serializer.Setup(s => s.Serialize(It.IsAny<IDictionary<IBehaveAsResource, IList<Relation>>>())).Returns(SerializedResource());
             
             var builder = new DefaultResourceMarshaller(relations.Object, serializer.Object);
-            builder.Build(resources);
+            builder.Build(context.Object, new MarshallingInfo { Resources = resources});
 
             relations.VerifyAll();
             serializer.VerifyAll();
+            stream.Verify(s => s.Write(It.IsAny<string>()));
         }
 
         [Test]
-        public void ShouldReturnMediaTypeBasedOnSerializerFormat()
+        public void ShouldBuildMessageRepresentation()
         {
-            serializer.SetupGet(s => s.Format).Returns("format");
             var builder = new DefaultResourceMarshaller(relations.Object, serializer.Object);
-   
-            Assert.AreEqual("format", builder.MediaType);
+            builder.Build(context.Object, new MarshallingInfo { Message = "message" });
+
+            relations.VerifyAll();
+            stream.Verify(s => s.Write(It.Is<string>(msg => msg == "message")));
         }
 
         private List<Relation> SomeTransitions()

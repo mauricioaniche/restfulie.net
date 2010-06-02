@@ -16,7 +16,7 @@ namespace Restfulie.Server.Results
         {
         }
 
-        protected override int StatusCode
+        public override int StatusCode
         {
             get { return (int) StatusCodes.Success; }
         }

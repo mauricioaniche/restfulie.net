@@ -4,24 +4,15 @@ using Restfulie.Server.Results;
 namespace Restfulie.Server.Tests.Results
 {
     [TestFixture]
-    public class NotAcceptableTests : ResultsTestBase
+    public class NotAcceptableTests
     {
-        [SetUp]
-        public void SetUp()
-        {
-            SetUpRequest();
-        }
 
         [Test]
         public void ShouldReturnStatusCode406()
         {
-            response.SetupSet(c => c.StatusCode = (int)StatusCodes.NotAcceptable);
-
             var result = new NotAcceptable();
 
-            result.ExecuteResult(context.Object);
-
-            response.VerifySet(c => c.StatusCode = (int)StatusCodes.NotAcceptable);
+            Assert.AreEqual((int)StatusCodes.NotAcceptable, result.StatusCode);
         }
     }
 }

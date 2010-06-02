@@ -15,7 +15,12 @@ namespace Restfulie.Server.Tests.Fixtures
 
         public SomeResult(string message) : base(message) {}
 
-        protected override int StatusCode
+        public void SetLocation(string location)
+        {
+            Location = location;
+        }
+
+        public override int StatusCode
         {
             get { return 123; }
         }

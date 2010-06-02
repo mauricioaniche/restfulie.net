@@ -2,7 +2,7 @@
 {
     public class NotAcceptable : RestfulieResult
     {
-        protected override int StatusCode
+        public override int StatusCode
         {
             get { return (int) StatusCodes.NotAcceptable; }
         }

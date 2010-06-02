@@ -7,7 +7,7 @@
             Location = location;
         }
 
-        protected override int StatusCode
+        public override int StatusCode
         {
             get { return (int) StatusCodes.SeeOther; }
         }

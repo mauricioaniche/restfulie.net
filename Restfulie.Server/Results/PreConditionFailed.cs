@@ -5,7 +5,7 @@
         public PreConditionFailed() {}
         public PreConditionFailed(string message) : base(message){}
 
-        protected override int StatusCode
+        public override int StatusCode
         {
             get { return (int) StatusCodes.PreConditionFailed; }
         }

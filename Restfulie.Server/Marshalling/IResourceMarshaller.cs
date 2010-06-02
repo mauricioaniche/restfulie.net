@@ -1,11 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Web.Mvc;
 
 namespace Restfulie.Server.Marshalling
 {
     public interface IResourceMarshaller
     {
-        string Build(IBehaveAsResource resource);
-        string Build(IEnumerable<IBehaveAsResource> resources);
-        string MediaType { get; }
+        void Build(ControllerContext context, MarshallingInfo info);
     }
 }

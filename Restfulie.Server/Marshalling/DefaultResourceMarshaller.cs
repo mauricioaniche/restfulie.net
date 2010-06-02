@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 using Restfulie.Server.Marshalling.Serializers;
-using System.Linq;
 
 namespace Restfulie.Server.Marshalling
 {
@@ -15,28 +16,60 @@ namespace Restfulie.Server.Marshalling
             this.serializer = serializer;
         }
 
-        public string Build(IBehaveAsResource resource)
+        public void Build(ControllerContext context, MarshallingInfo info)
         {
-            var all = resource.GetRelations(relations);
-
-            return serializer.Serialize(resource, all);
-        }
-
-        public string Build(IEnumerable<IBehaveAsResource> resources)
-        {
-            var listOfResources = new Dictionary<IBehaveAsResource, IList<Relation>>();
-            foreach(var resource in resources)
+            if (info.HasResource())
             {
-                var allRelations = resource.GetRelations(relations);
-                listOfResources.Add(resource, allRelations);
+                var all = info.Resource.GetRelations(relations);
+
+                var content = serializer.Serialize(info.Resource, all);
+                Write(context, content);
+                SetContentType(context, serializer.Format);
+            }
+            else if (info.HasResources())
+            {
+                var listOfResources = new Dictionary<IBehaveAsResource, IList<Relation>>();
+                foreach (var resource in info.Resources)
+                {
+                    var allRelations = resource.GetRelations(relations);
+                    listOfResources.Add(resource, allRelations);
+                }
+
+                var content = serializer.Serialize(listOfResources);
+                Write(context, content);
+                SetContentType(context, serializer.Format);
+            }
+            else if (info.HasMessage())
+            {
+                Write(context, info.Message);
             }
 
-            return serializer.Serialize(listOfResources);
+            SetStatusCode(context, info.StatusCode);
+            SetLocation(context, info.Location);
         }
 
-        public string MediaType
+        private void SetLocation(ControllerContext context, string location)
         {
-            get { return serializer.Format; }
+            if (!string.IsNullOrEmpty(location))
+            {
+                context.HttpContext.Response.RedirectLocation = location;
+            }
+        }
+
+        private void SetStatusCode(ControllerContext context, int statusCode)
+        {
+            context.HttpContext.Response.StatusCode = statusCode;
+        }
+
+        private void SetContentType(ControllerContext context, string type)
+        {
+            context.HttpContext.Response.ContentType = type;
+        }
+
+        private void Write(ControllerContext context, string content)
+        {
+            context.HttpContext.Response.Output.Write(content);
+            context.HttpContext.Response.Output.Flush();
         }
     }
 }
