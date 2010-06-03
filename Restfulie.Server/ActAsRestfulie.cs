@@ -15,7 +15,7 @@ namespace Restfulie.Server
         private readonly IAcceptHeaderToMediaType acceptHeader;
         private readonly IContentTypeToMediaType contentType;
         private readonly IRequestInfoFinder requestInfo;
-        private readonly ResultDecoratorHolderFactory resultDecoratorFactory;
+        private readonly ResultDecoratorHolderFactory resultHolderFactory;
 
         public string Name { get; set; }
         public Type Type { get; set; }
@@ -26,23 +26,23 @@ namespace Restfulie.Server
             acceptHeader = new AcceptHeaderToMediaType(mediaTypesList);
             contentType = new ContentTypeToMediaType(mediaTypesList);
             requestInfo = new DefaultRequestInfoFinder();
-            resultDecoratorFactory = new ResultDecoratorHolderFactory();
+            resultHolderFactory = new ResultDecoratorHolderFactory();
         }
 
         public ActAsRestfulie(IAcceptHeaderToMediaType acceptHeader, IContentTypeToMediaType contentType,
-            IRequestInfoFinder finder, ResultDecoratorHolderFactory resultDecoratorFactory)
+            IRequestInfoFinder finder, ResultDecoratorHolderFactory resultHolderFactory)
         {
             this.acceptHeader = acceptHeader;
             this.contentType = contentType;
             this.requestInfo = finder;
-            this.resultDecoratorFactory = resultDecoratorFactory;
+            this.resultHolderFactory = resultHolderFactory;
         }
 
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
             var result = (RestfulieResult)filterContext.Result;
             result.MediaType = mediaType;
-            result.ResultHolder = resultDecoratorFactory.BasedOn(mediaType);
+            result.ResultHolder = resultHolderFactory.BasedOn(mediaType);
 
             base.OnResultExecuting(filterContext);
         }
