@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="ActAsRestfulieTests.cs" />
     <Compile Include="Fixtures\SomeResult.cs" />
+    <Compile Include="Fixtures\SomeResultDecorator.cs" />
     <Compile Include="Marshalling\InflectionsTests.cs" />
     <Compile Include="Marshalling\NoMarshallerTests.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializerTests.cs" />

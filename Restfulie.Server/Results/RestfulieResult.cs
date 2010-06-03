@@ -52,5 +52,12 @@ namespace Restfulie.Server.Results
 
             return string.Empty;
         }
+
+        public abstract ResultDecorator GetDecorators();
+
+        public override void ExecuteResult(ControllerContext context)
+        {
+            Execute(context, GetDecorators());
+        }
     }
 }

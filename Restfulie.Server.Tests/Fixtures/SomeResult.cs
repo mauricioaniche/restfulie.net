@@ -1,13 +1,13 @@
-﻿using System;
-using System.Web.Mvc;
-using Restfulie.Server.Results;
+﻿using Restfulie.Server.Results;
+using Restfulie.Server.Results.Decorators;
 
 namespace Restfulie.Server.Tests.Fixtures
 {
     public class SomeResult : RestfulieResult
     {
-        public override void ExecuteResult(ControllerContext context)
+        public override ResultDecorator GetDecorators()
         {
+            return new SomeResultDecorator();
         }
     }
 }

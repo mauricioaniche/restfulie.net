@@ -1,16 +1,13 @@
 ﻿using System.Net;
-using System.Web.Mvc;
 using Restfulie.Server.Results.Decorators;
 
 namespace Restfulie.Server.Results
 {
     public class NotAcceptable : RestfulieResult
     {
-        public override void ExecuteResult(ControllerContext context)
+        public override ResultDecorator GetDecorators()
         {
-            var decorators = new StatusCode((int)HttpStatusCode.NotAcceptable);
-
-            Execute(context, decorators);
+            return new StatusCode((int)HttpStatusCode.NotAcceptable);
         }
     }
 }
