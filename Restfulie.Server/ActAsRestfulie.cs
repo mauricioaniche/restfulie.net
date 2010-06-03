@@ -12,8 +12,8 @@ namespace Restfulie.Server
         private IMediaType responseMediaType;
         private IMediaType requestMediaType;
 
-        private readonly IMediaTypeFinder acceptHeader;
-        private readonly IMediaTypeFinder contentType;
+        private readonly IAcceptHeaderToMediaType acceptHeader;
+        private readonly IContentTypeToMediaType contentType;
         private readonly IRequestInfoFinder requestInfo;
 
         public string Name { get; set; }
@@ -27,7 +27,7 @@ namespace Restfulie.Server
             requestInfo = new DefaultRequestInfoFinder();
         }
 
-        public ActAsRestfulie(IMediaTypeFinder acceptHeader, IMediaTypeFinder contentType, IRequestInfoFinder finder)
+        public ActAsRestfulie(IAcceptHeaderToMediaType acceptHeader, IContentTypeToMediaType contentType, IRequestInfoFinder finder)
         {
             this.acceptHeader = acceptHeader;
             this.contentType = contentType;

@@ -21,8 +21,8 @@ namespace Restfulie.Server.Tests
         private Mock<IResourceUnmarshaller> unmarshaller;
         private Mock<IMediaType> mediaType;
         private Mock<IResourceMarshaller> marshaller;
-        private Mock<IMediaTypeFinder> acceptHeader;
-        private Mock<IMediaTypeFinder> contentType;
+        private Mock<IAcceptHeaderToMediaType> acceptHeader;
+        private Mock<IContentTypeToMediaType> contentType;
 
         [SetUp]
         public void SetUp()
@@ -33,8 +33,8 @@ namespace Restfulie.Server.Tests
                           };
 
             requestInfo = new Mock<IRequestInfoFinder>();
-            acceptHeader = new Mock<IMediaTypeFinder>();
-            contentType = new Mock<IMediaTypeFinder>();
+            acceptHeader = new Mock<IAcceptHeaderToMediaType>();
+            contentType = new Mock<IContentTypeToMediaType>();
 
             unmarshaller = new Mock<IResourceUnmarshaller>();
             marshaller = new Mock<IResourceMarshaller>();

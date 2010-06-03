@@ -2,7 +2,7 @@
 
 namespace Restfulie.Server.Negotiation
 {
-    public interface IMediaTypeFinder
+    public interface IContentTypeToMediaType
     {
         IMediaType GetMediaType(string acceptHeader);
     }
