@@ -46,7 +46,7 @@
 
 //        [Test]
 //        [Ignore]
-//        public void ShouldSetMarshallerToResult() {}
+//        public void ShouldSetMarshallerToResult() { }
 
 //        [Test]
 //        public void ShouldReturnNotAcceptableWhenMediaTypeIsNotSupported()
@@ -55,7 +55,7 @@
 //            requestInfo.Setup(ah => ah.GetAcceptHeaderIn(context)).Returns("some-crazy-media-type");
 
 //            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object);
-            
+
 //            filter.OnActionExecuting(context);
 
 //            Assert.IsTrue(context.Result is NotAcceptable);
@@ -67,12 +67,12 @@
 //            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object)
 //                             {
 //                                 Name = "Resource",
-//                                 Type = typeof (SomeResource)
+//                                 Type = typeof(SomeResource)
 //                             };
 
-//            var resource = new SomeResource {Amount = 123, Name = "Some name"};
+//            var resource = new SomeResource { Amount = 123, Name = "Some name" };
 
-//            unmarshaller.Setup(u => u.ToResource(It.IsAny<string>(), typeof (SomeResource))).Returns(resource);
+//            unmarshaller.Setup(u => u.ToResource(It.IsAny<string>(), typeof(SomeResource))).Returns(resource);
 //            contentType.Setup(m => m.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
 
 //            filter.OnActionExecuting(context);
@@ -89,7 +89,7 @@
 //            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object)
 //                             {
 //                                 Name = "Resource",
-//                                 Type = typeof (SomeResource)
+//                                 Type = typeof(SomeResource)
 //                             };
 
 //            filter.OnActionExecuting(context);

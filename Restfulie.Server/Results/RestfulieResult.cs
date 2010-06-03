@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Restfulie.Server.MediaTypes;
+using Restfulie.Server.Results.Decorators;
 using Restfulie.Server.Results.Decorators.Holders;
 
 namespace Restfulie.Server.Results
@@ -27,9 +28,14 @@ namespace Restfulie.Server.Results
             this.resources = resources;
         }
 
-        protected object GetPassedResource()
+        private object GetPassedResource()
         {
             return (object) resource ?? resources;
+        }
+
+        protected void Execute(ControllerContext context, ResultDecorator decorator)
+        {
+            ResultHolder.Decorate(context, decorator, GetPassedResource());
         }
 
         protected string BuildContent()

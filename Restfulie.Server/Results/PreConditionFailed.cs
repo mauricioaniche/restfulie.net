@@ -10,7 +10,7 @@ namespace Restfulie.Server.Results
         {
             var decorators = new StatusCode((int)HttpStatusCode.PreconditionFailed);
 
-            ResultHolder.Decorate(context, decorators, GetPassedResource());
+            Execute(context, decorators);
         }
     }
 }

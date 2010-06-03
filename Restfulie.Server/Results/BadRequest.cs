@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Web.Mvc;
 using Restfulie.Server.Results.Decorators;
 
@@ -10,8 +9,7 @@ namespace Restfulie.Server.Results
         public override void ExecuteResult(ControllerContext context)
         {
             var decorators = new StatusCode((int) HttpStatusCode.BadRequest);
-
-            ResultHolder.Decorate(context, decorators, GetPassedResource());
+            Execute(context, decorators);
         }
     }
 }
