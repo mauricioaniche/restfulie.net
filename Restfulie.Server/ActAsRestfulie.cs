@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using Restfulie.Server.MediaTypes;
 using Restfulie.Server.Negotiation;
 using Restfulie.Server.Results;
-using Restfulie.Server.Results.ContextDecorators;
+using Restfulie.Server.Results.Decorators.Holders;
 using Restfulie.Server.Unmarshalling;
 
 namespace Restfulie.Server
@@ -15,7 +15,7 @@ namespace Restfulie.Server
         private readonly IAcceptHeaderToMediaType acceptHeader;
         private readonly IContentTypeToMediaType contentType;
         private readonly IRequestInfoFinder requestInfo;
-        private readonly ContextDecoratorHolderFactory contextDecoratorHolderFactory;
+        private readonly ResultDecoratorHolderFactory contextDecoratorHolderFactory;
 
         public string Name { get; set; }
         public Type Type { get; set; }
@@ -26,11 +26,11 @@ namespace Restfulie.Server
             acceptHeader = new AcceptHeaderToMediaType(mediaTypesList);
             contentType = new ContentTypeToMediaType(mediaTypesList);
             requestInfo = new DefaultRequestInfoFinder();
-            contextDecoratorHolderFactory = new ContextDecoratorHolderFactory();
+            contextDecoratorHolderFactory = new ResultDecoratorHolderFactory();
         }
 
         public ActAsRestfulie(IAcceptHeaderToMediaType acceptHeader, IContentTypeToMediaType contentType,
-            IRequestInfoFinder finder, ContextDecoratorHolderFactory contextDecoratorHolderFactory)
+            IRequestInfoFinder finder, ResultDecoratorHolderFactory contextDecoratorHolderFactory)
         {
             this.acceptHeader = acceptHeader;
             this.contentType = contentType;

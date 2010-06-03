@@ -2,12 +2,12 @@
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
-using Restfulie.Server.Results.ContextDecorators;
+using Restfulie.Server.Results.Decorators;
 
-namespace Restfulie.Server.Tests.Results.ContextDecorators
+namespace Restfulie.Server.Tests.Results.Decorators
 {
     [TestFixture]
-    public class LocationDecoratorTests
+    public class StatusCodeDecoratorTests
     {
         private Mock<ControllerContext> context;
         private Mock<HttpContextBase> httpContext;
@@ -25,19 +25,19 @@ namespace Restfulie.Server.Tests.Results.ContextDecorators
         }
 
         [Test]
-        public void ShouldSetLocation()
+        public void ShouldSetStatusCode()
         {
-            new LocationDecorator("/new/location").Execute(context.Object);
+            new StatusCode(123).Execute(context.Object);
 
-            httpResponseBase.VerifySet(h => h.RedirectLocation = "/new/location");
+            httpResponseBase.VerifySet(h => h.StatusCode = 123);
         }
 
         [Test]
         public void ShouldCallNextDecorator()
         {
-            var nextDecorator = new Mock<ContextDecorator>();
+            var nextDecorator = new Mock<ResultDecorator>();
 
-            new LocationDecorator("/new/location", nextDecorator.Object).Execute(context.Object);
+            new StatusCode(123, nextDecorator.Object).Execute(context.Object);
 
             nextDecorator.Verify(nd => nd.Execute(context.Object));
         }

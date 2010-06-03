@@ -1,17 +1,17 @@
 ﻿using System.Web.Mvc;
 
-namespace Restfulie.Server.Results.ContextDecorators
+namespace Restfulie.Server.Results.Decorators
 {
-    public class StatusCodeDecorator : ContextDecorator
+    public class StatusCode : ResultDecorator
     {
         private readonly int statusCode;
 
-        public StatusCodeDecorator(int statusCode)
+        public StatusCode(int statusCode)
         {
             this.statusCode = statusCode;
         }
 
-        public StatusCodeDecorator(int statusCode, ContextDecorator nextDecorator) : base(nextDecorator)
+        public StatusCode(int statusCode, ResultDecorator nextDecorator) : base(nextDecorator)
         {
             this.statusCode = statusCode;
         }

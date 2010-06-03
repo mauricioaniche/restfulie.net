@@ -95,10 +95,10 @@
     <Compile Include="Marshalling\RestfulieMarshallerTests.cs" />
     <Compile Include="Fixtures\SomeController.cs" />
     <Compile Include="Fixtures\SomeResource.cs" />
-    <Compile Include="Results\ContextDecorators\ContentDecoratorTests.cs" />
-    <Compile Include="Results\ContextDecorators\ContentTypeDecoratorTests.cs" />
-    <Compile Include="Results\ContextDecorators\LocationDecoratorTests.cs" />
-    <Compile Include="Results\ContextDecorators\StatusCodeDecoratorTests.cs" />
+    <Compile Include="Results\Decorators\ContentTests.cs" />
+    <Compile Include="Results\Decorators\ContentTypeTests.cs" />
+    <Compile Include="Results\Decorators\LocationTests.cs" />
+    <Compile Include="Results\Decorators\StatusCodeTests.cs" />
     <Compile Include="RelationsTests.cs" />
     <Compile Include="Unmarshalling\RestfulieUnmarshallerTests.cs" />
     <Compile Include="Unmarshalling\Deserializers\XmlDeserializerTests.cs" />

@@ -1,48 +1,43 @@
-﻿using System.IO;
-using System.Web;
+﻿using System.Web;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
-using Restfulie.Server.Results.ContextDecorators;
+using Restfulie.Server.Results.Decorators;
 
-namespace Restfulie.Server.Tests.Results.ContextDecorators
+namespace Restfulie.Server.Tests.Results.Decorators
 {
     [TestFixture]
-    public class ContentDecoratorTests
+    public class LocationDecoratorTests
     {
         private Mock<ControllerContext> context;
         private Mock<HttpContextBase> httpContext;
         private Mock<HttpResponseBase> httpResponseBase;
-        private Mock<TextWriter> output;
 
         [SetUp]
         public void SetUp()
         {
-            output = new Mock<TextWriter>();
             httpResponseBase = new Mock<HttpResponseBase>();
             httpContext = new Mock<HttpContextBase>();
             context = new Mock<ControllerContext>();
 
             context.Setup(c => c.HttpContext).Returns(httpContext.Object);
             httpContext.Setup(h => h.Response).Returns(httpResponseBase.Object);
-            httpResponseBase.Setup(h => h.Output).Returns(output.Object);
         }
 
         [Test]
-        public void ShouldSetStatusCode()
+        public void ShouldSetLocation()
         {
-            new ContentDecorator("some content here").Execute(context.Object);
+            new Location("/new/location").Execute(context.Object);
 
-            output.Verify(o => o.Write("some content here"));
-            output.Verify(o => o.Flush());
+            httpResponseBase.VerifySet(h => h.RedirectLocation = "/new/location");
         }
 
         [Test]
         public void ShouldCallNextDecorator()
         {
-            var nextDecorator = new Mock<ContextDecorator>();
+            var nextDecorator = new Mock<ResultDecorator>();
 
-            new ContentDecorator("some content here", nextDecorator.Object).Execute(context.Object);
+            new Location("/new/location", nextDecorator.Object).Execute(context.Object);
 
             nextDecorator.Verify(nd => nd.Execute(context.Object));
         }

@@ -1,17 +1,17 @@
 ﻿using System.Web.Mvc;
 
-namespace Restfulie.Server.Results.ContextDecorators
+namespace Restfulie.Server.Results.Decorators
 {
-    public class ContentDecorator : ContextDecorator
+    public class Content : ResultDecorator
     {
         private readonly string content;
 
-        public ContentDecorator(string content)
+        public Content(string content)
         {
             this.content = content;
         }
 
-        public ContentDecorator(string content, ContextDecorator nextDecorator) : base(nextDecorator)
+        public Content(string content, ResultDecorator nextDecorator) : base(nextDecorator)
         {
             this.content = content;
         }

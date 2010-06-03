@@ -1,17 +1,17 @@
 ﻿using System.Web.Mvc;
 
-namespace Restfulie.Server.Results.ContextDecorators
+namespace Restfulie.Server.Results.Decorators
 {
-    public class ContentTypeDecorator : ContextDecorator
+    public class ContentType : ResultDecorator
     {
         private readonly string contentType;
 
-        public ContentTypeDecorator(string contentType)
+        public ContentType(string contentType)
         {
             this.contentType = contentType;
         }
 
-        public ContentTypeDecorator(string contentType, ContextDecorator nextDecorator) : base(nextDecorator)
+        public ContentType(string contentType, ResultDecorator nextDecorator) : base(nextDecorator)
         {
             this.contentType = contentType;
         }

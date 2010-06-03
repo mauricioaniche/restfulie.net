@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
-using Restfulie.Server.Results.ContextDecorators;
 using System.Linq;
+using Restfulie.Server.Results.Decorators;
 
 namespace Restfulie.Server.Results
 {
@@ -14,9 +14,9 @@ namespace Restfulie.Server.Results
 
         public override void ExecuteResult(ControllerContext context)
         {
-            var decorators = new StatusCodeDecorator((int)HttpStatusCode.OK,
-                             new ContentTypeDecorator(MediaType.Synonyms.First(),
-                             new ContentDecorator(BuildContent())));
+            var decorators = new StatusCode((int)HttpStatusCode.OK,
+                             new ContentType(MediaType.Synonyms.First(),
+                             new Content(BuildContent())));
 
             DecoratorHolder.Decorate(context, decorators, GetPassedResource());
         }

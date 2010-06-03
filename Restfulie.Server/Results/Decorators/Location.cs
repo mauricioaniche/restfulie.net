@@ -1,17 +1,17 @@
 ﻿using System.Web.Mvc;
 
-namespace Restfulie.Server.Results.ContextDecorators
+namespace Restfulie.Server.Results.Decorators
 {
-    public class LocationDecorator : ContextDecorator
+    public class Location : ResultDecorator
     {
         private readonly string location;
 
-        public LocationDecorator(string location)
+        public Location(string location)
         {
             this.location = location;
         }
 
-        public LocationDecorator(string location, ContextDecorator nextDecorator): base(nextDecorator)
+        public Location(string location, ResultDecorator nextDecorator): base(nextDecorator)
         {
             this.location = location;
         }

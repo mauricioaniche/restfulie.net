@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Restfulie.Server.MediaTypes;
-using Restfulie.Server.Results.ContextDecorators;
+using Restfulie.Server.Results.Decorators.Holders;
 
 namespace Restfulie.Server.Results
 {
@@ -11,7 +11,7 @@ namespace Restfulie.Server.Results
         private readonly IBehaveAsResource resource;
 
         public IMediaType MediaType { get; set; }
-        public IContextDecoratorHolder DecoratorHolder { get; set; }
+        public IResultDecoratorHolder DecoratorHolder { get; set; }
 
         protected RestfulieResult()
         {

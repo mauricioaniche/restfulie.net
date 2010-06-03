@@ -1,10 +1,10 @@
 ﻿using System.Web.Mvc;
 
-namespace Restfulie.Server.Results.ContextDecorators
+namespace Restfulie.Server.Results.Decorators.Holders
 {
-    public class AspNetMvcDecoratorHolder : IContextDecoratorHolder
+    public class AspNetMvcResultHolder : IResultDecoratorHolder
     {
-        public void Decorate(ControllerContext context, ContextDecorator decorator, object model)
+        public void Decorate(ControllerContext context, ResultDecorator decorator, object model)
         {
             var viewResult = new ViewResult
                                  {

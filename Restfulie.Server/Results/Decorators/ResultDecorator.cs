@@ -1,17 +1,17 @@
 ﻿using System.Web.Mvc;
 
-namespace Restfulie.Server.Results.ContextDecorators
+namespace Restfulie.Server.Results.Decorators
 {
-    public abstract class ContextDecorator
+    public abstract class ResultDecorator
     {
-        private readonly ContextDecorator nextDecorator;
+        private readonly ResultDecorator nextDecorator;
 
-        protected ContextDecorator(ContextDecorator nextDecorator)
+        protected ResultDecorator(ResultDecorator nextDecorator)
         {
             this.nextDecorator = nextDecorator;
         }
 
-        protected ContextDecorator() {}
+        protected ResultDecorator() {}
 
         public abstract void Execute(ControllerContext context);
 
