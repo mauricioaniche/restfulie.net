@@ -3,18 +3,19 @@ using System.Web.Mvc;
 using Restfulie.Server.MediaTypes;
 using Restfulie.Server.Negotiation;
 using Restfulie.Server.Results;
+using Restfulie.Server.Results.ContextDecorators;
 using Restfulie.Server.Unmarshalling;
 
 namespace Restfulie.Server
 {
     public class ActAsRestfulie : ActionFilterAttribute
     {
-        private IMediaType responseMediaType;
-        private IMediaType requestMediaType;
+        private IMediaType mediaType;
 
         private readonly IAcceptHeaderToMediaType acceptHeader;
         private readonly IContentTypeToMediaType contentType;
         private readonly IRequestInfoFinder requestInfo;
+        private readonly ContextDecoratorHolderFactory contextDecoratorHolderFactory;
 
         public string Name { get; set; }
         public Type Type { get; set; }
@@ -25,19 +26,23 @@ namespace Restfulie.Server
             acceptHeader = new AcceptHeaderToMediaType(mediaTypesList);
             contentType = new ContentTypeToMediaType(mediaTypesList);
             requestInfo = new DefaultRequestInfoFinder();
+            contextDecoratorHolderFactory = new ContextDecoratorHolderFactory();
         }
 
-        public ActAsRestfulie(IAcceptHeaderToMediaType acceptHeader, IContentTypeToMediaType contentType, IRequestInfoFinder finder)
+        public ActAsRestfulie(IAcceptHeaderToMediaType acceptHeader, IContentTypeToMediaType contentType,
+            IRequestInfoFinder finder, ContextDecoratorHolderFactory contextDecoratorHolderFactory)
         {
             this.acceptHeader = acceptHeader;
             this.contentType = contentType;
             this.requestInfo = finder;
+            this.contextDecoratorHolderFactory = contextDecoratorHolderFactory;
         }
 
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
             var result = (RestfulieResult)filterContext.Result;
-            result.Marshaller = responseMediaType.Marshaller;
+            result.MediaType = mediaType;
+            result.DecoratorHolder = contextDecoratorHolderFactory.BasedOn(mediaType);
 
             base.OnResultExecuting(filterContext);
         }
@@ -46,11 +51,11 @@ namespace Restfulie.Server
         {
             try
             {
-                responseMediaType = acceptHeader.GetMediaType(requestInfo.GetAcceptHeaderIn(filterContext));
+                mediaType = acceptHeader.GetMediaType(requestInfo.GetAcceptHeaderIn(filterContext));
 
                 if (AResourceShouldBeUnmarshalled())
                 {
-                    requestMediaType = contentType.GetMediaType(requestInfo.GetContentTypeIn(filterContext));
+                    var requestMediaType = contentType.GetMediaType(requestInfo.GetContentTypeIn(filterContext));
                     var resource = requestMediaType.Unmarshaller.ToResource(requestInfo.GetContent(filterContext), Type);
                     filterContext.ActionParameters[Name] = resource;
                 }

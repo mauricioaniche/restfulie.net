@@ -1,44 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Restfulie.Server.Marshalling;
+using Restfulie.Server.MediaTypes;
+using Restfulie.Server.Results.ContextDecorators;
 
 namespace Restfulie.Server.Results
 {
     public abstract class RestfulieResult : ActionResult
     {
-        protected string Location;
-        public abstract int StatusCode { get; }
-        public IResourceMarshaller Marshaller { get; set; }
-        private Action<ControllerContext> startMarshalling;  
+        private readonly IEnumerable<IBehaveAsResource> resources;
+        private readonly IBehaveAsResource resource;
+
+        public IMediaType MediaType { get; set; }
+        public IContextDecoratorHolder DecoratorHolder { get; set; }
 
         protected RestfulieResult()
         {
-            startMarshalling = (context) => Marshaller.Build(context, GetResponseInfo());
         }
 
         protected RestfulieResult(IBehaveAsResource resource)
         {
-            startMarshalling = (context) => Marshaller.Build(context, resource, GetResponseInfo());
+            this.resource = resource;
         }
 
         protected RestfulieResult(IEnumerable<IBehaveAsResource> resources)
         {
-            startMarshalling = (context) => Marshaller.Build(context, resources, GetResponseInfo());
+            this.resources = resources;
         }
 
-        public override void ExecuteResult(ControllerContext context)
+        protected object GetPassedResource()
         {
-            startMarshalling(context);
+            return (object) resource ?? resources;
         }
 
-        private ResponseInfo GetResponseInfo()
+        protected string BuildContent()
         {
-            return new ResponseInfo
-                       {
-                           Location = Location,
-                           StatusCode = StatusCode
-                       };
+            if (resource != null)
+            {
+                return MediaType.Marshaller.Build(resource);
+            }
+
+            if (resources != null)
+            {
+                return MediaType.Marshaller.Build(resources);
+            }
+
+            return string.Empty;
         }
     }
 }

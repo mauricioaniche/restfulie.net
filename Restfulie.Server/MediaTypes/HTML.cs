@@ -1,17 +1,10 @@
-﻿using System;
-using System.Web.Mvc;
-using Restfulie.Server.Marshalling;
+﻿using Restfulie.Server.Marshalling;
 using Restfulie.Server.Unmarshalling;
 
 namespace Restfulie.Server.MediaTypes
 {
     class HTML : IMediaType
     {
-        public string FriendlyName
-        {
-            get { return "HTML"; }
-        }
-
         public string[] Synonyms
         {
             get { return new[] {"application/html"}; }
@@ -21,7 +14,7 @@ namespace Restfulie.Server.MediaTypes
         {
             get
             {
-                return new AspNetMvcMarshaller(new ViewResult());
+                return new NoMarshaller();
             }
         }
 

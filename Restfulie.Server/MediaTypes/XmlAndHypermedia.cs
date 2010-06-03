@@ -8,11 +8,6 @@ namespace Restfulie.Server.MediaTypes
 {
     public class XmlAndHypermedia : IMediaType
     {
-        public string FriendlyName
-        {
-            get { return "XML"; }
-        }
-
         public string[] Synonyms
         {
             get { return new[] {"application/xml", "text/xml" }; }

@@ -1,17 +1,25 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
+using System.Web.Mvc;
+using Restfulie.Server.Results.ContextDecorators;
 
 namespace Restfulie.Server.Results
 {
     public class SeeOther : RestfulieResult
     {
+        private readonly string location;
+
         public SeeOther(string location)
         {
-            Location = location;
+            this.location = location;
         }
 
-        public override int StatusCode
+        public override void ExecuteResult(ControllerContext context)
         {
-            get { return (int) HttpStatusCode.SeeOther; }
+            var decorators = new StatusCodeDecorator((int)HttpStatusCode.SeeOther,
+                             new LocationDecorator(location));
+
+            DecoratorHolder.Decorate(context, decorators, GetPassedResource());
         }
     }
 }

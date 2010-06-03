@@ -1,13 +1,16 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
+using System.Web.Mvc;
+using Restfulie.Server.Results.ContextDecorators;
 
 namespace Restfulie.Server.Results
 {
     public class InternalServerError : RestfulieResult
     {
-        public override int StatusCode
+        public override void ExecuteResult(ControllerContext context)
         {
-            get { return (int) HttpStatusCode.InternalServerError; }
+            var decorators = new StatusCodeDecorator((int)HttpStatusCode.InternalServerError);
+
+            DecoratorHolder.Decorate(context, decorators, GetPassedResource());
         }
     }
 }
