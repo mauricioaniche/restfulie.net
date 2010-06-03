@@ -1,6 +1,5 @@
 ﻿using NUnit.Framework;
 using Restfulie.Server.Marshalling;
-using Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia;
 using Restfulie.Server.Negotiation;
 using Restfulie.Server.Unmarshalling;
 
