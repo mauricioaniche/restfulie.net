@@ -2,7 +2,7 @@
 
 namespace Restfulie.Server.Results.Decorators.Holders
 {
-    public class ResultDecoratorHolderFactory
+    public class ResultDecoratorHolderFactory : IResultDecoratorHolderFactory
     {
         public IResultDecoratorHolder BasedOn(IMediaType mediaType)
         {

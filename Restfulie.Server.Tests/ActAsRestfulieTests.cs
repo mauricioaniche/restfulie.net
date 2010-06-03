@@ -1,119 +1,141 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Web.Mvc;
-//using Moq;
-//using NUnit.Framework;
-//using Restfulie.Server.Marshalling;
-//using Restfulie.Server.MediaTypes;
-//using Restfulie.Server.Negotiation;
-//using Restfulie.Server.Results;
-//using Restfulie.Server.Tests.Fixtures;
-//using Restfulie.Server.Unmarshalling;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using Moq;
+using NUnit.Framework;
+using Restfulie.Server.Marshalling;
+using Restfulie.Server.MediaTypes;
+using Restfulie.Server.Negotiation;
+using Restfulie.Server.Results;
+using Restfulie.Server.Results.Decorators.Holders;
+using Restfulie.Server.Tests.Fixtures;
+using Restfulie.Server.Unmarshalling;
 
-//namespace Restfulie.Server.Tests
-//{
-//    [TestFixture]
-//    public class ActAsRestfulieTests
-//    {
-//        private Mock<IRequestInfoFinder> requestInfo;
-//        private ActionExecutingContext context;
+namespace Restfulie.Server.Tests
+{
+    [TestFixture]
+    public class ActAsRestfulieTests
+    {
+        private Mock<IRequestInfoFinder> requestInfo;
+        private Mock<IResourceUnmarshaller> unmarshaller;
+        private Mock<IMediaType> mediaType;
+        private Mock<IResourceMarshaller> marshaller;
+        private Mock<IAcceptHeaderToMediaType> acceptHeader;
+        private Mock<IContentTypeToMediaType> contentType;
+        private Mock<IResultDecoratorHolderFactory> resultHolderFactory;
+        private Mock<IResultDecoratorHolder> resultHolder;
 
-//        private Mock<IResourceUnmarshaller> unmarshaller;
-//        private Mock<IMediaType> mediaType;
-//        private Mock<IResourceMarshaller> marshaller;
-//        private Mock<IAcceptHeaderToMediaType> acceptHeader;
-//        private Mock<IContentTypeToMediaType> contentType;
+        private ActionExecutingContext actionExecutingContext;
+        private ResultExecutingContext resultExecutingContext;
 
-//        [SetUp]
-//        public void SetUp()
-//        {
-//            context = new ActionExecutingContext
-//                          {
-//                              ActionParameters = new Dictionary<string, object>()
-//                          };
+        [SetUp]
+        public void SetUp()
+        {
+            actionExecutingContext = new ActionExecutingContext
+                          {
+                              ActionParameters = new Dictionary<string, object>()
+                          };
 
-//            requestInfo = new Mock<IRequestInfoFinder>();
-//            acceptHeader = new Mock<IAcceptHeaderToMediaType>();
-//            contentType = new Mock<IContentTypeToMediaType>();
+            resultExecutingContext = new ResultExecutingContext();
 
-//            unmarshaller = new Mock<IResourceUnmarshaller>();
-//            marshaller = new Mock<IResourceMarshaller>();
+            requestInfo = new Mock<IRequestInfoFinder>();
+            acceptHeader = new Mock<IAcceptHeaderToMediaType>();
+            contentType = new Mock<IContentTypeToMediaType>();
 
-//            mediaType = new Mock<IMediaType>();
-//            mediaType.SetupGet(m => m.Unmarshaller).Returns(unmarshaller.Object);
-//            mediaType.SetupGet(m => m.Marshaller).Returns(marshaller.Object);
-//        }
+            unmarshaller = new Mock<IResourceUnmarshaller>();
+            marshaller = new Mock<IResourceMarshaller>();
 
-//        [Test]
-//        [Ignore]
-//        public void ShouldSetMarshallerToResult() { }
+            resultHolderFactory = new Mock<IResultDecoratorHolderFactory>();
+            resultHolder = new Mock<IResultDecoratorHolder>();
 
-//        [Test]
-//        public void ShouldReturnNotAcceptableWhenMediaTypeIsNotSupported()
-//        {
-//            acceptHeader.Setup(f => f.GetMediaType(It.IsAny<string>())).Throws(new AcceptHeaderNotSupportedException());
-//            requestInfo.Setup(ah => ah.GetAcceptHeaderIn(context)).Returns("some-crazy-media-type");
+            mediaType = new Mock<IMediaType>();
+            mediaType.SetupGet(m => m.Unmarshaller).Returns(unmarshaller.Object);
+            mediaType.SetupGet(m => m.Marshaller).Returns(marshaller.Object);
+        }
 
-//            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object);
+        [Test]
+        public void ShouldSetMediaTypeToResult()
+        {
+            resultExecutingContext.Result = new SomeResult();
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object, resultHolderFactory.Object);
 
-//            filter.OnActionExecuting(context);
+            acceptHeader.Setup(ah => ah.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
+            resultHolderFactory.Setup(factory => factory.BasedOn(mediaType.Object)).Returns(resultHolder.Object);
 
-//            Assert.IsTrue(context.Result is NotAcceptable);
-//        }
+            filter.OnActionExecuting(actionExecutingContext);
+            filter.OnResultExecuting(resultExecutingContext);
 
-//        [Test]
-//        public void ShouldUnmarshallResource()
-//        {
-//            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object)
-//                             {
-//                                 Name = "Resource",
-//                                 Type = typeof(SomeResource)
-//                             };
 
-//            var resource = new SomeResource { Amount = 123, Name = "Some name" };
+            Assert.AreEqual(mediaType.Object, ((RestfulieResult)resultExecutingContext.Result).MediaType);
+            Assert.AreEqual(resultHolder.Object, ((RestfulieResult)resultExecutingContext.Result).ResultHolder);
+        }
 
-//            unmarshaller.Setup(u => u.ToResource(It.IsAny<string>(), typeof(SomeResource))).Returns(resource);
-//            contentType.Setup(m => m.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
+        [Test]
+        public void ShouldReturnNotAcceptableWhenMediaTypeIsNotSupported()
+        {
+            acceptHeader.Setup(f => f.GetMediaType(It.IsAny<string>())).Throws(new AcceptHeaderNotSupportedException());
+            requestInfo.Setup(ah => ah.GetAcceptHeaderIn(actionExecutingContext)).Returns("some-crazy-media-type");
 
-//            filter.OnActionExecuting(context);
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object, resultHolderFactory.Object);
 
-//            Assert.AreEqual(resource, context.ActionParameters["Resource"]);
-//        }
+            filter.OnActionExecuting(actionExecutingContext);
 
-//        [Test]
-//        public void ShouldReturnUnsupportedMediaTypeWhenContentTypeIsNotSupported()
-//        {
-//            contentType.Setup(f => f.GetMediaType(It.IsAny<string>())).Throws(new ContentTypeNotSupportedException());
-//            requestInfo.Setup(ah => ah.GetContentTypeIn(context)).Returns("some-crazy-media-type");
+            Assert.IsTrue(actionExecutingContext.Result is NotAcceptable);
+        }
 
-//            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object)
-//                             {
-//                                 Name = "Resource",
-//                                 Type = typeof(SomeResource)
-//                             };
+        [Test]
+        public void ShouldUnmarshallResource()
+        {
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object, resultHolderFactory.Object)
+                             {
+                                 Name = "Resource",
+                                 Type = typeof(SomeResource)
+                             };
 
-//            filter.OnActionExecuting(context);
+            var resource = new SomeResource { Amount = 123, Name = "Some name" };
 
-//            Assert.IsTrue(context.Result is UnsupportedMediaType);
-//        }
+            unmarshaller.Setup(u => u.ToResource(It.IsAny<string>(), typeof(SomeResource))).Returns(resource);
+            contentType.Setup(m => m.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
 
-//        [Test]
-//        public void ShouldReturnBadRequestWhenUnmarshallingFails()
-//        {
-//            unmarshaller.Setup(u => u.ToResource(It.IsAny<string>(), It.IsAny<Type>())).Throws(
-//                new UnmarshallingException("message"));
+            filter.OnActionExecuting(actionExecutingContext);
 
-//            contentType.Setup(f => f.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
+            Assert.AreEqual(resource, actionExecutingContext.ActionParameters["Resource"]);
+        }
 
-//            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object)
-//            {
-//                Name = "Resource",
-//                Type = typeof(SomeResource)
-//            };
+        [Test]
+        public void ShouldReturnUnsupportedMediaTypeWhenContentTypeIsNotSupported()
+        {
+            contentType.Setup(f => f.GetMediaType(It.IsAny<string>())).Throws(new ContentTypeNotSupportedException());
+            requestInfo.Setup(ah => ah.GetContentTypeIn(actionExecutingContext)).Returns("some-crazy-media-type");
 
-//            filter.OnActionExecuting(context);
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object, resultHolderFactory.Object)
+                             {
+                                 Name = "Resource",
+                                 Type = typeof(SomeResource)
+                             };
 
-//            Assert.IsTrue(context.Result is BadRequest);
-//        }
-//    }
-//}
+            filter.OnActionExecuting(actionExecutingContext);
+
+            Assert.IsTrue(actionExecutingContext.Result is UnsupportedMediaType);
+        }
+
+        [Test]
+        public void ShouldReturnBadRequestWhenUnmarshallingFails()
+        {
+            unmarshaller.Setup(u => u.ToResource(It.IsAny<string>(), It.IsAny<Type>())).Throws(
+                new UnmarshallingException("message"));
+
+            contentType.Setup(f => f.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
+
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object, resultHolderFactory.Object)
+            {
+                Name = "Resource",
+                Type = typeof(SomeResource)
+            };
+
+            filter.OnActionExecuting(actionExecutingContext);
+
+            Assert.IsTrue(actionExecutingContext.Result is BadRequest);
+        }
+    }
+}

@@ -91,6 +91,7 @@
     <Compile Include="Results\Decorators\Holders\AspNetMvcResultHolder.cs" />
     <Compile Include="Results\Decorators\Content.cs" />
     <Compile Include="Results\Decorators\ContentType.cs" />
+    <Compile Include="Results\Decorators\Holders\IResultDecoratorHolderFactory.cs" />
     <Compile Include="Results\Decorators\ResultDecorator.cs" />
     <Compile Include="Results\Decorators\Holders\IResultDecoratorHolder.cs" />
     <Compile Include="Results\Decorators\Holders\ResultDecoratorHolderFactory.cs" />

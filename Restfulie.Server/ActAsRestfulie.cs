@@ -15,7 +15,7 @@ namespace Restfulie.Server
         private readonly IAcceptHeaderToMediaType acceptHeader;
         private readonly IContentTypeToMediaType contentType;
         private readonly IRequestInfoFinder requestInfo;
-        private readonly ResultDecoratorHolderFactory resultHolderFactory;
+        private readonly IResultDecoratorHolderFactory resultHolderFactory;
 
         public string Name { get; set; }
         public Type Type { get; set; }
@@ -30,7 +30,7 @@ namespace Restfulie.Server
         }
 
         public ActAsRestfulie(IAcceptHeaderToMediaType acceptHeader, IContentTypeToMediaType contentType,
-            IRequestInfoFinder finder, ResultDecoratorHolderFactory resultHolderFactory)
+            IRequestInfoFinder finder, IResultDecoratorHolderFactory resultHolderFactory)
         {
             this.acceptHeader = acceptHeader;
             this.contentType = contentType;
