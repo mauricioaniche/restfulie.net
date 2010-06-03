@@ -47,7 +47,7 @@ namespace Restfulie.Server.Negotiation
                 }
             }
 
-            if(acceptedMediaType.Count == 0) throw new RequestedMediaTypeNotSupportedException();
+            if(acceptedMediaType.Count == 0) throw new AcceptHeaderNotSupportedException();
             return MostQualifiedMediaType(acceptedMediaType);
         }
 

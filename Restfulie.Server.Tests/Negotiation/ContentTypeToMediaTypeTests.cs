@@ -44,7 +44,7 @@ namespace Restfulie.Server.Tests.Negotiation
         [Test]
         public void ShouldThrowExceptionWhenContentTypeIsNotAccepted()
         {
-            Assert.Throws<ResponseMediaTypeNotSupportedException>(() => contentType.GetMediaType("some-crazy-media-type"));
+            Assert.Throws<ContentTypeNotSupportedException>(() => contentType.GetMediaType("some-crazy-media-type"));
         }
     }
 }

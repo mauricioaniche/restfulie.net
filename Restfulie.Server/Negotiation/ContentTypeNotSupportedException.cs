@@ -2,7 +2,7 @@
 
 namespace Restfulie.Server.Negotiation
 {
-    public class ResponseMediaTypeNotSupportedException : Exception
+    public class ContentTypeNotSupportedException : Exception
     {
     }
 }

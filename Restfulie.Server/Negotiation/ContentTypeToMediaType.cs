@@ -14,7 +14,7 @@ namespace Restfulie.Server.Negotiation
         public IMediaType GetMediaType(string contentType)
         {
             var mediaType = mediaTypes.Find(contentType);
-            if(mediaType == null) throw new ResponseMediaTypeNotSupportedException();
+            if(mediaType == null) throw new ContentTypeNotSupportedException();
             return mediaType;
         }
     }

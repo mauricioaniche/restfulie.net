@@ -55,12 +55,12 @@ namespace Restfulie.Server
                     filterContext.ActionParameters[Name] = resource;
                 }
             }
-            catch(RequestedMediaTypeNotSupportedException)
+            catch(AcceptHeaderNotSupportedException)
             {
                 filterContext.Result = new NotAcceptable();
                 return;
             }
-            catch(ResponseMediaTypeNotSupportedException)
+            catch(ContentTypeNotSupportedException)
             {
                 filterContext.Result = new UnsupportedMediaType();
                 return;
