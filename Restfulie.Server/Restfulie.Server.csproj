@@ -89,6 +89,7 @@
     <Compile Include="Negotiation\AcceptHeaderNotSupportedException.cs" />
     <Compile Include="Negotiation\IContentTypeToMediaType.cs" />
     <Compile Include="Results\ContextDecorators\ContentDecorator.cs" />
+    <Compile Include="Results\ContextDecorators\ContentTypeDecorator.cs" />
     <Compile Include="Results\ContextDecorators\ContextDecorator.cs" />
     <Compile Include="Results\ContextDecorators\LocationDecorator.cs" />
     <Compile Include="Results\ContextDecorators\StatusCodeDecorator.cs" />
