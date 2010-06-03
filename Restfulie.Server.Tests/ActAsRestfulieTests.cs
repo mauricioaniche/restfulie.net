@@ -115,24 +115,5 @@ namespace Restfulie.Server.Tests
 
             Assert.IsTrue(context.Result is BadRequest);
         }
-
-        [Test]
-        public void ShouldReturnInternalServerErrorWhenMarshallingFails()
-        {
-            marshaller.Setup(u => u.Build(It.IsAny<ControllerContext>(), It.IsAny<IBehaveAsResource>(), It.IsAny<ResponseInfo>())).Throws(
-                new Exception());
-
-            acceptHeader.Setup(f => f.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
-
-            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object)
-            {
-                Name = "Resource",
-                Type = typeof(SomeResource)
-            };
-
-            filter.OnActionExecuting(context);
-
-            Assert.IsTrue(context.Result is InternalServerError);
-        }
     }
 }
