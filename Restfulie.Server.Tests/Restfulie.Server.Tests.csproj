@@ -98,7 +98,7 @@
     <Compile Include="Results\CreatedTests.cs" />
     <Compile Include="Results\InternalServerErrorTests.cs" />
     <Compile Include="Results\NotAcceptableTests.cs" />
-    <Compile Include="Results\PreConditionFailedTests.cs" />
+    <Compile Include="Results\PreconditionFailedTests.cs" />
     <Compile Include="Results\RestfulieResultTests.cs" />
     <Compile Include="Results\ResultsTestBase.cs" />
     <Compile Include="Results\SeeOtherTests.cs" />

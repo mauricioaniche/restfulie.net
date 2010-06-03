@@ -14,7 +14,7 @@ namespace Restfulie.Server.Tests.Negotiation
         {
             var serializer = new DefaultContentNegotiation().ForRequest("application/xml");
 
-            Assert.AreEqual("application/xml", serializer.Name);
+            Assert.AreEqual("application/xml", serializer.FriendlyName);
             Assert.IsTrue(serializer.Marshaller is RestfulieMarshaller);
             Assert.IsTrue(serializer.Unmarshaller is RestfulieUnmarshaller);
         }

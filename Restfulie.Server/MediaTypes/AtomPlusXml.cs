@@ -8,9 +8,9 @@ namespace Restfulie.Server.MediaTypes
 {
     public class AtomPlusXml : IMediaType
     {
-        public string Name
+        public string FriendlyName
         {
-            get { return "application/atom+xml"; }
+            get { return "ATOM+XML"; }
         }
 
         public string[] Synonyms

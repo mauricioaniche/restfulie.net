@@ -7,9 +7,9 @@ namespace Restfulie.Server.MediaTypes
 {
     class HTML : IMediaType
     {
-        public string Name
+        public string FriendlyName
         {
-            get { return "application/html"; }
+            get { return "HTML"; }
         }
 
         public string[] Synonyms
