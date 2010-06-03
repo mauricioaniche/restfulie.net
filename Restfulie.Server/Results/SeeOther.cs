@@ -1,4 +1,6 @@
-﻿namespace Restfulie.Server.Results
+﻿using System.Net;
+
+namespace Restfulie.Server.Results
 {
     public class SeeOther : RestfulieResult
     {
@@ -9,7 +11,7 @@
 
         public override int StatusCode
         {
-            get { return (int) StatusCodes.SeeOther; }
+            get { return (int) HttpStatusCode.SeeOther; }
         }
     }
 }

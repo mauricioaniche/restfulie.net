@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Net;
+using NUnit.Framework;
 using Restfulie.Server.Results;
 
 namespace Restfulie.Server.Tests.Results
@@ -11,7 +12,7 @@ namespace Restfulie.Server.Tests.Results
         {
             var result = new Success();
 
-            Assert.AreEqual((int)StatusCodes.Success, result.StatusCode);
+            Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
         }
     }
 }

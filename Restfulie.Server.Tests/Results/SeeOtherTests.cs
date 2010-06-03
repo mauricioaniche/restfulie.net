@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Net;
+using NUnit.Framework;
 using Restfulie.Server.Results;
 
 namespace Restfulie.Server.Tests.Results
@@ -12,7 +13,7 @@ namespace Restfulie.Server.Tests.Results
         {
             var result = new SeeOther("new location");
 
-            Assert.AreEqual((int)StatusCodes.SeeOther, result.StatusCode);
+            Assert.AreEqual((int)HttpStatusCode.SeeOther, result.StatusCode);
         }
     }
 }

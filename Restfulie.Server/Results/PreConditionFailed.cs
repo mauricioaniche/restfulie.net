@@ -1,10 +1,12 @@
-﻿namespace Restfulie.Server.Results
+﻿using System.Net;
+
+namespace Restfulie.Server.Results
 {
-    public class PreConditionFailed : RestfulieResult
+    public class PreconditionFailed : RestfulieResult
     {
         public override int StatusCode
         {
-            get { return (int) StatusCodes.PreConditionFailed; }
+            get { return (int) HttpStatusCode.PreconditionFailed; }
         }
     }
 }

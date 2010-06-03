@@ -1,4 +1,6 @@
-﻿namespace Restfulie.Server.Results
+﻿using System.Net;
+
+namespace Restfulie.Server.Results
 {
     public class Created : RestfulieResult
     {
@@ -16,7 +18,7 @@
 
         public override int StatusCode
         {
-            get { return (int)StatusCodes.Created; }
+            get { return (int)HttpStatusCode.Created; }
         }
     }
 }

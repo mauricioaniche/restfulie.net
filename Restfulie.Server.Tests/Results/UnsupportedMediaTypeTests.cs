@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System.Net;
+using NUnit.Framework;
 using Restfulie.Server.Results;
 
 namespace Restfulie.Server.Tests.Results
@@ -11,7 +12,7 @@ namespace Restfulie.Server.Tests.Results
         {
             var result = new UnsupportedMediaType();
 
-            Assert.AreEqual((int)StatusCodes.UnsupportedMediaType, result.StatusCode);
+            Assert.AreEqual((int)HttpStatusCode.UnsupportedMediaType, result.StatusCode);
         }
     }
 

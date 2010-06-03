@@ -1,18 +1,19 @@
-﻿using NUnit.Framework;
+﻿using System.Net;
+using NUnit.Framework;
 using Restfulie.Server.Results;
 
 namespace Restfulie.Server.Tests.Results
 {
     [TestFixture]
-    public class PreConditionFailedTests
+    public class PreconditionFailedTests
     {
 
         [Test]
         public void ShouldReturnStatusCode412()
         {
-            var result = new PreConditionFailed();
+            var result = new PreconditionFailed();
          
-            Assert.AreEqual((int)StatusCodes.PreConditionFailed, result.StatusCode);
+            Assert.AreEqual((int)HttpStatusCode.PreconditionFailed, result.StatusCode);
         }
     }
 }

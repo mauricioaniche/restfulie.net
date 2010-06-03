@@ -112,7 +112,6 @@
     <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlAndHypermediaSerializer.cs" />
     <Compile Include="Marshalling\Serializers\IResourceSerializer.cs" />
     <Compile Include="Results\SeeOther.cs" />
-    <Compile Include="Results\StatusCodes.cs" />
     <Compile Include="Results\Success.cs" />
     <Compile Include="Marshalling\UrlGenerators\IUrlGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

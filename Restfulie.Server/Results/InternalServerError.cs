@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 
 namespace Restfulie.Server.Results
 {
@@ -6,7 +7,7 @@ namespace Restfulie.Server.Results
     {
         public override int StatusCode
         {
-            get { return (int) StatusCodes.InternalServerError; }
+            get { return (int) HttpStatusCode.InternalServerError; }
         }
     }
 }
