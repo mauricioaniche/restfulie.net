@@ -4,11 +4,11 @@ namespace Restfulie.Server.Results.Decorators
 {
     public abstract class ResultDecorator
     {
-        private readonly ResultDecorator nextDecorator;
+        public ResultDecorator NextDecorator { get; private set; }
 
         protected ResultDecorator(ResultDecorator nextDecorator)
         {
-            this.nextDecorator = nextDecorator;
+            NextDecorator = nextDecorator;
         }
 
         protected ResultDecorator() {}
@@ -17,7 +17,7 @@ namespace Restfulie.Server.Results.Decorators
 
         protected void Next(ControllerContext context)
         {
-            if(nextDecorator!=null) nextDecorator.Execute(context);
+            if(NextDecorator!=null) NextDecorator.Execute(context);
         }
     }
 }

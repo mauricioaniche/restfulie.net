@@ -104,6 +104,8 @@
     <Compile Include="Results\Decorators\LocationTests.cs" />
     <Compile Include="Results\Decorators\StatusCodeTests.cs" />
     <Compile Include="RelationsTests.cs" />
+    <Compile Include="Results\ResultDecoratorTestExtesions.cs" />
+    <Compile Include="Results\SuccessTests.cs" />
     <Compile Include="Unmarshalling\RestfulieUnmarshallerTests.cs" />
     <Compile Include="Unmarshalling\Deserializers\XmlDeserializerTests.cs" />
   </ItemGroup>
