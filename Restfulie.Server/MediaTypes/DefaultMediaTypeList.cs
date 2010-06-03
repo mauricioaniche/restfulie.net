@@ -17,13 +17,13 @@ namespace Restfulie.Server.MediaTypes
             }
         }
 
-        public IMediaType Find(string name)
+        public IMediaType Find(string format)
         {
             foreach (var mediaType in MediaTypes)
             {
                 foreach (var type in mediaType.Synonyms)
                 {
-                    if (name.Equals(type)) return mediaType;
+                    if (format.Equals(type)) return mediaType;
                 }
             }
 

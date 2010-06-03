@@ -7,7 +7,7 @@ namespace Restfulie.Server.MediaTypes
     {
         public string[] Synonyms
         {
-            get { return new[] {"application/html"}; }
+            get { return new[] {"text/html"}; }
         }
 
         public IResourceMarshaller Marshaller

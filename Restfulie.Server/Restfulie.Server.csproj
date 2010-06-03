@@ -106,7 +106,6 @@
     <Compile Include="Marshalling\DefaultInflections.cs" />
     <Compile Include="Marshalling\RestfulieMarshaller.cs" />
     <Compile Include="Marshalling\IResourceMarshaller.cs" />
-    <Compile Include="Marshalling\ResponseInfo.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializer.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\Feed.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\Entry.cs" />
