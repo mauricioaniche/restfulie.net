@@ -98,6 +98,7 @@
     <Compile Include="Fixtures\SomeController.cs" />
     <Compile Include="Fixtures\SomeResource.cs" />
     <Compile Include="Results\ContextDecorators\ContentDecoratorTests.cs" />
+    <Compile Include="Results\ContextDecorators\LocationDecoratorTests.cs" />
     <Compile Include="Results\ContextDecorators\StatusCodeDecoratorTests.cs" />
     <Compile Include="Results\CreatedTests.cs" />
     <Compile Include="Results\InternalServerErrorTests.cs" />
