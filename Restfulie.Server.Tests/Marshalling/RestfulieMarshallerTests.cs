@@ -76,6 +76,24 @@ namespace Restfulie.Server.Tests.Marshalling
             stream.Verify(s => s.Write(It.IsAny<string>()));
         }
 
+        [Test]
+        public void ShouldSetStatusCode()
+        {
+            var builder = new RestfulieMarshaller(relations.Object, serializer.Object);
+            builder.Build(context.Object, new ResponseInfo {StatusCode = 123});
+
+            response.VerifySet(c => c.StatusCode = 123);
+        }
+
+        [Test]
+        public void ShouldSetLocation()
+        {
+            var builder = new RestfulieMarshaller(relations.Object, serializer.Object);
+            builder.Build(context.Object, new ResponseInfo { Location = "/some/location" });
+
+            response.VerifySet(c => c.RedirectLocation = "/some/location");
+        }
+
         private List<Relation> SomeTransitions()
         {
             return new List<Relation> {new Relation("pay", "Order","Pay", new Dictionary<string, object>(), SerializedResource())};
