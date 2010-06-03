@@ -19,7 +19,7 @@ namespace Restfulie.Server.Results
             var decorators = new StatusCode((int)HttpStatusCode.SeeOther,
                              new Location(location));
 
-            DecoratorHolder.Decorate(context, decorators, GetPassedResource());
+            ResultHolder.Decorate(context, decorators, GetPassedResource());
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Restfulie.Server.Results
         private readonly IBehaveAsResource resource;
 
         public IMediaType MediaType { get; set; }
-        public IResultDecoratorHolder DecoratorHolder { get; set; }
+        public IResultDecoratorHolder ResultHolder { get; set; }
 
         protected RestfulieResult()
         {

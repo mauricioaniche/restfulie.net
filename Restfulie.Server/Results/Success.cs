@@ -18,7 +18,7 @@ namespace Restfulie.Server.Results
                              new ContentType(MediaType.Synonyms.First(),
                              new Content(BuildContent())));
 
-            DecoratorHolder.Decorate(context, decorators, GetPassedResource());
+            ResultHolder.Decorate(context, decorators, GetPassedResource());
         }
     }
 }

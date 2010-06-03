@@ -11,7 +11,7 @@ namespace Restfulie.Server.Results
         {
             var decorators = new StatusCode((int) HttpStatusCode.BadRequest);
 
-            DecoratorHolder.Decorate(context, decorators, GetPassedResource());
+            ResultHolder.Decorate(context, decorators, GetPassedResource());
         }
     }
 }

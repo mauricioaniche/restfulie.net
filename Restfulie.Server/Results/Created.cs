@@ -27,7 +27,7 @@ namespace Restfulie.Server.Results
                              new Location(location,
                              new Content(BuildContent())));
 
-            DecoratorHolder.Decorate(context, decorators, GetPassedResource());
+            ResultHolder.Decorate(context, decorators, GetPassedResource());
         }
     }
 }

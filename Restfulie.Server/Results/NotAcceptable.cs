@@ -10,7 +10,7 @@ namespace Restfulie.Server.Results
         {
             var decorators = new StatusCode((int)HttpStatusCode.NotAcceptable);
 
-            DecoratorHolder.Decorate(context, decorators, GetPassedResource());
+            ResultHolder.Decorate(context, decorators, GetPassedResource());
         }
     }
 }
