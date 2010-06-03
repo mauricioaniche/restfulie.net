@@ -54,7 +54,7 @@ namespace Restfulie.Server.Tests
         }
 
         [Test]
-        public void ShouldSetMediaTypeToResult()
+        public void ShouldSetMediaTypeAndResultHolderToResult()
         {
             resultExecutingContext.Result = new SomeResult();
             var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object, resultHolderFactory.Object);
