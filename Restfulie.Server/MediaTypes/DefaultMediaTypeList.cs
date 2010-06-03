@@ -2,7 +2,7 @@
 
 namespace Restfulie.Server.MediaTypes
 {
-    class DefaultMediaTypeList : IMediaTypeList
+    public class DefaultMediaTypeList : IMediaTypeList
     {
         public IEnumerable<IMediaType> MediaTypes
         {
@@ -14,6 +14,19 @@ namespace Restfulie.Server.MediaTypes
                     new AtomPlusXml()
                 }; 
             }
+        }
+
+        public IMediaType Find(string name)
+        {
+            foreach (var mediaType in MediaTypes)
+            {
+                foreach (var type in mediaType.Synonyms)
+                {
+                    if (name.Equals(type)) return mediaType;
+                }
+            }
+
+            return null;
         }
     }
 }

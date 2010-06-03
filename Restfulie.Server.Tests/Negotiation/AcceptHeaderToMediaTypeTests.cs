@@ -11,6 +11,7 @@ namespace Restfulie.Server.Tests.Negotiation
         private Mock<IMediaType> mediaType2;
         private Mock<IMediaType> mediaType1;
         private AcceptHeaderToMediaType acceptHeader;
+        private Mock<IMediaTypeList> mediaTypeList;
 
         [SetUp]
         public void SetUp()
@@ -21,7 +22,13 @@ namespace Restfulie.Server.Tests.Negotiation
             mediaType2 = new Mock<IMediaType>();
             mediaType2.SetupGet(m => m.Synonyms).Returns(new[] {"application/atom+xml"});
 
-            acceptHeader = new AcceptHeaderToMediaType(new[] {mediaType1.Object, mediaType2.Object});
+            mediaTypeList = new Mock<IMediaTypeList>();
+            mediaTypeList.Setup(m => m.Find("application/xml")).Returns(mediaType1.Object);
+            mediaTypeList.Setup(m => m.Find("text/xml")).Returns(mediaType1.Object);
+            mediaTypeList.Setup(m => m.Find("application/atom+xml")).Returns(mediaType2.Object);
+            mediaTypeList.SetupGet(m => m.MediaTypes).Returns(new[] {mediaType1.Object, mediaType2.Object});
+
+            acceptHeader = new AcceptHeaderToMediaType(mediaTypeList.Object);
             
         }
 
@@ -29,6 +36,14 @@ namespace Restfulie.Server.Tests.Negotiation
         public void ShouldReturnMediaTypeForASimpleExpression()
         {
             var mediaType = acceptHeader.GetMediaType("application/xml");
+
+            Assert.AreEqual(mediaType1.Object, mediaType);
+        }
+
+        [Test]
+        public void ShouldReturnMediaTypeForASynonym()
+        {
+            var mediaType = acceptHeader.GetMediaType("text/xml");
 
             Assert.AreEqual(mediaType1.Object, mediaType);
         }

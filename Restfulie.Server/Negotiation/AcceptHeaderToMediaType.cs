@@ -7,9 +7,9 @@ namespace Restfulie.Server.Negotiation
 {
     public class AcceptHeaderToMediaType
     {
-        private readonly IEnumerable<IMediaType> mediaTypes;
+        private readonly IMediaTypeList mediaTypes;
 
-        public AcceptHeaderToMediaType(IEnumerable<IMediaType> mediaTypes)
+        public AcceptHeaderToMediaType(IMediaTypeList mediaTypes)
         {
             this.mediaTypes = mediaTypes;
         }
@@ -35,7 +35,7 @@ namespace Restfulie.Server.Negotiation
                     format = type;
                 }
 
-                var mediaType = FindMediaType(format);
+                var mediaType = mediaTypes.Find(format);
                 if(mediaType!=null) acceptedMediaType.Add(new QualifiedMediaType(mediaType, qualifier));
             }
 
@@ -47,19 +47,6 @@ namespace Restfulie.Server.Negotiation
         {
             var maxQualifier = acceptedMediaType.Max(m => m.Qualifier);
             return acceptedMediaType.Where(m => m.Qualifier == maxQualifier).First().MediaType;
-        }
-
-        private IMediaType FindMediaType(string name)
-        {
-            foreach (var mediaType in mediaTypes)
-            {
-                foreach (var type in mediaType.Synonyms)
-                {
-                    if (name.Equals(type)) return mediaType;
-                }
-            }
-
-            return null;
         }
 
         class QualifiedMediaType
