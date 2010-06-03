@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Restfulie.Server.Negotiation
 {
-    public class AcceptHeaderToMediaType
+    public class AcceptHeaderToMediaType : IMediaTypeFinder
     {
         private readonly IMediaTypeList mediaTypes;
 

@@ -12,7 +12,8 @@ namespace Restfulie.Server
         private IMediaType responseMediaType;
         private IMediaType requestMediaType;
 
-        private readonly IContentNegotiation contentNegotiation;
+        private readonly IMediaTypeFinder acceptHeader;
+        private readonly IMediaTypeFinder contentType;
         private readonly IRequestInfoFinder requestInfo;
 
         public string Name { get; set; }
@@ -20,13 +21,16 @@ namespace Restfulie.Server
 
         public ActAsRestfulie()
         {
-            contentNegotiation = new DefaultContentNegotiation();
+            var mediaTypesList = new DefaultMediaTypeList();
+            acceptHeader = new AcceptHeaderToMediaType(mediaTypesList);
+            contentType = new ContentTypeToMediaType(mediaTypesList);
             requestInfo = new DefaultRequestInfoFinder();
         }
 
-        public ActAsRestfulie(IContentNegotiation contentNegotiation, IRequestInfoFinder finder)
+        public ActAsRestfulie(IMediaTypeFinder acceptHeader, IMediaTypeFinder contentType, IRequestInfoFinder finder)
         {
-            this.contentNegotiation = contentNegotiation;
+            this.acceptHeader = acceptHeader;
+            this.contentType = contentType;
             this.requestInfo = finder;
         }
 
@@ -42,11 +46,11 @@ namespace Restfulie.Server
         {
             try
             {
-                responseMediaType = contentNegotiation.ForRequest(requestInfo.GetAcceptHeaderIn(filterContext));
+                responseMediaType = acceptHeader.GetMediaType(requestInfo.GetAcceptHeaderIn(filterContext));
 
                 if (AResourceShouldBeUnmarshalled())
                 {
-                    requestMediaType = contentNegotiation.ForResponse(requestInfo.GetContentTypeIn(filterContext));
+                    requestMediaType = contentType.GetMediaType(requestInfo.GetContentTypeIn(filterContext));
                     var resource = requestMediaType.Unmarshaller.ToResource(requestInfo.GetContent(filterContext), Type);
                     filterContext.ActionParameters[Name] = resource;
                 }

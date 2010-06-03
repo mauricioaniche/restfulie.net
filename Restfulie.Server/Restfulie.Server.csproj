@@ -84,6 +84,7 @@
     <Compile Include="MediaTypes\IMediaTypeList.cs" />
     <Compile Include="Negotiation\AcceptHeaderToMediaType.cs" />
     <Compile Include="Negotiation\ContentTypeToMediaType.cs" />
+    <Compile Include="Negotiation\IMediaTypeFinder.cs" />
     <Compile Include="Negotiation\ResponseMediaTypeNotSupportedException.cs" />
     <Compile Include="Negotiation\RequestedMediaTypeNotSupportedException.cs" />
     <Compile Include="Results\InternalServerError.cs" />
@@ -105,9 +106,7 @@
     <Compile Include="MediaTypes\IMediaType.cs" />
     <Compile Include="MediaTypes\XmlAndHypermedia.cs" />
     <Compile Include="Negotiation\DefaultRequestInfoFinder.cs" />
-    <Compile Include="Negotiation\IContentNegotiation.cs" />
     <Compile Include="Negotiation\IRequestInfoFinder.cs" />
-    <Compile Include="Negotiation\DefaultContentNegotiation.cs" />
     <Compile Include="Results\BadRequest.cs" />
     <Compile Include="Results\Created.cs" />
     <Compile Include="Results\NotAcceptable.cs" />

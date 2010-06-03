@@ -2,7 +2,7 @@
 
 namespace Restfulie.Server.Negotiation
 {
-    public class ContentTypeToMediaType
+    public class ContentTypeToMediaType : IMediaTypeFinder
     {
         private readonly IMediaTypeList mediaTypes;
 

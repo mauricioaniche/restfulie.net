@@ -17,11 +17,12 @@ namespace Restfulie.Server.Tests
     {
         private Mock<IRequestInfoFinder> requestInfo;
         private ActionExecutingContext context;
-        private Mock<IContentNegotiation> contentNegotiation;
 
         private Mock<IResourceUnmarshaller> unmarshaller;
         private Mock<IMediaType> mediaType;
         private Mock<IResourceMarshaller> marshaller;
+        private Mock<IMediaTypeFinder> acceptHeader;
+        private Mock<IMediaTypeFinder> contentType;
 
         [SetUp]
         public void SetUp()
@@ -32,7 +33,8 @@ namespace Restfulie.Server.Tests
                           };
 
             requestInfo = new Mock<IRequestInfoFinder>();
-            contentNegotiation = new Mock<IContentNegotiation>();
+            acceptHeader = new Mock<IMediaTypeFinder>();
+            contentType = new Mock<IMediaTypeFinder>();
 
             unmarshaller = new Mock<IResourceUnmarshaller>();
             marshaller = new Mock<IResourceMarshaller>();
@@ -49,10 +51,10 @@ namespace Restfulie.Server.Tests
         [Test]
         public void ShouldReturnNotAcceptableWhenMediaTypeIsNotSupported()
         {
-            contentNegotiation.Setup(f => f.ForRequest(It.IsAny<string>())).Throws(new RequestedMediaTypeNotSupportedException());
+            acceptHeader.Setup(f => f.GetMediaType(It.IsAny<string>())).Throws(new RequestedMediaTypeNotSupportedException());
             requestInfo.Setup(ah => ah.GetAcceptHeaderIn(context)).Returns("some-crazy-media-type");
 
-            var filter = new ActAsRestfulie(contentNegotiation.Object, requestInfo.Object);
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object);
             
             filter.OnActionExecuting(context);
 
@@ -62,7 +64,7 @@ namespace Restfulie.Server.Tests
         [Test]
         public void ShouldUnmarshallResource()
         {
-            var filter = new ActAsRestfulie(contentNegotiation.Object, requestInfo.Object)
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object)
                              {
                                  Name = "Resource",
                                  Type = typeof (SomeResource)
@@ -71,7 +73,7 @@ namespace Restfulie.Server.Tests
             var resource = new SomeResource {Amount = 123, Name = "Some name"};
 
             unmarshaller.Setup(u => u.ToResource(It.IsAny<string>(), typeof (SomeResource))).Returns(resource);
-            contentNegotiation.Setup(m => m.ForResponse(It.IsAny<string>())).Returns(mediaType.Object);
+            contentType.Setup(m => m.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
 
             filter.OnActionExecuting(context);
 
@@ -81,10 +83,10 @@ namespace Restfulie.Server.Tests
         [Test]
         public void ShouldReturnUnsupportedMediaTypeWhenContentTypeIsNotSupported()
         {
-            contentNegotiation.Setup(f => f.ForResponse(It.IsAny<string>())).Throws(new ResponseMediaTypeNotSupportedException());
+            contentType.Setup(f => f.GetMediaType(It.IsAny<string>())).Throws(new ResponseMediaTypeNotSupportedException());
             requestInfo.Setup(ah => ah.GetContentTypeIn(context)).Returns("some-crazy-media-type");
 
-            var filter = new ActAsRestfulie(contentNegotiation.Object, requestInfo.Object)
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object)
                              {
                                  Name = "Resource",
                                  Type = typeof (SomeResource)
@@ -101,9 +103,9 @@ namespace Restfulie.Server.Tests
             unmarshaller.Setup(u => u.ToResource(It.IsAny<string>(), It.IsAny<Type>())).Throws(
                 new UnmarshallingException("message"));
 
-            contentNegotiation.Setup(f => f.ForResponse(It.IsAny<string>())).Returns(mediaType.Object);
+            contentType.Setup(f => f.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
 
-            var filter = new ActAsRestfulie(contentNegotiation.Object, requestInfo.Object)
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object)
             {
                 Name = "Resource",
                 Type = typeof(SomeResource)
@@ -120,9 +122,9 @@ namespace Restfulie.Server.Tests
             marshaller.Setup(u => u.Build(It.IsAny<ControllerContext>(), It.IsAny<IBehaveAsResource>(), It.IsAny<ResponseInfo>())).Throws(
                 new Exception());
 
-            contentNegotiation.Setup(f => f.ForRequest(It.IsAny<string>())).Returns(mediaType.Object);
+            acceptHeader.Setup(f => f.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
 
-            var filter = new ActAsRestfulie(contentNegotiation.Object, requestInfo.Object)
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object)
             {
                 Name = "Resource",
                 Type = typeof(SomeResource)
