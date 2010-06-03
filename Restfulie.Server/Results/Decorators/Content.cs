@@ -18,8 +18,11 @@ namespace Restfulie.Server.Results.Decorators
 
         public override void Execute(ControllerContext context)
         {
-            context.HttpContext.Response.Output.Write(content);
-            context.HttpContext.Response.Output.Flush();
+            if (!string.IsNullOrEmpty(content))
+            {
+                context.HttpContext.Response.Output.Write(content);
+                context.HttpContext.Response.Output.Flush();
+            }
 
             Next(context);
         }

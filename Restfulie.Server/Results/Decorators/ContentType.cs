@@ -18,7 +18,11 @@ namespace Restfulie.Server.Results.Decorators
 
         public override void Execute(ControllerContext context)
         {
-            context.HttpContext.Response.ContentType = contentType;
+            if (!string.IsNullOrEmpty(contentType))
+            {
+                context.HttpContext.Response.ContentType = contentType;
+            }
+
             Next(context);
         }
     }

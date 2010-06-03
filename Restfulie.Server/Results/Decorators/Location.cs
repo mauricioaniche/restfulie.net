@@ -18,7 +18,11 @@ namespace Restfulie.Server.Results.Decorators
 
         public override void Execute(ControllerContext context)
         {
-            context.HttpContext.Response.RedirectLocation = location;
+            if (!string.IsNullOrEmpty(location))
+            {
+                context.HttpContext.Response.RedirectLocation = location;
+            }
+
             Next(context);
         }
     }

@@ -33,6 +33,14 @@ namespace Restfulie.Server.Tests.Results.Decorators
         }
 
         [Test]
+        public void ShouldNotSetContentTypeWhenIsEmpty()
+        {
+            new ContentType(string.Empty).Execute(context.Object);
+
+            httpResponseBase.VerifySet(h => h.ContentType = string.Empty, Times.Never());
+        }
+
+        [Test]
         public void ShouldCallNextDecorator()
         {
             var nextDecorator = new Mock<ResultDecorator>();

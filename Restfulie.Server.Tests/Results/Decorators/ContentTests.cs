@@ -29,12 +29,21 @@ namespace Restfulie.Server.Tests.Results.Decorators
         }
 
         [Test]
-        public void ShouldSetStatusCode()
+        public void ShouldSetContent()
         {
             new Content("some content here").Execute(context.Object);
 
             output.Verify(o => o.Write("some content here"));
             output.Verify(o => o.Flush());
+        }
+
+        [Test]
+        public void ShouldNotSetContentWhenIsEmpty()
+        {
+            new Content(string.Empty).Execute(context.Object);
+
+            output.Verify(o => o.Write(string.Empty), Times.Never());
+            output.Verify(o => o.Flush(), Times.Never());
         }
 
         [Test]
