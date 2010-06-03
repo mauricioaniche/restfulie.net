@@ -83,6 +83,7 @@
     <Compile Include="MediaTypes\DefaultMediaTypeList.cs" />
     <Compile Include="MediaTypes\IMediaTypeList.cs" />
     <Compile Include="Negotiation\AcceptHeaderToMediaType.cs" />
+    <Compile Include="Negotiation\ContentTypeToMediaType.cs" />
     <Compile Include="Negotiation\ResponseMediaTypeNotSupportedException.cs" />
     <Compile Include="Negotiation\RequestedMediaTypeNotSupportedException.cs" />
     <Compile Include="Results\InternalServerError.cs" />
