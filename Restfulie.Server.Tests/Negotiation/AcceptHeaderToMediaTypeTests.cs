@@ -8,25 +8,26 @@ namespace Restfulie.Server.Tests.Negotiation
     [TestFixture]
     public class AcceptHeaderToMediaTypeTests
     {
-        private Mock<IMediaType> mediaType2;
-        private Mock<IMediaType> mediaType1;
+        private Mock<IMediaType> atom;
+        private Mock<IMediaType> xml;
         private AcceptHeaderToMediaType acceptHeader;
         private Mock<IMediaTypeList> mediaTypeList;
 
         [SetUp]
         public void SetUp()
         {
-            mediaType1 = new Mock<IMediaType>();
-            mediaType1.SetupGet(m => m.Synonyms).Returns(new[] { "application/xml", "text/xml" });
+            xml = new Mock<IMediaType>();
+            xml.SetupGet(m => m.Synonyms).Returns(new[] { "application/xml", "text/xml" });
 
-            mediaType2 = new Mock<IMediaType>();
-            mediaType2.SetupGet(m => m.Synonyms).Returns(new[] {"application/atom+xml"});
+            atom = new Mock<IMediaType>();
+            atom.SetupGet(m => m.Synonyms).Returns(new[] {"application/atom+xml"});
 
             mediaTypeList = new Mock<IMediaTypeList>();
-            mediaTypeList.Setup(m => m.Find("application/xml")).Returns(mediaType1.Object);
-            mediaTypeList.Setup(m => m.Find("text/xml")).Returns(mediaType1.Object);
-            mediaTypeList.Setup(m => m.Find("application/atom+xml")).Returns(mediaType2.Object);
-            mediaTypeList.SetupGet(m => m.MediaTypes).Returns(new[] {mediaType1.Object, mediaType2.Object});
+            mediaTypeList.Setup(m => m.Find("application/xml")).Returns(xml.Object);
+            mediaTypeList.Setup(m => m.Find("text/xml")).Returns(xml.Object);
+            mediaTypeList.Setup(m => m.Find("application/atom+xml")).Returns(atom.Object);
+            mediaTypeList.SetupGet(m => m.Default).Returns(xml.Object);
+            mediaTypeList.SetupGet(m => m.MediaTypes).Returns(new[] {xml.Object, atom.Object});
 
             acceptHeader = new AcceptHeaderToMediaType(mediaTypeList.Object);
             
@@ -37,7 +38,7 @@ namespace Restfulie.Server.Tests.Negotiation
         {
             var mediaType = acceptHeader.GetMediaType("application/xml");
 
-            Assert.AreEqual(mediaType1.Object, mediaType);
+            Assert.AreEqual(xml.Object, mediaType);
         }
 
         [Test]
@@ -45,7 +46,7 @@ namespace Restfulie.Server.Tests.Negotiation
         {
             var mediaType = acceptHeader.GetMediaType("text/xml");
 
-            Assert.AreEqual(mediaType1.Object, mediaType);
+            Assert.AreEqual(xml.Object, mediaType);
         }
 
         [Test]
@@ -53,7 +54,7 @@ namespace Restfulie.Server.Tests.Negotiation
         {
             var mediaType = acceptHeader.GetMediaType("application/atom+xml; q=1.0, application/xml; q=0.8");
 
-            Assert.AreEqual(mediaType2.Object, mediaType);
+            Assert.AreEqual(atom.Object, mediaType);
         }
 
         [Test]
@@ -61,13 +62,21 @@ namespace Restfulie.Server.Tests.Negotiation
         {
             var mediaType = acceptHeader.GetMediaType("application/atom+xml; q=0.8, application/xml");
 
-            Assert.AreEqual(mediaType2.Object, mediaType);
+            Assert.AreEqual(atom.Object, mediaType);
         }
 
         [Test]
         public void ShouldThrowAnExceptionIfMediaTypeIsNotAccepted()
         {
             Assert.Throws<RequestedMediaTypeNotSupportedException>(() => acceptHeader.GetMediaType("some-crazy-media-type"));
+        }
+
+        [Test]
+        public void ShouldReturnDefaultMediaType()
+        {
+            var mediaType = acceptHeader.GetMediaType("*/*");
+    
+            Assert.AreEqual(xml.Object, mediaType);
         }
     }
 }

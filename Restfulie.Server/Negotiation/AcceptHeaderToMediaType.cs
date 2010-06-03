@@ -22,21 +22,29 @@ namespace Restfulie.Server.Negotiation
 
             foreach(var type in types)
             {
-                string format;
-                var qualifier = 1.0;
-                if (type.Contains(";"))
+                if (type.Trim().Equals("*/*"))
                 {
-                    var typeInfo = type.Split(';');
-                    format = typeInfo[0];
-                    qualifier = Convert.ToDouble(typeInfo[1].Split('=')[1]);
+                    acceptedMediaType.Add(new QualifiedMediaType(mediaTypes.Default, 1));
                 }
                 else
                 {
-                    format = type;
-                }
+                    string format;
+                    var qualifier = 1.0;
 
-                var mediaType = mediaTypes.Find(format);
-                if(mediaType!=null) acceptedMediaType.Add(new QualifiedMediaType(mediaType, qualifier));
+                    if (type.Contains(";"))
+                    {
+                        var typeInfo = type.Split(';');
+                        format = typeInfo[0];
+                        qualifier = Convert.ToDouble(typeInfo[1].Split('=')[1]);
+                    }
+                    else
+                    {
+                        format = type;
+                    }
+
+                    var mediaType = mediaTypes.Find(format);
+                    if (mediaType != null) acceptedMediaType.Add(new QualifiedMediaType(mediaType, qualifier));
+                }
             }
 
             if(acceptedMediaType.Count == 0) throw new RequestedMediaTypeNotSupportedException();

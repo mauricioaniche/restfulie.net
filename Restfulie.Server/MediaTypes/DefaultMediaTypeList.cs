@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Restfulie.Server.MediaTypes
 {
@@ -27,6 +28,11 @@ namespace Restfulie.Server.MediaTypes
             }
 
             return null;
+        }
+
+        public IMediaType Default
+        {
+            get { return new HTML(); }
         }
     }
 }

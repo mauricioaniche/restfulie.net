@@ -6,5 +6,6 @@ namespace Restfulie.Server.MediaTypes
     {
         IEnumerable<IMediaType> MediaTypes { get; }
         IMediaType Find(string name);
+        IMediaType Default { get; }
     }
 }
