@@ -70,11 +70,6 @@ namespace Restfulie.Server
                 filterContext.Result = new BadRequest();
                 return;
             }
-            catch (Exception)
-            {
-                filterContext.Result = new InternalServerError();
-                return;
-            }
 
             base.OnActionExecuting(filterContext);
         }
