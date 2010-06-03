@@ -3,7 +3,7 @@ using Restfulie.Server.Unmarshalling;
 
 namespace Restfulie.Server.MediaTypes
 {
-    class HTML : IMediaType
+    public class HTML : IMediaType
     {
         public string[] Synonyms
         {
