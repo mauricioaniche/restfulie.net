@@ -23,7 +23,7 @@ namespace Restfulie.Server.Negotiation
             {
                 foreach(var name in type.Synonyms)
                 {
-                    if (name.Contains(mediaType)) return type;
+                    if (mediaType.Contains(name)) return type;
                 }
             }
 
