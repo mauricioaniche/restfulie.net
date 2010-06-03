@@ -22,7 +22,7 @@ namespace Restfulie.Server.Negotiation
 
             foreach(var type in types)
             {
-                if (type.Trim().Equals("*/*"))
+                if (IsDefaultFormat(type))
                 {
                     acceptedMediaType.Add(new QualifiedMediaType(mediaTypes.Default, 1));
                 }
@@ -31,7 +31,7 @@ namespace Restfulie.Server.Negotiation
                     string format;
                     var qualifier = 1.0;
 
-                    if (type.Contains(";"))
+                    if (ContainsQualifier(type))
                     {
                         var typeInfo = type.Split(';');
                         format = typeInfo[0];
@@ -49,6 +49,16 @@ namespace Restfulie.Server.Negotiation
 
             if(acceptedMediaType.Count == 0) throw new RequestedMediaTypeNotSupportedException();
             return MostQualifiedMediaType(acceptedMediaType);
+        }
+
+        private bool ContainsQualifier(string type)
+        {
+            return type.Contains(";");
+        }
+
+        private bool IsDefaultFormat(string type)
+        {
+            return type.Trim().Equals("*/*");
         }
 
         private IMediaType MostQualifiedMediaType(IEnumerable<QualifiedMediaType> acceptedMediaType)
