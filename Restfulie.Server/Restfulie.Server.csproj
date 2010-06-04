@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActAsRestfulie.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="MediaTypes\DefaultMediaTypeList.cs" />
     <Compile Include="MediaTypes\IMediaTypeList.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="Results\Decorators\StatusCode.cs" />
     <Compile Include="Results\InternalServerError.cs" />
     <Compile Include="Unmarshalling\AspNetMvcUnmarshaller.cs" />
+    <Compile Include="Unmarshalling\Deserializers\AtomPlusXml\AtomPlusXmlDeserializer.cs" />
     <Compile Include="Unmarshalling\IUnmarshallerResolver.cs" />
     <Compile Include="Unmarshalling\UnmarshallerResolver.cs" />
     <Compile Include="Unmarshalling\UnmarshallingException.cs" />

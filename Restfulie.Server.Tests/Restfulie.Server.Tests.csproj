@@ -113,6 +113,7 @@
     <Compile Include="Results\SeeOtherTests.cs" />
     <Compile Include="Results\SuccessTests.cs" />
     <Compile Include="Results\UnsupportedMediaTypeTests.cs" />
+    <Compile Include="Unmarshalling\Deserializers\AtomPlusXmlDeserializerTests.cs" />
     <Compile Include="Unmarshalling\RestfulieUnmarshallerTests.cs" />
     <Compile Include="Unmarshalling\Deserializers\XmlDeserializerTests.cs" />
     <Compile Include="Unmarshalling\UnmarshallerResolverTests.cs" />

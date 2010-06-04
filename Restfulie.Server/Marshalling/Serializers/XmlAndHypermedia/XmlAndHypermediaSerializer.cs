@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Linq;
+using Restfulie.Server.Extensions;
 
 namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
 {
@@ -50,7 +50,7 @@ namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
             }
 
             var xmlDocument = new XmlDocument();
-            xmlDocument.Load(new MemoryStream(Encoding.UTF8.GetBytes(stringWriter.ToString())));
+            xmlDocument.Load(stringWriter.ToString().AsStream());
 
             return xmlDocument;
         }
