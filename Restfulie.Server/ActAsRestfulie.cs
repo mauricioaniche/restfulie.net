@@ -81,7 +81,8 @@ namespace Restfulie.Server
         private void DoUnmarshalling(ActionExecutingContext filterContext)
         {
             unmarshallerResolver.DetectIn(filterContext);
-
+            if (!unmarshallerResolver.HasResource && !unmarshallerResolver.HasListOfResources) return;
+            
             var requestMediaType = contentType.GetMediaType(requestInfo.GetContentTypeIn(filterContext));
 
             if (unmarshallerResolver.HasResource)

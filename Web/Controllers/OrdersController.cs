@@ -35,5 +35,10 @@ namespace Web.Controllers
         {
             return new Created(order, "http://www.new.location.com/");
         }
+
+        public virtual ActionResult ReceiveResources(Order[] orders)
+        {
+            return new Success(new List<IBehaveAsResource>(orders));
+        }
     }
 }

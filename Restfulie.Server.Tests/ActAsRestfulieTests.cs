@@ -129,6 +129,7 @@ namespace Restfulie.Server.Tests
         [Test]
         public void ShouldReturnUnsupportedMediaTypeWhenContentTypeIsNotSupported()
         {
+            resolver.Setup(r => r.HasResource).Returns(true);
             contentType.Setup(f => f.GetMediaType(It.IsAny<string>())).Throws(new ContentTypeNotSupportedException());
             requestInfo.Setup(ah => ah.GetContentTypeIn(actionExecutingContext)).Returns("some-crazy-media-type");
 
@@ -155,6 +156,24 @@ namespace Restfulie.Server.Tests
             filter.OnActionExecuting(actionExecutingContext);
 
             Assert.IsTrue(actionExecutingContext.Result is BadRequest);
+        }
+
+        [Test]
+        public void ShouldIgnoreUnmarshallingIfThereIsNothingToBeUnmarshalled()
+        {
+            resolver.SetupGet(r => r.HasResource).Returns(false);
+            resolver.SetupGet(r => r.HasListOfResources).Returns(false);
+
+            contentType.Setup(f => f.GetMediaType(It.IsAny<string>())).Throws(new ContentTypeNotSupportedException());
+
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object,
+                                resultHolderFactory.Object, resolver.Object);
+            filter.OnActionExecuting(actionExecutingContext);
+
+            contentType.Verify(c => c.GetMediaType(It.IsAny<string>()), Times.Never());
+            unmarshaller.Verify(u => u.ToResource(It.IsAny<string>(), It.IsAny<Type>()), Times.Never());
+            unmarshaller.Verify(u => u.ToListOfResources(It.IsAny<string>(), It.IsAny<Type>()), Times.Never());
+            
         }
     }
 }
