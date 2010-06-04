@@ -1,10 +1,13 @@
-﻿using System.Web;
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Moq;
 using NUnit.Framework;
 using Restfulie.Server.Tests.Fixtures;
 using Restfulie.Server.Unmarshalling;
+using System.Linq;
 
 namespace Restfulie.Server.Tests.Unmarshalling
 {
@@ -18,6 +21,8 @@ namespace Restfulie.Server.Tests.Unmarshalling
         private ControllerContext controllerContext;
         private Mock<ActionDescriptor> actionDescriptor;
         private ActionExecutingContext context;
+
+        private IList<ParameterDescriptor> parameterList;
 
         [SetUp]
         public void CrazySetup()
@@ -33,6 +38,7 @@ namespace Restfulie.Server.Tests.Unmarshalling
             httpContext.Setup(h => h.Request).Returns(httpRequest.Object);
             context = new ActionExecutingContext(controllerContext, actionDescriptor.Object, new RouteValueDictionary()) { RequestContext = requestContext };
    
+            parameterList = new List<ParameterDescriptor>();
         }
 
         [Test]
@@ -52,10 +58,8 @@ namespace Restfulie.Server.Tests.Unmarshalling
         {
             httpRequest.Setup(h => h.HttpMethod).Returns("POST");
 
-            var resourceParameter = new Mock<ParameterDescriptor>();
-            resourceParameter.Setup(p => p.ParameterType).Returns(typeof(IBehaveAsResource));
-            var parameterList = new[] { resourceParameter.Object };
-            actionDescriptor.Setup(a => a.GetParameters()).Returns(parameterList);
+            CreateParameter("parameter", typeof(SomeResource));
+            actionDescriptor.Setup(a => a.GetParameters()).Returns(parameterList.ToArray());
 
             var resolver = new UnmarshallerResolver();
             resolver.DetectIn(context);
@@ -69,15 +73,9 @@ namespace Restfulie.Server.Tests.Unmarshalling
         {
             httpRequest.Setup(h => h.HttpMethod).Returns("POST");
 
-            var nonResourceParameter = new Mock<ParameterDescriptor>();
-            var resourceParameter = new Mock<ParameterDescriptor>();
-
-            resourceParameter.Setup(p => p.ParameterType).Returns(typeof(SomeResource));
-            resourceParameter.Setup(p => p.ParameterName).Returns("resource");
-            nonResourceParameter.Setup(p => p.ParameterType).Returns(typeof (int));
-
-            var parameterList = new[] { nonResourceParameter.Object, resourceParameter.Object };
-            actionDescriptor.Setup(a => a.GetParameters()).Returns(parameterList);
+            CreateParameter("resource", typeof(SomeResource));
+            CreateParameter("nonResource", typeof(int));
+            actionDescriptor.Setup(a => a.GetParameters()).Returns(parameterList.ToArray());
 
             var resolver = new UnmarshallerResolver();
             resolver.DetectIn(context);
@@ -91,15 +89,10 @@ namespace Restfulie.Server.Tests.Unmarshalling
         {
             httpRequest.Setup(h => h.HttpMethod).Returns("POST");
 
-            var nonResourceParameter = new Mock<ParameterDescriptor>();
-            var resourceParameter = new Mock<ParameterDescriptor>();
+            CreateParameter("nonResource", typeof (int));
+            CreateParameter("resource", new[] { new SomeResource()}.GetType());
 
-            resourceParameter.Setup(p => p.ParameterType).Returns(new[] { new SomeResource()}.GetType());
-            resourceParameter.Setup(p => p.ParameterName).Returns("resource");
-            nonResourceParameter.Setup(p => p.ParameterType).Returns(typeof(int));
-
-            var parameterList = new[] { nonResourceParameter.Object, resourceParameter.Object };
-            actionDescriptor.Setup(a => a.GetParameters()).Returns(parameterList);
+            actionDescriptor.Setup(a => a.GetParameters()).Returns(parameterList.ToArray());
 
             var resolver = new UnmarshallerResolver();
             resolver.DetectIn(context);
@@ -108,6 +101,15 @@ namespace Restfulie.Server.Tests.Unmarshalling
             Assert.IsFalse(resolver.HasResource);
             Assert.AreEqual(typeof(SomeResource), resolver.Type);
             Assert.AreEqual("resource", resolver.ParameterName);
+        }
+
+
+        private void CreateParameter(string name, Type type)
+        {
+            var parameter = new Mock<ParameterDescriptor>();
+            parameter.Setup(p => p.ParameterType).Returns(type);
+            parameter.Setup(p => p.ParameterName).Returns(name);
+            parameterList.Add(parameter.Object);
         }
     }
 }
