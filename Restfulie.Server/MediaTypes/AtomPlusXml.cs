@@ -3,6 +3,7 @@ using Restfulie.Server.Marshalling;
 using Restfulie.Server.Marshalling.Serializers.AtomPlusXml;
 using Restfulie.Server.Marshalling.UrlGenerators;
 using Restfulie.Server.Unmarshalling;
+using Restfulie.Server.Unmarshalling.Deserializers.AtomPlusXml;
 
 namespace Restfulie.Server.MediaTypes
 {
@@ -26,7 +27,10 @@ namespace Restfulie.Server.MediaTypes
 
         public IResourceUnmarshaller Unmarshaller
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                return new RestfulieUnmarshaller(new AtomPlusXmlDeserializer());
+            }
         }
     }
 }
