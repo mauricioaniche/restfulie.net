@@ -62,12 +62,6 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia
             Assert.That(xml.Contains("<SomeResources>"));
         }
 
-        [Test]
-        public void ShouldReturnFormat()
-        {
-            Assert.AreEqual("application/xml", serializer.Format);
-        }
-
         private IList<Relation> SomeRelations()
         {
             return new List<Relation> {new Relation("pay", "controller", "action", new Dictionary<string, object>(), "http://some/url")};

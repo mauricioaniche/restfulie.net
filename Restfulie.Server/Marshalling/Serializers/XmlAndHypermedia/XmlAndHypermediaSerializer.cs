@@ -38,11 +38,6 @@ namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
             return xmlDocument.InnerXml;
         }
 
-        public string Format
-        {
-            get { return "application/xml"; }
-        }
-
         private XmlDocument GetXmlBasedOn(IBehaveAsResource resource)
         {
             var writerSettings = new XmlWriterSettings { OmitXmlDeclaration = true };

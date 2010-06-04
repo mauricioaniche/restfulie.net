@@ -46,12 +46,6 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
             Assert.That(atom.Contains("</feed>"));
         }
 
-        [Test]
-        public void ShouldReturnFormat()
-        {
-            Assert.AreEqual("application/atom+xml", serializer.Format);
-        }
-
         private IList<Relation> SomeRelations()
         {
             return new List<Relation> { new Relation("pay", "controller", "action", new Dictionary<string, object>(),  "http://some/url") };

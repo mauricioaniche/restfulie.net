@@ -30,11 +30,6 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 
         }
 
-        public string Format
-        {
-            get { return "application/atom+xml"; }
-        }
-
         private Entry GenerateEntry(IBehaveAsResource resource, IList<Relation> transitions)
         {
             var item = new Entry
