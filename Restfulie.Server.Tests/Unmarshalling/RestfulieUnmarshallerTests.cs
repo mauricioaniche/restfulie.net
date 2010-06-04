@@ -26,7 +26,7 @@ namespace Restfulie.Server.Tests.Unmarshalling
         [Test]
         public void ShouldUnmarshallResource()
         {
-            deserializer.Setup(d => d.Deserialize(SomeXML(), typeof(SomeResource))).Returns(new SomeResource());
+            deserializer.Setup(d => d.DeserializeResource(SomeXML(), typeof(SomeResource))).Returns(new SomeResource());
             
             var resource = unmarshaller.ToResource(SomeXML(), typeof(SomeResource));
 
@@ -36,7 +36,7 @@ namespace Restfulie.Server.Tests.Unmarshalling
         [Test]
         public void ShouldNotUnmarshallIfNothingWasPassed()
         {
-            deserializer.Setup(d => d.Deserialize(string.Empty, typeof (SomeResource))).Throws(new Exception());
+            deserializer.Setup(d => d.DeserializeResource(string.Empty, typeof (SomeResource))).Throws(new Exception());
             var resource = unmarshaller.ToResource(string.Empty, typeof (SomeResource));
 
             Assert.IsNull(resource);
@@ -46,7 +46,7 @@ namespace Restfulie.Server.Tests.Unmarshalling
         [Test]
         public void ShouldThrowUnmarshallingExceptionIfSomethingFails()
         {
-            deserializer.Setup(d => d.Deserialize(SomeXML(), typeof(SomeResource))).Throws(new Exception());
+            deserializer.Setup(d => d.DeserializeResource(SomeXML(), typeof(SomeResource))).Throws(new Exception());
 
             Assert.Throws<UnmarshallingException>(() => unmarshaller.ToResource(SomeXML(), typeof(SomeResource)));
         }

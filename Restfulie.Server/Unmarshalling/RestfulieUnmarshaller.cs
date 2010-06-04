@@ -16,7 +16,7 @@ namespace Restfulie.Server.Unmarshalling
         {
             try
             {
-                return string.IsNullOrEmpty(xml) ? null : deserializer.Deserialize(xml, objectType);
+                return string.IsNullOrEmpty(xml) ? null : deserializer.DeserializeResource(xml, objectType);
             }
             catch(Exception e)
             {
