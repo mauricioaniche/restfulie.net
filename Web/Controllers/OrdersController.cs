@@ -7,9 +7,9 @@ using Web.Models;
 
 namespace Web.Controllers
 {
+    [ActAsRestfulie]
     public class OrdersController : Controller
     {
-        [ActAsRestfulie]
         public virtual ActionResult Index()
         {
             var orders = new List<IBehaveAsResource>()
@@ -21,19 +21,16 @@ namespace Web.Controllers
             return new Success(orders);
         }
 
-        [ActAsRestfulie]
         public virtual ActionResult ReturnOne()
         {
             return new Success(new Order {Amount = 333.44, Date = DateTime.Now, Id = 111});
         }
 
-        [ActAsRestfulie]
         public virtual ActionResult Pay(int id)
         {
             return new Success(new Order { Amount = 333.44, Date = DateTime.Now, Id = 111 });
         }
 
-        [ActAsRestfulie(Name = "order", Type = typeof(Order))]
         public virtual ActionResult ReceiveAResource(Order order)
         {
             return new Created(order, "http://www.new.location.com/");

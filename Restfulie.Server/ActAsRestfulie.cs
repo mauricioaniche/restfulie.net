@@ -16,9 +16,7 @@ namespace Restfulie.Server
         private readonly IContentTypeToMediaType contentType;
         private readonly IRequestInfoFinder requestInfo;
         private readonly IResultDecoratorHolderFactory resultHolderFactory;
-
-        public string Name { get; set; }
-        public Type Type { get; set; }
+        private IUnmarshallerResolver unmarshallerResolver;
 
         public ActAsRestfulie()
         {
@@ -27,15 +25,17 @@ namespace Restfulie.Server
             contentType = new ContentTypeToMediaType(mediaTypesList);
             requestInfo = new DefaultRequestInfoFinder();
             resultHolderFactory = new ResultDecoratorHolderFactory();
+            unmarshallerResolver = new UnmarshallerResolver();
         }
 
         public ActAsRestfulie(IAcceptHeaderToMediaType acceptHeader, IContentTypeToMediaType contentType,
-            IRequestInfoFinder finder, IResultDecoratorHolderFactory resultHolderFactory)
+            IRequestInfoFinder finder, IResultDecoratorHolderFactory resultHolderFactory, IUnmarshallerResolver resolver)
         {
             this.acceptHeader = acceptHeader;
             this.contentType = contentType;
             this.requestInfo = finder;
             this.resultHolderFactory = resultHolderFactory;
+            this.unmarshallerResolver = resolver;
         }
 
         public override void OnResultExecuting(ResultExecutingContext filterContext)
@@ -51,14 +51,8 @@ namespace Restfulie.Server
         {
             try
             {
-                mediaType = acceptHeader.GetMediaType(requestInfo.GetAcceptHeaderIn(filterContext));
-
-                if (AResourceShouldBeUnmarshalled())
-                {
-                    var requestMediaType = contentType.GetMediaType(requestInfo.GetContentTypeIn(filterContext));
-                    var resource = requestMediaType.Unmarshaller.ToResource(requestInfo.GetContent(filterContext), Type);
-                    filterContext.ActionParameters[Name] = resource;
-                }
+                GetMediaType(filterContext);
+                DoUnmarshalling(filterContext);
             }
             catch(AcceptHeaderNotSupportedException)
             {
@@ -79,9 +73,27 @@ namespace Restfulie.Server
             base.OnActionExecuting(filterContext);
         }
 
-        private bool AResourceShouldBeUnmarshalled()
+        private void GetMediaType(ControllerContext filterContext)
         {
-            return !string.IsNullOrEmpty(Name) && Type != null;
+            mediaType = acceptHeader.GetMediaType(requestInfo.GetAcceptHeaderIn(filterContext));
+        }
+
+        private void DoUnmarshalling(ActionExecutingContext filterContext)
+        {
+            unmarshallerResolver.DetectIn(filterContext);
+
+            var requestMediaType = contentType.GetMediaType(requestInfo.GetContentTypeIn(filterContext));
+
+            if (unmarshallerResolver.HasResource)
+            {
+                var resource = requestMediaType.Unmarshaller.ToResource(requestInfo.GetContent(filterContext), unmarshallerResolver.Type);
+                if (resource != null) filterContext.ActionParameters[unmarshallerResolver.ParameterName] = resource;
+            }
+            else if (unmarshallerResolver.HasListOfResources)
+            {
+                var resources = requestMediaType.Unmarshaller.ToListOfResources(requestInfo.GetContent(filterContext), unmarshallerResolver.Type);
+                if (resources != null) filterContext.ActionParameters[unmarshallerResolver.ParameterName] = resources;
+            }
         }
     }
 }

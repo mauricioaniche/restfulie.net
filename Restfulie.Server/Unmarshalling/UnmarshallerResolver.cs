@@ -4,7 +4,7 @@ using Restfulie.Server.Extensions;
 
 namespace Restfulie.Server.Unmarshalling
 {
-    public class UnmarshallerResolver
+    public class UnmarshallerResolver : IUnmarshallerResolver
     {
         public bool HasResource { get; private set; }
         public Type Type { get; private set; }

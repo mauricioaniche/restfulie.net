@@ -1,0 +1,14 @@
+﻿using System;
+using System.Web.Mvc;
+
+namespace Restfulie.Server.Unmarshalling
+{
+    public interface IUnmarshallerResolver
+    {
+        void DetectIn(ActionExecutingContext context);
+        bool HasResource { get; }
+        Type Type { get; }
+        string ParameterName { get; }
+        bool HasListOfResources { get; }
+    }
+}

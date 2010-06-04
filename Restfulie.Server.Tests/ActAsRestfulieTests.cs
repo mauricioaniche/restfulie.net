@@ -24,6 +24,7 @@ namespace Restfulie.Server.Tests
         private Mock<IContentTypeToMediaType> contentType;
         private Mock<IResultDecoratorHolderFactory> resultHolderFactory;
         private Mock<IResultDecoratorHolder> resultHolder;
+        private Mock<IUnmarshallerResolver> resolver;
 
         private ActionExecutingContext actionExecutingContext;
         private ResultExecutingContext resultExecutingContext;
@@ -48,6 +49,8 @@ namespace Restfulie.Server.Tests
             resultHolderFactory = new Mock<IResultDecoratorHolderFactory>();
             resultHolder = new Mock<IResultDecoratorHolder>();
 
+            resolver = new Mock<IUnmarshallerResolver>();
+
             mediaType = new Mock<IMediaType>();
             mediaType.SetupGet(m => m.Unmarshaller).Returns(unmarshaller.Object);
             mediaType.SetupGet(m => m.Marshaller).Returns(marshaller.Object);
@@ -57,7 +60,7 @@ namespace Restfulie.Server.Tests
         public void ShouldSetMediaTypeAndResultHolderToResult()
         {
             resultExecutingContext.Result = new SomeResult();
-            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object, resultHolderFactory.Object);
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object, resultHolderFactory.Object, resolver.Object);
 
             acceptHeader.Setup(ah => ah.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
             resultHolderFactory.Setup(factory => factory.BasedOn(mediaType.Object)).Returns(resultHolder.Object);
@@ -76,7 +79,7 @@ namespace Restfulie.Server.Tests
             acceptHeader.Setup(f => f.GetMediaType(It.IsAny<string>())).Throws(new AcceptHeaderNotSupportedException());
             requestInfo.Setup(ah => ah.GetAcceptHeaderIn(actionExecutingContext)).Returns("some-crazy-media-type");
 
-            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object, resultHolderFactory.Object);
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object, resultHolderFactory.Object, resolver.Object);
 
             filter.OnActionExecuting(actionExecutingContext);
 
@@ -86,13 +89,14 @@ namespace Restfulie.Server.Tests
         [Test]
         public void ShouldUnmarshallResource()
         {
-            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object, resultHolderFactory.Object)
-                             {
-                                 Name = "Resource",
-                                 Type = typeof(SomeResource)
-                             };
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object,
+                                            resultHolderFactory.Object, resolver.Object);
 
             var resource = new SomeResource { Amount = 123, Name = "Some name" };
+
+            resolver.SetupGet(r => r.HasResource).Returns(true);
+            resolver.SetupGet(r => r.ParameterName).Returns("Resource");
+            resolver.SetupGet(r => r.Type).Returns(typeof (SomeResource));
 
             unmarshaller.Setup(u => u.ToResource(It.IsAny<string>(), typeof(SomeResource))).Returns(resource);
             contentType.Setup(m => m.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
@@ -103,16 +107,33 @@ namespace Restfulie.Server.Tests
         }
 
         [Test]
+        public void ShouldUnmarshallListOfResources()
+        {
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object,
+                                            resultHolderFactory.Object, resolver.Object);
+
+            var resources = new[] {new SomeResource { Amount = 123, Name = "Some name" } };
+
+            resolver.SetupGet(r => r.HasListOfResources).Returns(true);
+            resolver.SetupGet(r => r.ParameterName).Returns("Resource");
+            resolver.SetupGet(r => r.Type).Returns(typeof(SomeResource));
+
+            unmarshaller.Setup(u => u.ToListOfResources(It.IsAny<string>(), typeof(SomeResource))).Returns(resources);
+            contentType.Setup(m => m.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
+
+            filter.OnActionExecuting(actionExecutingContext);
+
+            Assert.AreEqual(resources, actionExecutingContext.ActionParameters["Resource"]);            
+        }
+
+        [Test]
         public void ShouldReturnUnsupportedMediaTypeWhenContentTypeIsNotSupported()
         {
             contentType.Setup(f => f.GetMediaType(It.IsAny<string>())).Throws(new ContentTypeNotSupportedException());
             requestInfo.Setup(ah => ah.GetContentTypeIn(actionExecutingContext)).Returns("some-crazy-media-type");
 
-            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object, resultHolderFactory.Object)
-                             {
-                                 Name = "Resource",
-                                 Type = typeof(SomeResource)
-                             };
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object,
+                                            resultHolderFactory.Object, resolver.Object);
 
             filter.OnActionExecuting(actionExecutingContext);
 
@@ -122,17 +143,15 @@ namespace Restfulie.Server.Tests
         [Test]
         public void ShouldReturnBadRequestWhenUnmarshallingFails()
         {
+            resolver.SetupGet(r => r.HasResource).Returns(true);
+
             unmarshaller.Setup(u => u.ToResource(It.IsAny<string>(), It.IsAny<Type>())).Throws(
                 new UnmarshallingException("message"));
 
             contentType.Setup(f => f.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
 
-            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object, resultHolderFactory.Object)
-            {
-                Name = "Resource",
-                Type = typeof(SomeResource)
-            };
-
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object,
+                                            resultHolderFactory.Object, resolver.Object);
             filter.OnActionExecuting(actionExecutingContext);
 
             Assert.IsTrue(actionExecutingContext.Result is BadRequest);
