@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActAsRestfulie.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="MediaTypes\DefaultMediaTypeList.cs" />
     <Compile Include="MediaTypes\IMediaTypeList.cs" />
     <Compile Include="Negotiation\AcceptHeaderToMediaType.cs" />

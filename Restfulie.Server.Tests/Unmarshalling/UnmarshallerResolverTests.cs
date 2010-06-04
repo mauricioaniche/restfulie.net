@@ -44,6 +44,7 @@ namespace Restfulie.Server.Tests.Unmarshalling
             resolver.DetectIn(context);
 
             Assert.IsFalse(resolver.HasResource);
+            Assert.IsFalse(resolver.HasListOfResources);
         }
 
         [Test]
@@ -60,6 +61,7 @@ namespace Restfulie.Server.Tests.Unmarshalling
             resolver.DetectIn(context);
 
             Assert.IsTrue(resolver.HasResource);
+            Assert.IsFalse(resolver.HasListOfResources);
         }
 
         [Test]
@@ -80,6 +82,30 @@ namespace Restfulie.Server.Tests.Unmarshalling
             var resolver = new UnmarshallerResolver();
             resolver.DetectIn(context);
 
+            Assert.AreEqual(typeof(SomeResource), resolver.Type);
+            Assert.AreEqual("resource", resolver.ParameterName);
+        }
+
+        [Test]
+        public void ShouldDetectIfItIsAListOfResources()
+        {
+            httpRequest.Setup(h => h.HttpMethod).Returns("POST");
+
+            var nonResourceParameter = new Mock<ParameterDescriptor>();
+            var resourceParameter = new Mock<ParameterDescriptor>();
+
+            resourceParameter.Setup(p => p.ParameterType).Returns(new[] { new SomeResource()}.GetType());
+            resourceParameter.Setup(p => p.ParameterName).Returns("resource");
+            nonResourceParameter.Setup(p => p.ParameterType).Returns(typeof(int));
+
+            var parameterList = new[] { nonResourceParameter.Object, resourceParameter.Object };
+            actionDescriptor.Setup(a => a.GetParameters()).Returns(parameterList);
+
+            var resolver = new UnmarshallerResolver();
+            resolver.DetectIn(context);
+
+            Assert.IsTrue(resolver.HasListOfResources);
+            Assert.IsFalse(resolver.HasResource);
             Assert.AreEqual(typeof(SomeResource), resolver.Type);
             Assert.AreEqual("resource", resolver.ParameterName);
         }

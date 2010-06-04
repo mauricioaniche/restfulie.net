@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using Restfulie.Server.Extensions;
 
 namespace Restfulie.Server.Unmarshalling
 {
@@ -8,6 +9,7 @@ namespace Restfulie.Server.Unmarshalling
         public bool HasResource { get; private set; }
         public Type Type { get; private set; }
         public string ParameterName { get; private set; }
+        public bool HasListOfResources { get; private set; }
 
         public void DetectIn(ActionExecutingContext context)
         {
@@ -15,7 +17,15 @@ namespace Restfulie.Server.Unmarshalling
 
             foreach(var parameter in context.ActionDescriptor.GetParameters())
             {
-                if(parameter.ParameterType == typeof(IBehaveAsResource) || parameter.ParameterType.GetInterface(typeof(IBehaveAsResource).FullName) != null)
+                if (parameter.ParameterType.IsArray && parameter.ParameterType.GetElementType().IsAResource())
+                {
+                    Type = parameter.ParameterType.GetElementType();
+                    ParameterName = parameter.ParameterName;
+                    HasListOfResources = true;
+                    break;
+                }
+                
+                if(parameter.ParameterType.IsAResource())
                 {
                     Type = parameter.ParameterType;
                     ParameterName = parameter.ParameterName;
