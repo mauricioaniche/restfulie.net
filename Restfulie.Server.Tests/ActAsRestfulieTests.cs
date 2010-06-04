@@ -175,5 +175,25 @@ namespace Restfulie.Server.Tests
             unmarshaller.Verify(u => u.ToListOfResources(It.IsAny<string>(), It.IsAny<Type>()), Times.Never());
             
         }
+
+        [Test]
+        public void ShouldNotReplaceResourceIfUnmarshallerReturnsNull()
+        {
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object,
+                                            resultHolderFactory.Object, resolver.Object);
+
+            actionExecutingContext.ActionParameters["Resource"] = "some old data here";
+
+            resolver.SetupGet(r => r.HasResource).Returns(true);
+            resolver.SetupGet(r => r.ParameterName).Returns("Resource");
+            resolver.SetupGet(r => r.ParameterType).Returns(typeof(SomeResource));
+
+            unmarshaller.Setup(u => u.ToResource(It.IsAny<string>(), typeof(SomeResource))).Returns(null as IBehaveAsResource);
+            contentType.Setup(m => m.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
+
+            filter.OnActionExecuting(actionExecutingContext);
+
+            Assert.AreEqual("some old data here", actionExecutingContext.ActionParameters["Resource"]);
+        }
     }
 }
