@@ -108,6 +108,7 @@
     <Compile Include="RelationsTests.cs" />
     <Compile Include="Results\InternalServerErrorTests.cs" />
     <Compile Include="Results\NotAcceptableTests.cs" />
+    <Compile Include="Results\NotFoundTests.cs" />
     <Compile Include="Results\PreconditionFailedTests.cs" />
     <Compile Include="Results\ResultDecoratorTestExtensions.cs" />
     <Compile Include="Results\SeeOtherTests.cs" />
