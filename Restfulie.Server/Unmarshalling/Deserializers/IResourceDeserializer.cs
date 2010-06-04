@@ -4,7 +4,7 @@ namespace Restfulie.Server.Unmarshalling.Deserializers
 {
     public interface IResourceDeserializer
     {
-        IBehaveAsResource DeserializeResource(string xml, Type objectType);
-        IBehaveAsResource[] DeserializeList(string xml, Type objectType);
+        IBehaveAsResource DeserializeResource(string content, Type objectType);
+        IBehaveAsResource[] DeserializeList(string content, Type objectType);
     }
 }
