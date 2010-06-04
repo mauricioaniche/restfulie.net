@@ -80,7 +80,7 @@ namespace Restfulie.Server.Tests.Unmarshalling
             var resolver = new UnmarshallerResolver();
             resolver.DetectIn(context);
 
-            Assert.AreEqual(typeof(SomeResource), resolver.Type);
+            Assert.AreEqual(typeof(SomeResource), resolver.ParameterType);
             Assert.AreEqual("resource", resolver.ParameterName);
         }
 
@@ -99,7 +99,7 @@ namespace Restfulie.Server.Tests.Unmarshalling
 
             Assert.IsTrue(resolver.HasListOfResources);
             Assert.IsFalse(resolver.HasResource);
-            Assert.AreEqual(typeof(SomeResource), resolver.Type);
+            Assert.AreEqual(typeof(SomeResource), resolver.ParameterType);
             Assert.AreEqual("resource", resolver.ParameterName);
         }
 

@@ -86,12 +86,12 @@ namespace Restfulie.Server
 
             if (unmarshallerResolver.HasResource)
             {
-                var resource = requestMediaType.Unmarshaller.ToResource(requestInfo.GetContent(filterContext), unmarshallerResolver.Type);
+                var resource = requestMediaType.Unmarshaller.ToResource(requestInfo.GetContent(filterContext), unmarshallerResolver.ParameterType);
                 if (resource != null) filterContext.ActionParameters[unmarshallerResolver.ParameterName] = resource;
             }
             else if (unmarshallerResolver.HasListOfResources)
             {
-                var resources = requestMediaType.Unmarshaller.ToListOfResources(requestInfo.GetContent(filterContext), unmarshallerResolver.Type);
+                var resources = requestMediaType.Unmarshaller.ToListOfResources(requestInfo.GetContent(filterContext), unmarshallerResolver.ParameterType);
                 if (resources != null) filterContext.ActionParameters[unmarshallerResolver.ParameterName] = resources;
             }
         }

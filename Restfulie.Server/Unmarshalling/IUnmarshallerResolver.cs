@@ -7,7 +7,7 @@ namespace Restfulie.Server.Unmarshalling
     {
         void DetectIn(ActionExecutingContext context);
         bool HasResource { get; }
-        Type Type { get; }
+        Type ParameterType { get; }
         string ParameterName { get; }
         bool HasListOfResources { get; }
     }

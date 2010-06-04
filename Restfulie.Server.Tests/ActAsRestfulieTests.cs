@@ -96,7 +96,7 @@ namespace Restfulie.Server.Tests
 
             resolver.SetupGet(r => r.HasResource).Returns(true);
             resolver.SetupGet(r => r.ParameterName).Returns("Resource");
-            resolver.SetupGet(r => r.Type).Returns(typeof (SomeResource));
+            resolver.SetupGet(r => r.ParameterType).Returns(typeof (SomeResource));
 
             unmarshaller.Setup(u => u.ToResource(It.IsAny<string>(), typeof(SomeResource))).Returns(resource);
             contentType.Setup(m => m.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
@@ -116,7 +116,7 @@ namespace Restfulie.Server.Tests
 
             resolver.SetupGet(r => r.HasListOfResources).Returns(true);
             resolver.SetupGet(r => r.ParameterName).Returns("Resource");
-            resolver.SetupGet(r => r.Type).Returns(typeof(SomeResource));
+            resolver.SetupGet(r => r.ParameterType).Returns(typeof(SomeResource));
 
             unmarshaller.Setup(u => u.ToListOfResources(It.IsAny<string>(), typeof(SomeResource))).Returns(resources);
             contentType.Setup(m => m.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);

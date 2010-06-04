@@ -7,7 +7,7 @@ namespace Restfulie.Server.Unmarshalling
     public class UnmarshallerResolver : IUnmarshallerResolver
     {
         public bool HasResource { get; private set; }
-        public Type Type { get; private set; }
+        public Type ParameterType { get; private set; }
         public string ParameterName { get; private set; }
         public bool HasListOfResources { get; private set; }
 
@@ -19,7 +19,7 @@ namespace Restfulie.Server.Unmarshalling
             {
                 if (parameter.ParameterType.IsArray && parameter.ParameterType.GetElementType().IsAResource())
                 {
-                    Type = parameter.ParameterType.GetElementType();
+                    ParameterType = parameter.ParameterType.GetElementType();
                     ParameterName = parameter.ParameterName;
                     HasListOfResources = true;
                     break;
@@ -27,7 +27,7 @@ namespace Restfulie.Server.Unmarshalling
                 
                 if(parameter.ParameterType.IsAResource())
                 {
-                    Type = parameter.ParameterType;
+                    ParameterType = parameter.ParameterType;
                     ParameterName = parameter.ParameterName;
                     HasResource = true;
                     break;
