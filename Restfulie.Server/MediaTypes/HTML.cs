@@ -14,7 +14,7 @@ namespace Restfulie.Server.MediaTypes
         {
             get
             {
-                return new NoMarshaller();
+                return new AspNetMvcMarshaller();
             }
         }
 

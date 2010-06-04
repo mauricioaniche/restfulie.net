@@ -105,7 +105,7 @@
     <Compile Include="Unmarshalling\UnmarshallerResolver.cs" />
     <Compile Include="Unmarshalling\UnmarshallingException.cs" />
     <Compile Include="IBehaveAsResource.cs" />
-    <Compile Include="Marshalling\NoMarshaller.cs" />
+    <Compile Include="Marshalling\AspNetMvcMarshaller.cs" />
     <Compile Include="Marshalling\IInflections.cs" />
     <Compile Include="Marshalling\DefaultInflections.cs" />
     <Compile Include="Marshalling\RestfulieMarshaller.cs" />
