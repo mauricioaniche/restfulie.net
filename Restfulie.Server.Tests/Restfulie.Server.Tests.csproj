@@ -115,6 +115,7 @@
     <Compile Include="Results\UnsupportedMediaTypeTests.cs" />
     <Compile Include="Unmarshalling\RestfulieUnmarshallerTests.cs" />
     <Compile Include="Unmarshalling\Deserializers\XmlDeserializerTests.cs" />
+    <Compile Include="Unmarshalling\UnmarshallerResolverTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Restfulie.Server\Restfulie.Server.csproj">

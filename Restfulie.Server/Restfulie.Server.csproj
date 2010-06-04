@@ -100,6 +100,7 @@
     <Compile Include="Results\Decorators\StatusCode.cs" />
     <Compile Include="Results\InternalServerError.cs" />
     <Compile Include="Unmarshalling\AspNetMvcUnmarshaller.cs" />
+    <Compile Include="Unmarshalling\UnmarshallerResolver.cs" />
     <Compile Include="Unmarshalling\UnmarshallingException.cs" />
     <Compile Include="IBehaveAsResource.cs" />
     <Compile Include="Marshalling\NoMarshaller.cs" />
