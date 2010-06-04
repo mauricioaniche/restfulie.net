@@ -3,7 +3,7 @@ using Restfulie.Server.Results.Decorators;
 
 namespace Restfulie.Server.Tests.Results
 {
-    public static class ResultDecoratorTestExtesions
+    public static class ResultDecoratorTestExtensions
     {
         public static bool Contains(this ResultDecorator decorator, Type type)
         {
