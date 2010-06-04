@@ -8,5 +8,10 @@ namespace Restfulie.Server.Unmarshalling
         {
             return null;
         }
+
+        public IBehaveAsResource[] ToListOfResources(string xml, Type objectType)
+        {
+            return null;
+        }
     }
 }

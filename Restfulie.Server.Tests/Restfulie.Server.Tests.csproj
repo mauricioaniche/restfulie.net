@@ -109,7 +109,7 @@
     <Compile Include="Results\InternalServerErrorTests.cs" />
     <Compile Include="Results\NotAcceptableTests.cs" />
     <Compile Include="Results\PreconditionFailedTests.cs" />
-    <Compile Include="Results\ResultDecoratorTestExtesions.cs" />
+    <Compile Include="Results\ResultDecoratorTestExtensions.cs" />
     <Compile Include="Results\SeeOtherTests.cs" />
     <Compile Include="Results\SuccessTests.cs" />
     <Compile Include="Results\UnsupportedMediaTypeTests.cs" />

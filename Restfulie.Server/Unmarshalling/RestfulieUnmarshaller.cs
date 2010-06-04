@@ -23,5 +23,17 @@ namespace Restfulie.Server.Unmarshalling
                 throw new UnmarshallingException(e.Message);
             }
         }
+
+        public IBehaveAsResource[] ToListOfResources(string xml, Type objectType)
+        {
+            try
+            {
+                return string.IsNullOrEmpty(xml) ? null : deserializer.DeserializeList(xml, objectType);
+            }
+            catch (Exception e)
+            {
+                throw new UnmarshallingException(e.Message);
+            }
+        }
     }
 }
