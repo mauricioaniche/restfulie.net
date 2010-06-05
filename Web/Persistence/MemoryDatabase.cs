@@ -6,16 +6,17 @@ namespace Web.Persistence
 {
     public class MemoryDatabase
     {
-        private static readonly IList<Item> Database = new List<Item>();
+        private static readonly IList<Item> Items = new List<Item>();
 
         public void Add(Item item)
         {
-            Database.Add(item);
+            item.Id = Items.Count + 1;
+            Items.Add(item);
         }
 
         public IList<Item> List()
         {
-            return Database;
+            return Items;
         }
     }
 }
