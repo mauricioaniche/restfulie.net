@@ -16,7 +16,7 @@ namespace Restfulie.Server
         private readonly IContentTypeToMediaType contentType;
         private readonly IRequestInfoFinder requestInfo;
         private readonly IResultDecoratorHolderFactory resultHolderFactory;
-        private IUnmarshallerResolver unmarshallerResolver;
+        private readonly IUnmarshallerResolver unmarshallerResolver;
 
         public ActAsRestfulie()
         {
