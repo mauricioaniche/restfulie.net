@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using System.Linq;
 using Restfulie.Server.Results.Decorators;
 
