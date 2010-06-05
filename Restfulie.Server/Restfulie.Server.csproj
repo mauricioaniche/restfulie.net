@@ -108,8 +108,8 @@
     <Compile Include="Results\NotFound.cs" />
     <Compile Include="Unmarshalling\AspNetMvcUnmarshaller.cs" />
     <Compile Include="Unmarshalling\Deserializers\AtomPlusXml\AtomPlusXmlDeserializer.cs" />
-    <Compile Include="Unmarshalling\IUnmarshallerResolver.cs" />
-    <Compile Include="Unmarshalling\UnmarshallerResolver.cs" />
+    <Compile Include="Unmarshalling\Resolver\IUnmarshallerResolver.cs" />
+    <Compile Include="Unmarshalling\Resolver\UnmarshallerResolver.cs" />
     <Compile Include="Unmarshalling\UnmarshallingException.cs" />
     <Compile Include="IBehaveAsResource.cs" />
     <Compile Include="Marshalling\NoMarshaller.cs" />

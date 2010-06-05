@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using Restfulie.Server.Extensions;
 
-namespace Restfulie.Server.Unmarshalling
+namespace Restfulie.Server.Unmarshalling.Resolver
 {
     public class UnmarshallerResolver : IUnmarshallerResolver
     {
@@ -34,7 +34,7 @@ namespace Restfulie.Server.Unmarshalling
         private static bool IsAValidHTTPMethod(ControllerContext context)
         {
             return context.RequestContext.HttpContext.Request.HttpMethod.Equals("POST") || 
-                context.RequestContext.HttpContext.Request.HttpMethod.Equals("PUT");
+                   context.RequestContext.HttpContext.Request.HttpMethod.Equals("PUT");
         }
 
     }

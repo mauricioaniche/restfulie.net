@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 
-namespace Restfulie.Server.Unmarshalling
+namespace Restfulie.Server.Unmarshalling.Resolver
 {
     public interface IUnmarshallerResolver
     {

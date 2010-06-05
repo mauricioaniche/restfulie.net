@@ -6,10 +6,10 @@ using System.Web.Routing;
 using Moq;
 using NUnit.Framework;
 using Restfulie.Server.Tests.Fixtures;
-using Restfulie.Server.Unmarshalling;
 using System.Linq;
+using Restfulie.Server.Unmarshalling.Resolver;
 
-namespace Restfulie.Server.Tests.Unmarshalling
+namespace Restfulie.Server.Tests.Unmarshalling.Resolver
 {
     [TestFixture]
     public class UnmarshallerResolverTests

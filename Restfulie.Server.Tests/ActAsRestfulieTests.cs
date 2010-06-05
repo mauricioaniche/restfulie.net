@@ -10,6 +10,7 @@ using Restfulie.Server.Results;
 using Restfulie.Server.Results.Decorators.Holders;
 using Restfulie.Server.Tests.Fixtures;
 using Restfulie.Server.Unmarshalling;
+using Restfulie.Server.Unmarshalling.Resolver;
 
 namespace Restfulie.Server.Tests
 {
