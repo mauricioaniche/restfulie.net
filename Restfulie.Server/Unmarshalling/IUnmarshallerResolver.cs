@@ -9,6 +9,5 @@ namespace Restfulie.Server.Unmarshalling
         bool HasResource { get; }
         Type ParameterType { get; }
         string ParameterName { get; }
-        bool HasListOfResources { get; }
     }
 }

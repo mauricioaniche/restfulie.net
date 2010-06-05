@@ -12,25 +12,13 @@ namespace Restfulie.Server.Unmarshalling
             this.deserializer = deserializer;
         }
 
-        public IBehaveAsResource ToResource(string xml, Type objectType)
+        public object Build(string xml, Type objectType)
         {
             try
             {
-                return string.IsNullOrEmpty(xml) ? null : deserializer.DeserializeResource(xml, objectType);
+                return string.IsNullOrEmpty(xml) ? null : deserializer.Deserialize(xml, objectType);
             }
             catch(Exception e)
-            {
-                throw new UnmarshallingException(e.Message);
-            }
-        }
-
-        public IBehaveAsResource[] ToListOfResources(string xml, Type objectType)
-        {
-            try
-            {
-                return string.IsNullOrEmpty(xml) ? null : deserializer.DeserializeList(xml, objectType);
-            }
-            catch (Exception e)
             {
                 throw new UnmarshallingException(e.Message);
             }

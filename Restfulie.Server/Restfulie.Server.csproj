@@ -112,7 +112,7 @@
     <Compile Include="Unmarshalling\UnmarshallerResolver.cs" />
     <Compile Include="Unmarshalling\UnmarshallingException.cs" />
     <Compile Include="IBehaveAsResource.cs" />
-    <Compile Include="Marshalling\AspNetMvcMarshaller.cs" />
+    <Compile Include="Marshalling\NoMarshaller.cs" />
     <Compile Include="Marshalling\RestfulieMarshaller.cs" />
     <Compile Include="Marshalling\IResourceMarshaller.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializer.cs" />

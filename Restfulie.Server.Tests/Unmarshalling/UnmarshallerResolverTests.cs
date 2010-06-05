@@ -50,7 +50,6 @@ namespace Restfulie.Server.Tests.Unmarshalling
             resolver.DetectIn(context);
 
             Assert.IsFalse(resolver.HasResource);
-            Assert.IsFalse(resolver.HasListOfResources);
         }
 
         [Test]
@@ -65,7 +64,6 @@ namespace Restfulie.Server.Tests.Unmarshalling
             resolver.DetectIn(context);
 
             Assert.IsTrue(resolver.HasResource);
-            Assert.IsFalse(resolver.HasListOfResources);
         }
 
         [Test]
@@ -97,9 +95,8 @@ namespace Restfulie.Server.Tests.Unmarshalling
             var resolver = new UnmarshallerResolver();
             resolver.DetectIn(context);
 
-            Assert.IsTrue(resolver.HasListOfResources);
-            Assert.IsFalse(resolver.HasResource);
-            Assert.AreEqual(typeof(SomeResource), resolver.ParameterType);
+            Assert.IsTrue(resolver.HasResource);
+            Assert.AreEqual(typeof(SomeResource[]), resolver.ParameterType);
             Assert.AreEqual("resource", resolver.ParameterName);
         }
 

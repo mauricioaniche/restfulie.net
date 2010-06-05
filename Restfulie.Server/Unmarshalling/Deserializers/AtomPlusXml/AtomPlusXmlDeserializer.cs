@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 using Restfulie.Server.Extensions;
@@ -8,32 +7,36 @@ namespace Restfulie.Server.Unmarshalling.Deserializers.AtomPlusXml
 {
     public class AtomPlusXmlDeserializer : IResourceDeserializer
     {
-        public IBehaveAsResource DeserializeResource(string content, Type objectType)
+        public object Deserialize(string content, Type objectType)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);
 
-            var entryContent = xmlDocument.DocumentElement.GetElementsByTagName("content")[0];
+            var contents = xmlDocument.DocumentElement.GetElementsByTagName("content");
 
-            var deserializer = new XmlSerializer(objectType);
-            return (IBehaveAsResource)deserializer.Deserialize(entryContent.InnerText.AsStream());
-        }
-
-        public IBehaveAsResource[] DeserializeList(string content, Type objectType)
-        {
-            var xmlDocument = new XmlDocument();
-            xmlDocument.LoadXml(content);
-            
-            var elements = xmlDocument.GetElementsByTagName("entry");
-
-            var resources = Array.CreateInstance(objectType, elements.Count);
-            for(var i = 0; i < elements.Count; i++)
+            if(objectType.IsAResource())
             {
-                var element = elements[i];
-                resources.SetValue(DeserializeResource(element.OuterXml, objectType), i);
+                return ToObject(contents[0].InnerText, objectType);
             }
 
-            return (IBehaveAsResource[])resources;
+            if(objectType.IsAListOfResources())
+            {
+                var list = Array.CreateInstance(objectType.GetElementType(), contents.Count);
+                for(var i = 0; i < contents.Count; i++)
+                {
+                    list.SetValue(ToObject(contents[i].InnerText, objectType.GetElementType()), i);
+                }
+
+                return list;
+            }
+
+            return null;
+        }
+
+        private static object ToObject(string xml, Type objectType)
+        {
+            var deserializer = new XmlSerializer(objectType);
+            return deserializer.Deserialize(xml.AsStream());
         }
     }
 }

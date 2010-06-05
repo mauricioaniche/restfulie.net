@@ -98,7 +98,7 @@ namespace Restfulie.Server.Tests
             resolver.SetupGet(r => r.ParameterName).Returns("Resource");
             resolver.SetupGet(r => r.ParameterType).Returns(typeof (SomeResource));
 
-            unmarshaller.Setup(u => u.ToResource(It.IsAny<string>(), typeof(SomeResource))).Returns(resource);
+            unmarshaller.Setup(u => u.Build(It.IsAny<string>(), typeof(SomeResource))).Returns(resource);
             contentType.Setup(m => m.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
 
             filter.OnActionExecuting(actionExecutingContext);
@@ -114,11 +114,11 @@ namespace Restfulie.Server.Tests
 
             var resources = new[] {new SomeResource { Amount = 123, Name = "Some name" } };
 
-            resolver.SetupGet(r => r.HasListOfResources).Returns(true);
+            resolver.SetupGet(r => r.HasResource).Returns(true);
             resolver.SetupGet(r => r.ParameterName).Returns("Resource");
             resolver.SetupGet(r => r.ParameterType).Returns(typeof(SomeResource));
 
-            unmarshaller.Setup(u => u.ToListOfResources(It.IsAny<string>(), typeof(SomeResource))).Returns(resources);
+            unmarshaller.Setup(u => u.Build(It.IsAny<string>(), typeof(SomeResource))).Returns(resources);
             contentType.Setup(m => m.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
 
             filter.OnActionExecuting(actionExecutingContext);
@@ -146,7 +146,7 @@ namespace Restfulie.Server.Tests
         {
             resolver.SetupGet(r => r.HasResource).Returns(true);
 
-            unmarshaller.Setup(u => u.ToResource(It.IsAny<string>(), It.IsAny<Type>())).Throws(
+            unmarshaller.Setup(u => u.Build(It.IsAny<string>(), It.IsAny<Type>())).Throws(
                 new UnmarshallingException("message"));
 
             contentType.Setup(f => f.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
@@ -162,7 +162,6 @@ namespace Restfulie.Server.Tests
         public void ShouldIgnoreUnmarshallingIfThereIsNothingToBeUnmarshalled()
         {
             resolver.SetupGet(r => r.HasResource).Returns(false);
-            resolver.SetupGet(r => r.HasListOfResources).Returns(false);
 
             contentType.Setup(f => f.GetMediaType(It.IsAny<string>())).Throws(new ContentTypeNotSupportedException());
 
@@ -171,8 +170,8 @@ namespace Restfulie.Server.Tests
             filter.OnActionExecuting(actionExecutingContext);
 
             contentType.Verify(c => c.GetMediaType(It.IsAny<string>()), Times.Never());
-            unmarshaller.Verify(u => u.ToResource(It.IsAny<string>(), It.IsAny<Type>()), Times.Never());
-            unmarshaller.Verify(u => u.ToListOfResources(It.IsAny<string>(), It.IsAny<Type>()), Times.Never());
+            unmarshaller.Verify(u => u.Build(It.IsAny<string>(), It.IsAny<Type>()), Times.Never());
+            unmarshaller.Verify(u => u.Build(It.IsAny<string>(), It.IsAny<Type>()), Times.Never());
             
         }
 
@@ -188,7 +187,7 @@ namespace Restfulie.Server.Tests
             resolver.SetupGet(r => r.ParameterName).Returns("Resource");
             resolver.SetupGet(r => r.ParameterType).Returns(typeof(SomeResource));
 
-            unmarshaller.Setup(u => u.ToResource(It.IsAny<string>(), typeof(SomeResource))).Returns(null as IBehaveAsResource);
+            unmarshaller.Setup(u => u.Build(It.IsAny<string>(), typeof(SomeResource))).Returns(null as IBehaveAsResource);
             contentType.Setup(m => m.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
 
             filter.OnActionExecuting(actionExecutingContext);

@@ -12,7 +12,7 @@ namespace Restfulie.Server.Tests.Unmarshalling.Deserializers
         {
             const string xml = "<SomeResource><Name>Some name</Name><Amount>100.00</Amount></SomeResource>";
             var deserializer = new XmlDeserializer();
-            var resource = deserializer.DeserializeResource(xml, typeof(SomeResource)) as SomeResource;
+            var resource = deserializer.Deserialize(xml, typeof(SomeResource)) as SomeResource;
 
             Assert.AreEqual("Some name", resource.Name);
             Assert.AreEqual(100M, resource.Amount);
@@ -22,17 +22,17 @@ namespace Restfulie.Server.Tests.Unmarshalling.Deserializers
         public void ShouldDeserializeListOfResourcesInXml()
         {
             const string xml = 
-                "<SomeResources>"+
-                "<SomeResource><Name>John Doe</Name><Amount>200.00</Amount></SomeResource>" +
-                "<SomeResource><Name>Sally Doe</Name><Amount>400.00</Amount></SomeResource>" +
-                "</SomeResources>";
+                "<ArrayOfSomeResource>"+
+                    "<SomeResource><Name>John Doe</Name><Amount>123.45</Amount></SomeResource>"+
+                    "<SomeResource><Name>Sally Doe</Name><Amount>67.89</Amount></SomeResource>"+
+                "</ArrayOfSomeResource>";
             var deserializer = new XmlDeserializer();
-            var resources = (SomeResource[])deserializer.DeserializeList(xml, typeof(SomeResource));
+            var resources = (SomeResource[])deserializer.Deserialize(xml, typeof(SomeResource[]));
 
             Assert.AreEqual("John Doe", resources[0].Name);
-            Assert.AreEqual(200M, resources[0].Amount);
+            Assert.AreEqual(123.45, resources[0].Amount);
             Assert.AreEqual("Sally Doe", resources[1].Name);
-            Assert.AreEqual(400M, resources[1].Amount);
+            Assert.AreEqual(67.89, resources[1].Amount);
         }
     }
 }

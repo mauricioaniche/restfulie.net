@@ -9,23 +9,14 @@ namespace Restfulie.Server.Unmarshalling
         public bool HasResource { get; private set; }
         public Type ParameterType { get; private set; }
         public string ParameterName { get; private set; }
-        public bool HasListOfResources { get; private set; }
-
+        
         public void DetectIn(ActionExecutingContext context)
         {
             if (!IsAValidHTTPMethod(context)) return;
 
             foreach(var parameter in context.ActionDescriptor.GetParameters())
             {
-                if (parameter.ParameterType.IsArray && parameter.ParameterType.GetElementType().IsAResource())
-                {
-                    ParameterType = parameter.ParameterType.GetElementType();
-                    ParameterName = parameter.ParameterName;
-                    HasListOfResources = true;
-                    break;
-                }
-                
-                if(parameter.ParameterType.IsAResource())
+                if (IsArrayOfResources(parameter) || parameter.ParameterType.IsAResource())
                 {
                     ParameterType = parameter.ParameterType;
                     ParameterName = parameter.ParameterName;
@@ -33,6 +24,11 @@ namespace Restfulie.Server.Unmarshalling
                     break;
                 }
             }
+        }
+
+        private static bool IsArrayOfResources(ParameterDescriptor parameter)
+        {
+            return parameter.ParameterType.IsArray && parameter.ParameterType.GetElementType().IsAResource();
         }
 
         private static bool IsAValidHTTPMethod(ControllerContext context)

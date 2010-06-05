@@ -81,19 +81,13 @@ namespace Restfulie.Server
         private void DoUnmarshalling(ActionExecutingContext filterContext)
         {
             unmarshallerResolver.DetectIn(filterContext);
-            if (!unmarshallerResolver.HasResource && !unmarshallerResolver.HasListOfResources) return;
-            
-            var requestMediaType = contentType.GetMediaType(requestInfo.GetContentTypeIn(filterContext));
 
             if (unmarshallerResolver.HasResource)
             {
-                var resource = requestMediaType.Unmarshaller.ToResource(requestInfo.GetContent(filterContext), unmarshallerResolver.ParameterType);
+                var requestMediaType = contentType.GetMediaType(requestInfo.GetContentTypeIn(filterContext));
+
+                var resource = requestMediaType.Unmarshaller.Build(requestInfo.GetContent(filterContext), unmarshallerResolver.ParameterType);
                 if (resource != null) filterContext.ActionParameters[unmarshallerResolver.ParameterName] = resource;
-            }
-            else if (unmarshallerResolver.HasListOfResources)
-            {
-                var resources = requestMediaType.Unmarshaller.ToListOfResources(requestInfo.GetContent(filterContext), unmarshallerResolver.ParameterType);
-                if (resources != null) filterContext.ActionParameters[unmarshallerResolver.ParameterName] = resources;
             }
         }
     }

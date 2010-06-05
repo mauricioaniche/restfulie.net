@@ -31,7 +31,7 @@ namespace Restfulie.Server.Tests.Unmarshalling.Deserializers
                 "</entry> ";
 
             var serializer = new AtomPlusXmlDeserializer();
-            var resource = serializer.DeserializeResource(entry, typeof (SomeResource)) as SomeResource;
+            var resource = serializer.Deserialize(entry, typeof (SomeResource)) as SomeResource;
 
             Assert.AreEqual("Name", resource.Name);
             Assert.AreEqual(123.45, resource.Amount);
@@ -82,7 +82,7 @@ namespace Restfulie.Server.Tests.Unmarshalling.Deserializers
                 "</feed>";
 
             var serializer = new AtomPlusXmlDeserializer();
-            var resources = (SomeResource[])serializer.DeserializeList(feed, typeof(SomeResource));
+            var resources = (SomeResource[])serializer.Deserialize(feed, typeof(SomeResource[]));
 
             Assert.AreEqual("Name", resources[0].Name);
             Assert.AreEqual(123.45, resources[0].Amount);

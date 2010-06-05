@@ -4,7 +4,6 @@ namespace Restfulie.Server.Unmarshalling
 {
     public interface IResourceUnmarshaller
     {
-        IBehaveAsResource ToResource(string xml, Type objectType);
-        IBehaveAsResource[] ToListOfResources(string xml, Type objectType);
+        object Build(string xml, Type objectType);
     }
 }
