@@ -8,7 +8,7 @@ namespace Restfulie.Server.Results.Decorators.Holders
         {
             return (mediaType is HTML) ?  (IResultDecoratorHolder) 
                                           new AspNetMvcResultHolder() :
-                                                                          new RestfulieResultHolder();
+                                          new RestfulieResultHolder();
         }
     }
 }
