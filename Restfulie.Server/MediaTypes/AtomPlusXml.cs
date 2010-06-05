@@ -1,5 +1,4 @@
-﻿using System;
-using Restfulie.Server.Marshalling;
+﻿using Restfulie.Server.Marshalling;
 using Restfulie.Server.Marshalling.Serializers.AtomPlusXml;
 using Restfulie.Server.Marshalling.UrlGenerators;
 using Restfulie.Server.Unmarshalling;
@@ -21,7 +20,8 @@ namespace Restfulie.Server.MediaTypes
             {
                 return new RestfulieMarshaller(
                     new Relations(new AspNetMvcUrlGenerator()), 
-                    new AtomPlusXmlSerializer());
+                    new AtomPlusXmlSerializer(),
+                    new AtomPlusXmlHypermediaInserter());
             }
         }
 

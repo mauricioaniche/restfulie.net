@@ -80,8 +80,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActAsRestfulie.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInserter.cs" />
+    <Compile Include="Marshalling\Serializers\IHypermediaInserter.cs" />
+    <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlHypermediaInserter.cs" />
     <Compile Include="MediaTypes\DefaultMediaTypeList.cs" />
     <Compile Include="MediaTypes\IMediaTypeList.cs" />
     <Compile Include="Negotiation\AcceptHeaderToMediaType.cs" />
@@ -109,14 +113,11 @@
     <Compile Include="Unmarshalling\UnmarshallingException.cs" />
     <Compile Include="IBehaveAsResource.cs" />
     <Compile Include="Marshalling\AspNetMvcMarshaller.cs" />
-    <Compile Include="Marshalling\IInflections.cs" />
-    <Compile Include="Marshalling\DefaultInflections.cs" />
     <Compile Include="Marshalling\RestfulieMarshaller.cs" />
     <Compile Include="Marshalling\IResourceMarshaller.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializer.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\Feed.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\Entry.cs" />
-    <Compile Include="Marshalling\Serializers\AtomPlusXml\Link.cs" />
     <Compile Include="MediaTypes\AtomPlusXml.cs" />
     <Compile Include="MediaTypes\HTML.cs" />
     <Compile Include="MediaTypes\IMediaType.cs" />

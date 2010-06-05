@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Xml;
+using System.Collections;
 using System.Xml.Linq;
-using System.Xml.Serialization;
+using Restfulie.Server.Extensions;
 
 // based on http://geekswithblogs.net/lszk/archive/2009/08/23/own-rssatom-feed-in-asp.net-mvc.aspx
 namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
@@ -12,25 +10,24 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
     {
         private static readonly XNamespace ns = "http://www.w3.org/2005/Atom";
 
-        public string Serialize(IBehaveAsResource resource, IList<Relation> transitions)
+        public string Serialize(object resource)
         {
-            var item = GenerateEntry(resource, transitions);
-            return EntryInXml(item).ToString();
-        }
-
-        public string Serialize(IDictionary<IBehaveAsResource, IList<Relation>> resources)
-        {
-            var feed = new Feed {Author = "", Description = "", Title = "", Updated = DateTime.Now, Id = ""};
-            foreach (var resource in resources) 
+            if (resource is IEnumerable)
             {
-                feed.Items.Add(GenerateEntry(resource.Key, resource.Value));
+                var feed = new Feed { Author = "", Description = "", Title = "", Updated = DateTime.Now, Id = "" };
+
+                foreach (var obj in (IEnumerable)resource)
+                {
+                    feed.Items.Add(GenerateEntry(obj));
+                }
+
+                return FeedInXml(feed).ToString();
             }
 
-            return FeedInXml(feed).ToString();
-
+            return EntryInXml(GenerateEntry(resource)).ToString();
         }
 
-        private Entry GenerateEntry(IBehaveAsResource resource, IList<Relation> transitions)
+        private Entry GenerateEntry(object resource)
         {
             var item = new Entry
             {
@@ -38,27 +35,10 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
                 Title = resource.ToString(),
                 Id = resource.ToString(),
                 PublicDate = DateTime.Now,
-                Content = SerializeResource(resource)
+                Content = resource.AsXml()
             };
-            foreach (var relation in transitions)
-            {
-                item.Links.Add(new Link { Rel = relation.Name, HRef = relation.Url });
-            }
+            
             return item;
-        }
-
-        private string SerializeResource(IBehaveAsResource resource)
-        {
-            var writerSettings = new XmlWriterSettings {OmitXmlDeclaration = true};
-            var stringWriter = new StringWriter();
-            using (var xmlWriter = XmlWriter.Create(stringWriter, writerSettings))
-            {
-                var noNamespaces = new XmlSerializerNamespaces();
-                noNamespaces.Add("", "");
-                new XmlSerializer(resource.GetType()).Serialize(xmlWriter, resource, noNamespaces);
-            }
-
-            return stringWriter.ToString();
         }
 
         private XDocument FeedInXml(Feed atomFeeds)
@@ -69,7 +49,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
                     new XElement(ns + "title", atomFeeds.Title),
                     new XElement(ns + "updated", atomFeeds.Updated.ToString("yyyy-MM-dd\\THH:mm:ss%K")),
                     new XElement(ns + "author", new XElement(ns + "name", atomFeeds.Author)),
-                    new XElement(ns + "id", "http://localhost:3563/MyAtomFeedId")
+                    new XElement(ns + "id", "id")
                     ));
 
             foreach (var item in atomFeeds.Items)
@@ -88,12 +68,12 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
                                        new XElement(ns + "updated",
                                                     item.PublicDate.ToString("yyyy-MM-dd\\THH:mm:ss%K")));
 
-            foreach (var link in item.Links)
-            {
-                element.Add(new XElement(ns + "link",
-                                         new XAttribute("rel", link.Rel),
-                                         new XAttribute("href", link.HRef)));
-            }
+            //foreach (var link in item.Links)
+            //{
+            //    element.Add(new XElement(ns + "link",
+            //                             new XAttribute("rel", link.Rel),
+            //                             new XAttribute("href", link.HRef)));
+            //}
 
             element.Add(new XElement(ns + "content", new XCData(item.Content)));
             return element;

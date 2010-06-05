@@ -21,11 +21,10 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
         public void ShouldSerializeAResource()
         {
             var resource = new SomeResource { Name = "John Doe", Amount = 123.45 };
-            var atom = serializer.Serialize(resource, SomeRelations());
+            var atom = serializer.Serialize(resource);
 
             Assert.That(atom.Contains("<entry"));
             Assert.That(atom.Contains("John Doe"));
-            Assert.That(atom.Contains("<link rel=\"pay\" href=\"http://some/url\" />"));
             Assert.That(atom.Contains("</entry>"));
         }
 
