@@ -8,8 +8,7 @@ namespace Restfulie.Server.Results
     public class Success : RestfulieResult
     {
         public Success() { }
-        public Success(IBehaveAsResource resource) : base(resource) { }
-        public Success(IEnumerable<IBehaveAsResource> resources) : base(resources) { }
+        public Success(object model) : base(model) { }
 
         public override ResultDecorator GetDecorators()
         {

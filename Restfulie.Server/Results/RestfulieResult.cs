@@ -8,8 +8,7 @@ namespace Restfulie.Server.Results
 {
     public abstract class RestfulieResult : ActionResult
     {
-        private readonly IEnumerable<IBehaveAsResource> resources;
-        private readonly IBehaveAsResource resource;
+        private readonly object model;
 
         public IMediaType MediaType { get; set; }
         public IResultDecoratorHolder ResultHolder { get; set; }
@@ -18,39 +17,19 @@ namespace Restfulie.Server.Results
         {
         }
 
-        protected RestfulieResult(IBehaveAsResource resource)
+        protected RestfulieResult(object model)
         {
-            this.resource = resource;
-        }
-
-        protected RestfulieResult(IEnumerable<IBehaveAsResource> resources)
-        {
-            this.resources = resources;
-        }
-
-        private object GetPassedResource()
-        {
-            return (object) resource ?? resources;
+            this.model = model;
         }
 
         protected void Execute(ControllerContext context, ResultDecorator decorator)
         {
-            ResultHolder.Decorate(context, decorator, GetPassedResource());
+            ResultHolder.Decorate(context, decorator, model);
         }
 
         protected string BuildContent()
         {
-            if (resource != null)
-            {
-                return MediaType.Marshaller.Build(resource);
-            }
-
-            if (resources != null)
-            {
-                return MediaType.Marshaller.Build(resources);
-            }
-
-            return string.Empty;
+            return model != null ? MediaType.Marshaller.Build(model) : string.Empty;
         }
 
         public abstract ResultDecorator GetDecorators();

@@ -8,11 +8,11 @@ namespace Restfulie.Server.Results
         private readonly string location;
 
         public Created() {}
-        public Created(IBehaveAsResource resource, string location) : base(resource)
+        public Created(object model, string location) : base(model)
         {
             this.location = location;
         }
-        public Created(IBehaveAsResource resource) : base(resource) {}
+        public Created(object model) : base(model) {}
 
         public Created(string location)
         {
