@@ -27,7 +27,7 @@ namespace Restfulie.Server.Marshalling
                 content = hypermedia.Insert(content, allRelations);
             }
 
-            if(model.GetType().IsAListOfResources())
+            else if(model.GetType().IsAListOfResources())
             {
                 var allRelations = new List<IList<Relation>>();
 
