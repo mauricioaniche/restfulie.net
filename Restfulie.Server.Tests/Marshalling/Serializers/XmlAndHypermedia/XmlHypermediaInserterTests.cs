@@ -19,7 +19,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia
 
             var result = new XmlHypermediaInserter().Insert(content, relations);
 
-            Assert.AreEqual("<SomeResource><Name>123</Name><atom:link rel=\"pay\" xmlns:atom=\"http://www.w3.org/2005/Atom\">some/url</atom:link></SomeResource>", result);
+            Assert.AreEqual("<SomeResource><Name>123</Name><atom:link rel=\"pay\" href=\"some/url\" xmlns:atom=\"http://www.w3.org/2005/Atom\" /></SomeResource>", result);
         }
 
         [Test]
@@ -47,8 +47,8 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia
 
             Assert.AreEqual(
                 "<SomeResources>"+
-                    "<SomeResource><Name>123</Name><atom:link rel=\"pay\" xmlns:atom=\"http://www.w3.org/2005/Atom\">some/url/123</atom:link></SomeResource>"+
-                    "<SomeResource><Name>456</Name><atom:link rel=\"pay\" xmlns:atom=\"http://www.w3.org/2005/Atom\">some/url/456</atom:link></SomeResource>"+
+                    "<SomeResource><Name>123</Name><atom:link rel=\"pay\" href=\"some/url/123\" xmlns:atom=\"http://www.w3.org/2005/Atom\" /></SomeResource>"+
+                    "<SomeResource><Name>456</Name><atom:link rel=\"pay\" href=\"some/url/456\" xmlns:atom=\"http://www.w3.org/2005/Atom\" /></SomeResource>" +
                 "</SomeResources>", 
                 result);
         }

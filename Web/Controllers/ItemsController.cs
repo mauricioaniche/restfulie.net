@@ -11,21 +11,10 @@ namespace Web.Controllers
     [ActAsRestfulie]
     public class ItemsController : Controller
     {
- 
-        private static IList<IBehaveAsResource> List(IEnumerable<Item> items)
-        {
-            var list = new List<IBehaveAsResource>();
-            foreach(var item in items)
-            {
-                list.Add(item);
-            }
-            return list;
-        }
-
         public ActionResult Index()
         {
             var database = new MemoryDatabase();
-            return new Success(List(database.List()));
+            return new Success(database.List());
         }
 
         public ActionResult Get(int id)

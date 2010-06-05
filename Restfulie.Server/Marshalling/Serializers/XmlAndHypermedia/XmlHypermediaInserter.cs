@@ -43,10 +43,15 @@ namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
         private XmlNode GetTransition(XmlDocument xmlDocument, Relation state)
         {
             var transition = xmlDocument.CreateNode(XmlNodeType.Element, "atom", "link", "http://www.w3.org/2005/Atom");
+
             var rel = xmlDocument.CreateAttribute("rel");
-            transition.InnerText = state.Url;
             rel.InnerText = state.Name;
             transition.Attributes.Append(rel);
+
+            var href = xmlDocument.CreateAttribute("href");
+            href.InnerText = state.Url;
+            transition.Attributes.Append(href);
+
             return transition;
         }
 

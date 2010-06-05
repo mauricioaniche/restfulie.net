@@ -68,13 +68,6 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
                                        new XElement(ns + "updated",
                                                     item.PublicDate.ToString("yyyy-MM-dd\\THH:mm:ss%K")));
 
-            //foreach (var link in item.Links)
-            //{
-            //    element.Add(new XElement(ns + "link",
-            //                             new XAttribute("rel", link.Rel),
-            //                             new XAttribute("href", link.HRef)));
-            //}
-
             element.Add(new XElement(ns + "content", new XCData(item.Content)));
             return element;
         }
