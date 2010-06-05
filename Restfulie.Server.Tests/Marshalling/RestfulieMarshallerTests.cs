@@ -63,6 +63,20 @@ namespace Restfulie.Server.Tests.Marshalling
             Assert.AreEqual(representation, SerializedHypermediaList());
         }
 
+        [Test]
+        public void ShouldBuildANonResource()
+        {
+            var model = new List<int>();
+
+            serializer.Setup(s => s.Serialize(model)).Returns("some list of integers");
+
+            var builder = new RestfulieMarshaller(relations.Object, serializer.Object, hypermedia.Object);
+            var representation = builder.Build(model);
+
+            serializer.VerifyAll();
+            Assert.AreEqual("some list of integers", representation);
+        }
+
         private static List<Relation> SomeTransitions()
         {
             return new List<Relation> { new Relation("pay", "Order", "Pay", new Dictionary<string, object>(), SerializedResource()) };
