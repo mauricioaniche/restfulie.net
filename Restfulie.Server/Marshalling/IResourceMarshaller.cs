@@ -2,6 +2,6 @@
 {
     public interface IResourceMarshaller
     {
-        string Build(object resource);
+        string Build(object model);
     }
 }

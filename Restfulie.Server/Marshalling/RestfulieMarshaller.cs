@@ -18,29 +18,6 @@ namespace Restfulie.Server.Marshalling
             this.hypermedia = hypermedia;
         }
 
-        public string Build(IBehaveAsResource resource)
-        {
-            //var all = resource.GetRelations(relations);
-            //var content = serializer.Serialize(resource, all);
-            //return content;
-            return string.Empty;
-        }
-
-        public string Build(IEnumerable<IBehaveAsResource> resources)
-        {
-            //var listOfResources = new Dictionary<IBehaveAsResource, IList<Relation>>();
-            //foreach (var resource in resources)
-            //{
-            //    var allRelations = resource.GetRelations(relations);
-            //    listOfResources.Add(resource, allRelations);
-            //}
-
-            //var content = serializer.Serialize(listOfResources);
-
-            //return content;
-            return string.Empty;
-        }
-
         public string Build(object model)
         {
             var content = serializer.Serialize(model);

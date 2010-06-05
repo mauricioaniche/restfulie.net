@@ -31,13 +31,13 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
         [Test]
         public void ShouldSerializeAListOfResources()
         {
-            var resourcesXrelations = new Dictionary<IBehaveAsResource, IList<Relation>>
+            var resources = new []
                                           {
-                                              {new SomeResource {Amount = 123.45, Name = "John Doe"}, SomeRelations()},
-                                              {new SomeResource {Amount = 67.89, Name = "Sally Doe"}, SomeRelations()}
+                                              new SomeResource {Amount = 123.45, Name = "John Doe"},
+                                              new SomeResource {Amount = 67.89, Name = "Sally Doe"}
                                           };
 
-            var atom = serializer.Serialize(resourcesXrelations);
+            var atom = serializer.Serialize(resources);
 
             Assert.That(atom.Contains("<feed xmlns=\"http://www.w3.org/2005/Atom\">"));
             Assert.That(atom.Contains("John Doe"));

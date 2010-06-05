@@ -88,6 +88,7 @@
     <Compile Include="Fixtures\SomeResult.cs" />
     <Compile Include="Fixtures\SomeResultDecorator.cs" />
     <Compile Include="Marshalling\NoMarshallerTests.cs" />
+    <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInserterTests.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializerTests.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\FeedTests.cs" />
     <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlHypermediaInserterTests.cs" />

@@ -31,21 +31,16 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia
         [Test]
         public void ShouldSerializeAListOfResources()
         {
-            var resourcesXrelations = new []
+            var resources = new []
                                           {
                                               new SomeResource {Amount = 123.45, Name = "John Doe"},
                                               new SomeResource {Amount = 67.89, Name = "Sally Doe"}
                                           };
 
-            var xml = serializer.Serialize(resourcesXrelations);
+            var xml = serializer.Serialize(resources);
 
             Assert.That(xml.Contains("John Doe"));
             Assert.That(xml.Contains("Sally Doe"));
-        }
-
-        private IList<Relation> SomeRelations()
-        {
-            return new List<Relation> {new Relation("pay", "controller", "action", new Dictionary<string, object>(), "http://some/url")};
         }
     }
 }
