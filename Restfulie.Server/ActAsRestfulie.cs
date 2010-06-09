@@ -25,7 +25,7 @@ namespace Restfulie.Server
             contentType = new ContentTypeToMediaType(mediaTypesList);
             requestInfo = new DefaultRequestInfoFinder();
             resultHolderFactory = new ResultDecoratorHolderFactory();
-            unmarshallerResolver = new UnmarshallerResolver();
+            unmarshallerResolver = new UnmarshallerResolver(new AcceptPostPutAndPatchVerbs());
         }
 
         public ActAsRestfulie(IAcceptHeaderToMediaType acceptHeader, IContentTypeToMediaType contentType,

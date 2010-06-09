@@ -7,13 +7,19 @@ namespace Restfulie.Server.Unmarshalling.Resolver
 {
     public class UnmarshallerResolver : IUnmarshallerResolver
     {
+        private readonly IAcceptHttpVerb httpVerbs;
         public bool HasResource { get { return !string.IsNullOrEmpty(ParameterName); } }
         public Type ParameterType { get; private set; }
         public string ParameterName { get; private set; }
         
+        public UnmarshallerResolver(IAcceptHttpVerb httpVerbs)
+        {
+            this.httpVerbs = httpVerbs;
+        }
+
         public void DetectIn(ActionExecutingContext context)
         {
-            if(IsAValidHTTPMethod(context) && ActionHasParameters(context))
+            if(httpVerbs.IsValid(context) && ActionHasParameters(context))
             {
                 var firstParameter = context.ActionDescriptor.GetParameters().First();
 
@@ -25,18 +31,6 @@ namespace Restfulie.Server.Unmarshalling.Resolver
         private bool ActionHasParameters(ActionExecutingContext context)
         {
             return context.ActionDescriptor.GetParameters().Length > 0;
-        }
-
-        private bool IsArrayOfResources(ParameterDescriptor parameter)
-        {
-            return parameter.ParameterType.IsArray && parameter.ParameterType.GetElementType().IsAResource();
-        }
-
-        private bool IsAValidHTTPMethod(ControllerContext context)
-        {
-            return context.RequestContext.HttpContext.Request.HttpMethod.Equals("POST") || 
-                   context.RequestContext.HttpContext.Request.HttpMethod.Equals("PUT") ||
-                   context.RequestContext.HttpContext.Request.HttpMethod.Equals("PATCH");
         }
 
     }

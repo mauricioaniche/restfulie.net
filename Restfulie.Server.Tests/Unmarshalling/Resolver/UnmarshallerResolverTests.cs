@@ -23,6 +23,7 @@ namespace Restfulie.Server.Tests.Unmarshalling.Resolver
         private ActionExecutingContext context;
 
         private IList<ParameterDescriptor> parameterList;
+        private Mock<IAcceptHttpVerb> acceptVerbs;
 
         [SetUp]
         public void CrazySetup()
@@ -39,14 +40,16 @@ namespace Restfulie.Server.Tests.Unmarshalling.Resolver
             context = new ActionExecutingContext(controllerContext, actionDescriptor.Object, new RouteValueDictionary()) { RequestContext = requestContext };
    
             parameterList = new List<ParameterDescriptor>();
+
+            acceptVerbs = new Mock<IAcceptHttpVerb>();
         }
 
         [Test]
         public void ItShouldUnmarshallOnlyWhenVerbIsAPostOrPutOrPatch()
         {
-            httpRequest.Setup(h => h.HttpMethod).Returns("GET");
+            acceptVerbs.Setup(h => h.IsValid(It.IsAny<ControllerContext>())).Returns(false);
 
-            var resolver = new UnmarshallerResolver();
+            var resolver = new UnmarshallerResolver(acceptVerbs.Object);
             resolver.DetectIn(context);
 
             Assert.IsFalse(resolver.HasResource);
@@ -55,12 +58,12 @@ namespace Restfulie.Server.Tests.Unmarshalling.Resolver
         [Test]
         public void ShouldUnmarshallTheFirstParameter()
         {
-            httpRequest.Setup(h => h.HttpMethod).Returns("POST");
+            acceptVerbs.Setup(h => h.IsValid(It.IsAny<ControllerContext>())).Returns(true);
 
             CreateParameter("parameter", typeof(SomeResource));
             actionDescriptor.Setup(a => a.GetParameters()).Returns(parameterList.ToArray());
 
-            var resolver = new UnmarshallerResolver();
+            var resolver = new UnmarshallerResolver(acceptVerbs.Object);
             resolver.DetectIn(context);
 
             Assert.IsTrue(resolver.HasResource);
@@ -71,11 +74,11 @@ namespace Restfulie.Server.Tests.Unmarshalling.Resolver
         [Test]
         public void ShouldNotResolveActionWithoutParameter()
         {
-            httpRequest.Setup(h => h.HttpMethod).Returns("POST");
+            acceptVerbs.Setup(h => h.IsValid(It.IsAny<ControllerContext>())).Returns(true);
 
             actionDescriptor.Setup(a => a.GetParameters()).Returns(parameterList.ToArray());
 
-            var resolver = new UnmarshallerResolver();
+            var resolver = new UnmarshallerResolver(acceptVerbs.Object);
             resolver.DetectIn(context);
 
             Assert.IsFalse(resolver.HasResource);
