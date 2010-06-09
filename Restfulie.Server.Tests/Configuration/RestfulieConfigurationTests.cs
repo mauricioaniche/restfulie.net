@@ -13,11 +13,22 @@ namespace Restfulie.Server.Tests.Configuration
         public void ShouldRegisterSerializerAndDeserializerForAMediaType()
         {
             var config = new RestfulieConfiguration();
+            config.ClearDefaults();
 
             config.Register<XmlAndHypermedia, XmlAndHypermediaSerializer, XmlDeserializer>();
 
             Assert.IsTrue(config.GetSerializer<XmlAndHypermedia>() is XmlAndHypermediaSerializer);
             Assert.IsTrue(config.GetDeserializer<XmlAndHypermedia>() is XmlDeserializer);
+        }
+
+        [Test]
+        public void ShouldReturnNullIfNotRegistered()
+        {
+            var config = new RestfulieConfiguration();
+            config.ClearDefaults();
+
+            Assert.IsNull(config.GetSerializer<XmlAndHypermedia>());
+            Assert.IsNull(config.GetDeserializer<XmlAndHypermedia>());
         }
     }
 }

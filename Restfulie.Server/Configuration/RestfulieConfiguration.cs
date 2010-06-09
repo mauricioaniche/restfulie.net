@@ -9,11 +9,11 @@ namespace Restfulie.Server.Configuration
 {
     public class RestfulieConfiguration
     {
-        private static IList<MediaTypeSerializerAndDeserializer> store;
+        private static readonly IList<MediaTypeSerializerAndDeserializer> Store;
 
         static RestfulieConfiguration()
         {
-            store = new List<MediaTypeSerializerAndDeserializer>();
+            Store = new List<MediaTypeSerializerAndDeserializer>();
         }
 
         public void Register<T, T1, T2>() 
@@ -21,33 +21,30 @@ namespace Restfulie.Server.Configuration
             where T1 : IResourceSerializer 
             where T2 : IResourceDeserializer
         {
-            store.Add(new MediaTypeSerializerAndDeserializer(typeof(T), typeof(T1), typeof(T2)));
+            Store.Add(new MediaTypeSerializerAndDeserializer(typeof(T), typeof(T1), typeof(T2)));
         }
 
-        public IResourceSerializer GetSerializer<T>()
+        public IResourceSerializer GetSerializer<T>() where T : IMediaType
         {
-            return (IResourceSerializer)
-                Activator.CreateInstance(store.Where(mt => mt.MediaType == typeof(T)).First().Serializer);
+            var item = FindMediaType<T>();
+            return item == null ? null : (IResourceSerializer)Activator.CreateInstance(item.Serializer);
         }
 
-        public IResourceDeserializer GetDeserializer<T>()
+        public IResourceDeserializer GetDeserializer<T>() where T : IMediaType
         {
-            return (IResourceDeserializer)
-                Activator.CreateInstance(store.Where(mt => mt.MediaType == typeof(T)).First().Deserializer);
+            var item = FindMediaType<T>();
+            return item == null ? null : (IResourceDeserializer)Activator.CreateInstance(item.Deserializer);
         }
-    }
 
-    class MediaTypeSerializerAndDeserializer
-    {
-        public Type Serializer { get; private set; }
-        public Type Deserializer { get; private set; }
-        public Type MediaType { get; private set; }
-
-        public MediaTypeSerializerAndDeserializer(Type mediaType, Type serializer, Type deserializer)
+        public void ClearDefaults()
         {
-            MediaType = mediaType;
-            Serializer = serializer;
-            Deserializer = deserializer;
+            Store.Clear();
         }
+
+        private MediaTypeSerializerAndDeserializer FindMediaType<T>()
+        {
+            return Store.Where(mt => mt.MediaType == typeof(T)).FirstOrDefault();
+        }
+
     }
 }
