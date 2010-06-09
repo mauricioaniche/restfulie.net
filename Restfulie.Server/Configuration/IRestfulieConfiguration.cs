@@ -13,6 +13,5 @@ namespace Restfulie.Server.Configuration
 
         IResourceSerializer GetSerializer<T>() where T : IMediaType;
         IResourceDeserializer GetDeserializer<T>() where T : IMediaType;
-        void ClearDefaults();
     }
 }

@@ -9,11 +9,11 @@ namespace Restfulie.Server.Configuration
 {
     public class RestfulieConfiguration : IRestfulieConfiguration
     {
-        private static readonly IList<MediaTypeSerializerAndDeserializer> Store;
+        private readonly IList<MediaTypeSerializerAndDeserializer> store;
 
-        static RestfulieConfiguration()
+        public RestfulieConfiguration()
         {
-            Store = new List<MediaTypeSerializerAndDeserializer>();
+            store = new List<MediaTypeSerializerAndDeserializer>();
         }
 
         public void Register<T, T1, T2>() 
@@ -21,7 +21,7 @@ namespace Restfulie.Server.Configuration
             where T1 : IResourceSerializer 
             where T2 : IResourceDeserializer
         {
-            Store.Add(new MediaTypeSerializerAndDeserializer(typeof(T), typeof(T1), typeof(T2)));
+            store.Add(new MediaTypeSerializerAndDeserializer(typeof(T), typeof(T1), typeof(T2)));
         }
 
         public IResourceSerializer GetSerializer<T>() where T : IMediaType
@@ -36,14 +36,9 @@ namespace Restfulie.Server.Configuration
             return item == null ? null : (IResourceDeserializer)Activator.CreateInstance(item.Deserializer);
         }
 
-        public void ClearDefaults()
-        {
-            Store.Clear();
-        }
-
         private MediaTypeSerializerAndDeserializer FindMediaType<T>()
         {
-            return Store.Where(mt => mt.MediaType == typeof(T)).FirstOrDefault();
+            return store.Where(mt => mt.MediaType == typeof(T)).FirstOrDefault();
         }
 
     }

@@ -28,7 +28,7 @@ namespace Restfulie.Server
             requestInfo = new DefaultRequestInfoFinder();
             resultHolderFactory = new ResultDecoratorHolderFactory();
             unmarshallerResolver = new UnmarshallerResolver(new AcceptPostPutAndPatchVerbs());
-            configuration = new RestfulieConfiguration();
+            configuration = ConfigurationStore.Get();
         }
 
         public ActAsRestfulie(IAcceptHeaderToMediaType acceptHeader, IContentTypeToMediaType contentType,
