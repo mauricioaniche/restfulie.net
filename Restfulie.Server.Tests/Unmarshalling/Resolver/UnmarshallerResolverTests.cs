@@ -42,7 +42,7 @@ namespace Restfulie.Server.Tests.Unmarshalling.Resolver
         }
 
         [Test]
-        public void ItShouldUnmarshallOnlyWhenVerbIsAPostOrPut()
+        public void ItShouldUnmarshallOnlyWhenVerbIsAPostOrPutOrPatch()
         {
             httpRequest.Setup(h => h.HttpMethod).Returns("GET");
 
@@ -53,7 +53,7 @@ namespace Restfulie.Server.Tests.Unmarshalling.Resolver
         }
 
         [Test]
-        public void ShouldDetectIfActionExpectsAResource()
+        public void ShouldUnmarshallTheFirstParameter()
         {
             httpRequest.Setup(h => h.HttpMethod).Returns("POST");
 
@@ -64,42 +64,22 @@ namespace Restfulie.Server.Tests.Unmarshalling.Resolver
             resolver.DetectIn(context);
 
             Assert.IsTrue(resolver.HasResource);
-        }
-
-        [Test]
-        public void ShouldFindTheResourceParameter()
-        {
-            httpRequest.Setup(h => h.HttpMethod).Returns("POST");
-
-            CreateParameter("resource", typeof(SomeResource));
-            CreateParameter("nonResource", typeof(int));
-            actionDescriptor.Setup(a => a.GetParameters()).Returns(parameterList.ToArray());
-
-            var resolver = new UnmarshallerResolver();
-            resolver.DetectIn(context);
-
+            Assert.AreEqual("parameter", resolver.ParameterName);
             Assert.AreEqual(typeof(SomeResource), resolver.ParameterType);
-            Assert.AreEqual("resource", resolver.ParameterName);
         }
 
         [Test]
-        public void ShouldDetectIfItIsAListOfResources()
+        public void ShouldNotResolveActionWithoutParameter()
         {
             httpRequest.Setup(h => h.HttpMethod).Returns("POST");
-
-            CreateParameter("nonResource", typeof (int));
-            CreateParameter("resource", new[] { new SomeResource()}.GetType());
 
             actionDescriptor.Setup(a => a.GetParameters()).Returns(parameterList.ToArray());
 
             var resolver = new UnmarshallerResolver();
             resolver.DetectIn(context);
 
-            Assert.IsTrue(resolver.HasResource);
-            Assert.AreEqual(typeof(SomeResource[]), resolver.ParameterType);
-            Assert.AreEqual("resource", resolver.ParameterName);
+            Assert.IsFalse(resolver.HasResource);
         }
-
 
         private void CreateParameter(string name, Type type)
         {
