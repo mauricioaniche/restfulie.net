@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActAsRestfulieTests.cs" />
+    <Compile Include="Configuration\RestfulieConfigurationTests.cs" />
     <Compile Include="Extensions\ObjectExtensionsTest.cs" />
     <Compile Include="Extensions\TypeExtensionsTests.cs" />
     <Compile Include="Fixtures\SomeResult.cs" />
