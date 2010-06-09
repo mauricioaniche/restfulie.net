@@ -7,14 +7,14 @@ using Restfulie.Server.Tests.Fixtures;
 namespace Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia
 {
     [TestFixture]
-    public class XmlAndHypermediaSerializerTests
+    public class XmlSerializerTests
     {
         private IResourceSerializer serializer;
 
         [SetUp]
         public void SetUp()
         {
-            serializer = new XmlAndHypermediaSerializer();   
+            serializer = new XmlSerializer();   
         }
 
         [Test]

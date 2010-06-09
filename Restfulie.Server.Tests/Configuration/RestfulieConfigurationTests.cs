@@ -15,9 +15,9 @@ namespace Restfulie.Server.Tests.Configuration
             var config = new RestfulieConfiguration();
             config.ClearDefaults();
 
-            config.Register<XmlAndHypermedia, XmlAndHypermediaSerializer, XmlDeserializer>();
+            config.Register<XmlAndHypermedia, XmlSerializer, XmlDeserializer>();
 
-            Assert.IsTrue(config.GetSerializer<XmlAndHypermedia>() is XmlAndHypermediaSerializer);
+            Assert.IsTrue(config.GetSerializer<XmlAndHypermedia>() is XmlSerializer);
             Assert.IsTrue(config.GetDeserializer<XmlAndHypermedia>() is XmlDeserializer);
         }
 
