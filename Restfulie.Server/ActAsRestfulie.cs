@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Restfulie.Server.Configuration;
 using Restfulie.Server.MediaTypes;
 using Restfulie.Server.Negotiation;
 using Restfulie.Server.Results;
@@ -17,6 +18,7 @@ namespace Restfulie.Server
         private readonly IRequestInfoFinder requestInfo;
         private readonly IResultDecoratorHolderFactory resultHolderFactory;
         private readonly IUnmarshallerResolver unmarshallerResolver;
+        private readonly IRestfulieConfiguration configuration;
 
         public ActAsRestfulie()
         {
@@ -26,22 +28,26 @@ namespace Restfulie.Server
             requestInfo = new DefaultRequestInfoFinder();
             resultHolderFactory = new ResultDecoratorHolderFactory();
             unmarshallerResolver = new UnmarshallerResolver(new AcceptPostPutAndPatchVerbs());
+            configuration = new RestfulieConfiguration();
         }
 
         public ActAsRestfulie(IAcceptHeaderToMediaType acceptHeader, IContentTypeToMediaType contentType,
-            IRequestInfoFinder finder, IResultDecoratorHolderFactory resultHolderFactory, IUnmarshallerResolver resolver)
+            IRequestInfoFinder finder, IResultDecoratorHolderFactory resultHolderFactory, IUnmarshallerResolver resolver,
+            IRestfulieConfiguration configuration)
         {
             this.acceptHeader = acceptHeader;
             this.contentType = contentType;
             this.requestInfo = finder;
             this.resultHolderFactory = resultHolderFactory;
             this.unmarshallerResolver = resolver;
+            this.configuration = configuration;
         }
 
         public override void OnResultExecuting(ResultExecutingContext filterContext)
         {
             var result = (RestfulieResult)filterContext.Result;
             result.MediaType = mediaType;
+            result.Configuration = configuration;
             result.ResultHolder = resultHolderFactory.BasedOn(mediaType);
 
             base.OnResultExecuting(filterContext);
@@ -86,7 +92,7 @@ namespace Restfulie.Server
             {
                 var requestMediaType = contentType.GetMediaType(requestInfo.GetContentTypeIn(filterContext));
 
-                var resource = requestMediaType.Unmarshaller.Build(requestInfo.GetContent(filterContext), unmarshallerResolver.ParameterType);
+                var resource = requestMediaType.GetUnmarshaller(configuration).Build(requestInfo.GetContent(filterContext), unmarshallerResolver.ParameterType);
                 if (resource != null) filterContext.ActionParameters[unmarshallerResolver.ParameterName] = resource;
             }
         }

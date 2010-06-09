@@ -1,4 +1,5 @@
-﻿using Restfulie.Server.Marshalling;
+﻿using Restfulie.Server.Configuration;
+using Restfulie.Server.Marshalling;
 using Restfulie.Server.Unmarshalling;
 
 namespace Restfulie.Server.MediaTypes
@@ -6,7 +7,7 @@ namespace Restfulie.Server.MediaTypes
     public interface IMediaType
     {
         string[] Synonyms { get; }
-        IResourceMarshaller Marshaller { get; }
-        IResourceUnmarshaller Unmarshaller { get; }
+        IResourceMarshaller GetMarshaller(IRestfulieConfiguration config);
+        IResourceUnmarshaller GetUnmarshaller(IRestfulieConfiguration config);
     }
 }

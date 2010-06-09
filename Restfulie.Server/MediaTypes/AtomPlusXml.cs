@@ -1,4 +1,6 @@
-﻿using Restfulie.Server.Marshalling;
+﻿using Castle.Core.Configuration;
+using Restfulie.Server.Configuration;
+using Restfulie.Server.Marshalling;
 using Restfulie.Server.Marshalling.Serializers.AtomPlusXml;
 using Restfulie.Server.Marshalling.UrlGenerators;
 using Restfulie.Server.Unmarshalling;
@@ -14,23 +16,17 @@ namespace Restfulie.Server.MediaTypes
             get { return new[] {"application/atom+xml", "atom+xml"}; }
         }
 
-        public IResourceMarshaller Marshaller
+        public IResourceMarshaller GetMarshaller(IRestfulieConfiguration config)
         {
-            get
-            {
-                return new RestfulieMarshaller(
-                    new Relations(new AspNetMvcUrlGenerator()), 
-                    new AtomPlusXmlSerializer(),
-                    new AtomPlusXmlHypermediaInserter());
-            }
+            return new RestfulieMarshaller(
+                new Relations(new AspNetMvcUrlGenerator()), 
+                config.GetSerializer<AtomPlusXml>() ?? new AtomPlusXmlSerializer(),
+                new AtomPlusXmlHypermediaInserter());
         }
 
-        public IResourceUnmarshaller Unmarshaller
+        public IResourceUnmarshaller GetUnmarshaller(IRestfulieConfiguration config)
         {
-            get
-            {
-                return new RestfulieUnmarshaller(new AtomPlusXmlDeserializer());
-            }
+            return new RestfulieUnmarshaller(config.GetDeserializer<AtomPlusXml>() ?? new AtomPlusXmlDeserializer());
         }
     }
 }

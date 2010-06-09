@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Restfulie.Server.Configuration;
 using Restfulie.Server.MediaTypes;
 using Restfulie.Server.Results.Decorators;
 using Restfulie.Server.Results.Decorators.Holders;
@@ -11,6 +12,7 @@ namespace Restfulie.Server.Results
 
         public IMediaType MediaType { get; set; }
         public IResultDecoratorHolder ResultHolder { get; set; }
+        public IRestfulieConfiguration Configuration { get; set; }
 
         protected RestfulieResult()
         {
@@ -28,7 +30,7 @@ namespace Restfulie.Server.Results
 
         protected string BuildContent()
         {
-            return model != null ? MediaType.Marshaller.Build(model) : string.Empty;
+            return model != null ? MediaType.GetMarshaller(Configuration).Build(model) : string.Empty;
         }
 
         public abstract ResultDecorator GetDecorators();

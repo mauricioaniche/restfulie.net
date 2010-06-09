@@ -4,7 +4,7 @@ using Restfulie.Server.Unmarshalling.Deserializers;
 
 namespace Restfulie.Server.Configuration
 {
-    public interface IConfiguration
+    public interface IRestfulieConfiguration
     {
         void Register<T, T1, T2>() 
             where T : IMediaType 

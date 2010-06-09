@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Restfulie.Server.Configuration
 {
-    public class RestfulieConfiguration : IConfiguration
+    public class RestfulieConfiguration : IRestfulieConfiguration
     {
         private static readonly IList<MediaTypeSerializerAndDeserializer> Store;
 

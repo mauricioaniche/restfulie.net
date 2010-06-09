@@ -1,4 +1,5 @@
-﻿using Restfulie.Server.Marshalling;
+﻿using Restfulie.Server.Configuration;
+using Restfulie.Server.Marshalling;
 using Restfulie.Server.Unmarshalling;
 
 namespace Restfulie.Server.MediaTypes
@@ -10,20 +11,14 @@ namespace Restfulie.Server.MediaTypes
             get { return new[] {"text/html"}; }
         }
 
-        public IResourceMarshaller Marshaller
+        public IResourceMarshaller GetMarshaller(IRestfulieConfiguration config)
         {
-            get
-            {
-                return new NoMarshaller();
-            }
+            return new NoMarshaller();
         }
 
-        public IResourceUnmarshaller Unmarshaller
+        public IResourceUnmarshaller GetUnmarshaller(IRestfulieConfiguration config)
         {
-            get
-            {
-                return new AspNetMvcUnmarshaller();
-            }
+            return new AspNetMvcUnmarshaller();
         }
     }
 }
