@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActAsRestfulie.cs" />
+    <Compile Include="Configuration\IConfiguration.cs" />
     <Compile Include="Configuration\MediaTypeSerializerAndDeserializer.cs" />
     <Compile Include="Configuration\RestfulieConfiguration.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
