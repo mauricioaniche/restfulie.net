@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Web.Mvc;
-using Restfulie.Server.Extensions;
 using System.Linq;
 
 namespace Restfulie.Server.Unmarshalling.Resolver
