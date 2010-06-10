@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
-using Restfulie.Server.Configuration;
 using Restfulie.Server.Marshalling;
 using Restfulie.Server.MediaTypes;
 using Restfulie.Server.Negotiation;
 using Restfulie.Server.Results;
-using Restfulie.Server.Results.Decorators.Holders;
+using Restfulie.Server.Results.Chooser;
 using Restfulie.Server.Tests.Fixtures;
 using Restfulie.Server.Unmarshalling;
 using Restfulie.Server.Unmarshalling.Resolver;
@@ -24,8 +23,7 @@ namespace Restfulie.Server.Tests
         private Mock<IResourceMarshaller> marshaller;
         private Mock<IAcceptHeaderToMediaType> acceptHeader;
         private Mock<IContentTypeToMediaType> contentType;
-        private Mock<IResultDecoratorHolderFactory> resultHolderFactory;
-        private Mock<IResultDecoratorHolder> resultHolder;
+        private Mock<IResultChooser> chooser;
         private Mock<IUnmarshallerResolver> resolver;
 
         private ActionExecutingContext actionExecutingContext;
@@ -48,8 +46,7 @@ namespace Restfulie.Server.Tests
             unmarshaller = new Mock<IResourceUnmarshaller>();
             marshaller = new Mock<IResourceMarshaller>();
 
-            resultHolderFactory = new Mock<IResultDecoratorHolderFactory>();
-            resultHolder = new Mock<IResultDecoratorHolder>();
+            chooser = new Mock<IResultChooser>();
 
             resolver = new Mock<IUnmarshallerResolver>();
 
@@ -59,29 +56,12 @@ namespace Restfulie.Server.Tests
         }
 
         [Test]
-        public void ShouldSetMediaTypeAndConfigurationAndResultHolderToResult()
-        {
-            resultExecutingContext.Result = new SomeResult();
-            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object, resultHolderFactory.Object, resolver.Object);
-
-            acceptHeader.Setup(ah => ah.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
-            resultHolderFactory.Setup(factory => factory.BasedOn(mediaType.Object)).Returns(resultHolder.Object);
-
-            filter.OnActionExecuting(actionExecutingContext);
-            filter.OnResultExecuting(resultExecutingContext);
-
-
-            Assert.AreEqual(mediaType.Object, ((RestfulieResult)resultExecutingContext.Result).MediaType);
-            Assert.AreEqual(resultHolder.Object, ((RestfulieResult)resultExecutingContext.Result).ResultHolder);
-        }
-
-        [Test]
         public void ShouldReturnNotAcceptableWhenMediaTypeIsNotSupported()
         {
             acceptHeader.Setup(f => f.GetMediaType(It.IsAny<string>())).Throws(new AcceptHeaderNotSupportedException());
             requestInfo.Setup(ah => ah.GetAcceptHeaderIn(actionExecutingContext)).Returns("some-crazy-media-type");
 
-            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object, resultHolderFactory.Object, resolver.Object);
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object, chooser.Object, resolver.Object);
 
             filter.OnActionExecuting(actionExecutingContext);
 
@@ -92,7 +72,7 @@ namespace Restfulie.Server.Tests
         public void ShouldUnmarshallResource()
         {
             var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object,
-                                            resultHolderFactory.Object, resolver.Object);
+                                            chooser.Object, resolver.Object);
 
             var resource = new SomeResource { Amount = 123, Name = "Some name" };
 
@@ -112,7 +92,7 @@ namespace Restfulie.Server.Tests
         public void ShouldUnmarshallListOfResources()
         {
             var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object,
-                                            resultHolderFactory.Object, resolver.Object);
+                                            chooser.Object, resolver.Object);
 
             var resources = new[] {new SomeResource { Amount = 123, Name = "Some name" } };
 
@@ -136,7 +116,7 @@ namespace Restfulie.Server.Tests
             requestInfo.Setup(ah => ah.GetContentTypeIn(actionExecutingContext)).Returns("some-crazy-media-type");
 
             var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object,
-                                            resultHolderFactory.Object, resolver.Object);
+                                            chooser.Object, resolver.Object);
 
             filter.OnActionExecuting(actionExecutingContext);
 
@@ -154,7 +134,7 @@ namespace Restfulie.Server.Tests
             contentType.Setup(f => f.GetMediaType(It.IsAny<string>())).Returns(mediaType.Object);
 
             var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object,
-                                            resultHolderFactory.Object, resolver.Object);
+                                            chooser.Object, resolver.Object);
             filter.OnActionExecuting(actionExecutingContext);
 
             Assert.IsTrue(actionExecutingContext.Result is BadRequest);
@@ -168,7 +148,7 @@ namespace Restfulie.Server.Tests
             contentType.Setup(f => f.GetMediaType(It.IsAny<string>())).Throws(new ContentTypeNotSupportedException());
 
             var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object,
-                                resultHolderFactory.Object, resolver.Object);
+                                chooser.Object, resolver.Object);
             filter.OnActionExecuting(actionExecutingContext);
 
             contentType.Verify(c => c.GetMediaType(It.IsAny<string>()), Times.Never());
@@ -181,7 +161,7 @@ namespace Restfulie.Server.Tests
         public void ShouldNotReplaceResourceIfUnmarshallerReturnsNull()
         {
             var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object,
-                                            resultHolderFactory.Object, resolver.Object);
+                                            chooser.Object, resolver.Object);
 
             actionExecutingContext.ActionParameters["Resource"] = "some old data here";
 
