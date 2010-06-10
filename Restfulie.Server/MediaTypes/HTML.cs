@@ -24,7 +24,7 @@ namespace Restfulie.Server.MediaTypes
 
         public IResourceUnmarshaller Unmarshaller
         {
-            get { return new AspNetMvcUnmarshaller(); }
+            get { return new NoUnmarshaller(); }
         }
     }
 }
