@@ -6,9 +6,12 @@ namespace Restfulie.Server.MediaTypes
     {
         public IEnumerable<IMediaType> MediaTypes { get; private set; }
 
-        public DefaultMediaTypeList(IEnumerable<IMediaType> mediaTypes)
+        public IMediaType Default { get; private set; }
+
+        public DefaultMediaTypeList(IEnumerable<IMediaType> mediaTypes, IMediaType defaultMediaType)
         {
             MediaTypes = mediaTypes;
+            Default = defaultMediaType;
         }
 
         public IMediaType Find(string format)
@@ -22,11 +25,6 @@ namespace Restfulie.Server.MediaTypes
             }
 
             return null;
-        }
-
-        public IMediaType Default
-        {
-            get { return new HTML(); }
         }
     }
 }
