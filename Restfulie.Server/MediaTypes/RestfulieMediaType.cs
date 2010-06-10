@@ -6,22 +6,13 @@ using Restfulie.Server.Unmarshalling.Deserializers;
 
 namespace Restfulie.Server.MediaTypes
 {
-    public class VendorizedMediaType : IMediaType
+    public abstract class RestfulieMediaType : IMediaType
     {
-
-        public VendorizedMediaType(string format)
-        {
-            Synonyms = new[] {format};
-        }
-
         public IResourceSerializer Serializer { get; set; }
         public IHypermediaInserter Hypermedia { get; set; }
         public IResourceDeserializer Deserializer { get; set; }
 
-        public string[] Synonyms
-        {
-            get; private set;
-        }
+        public abstract string[] Synonyms { get; }
 
         public IResourceMarshaller Marshaller
         {
