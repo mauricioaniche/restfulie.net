@@ -2,21 +2,16 @@
 {
     public class ConfigurationStore
     {
-        private static IRestfulieConfiguration config;
+        private static readonly IRestfulieConfiguration Config;
 
         static ConfigurationStore()
         {
-            config = new RestfulieConfiguration();
-        }
-
-        public static void Save(IRestfulieConfiguration newConfig)
-        {
-            config = newConfig;
+            Config = new RestfulieConfiguration();
         }
 
         public static IRestfulieConfiguration Get()
         {
-            return config;
+            return Config;
         }
     }
 }

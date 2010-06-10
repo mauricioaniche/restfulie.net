@@ -45,9 +45,8 @@ namespace Web
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
             );
 
-            var config = new RestfulieConfiguration();
+            var config = ConfigurationStore.Get();
             config.RegisterVendorized("application/vnd.company.com+xml", new XmlSerializer(), new XmlHypermediaInserter(), new XmlDeserializer());
-            ConfigurationStore.Save(config);
         }
 
         protected void Application_Start()
