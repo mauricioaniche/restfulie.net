@@ -37,7 +37,7 @@ namespace Restfulie.Server.Configuration
             get { return new DefaultMediaTypeList(store, new HTML()); }
         }
 
-        public void RegisterVendorized(string format, XmlSerializer serializer, XmlHypermediaInserter hypermedia, XmlDeserializer deserializer)
+        public void RegisterVendorized(string format, IResourceSerializer serializer, IHypermediaInserter hypermedia, IResourceDeserializer deserializer)
         {
             var vendorizedMediaType = new Vendorized(format)
                                           {
