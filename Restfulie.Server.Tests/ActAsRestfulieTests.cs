@@ -185,7 +185,7 @@ namespace Restfulie.Server.Tests
 
             filter.OnActionExecuted(actionExecutedContext);
 
-            chooser.Verify(c => c.Between(actionExecutedContext, It.IsAny<IMediaType>()), Times.Once());
+            chooser.Verify(c => c.BasedOnMediaType(actionExecutedContext, It.IsAny<IMediaType>()), Times.Once());
         }
     }
 }

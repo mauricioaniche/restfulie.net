@@ -5,7 +5,7 @@ namespace Restfulie.Server.Results.Chooser
 {
     public class ResultChooser : IResultChooser
     {
-        public ActionResult Between(ActionExecutedContext context, IMediaType type)
+        public ActionResult BasedOnMediaType(ActionExecutedContext context, IMediaType type)
         {
             return (type is HTML) ? AspNetResult(context) : DefaultResult(context, type);
         }

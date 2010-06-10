@@ -29,7 +29,7 @@ namespace Restfulie.Server.Tests.Results.Chooser
         [Test]
         public void ShouldReturnViewResultIfItIsHTML()
         {
-            var choosedResult = new ResultChooser().Between(context, new HTML());
+            var choosedResult = new ResultChooser().BasedOnMediaType(context, new HTML());
 
             Assert.IsTrue(choosedResult is ViewResult);
         }
@@ -37,7 +37,7 @@ namespace Restfulie.Server.Tests.Results.Chooser
         [Test]
         public void ShouldReturnTheSameResultIfItIsNotHTML()
         {
-            var choosedResult = (RestfulieResult)new ResultChooser().Between(context, new XmlAndHypermedia());
+            var choosedResult = (RestfulieResult)new ResultChooser().BasedOnMediaType(context, new XmlAndHypermedia());
 
             Assert.IsTrue(choosedResult is SomeResult);
             Assert.IsTrue(choosedResult.MediaType is XmlAndHypermedia);

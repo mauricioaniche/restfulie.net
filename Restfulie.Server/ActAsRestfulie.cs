@@ -41,7 +41,7 @@ namespace Restfulie.Server
 
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            filterContext.Result = choose.Between(filterContext, mediaType);
+            filterContext.Result = choose.BasedOnMediaType(filterContext, mediaType);
 
             base.OnActionExecuted(filterContext);
         }
