@@ -37,18 +37,6 @@ namespace Restfulie.Server.Configuration
             get { return new DefaultMediaTypeList(store); }
         }
 
-        private IMediaType FindOrCreate(Type mediaType)
-        {
-            var searchedMediaType = store.Where(mt => mt.GetType() == mediaType).SingleOrDefault();
-            if(searchedMediaType == null)
-            {
-                searchedMediaType = (IMediaType)Activator.CreateInstance(mediaType);
-                store.Add(searchedMediaType);
-            }
-
-            return searchedMediaType;
-        }
-
         public void RegisterVendorized(string format, XmlSerializer serializer, XmlHypermediaInserter hypermedia, XmlDeserializer deserializer)
         {
             var vendorizedMediaType = new Vendorized(format)
@@ -59,6 +47,18 @@ namespace Restfulie.Server.Configuration
                                           };
 
             store.Add(vendorizedMediaType);
+        }
+
+        private IMediaType FindOrCreate(Type mediaType)
+        {
+            var searchedMediaType = store.Where(mt => mt.GetType() == mediaType).SingleOrDefault();
+            if (searchedMediaType == null)
+            {
+                searchedMediaType = (IMediaType)Activator.CreateInstance(mediaType);
+                store.Add(searchedMediaType);
+            }
+
+            return searchedMediaType;
         }
     }
 }
