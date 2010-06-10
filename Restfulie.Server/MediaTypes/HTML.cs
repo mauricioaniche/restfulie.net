@@ -1,4 +1,5 @@
-﻿using Restfulie.Server.Marshalling;
+﻿using System;
+using Restfulie.Server.Marshalling;
 using Restfulie.Server.Marshalling.Serializers;
 using Restfulie.Server.Unmarshalling;
 using Restfulie.Server.Unmarshalling.Deserializers;
@@ -18,7 +19,7 @@ namespace Restfulie.Server.MediaTypes
 
         public IResourceMarshaller Marshaller
         {
-            get { return new NoMarshaller(); }
+            get { throw new Exception("HTML should be marshalled by ASP.NET MVC! :-("); }
         }
 
         public IResourceUnmarshaller Unmarshaller
