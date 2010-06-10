@@ -94,6 +94,7 @@
     <Compile Include="Marshalling\Serializers\AtomPlusXml\FeedTests.cs" />
     <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlHypermediaInserterTests.cs" />
     <Compile Include="MediaTypes\DefaultMediaTypeListTests.cs" />
+    <Compile Include="MediaTypes\VendorizedMediaTypeTests.cs" />
     <Compile Include="Negotiation\AcceptHeaderToMediaTypeTests.cs" />
     <Compile Include="Negotiation\ContentTypeToMediaTypeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

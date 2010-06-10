@@ -92,6 +92,7 @@
     <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlHypermediaInserter.cs" />
     <Compile Include="MediaTypes\DefaultMediaTypeList.cs" />
     <Compile Include="MediaTypes\IMediaTypeList.cs" />
+    <Compile Include="MediaTypes\VendorizedMediaType.cs" />
     <Compile Include="Negotiation\AcceptHeaderToMediaType.cs" />
     <Compile Include="Negotiation\ContentTypeToMediaType.cs" />
     <Compile Include="Negotiation\IAcceptHeaderToMediaType.cs" />
