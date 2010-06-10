@@ -11,7 +11,7 @@ namespace Restfulie.Server.Tests.Results.Chooser
     [TestFixture]
     public class ResultChooserTests
     {
-        private Mock<ResultExecutingContext> context;
+        private ActionExecutedContext context;
         private SomeResult result;
 
         [SetUp]
@@ -19,15 +19,17 @@ namespace Restfulie.Server.Tests.Results.Chooser
         {
             result = new SomeResult();
 
-            context = new Mock<ResultExecutingContext>();
-            context.SetupGet(c => c.Controller).Returns(new SomeController{ViewData = new ViewDataDictionary()});
-            context.SetupGet(c => c.Result).Returns(result);
+            context = new ActionExecutedContext
+                          {
+                              Controller = new SomeController {ViewData = new ViewDataDictionary()}, 
+                              Result = result
+                          };
         }
 
         [Test]
         public void ShouldReturnViewResultIfItIsHTML()
         {
-            var choosedResult = new ResultChooser().Between(context.Object, new HTML());
+            var choosedResult = new ResultChooser().Between(context, new HTML());
 
             Assert.IsTrue(choosedResult is ViewResult);
         }
@@ -35,7 +37,7 @@ namespace Restfulie.Server.Tests.Results.Chooser
         [Test]
         public void ShouldReturnTheSameResultIfItIsNotHTML()
         {
-            var choosedResult = (RestfulieResult)new ResultChooser().Between(context.Object, new XmlAndHypermedia());
+            var choosedResult = (RestfulieResult)new ResultChooser().Between(context, new XmlAndHypermedia());
 
             Assert.IsTrue(choosedResult is SomeResult);
             Assert.IsTrue(choosedResult.MediaType is XmlAndHypermedia);

@@ -5,12 +5,12 @@ namespace Restfulie.Server.Results.Chooser
 {
     public class ResultChooser : IResultChooser
     {
-        public ActionResult Between(ResultExecutingContext context, IMediaType type)
+        public ActionResult Between(ActionExecutedContext context, IMediaType type)
         {
             return (type is HTML) ? AspNetResult(context) : DefaultResult(context, type);
         }
 
-        private ActionResult DefaultResult(ResultExecutingContext context, IMediaType type)
+        private ActionResult DefaultResult(ActionExecutedContext context, IMediaType type)
         {
             var result = (RestfulieResult)context.Result;
             result.MediaType = type;
@@ -18,7 +18,7 @@ namespace Restfulie.Server.Results.Chooser
             return result; 
         }
 
-        private ActionResult AspNetResult(ResultExecutingContext context)
+        private ActionResult AspNetResult(ActionExecutedContext context)
         {
             var result = (RestfulieResult)context.Result;
 

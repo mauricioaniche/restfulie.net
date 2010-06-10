@@ -27,7 +27,7 @@ namespace Restfulie.Server.Tests
         private Mock<IUnmarshallerResolver> resolver;
 
         private ActionExecutingContext actionExecutingContext;
-        private ResultExecutingContext resultExecutingContext;
+        private ActionExecutedContext actionExecutedContext;
 
         [SetUp]
         public void SetUp()
@@ -37,7 +37,7 @@ namespace Restfulie.Server.Tests
                               ActionParameters = new Dictionary<string, object>()
                           };
 
-            resultExecutingContext = new ResultExecutingContext();
+            actionExecutedContext = new ActionExecutedContext();
 
             requestInfo = new Mock<IRequestInfoFinder>();
             acceptHeader = new Mock<IAcceptHeaderToMediaType>();
@@ -175,6 +175,17 @@ namespace Restfulie.Server.Tests
             filter.OnActionExecuting(actionExecutingContext);
 
             Assert.AreEqual("some old data here", actionExecutingContext.ActionParameters["Resource"]);
+        }
+
+        [Test]
+        public void ShouldCallResultChooser()
+        {
+            var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfo.Object,
+                                chooser.Object, resolver.Object);
+
+            filter.OnActionExecuted(actionExecutedContext);
+
+            chooser.Verify(c => c.Between(actionExecutedContext, It.IsAny<IMediaType>()), Times.Once());
         }
     }
 }

@@ -39,11 +39,11 @@ namespace Restfulie.Server
             this.unmarshallerResolver = resolver;
         }
 
-        public override void OnResultExecuting(ResultExecutingContext filterContext)
+        public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
             filterContext.Result = choose.Between(filterContext, mediaType);
 
-            base.OnResultExecuting(filterContext);
+            base.OnActionExecuted(filterContext);
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)

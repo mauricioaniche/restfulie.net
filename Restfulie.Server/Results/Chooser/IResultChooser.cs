@@ -5,6 +5,6 @@ namespace Restfulie.Server.Results.Chooser
 {
     public interface IResultChooser
     {
-        ActionResult Between(ResultExecutingContext context, IMediaType type);
+        ActionResult Between(ActionExecutedContext context, IMediaType type);
     }
 }
