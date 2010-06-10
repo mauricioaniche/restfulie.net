@@ -14,12 +14,13 @@ namespace Restfulie.Server.Tests.Configuration
         {
             var config = new RestfulieConfiguration();
 
-            config.Register<XmlAndHypermedia>(new XmlSerializer(), new XmlDeserializer());
+            config.Register<XmlAndHypermedia>(new XmlSerializer(), new XmlHypermediaInserter(), new XmlDeserializer());
             
             var mediaType = config.MediaTypes.Find("application/xml");
             
             Assert.IsTrue(mediaType.Serializer is XmlSerializer);
             Assert.IsTrue(mediaType.Deserializer is XmlDeserializer);
+            Assert.IsTrue(mediaType.Hypermedia is XmlHypermediaInserter);
         }
     }
 }

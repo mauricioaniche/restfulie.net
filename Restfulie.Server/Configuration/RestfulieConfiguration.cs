@@ -21,12 +21,13 @@ namespace Restfulie.Server.Configuration
                         };
         }
 
-        public void Register<T>(IResourceSerializer serializer, IResourceDeserializer deserializer) 
+        public void Register<T>(IResourceSerializer serializer, IHypermediaInserter hypermedia, IResourceDeserializer deserializer) 
             where T : IMediaType 
         {
             var media = FindOrCreate(typeof (T));
             media.Serializer = serializer;
             media.Deserializer = deserializer;
+            media.Hypermedia = hypermedia;
         }
 
         public IMediaTypeList MediaTypes
