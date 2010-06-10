@@ -82,7 +82,6 @@
     <Compile Include="ActAsRestfulie.cs" />
     <Compile Include="Configuration\ConfigurationStore.cs" />
     <Compile Include="Configuration\IRestfulieConfiguration.cs" />
-    <Compile Include="Configuration\MediaTypeSerializerAndDeserializer.cs" />
     <Compile Include="Configuration\RestfulieConfiguration.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
