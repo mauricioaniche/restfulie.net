@@ -108,7 +108,7 @@
     <Compile Include="Results\InternalServerError.cs" />
     <Compile Include="Results\NotFound.cs" />
     <Compile Include="Results\Chooser\ResultChooser.cs" />
-    <Compile Include="Unmarshalling\AspNetMvcUnmarshaller.cs" />
+    <Compile Include="Unmarshalling\NoUnmarshaller.cs" />
     <Compile Include="Unmarshalling\Deserializers\AtomPlusXml\AtomPlusXmlDeserializer.cs" />
     <Compile Include="Unmarshalling\Resolver\AcceptPostPutAndPatchVerbs.cs" />
     <Compile Include="Unmarshalling\Resolver\IAcceptHttpVerb.cs" />
