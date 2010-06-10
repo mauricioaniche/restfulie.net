@@ -9,37 +9,41 @@ namespace Restfulie.Server.Configuration
 {
     public class RestfulieConfiguration : IRestfulieConfiguration
     {
-        private readonly IList<MediaTypeSerializerAndDeserializer> store;
+        private readonly IList<IMediaType> store;
 
         public RestfulieConfiguration()
         {
-            store = new List<MediaTypeSerializerAndDeserializer>();
+            store = new List<IMediaType>
+                        {
+                            new XmlAndHypermedia(),
+                            new AtomPlusXml(),
+                            new HTML()
+                        };
         }
 
-        public void Register<T, T1, T2>() 
+        public void Register<T>(IResourceSerializer serializer, IResourceDeserializer deserializer) 
             where T : IMediaType 
-            where T1 : IResourceSerializer 
-            where T2 : IResourceDeserializer
         {
-            store.Add(new MediaTypeSerializerAndDeserializer(typeof(T), typeof(T1), typeof(T2)));
+            var media = FindOrCreate(typeof (T));
+            media.Serializer = serializer;
+            media.Deserializer = deserializer;
         }
 
-        public IResourceSerializer GetSerializer<T>() where T : IMediaType
+        public IMediaTypeList MediaTypes
         {
-            var item = FindMediaType<T>();
-            return item == null ? null : (IResourceSerializer)Activator.CreateInstance(item.Serializer);
+            get { return new DefaultMediaTypeList(store); }
         }
 
-        public IResourceDeserializer GetDeserializer<T>() where T : IMediaType
+        private IMediaType FindOrCreate(Type mediaType)
         {
-            var item = FindMediaType<T>();
-            return item == null ? null : (IResourceDeserializer)Activator.CreateInstance(item.Deserializer);
-        }
+            var searchedMediaType = store.Where(mt => mt.GetType() == mediaType).SingleOrDefault();
+            if(searchedMediaType == null)
+            {
+                searchedMediaType = (IMediaType)Activator.CreateInstance(mediaType);
+                store.Add(searchedMediaType);
+            }
 
-        private MediaTypeSerializerAndDeserializer FindMediaType<T>()
-        {
-            return store.Where(mt => mt.MediaType == typeof(T)).FirstOrDefault();
+            return searchedMediaType;
         }
-
     }
 }

@@ -6,12 +6,8 @@ namespace Restfulie.Server.Configuration
 {
     public interface IRestfulieConfiguration
     {
-        void Register<T, T1, T2>() 
-            where T : IMediaType 
-            where T1 : IResourceSerializer 
-            where T2 : IResourceDeserializer;
+        void Register<T>(IResourceSerializer serializer, IResourceDeserializer deserializer) where T : IMediaType;
 
-        IResourceSerializer GetSerializer<T>() where T : IMediaType;
-        IResourceDeserializer GetDeserializer<T>() where T : IMediaType;
+        IMediaTypeList MediaTypes { get; }
     }
 }

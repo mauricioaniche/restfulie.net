@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Restfulie.Server.MediaTypes
 {
     public class DefaultMediaTypeList : IMediaTypeList
     {
-        public IEnumerable<IMediaType> MediaTypes
+        public IEnumerable<IMediaType> MediaTypes { get; private set; }
+
+        public DefaultMediaTypeList(IEnumerable<IMediaType> mediaTypes)
         {
-            get { 
-                return new IMediaType[]
-                {
-                    new HTML(), 
-                    new XmlAndHypermedia(), 
-                    new AtomPlusXml()
-                }; 
-            }
+            MediaTypes = mediaTypes;
         }
 
         public IMediaType Find(string format)

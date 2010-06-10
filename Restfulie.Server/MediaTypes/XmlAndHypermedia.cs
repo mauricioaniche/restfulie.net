@@ -1,30 +1,36 @@
-﻿using Restfulie.Server.Configuration;
-using Restfulie.Server.Marshalling;
-using Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia;
+﻿using Restfulie.Server.Marshalling;
+using Restfulie.Server.Marshalling.Serializers;
 using Restfulie.Server.Marshalling.UrlGenerators;
 using Restfulie.Server.Unmarshalling;
-using Restfulie.Server.Unmarshalling.Deserializers.Xml;
+using Restfulie.Server.Unmarshalling.Deserializers;
 
 namespace Restfulie.Server.MediaTypes
 {
     public class XmlAndHypermedia : IMediaType
     {
+        public IResourceSerializer Serializer { get; set; }
+        public IHypermediaInserter Hypermedia { get; set; }
+        public IResourceDeserializer Deserializer { get; set; }
+
         public string[] Synonyms
         {
             get { return new[] {"application/xml", "text/xml" }; }
         }
 
-        public IResourceMarshaller GetMarshaller(IRestfulieConfiguration config)
+        public IResourceMarshaller Marshaller
         {
-            return
-                new RestfulieMarshaller(new Relations(new AspNetMvcUrlGenerator()), 
-                    config.GetSerializer<XmlAndHypermedia>() ?? new XmlSerializer(),
-                    new XmlHypermediaInserter());
+            get
+            {
+                return
+                    new RestfulieMarshaller(new Relations(new AspNetMvcUrlGenerator()),
+                                            Serializer,
+                                            Hypermedia);
+            }
         }
 
-        public IResourceUnmarshaller GetUnmarshaller(IRestfulieConfiguration config)
+        public IResourceUnmarshaller Unmarshaller
         {
-            return new RestfulieUnmarshaller(config.GetDeserializer<XmlAndHypermedia>() ?? new XmlDeserializer());
+            get { return new RestfulieUnmarshaller(Deserializer); }
         }
     }
 }

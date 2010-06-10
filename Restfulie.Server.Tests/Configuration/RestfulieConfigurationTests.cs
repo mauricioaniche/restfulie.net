@@ -14,19 +14,12 @@ namespace Restfulie.Server.Tests.Configuration
         {
             var config = new RestfulieConfiguration();
 
-            config.Register<XmlAndHypermedia, XmlSerializer, XmlDeserializer>();
-
-            Assert.IsTrue(config.GetSerializer<XmlAndHypermedia>() is XmlSerializer);
-            Assert.IsTrue(config.GetDeserializer<XmlAndHypermedia>() is XmlDeserializer);
-        }
-
-        [Test]
-        public void ShouldReturnNullIfNotRegistered()
-        {
-            var config = new RestfulieConfiguration();
-
-            Assert.IsNull(config.GetSerializer<XmlAndHypermedia>());
-            Assert.IsNull(config.GetDeserializer<XmlAndHypermedia>());
+            config.Register<XmlAndHypermedia>(new XmlSerializer(), new XmlDeserializer());
+            
+            var mediaType = config.MediaTypes.Find("application/xml");
+            
+            Assert.IsTrue(mediaType.Serializer is XmlSerializer);
+            Assert.IsTrue(mediaType.Deserializer is XmlDeserializer);
         }
     }
 }
