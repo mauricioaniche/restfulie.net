@@ -65,6 +65,9 @@
     <Reference Include="System.Web.Abstractions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Routing">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -85,6 +88,7 @@
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInserter.cs" />
     <Compile Include="Marshalling\Serializers\IHypermediaInserter.cs" />
+    <Compile Include="Marshalling\Serializers\Json\JsonSerializer.cs" />
     <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlHypermediaInserter.cs" />
     <Compile Include="MediaTypes\DefaultMediaTypeList.cs" />
     <Compile Include="MediaTypes\IMediaTypeList.cs" />
