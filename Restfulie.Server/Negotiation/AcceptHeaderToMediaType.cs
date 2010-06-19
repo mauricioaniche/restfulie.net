@@ -34,7 +34,7 @@ namespace Restfulie.Server.Negotiation
                     if (ContainsQualifier(type))
                     {
                         var typeInfo = type.Split(';');
-                        format = typeInfo[0];
+                        format = typeInfo[0].Trim();
                         qualifier = Convert.ToDouble(typeInfo[1].Split('=')[1]);
                     }
                     else
