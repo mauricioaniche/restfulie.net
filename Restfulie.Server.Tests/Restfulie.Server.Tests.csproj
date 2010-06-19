@@ -119,6 +119,7 @@
     <Compile Include="Results\SuccessTests.cs" />
     <Compile Include="Results\UnsupportedMediaTypeTests.cs" />
     <Compile Include="Unmarshalling\Deserializers\AtomPlusXmlDeserializerTests.cs" />
+    <Compile Include="Unmarshalling\Deserializers\JsonDeserializerTests.cs" />
     <Compile Include="Unmarshalling\Resolver\AcceptPostPutAndPatchVerbsTests.cs" />
     <Compile Include="Unmarshalling\RestfulieUnmarshallerTests.cs" />
     <Compile Include="Unmarshalling\Deserializers\XmlDeserializerTests.cs" />
