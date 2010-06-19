@@ -2,7 +2,7 @@
 
 namespace Restfulie.Server.Unmarshalling
 {
-    public class AspNetMvcUnmarshaller : IResourceUnmarshaller
+    public class NoUnmarshaller : IResourceUnmarshaller
     {
         public object Build(string xml, Type objectType)
         {

@@ -1,8 +1,9 @@
 ﻿using System.Web.Mvc;
+using Restfulie.Server.Configuration;
 using Restfulie.Server.MediaTypes;
 using Restfulie.Server.Negotiation;
 using Restfulie.Server.Results;
-using Restfulie.Server.Results.Decorators.Holders;
+using Restfulie.Server.Results.Chooser;
 using Restfulie.Server.Unmarshalling;
 using Restfulie.Server.Unmarshalling.Resolver;
 
@@ -15,36 +16,34 @@ namespace Restfulie.Server
         private readonly IAcceptHeaderToMediaType acceptHeader;
         private readonly IContentTypeToMediaType contentType;
         private readonly IRequestInfoFinder requestInfo;
-        private readonly IResultDecoratorHolderFactory resultHolderFactory;
         private readonly IUnmarshallerResolver unmarshallerResolver;
+        private readonly IResultChooser choose;
 
         public ActAsRestfulie()
         {
-            var mediaTypesList = new DefaultMediaTypeList();
+            var mediaTypesList = ConfigurationStore.Get().MediaTypes;
             acceptHeader = new AcceptHeaderToMediaType(mediaTypesList);
             contentType = new ContentTypeToMediaType(mediaTypesList);
             requestInfo = new DefaultRequestInfoFinder();
-            resultHolderFactory = new ResultDecoratorHolderFactory();
             unmarshallerResolver = new UnmarshallerResolver(new AcceptPostPutAndPatchVerbs());
+            choose = new ResultChooser();
         }
 
         public ActAsRestfulie(IAcceptHeaderToMediaType acceptHeader, IContentTypeToMediaType contentType,
-            IRequestInfoFinder finder, IResultDecoratorHolderFactory resultHolderFactory, IUnmarshallerResolver resolver)
+            IRequestInfoFinder finder, IResultChooser resultChooser, IUnmarshallerResolver resolver)
         {
             this.acceptHeader = acceptHeader;
             this.contentType = contentType;
             this.requestInfo = finder;
-            this.resultHolderFactory = resultHolderFactory;
+            this.choose = resultChooser;
             this.unmarshallerResolver = resolver;
         }
 
-        public override void OnResultExecuting(ResultExecutingContext filterContext)
+        public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            var result = (RestfulieResult)filterContext.Result;
-            result.MediaType = mediaType;
-            result.ResultHolder = resultHolderFactory.BasedOn(mediaType);
+            filterContext.Result = choose.BasedOnMediaType(filterContext, mediaType);
 
-            base.OnResultExecuting(filterContext);
+            base.OnActionExecuted(filterContext);
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)

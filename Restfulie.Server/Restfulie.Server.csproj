@@ -83,6 +83,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActAsRestfulie.cs" />
+    <Compile Include="Configuration\ConfigurationStore.cs" />
+    <Compile Include="Configuration\IRestfulieConfiguration.cs" />
+    <Compile Include="Configuration\RestfulieConfiguration.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
@@ -92,25 +95,24 @@
     <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlHypermediaInserter.cs" />
     <Compile Include="MediaTypes\DefaultMediaTypeList.cs" />
     <Compile Include="MediaTypes\IMediaTypeList.cs" />
+    <Compile Include="MediaTypes\RestfulieMediaType.cs" />
+    <Compile Include="MediaTypes\Vendorized.cs" />
     <Compile Include="Negotiation\AcceptHeaderToMediaType.cs" />
     <Compile Include="Negotiation\ContentTypeToMediaType.cs" />
     <Compile Include="Negotiation\IAcceptHeaderToMediaType.cs" />
     <Compile Include="Negotiation\ContentTypeNotSupportedException.cs" />
     <Compile Include="Negotiation\AcceptHeaderNotSupportedException.cs" />
     <Compile Include="Negotiation\IContentTypeToMediaType.cs" />
-    <Compile Include="Results\Decorators\Holders\AspNetMvcResultHolder.cs" />
+    <Compile Include="Results\Chooser\IResultChooser.cs" />
     <Compile Include="Results\Decorators\Content.cs" />
     <Compile Include="Results\Decorators\ContentType.cs" />
-    <Compile Include="Results\Decorators\Holders\IResultDecoratorHolderFactory.cs" />
     <Compile Include="Results\Decorators\ResultDecorator.cs" />
-    <Compile Include="Results\Decorators\Holders\IResultDecoratorHolder.cs" />
-    <Compile Include="Results\Decorators\Holders\ResultDecoratorHolderFactory.cs" />
     <Compile Include="Results\Decorators\Location.cs" />
-    <Compile Include="Results\Decorators\Holders\RestfulieResultHolder.cs" />
     <Compile Include="Results\Decorators\StatusCode.cs" />
     <Compile Include="Results\InternalServerError.cs" />
     <Compile Include="Results\NotFound.cs" />
-    <Compile Include="Unmarshalling\AspNetMvcUnmarshaller.cs" />
+    <Compile Include="Results\Chooser\ResultChooser.cs" />
+    <Compile Include="Unmarshalling\NoUnmarshaller.cs" />
     <Compile Include="Unmarshalling\Deserializers\AtomPlusXml\AtomPlusXmlDeserializer.cs" />
     <Compile Include="Unmarshalling\Resolver\AcceptPostPutAndPatchVerbs.cs" />
     <Compile Include="Unmarshalling\Resolver\IAcceptHttpVerb.cs" />
@@ -118,7 +120,6 @@
     <Compile Include="Unmarshalling\Resolver\UnmarshallerResolver.cs" />
     <Compile Include="Unmarshalling\UnmarshallingException.cs" />
     <Compile Include="IBehaveAsResource.cs" />
-    <Compile Include="Marshalling\NoMarshaller.cs" />
     <Compile Include="Marshalling\RestfulieMarshaller.cs" />
     <Compile Include="Marshalling\IResourceMarshaller.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializer.cs" />
@@ -135,7 +136,7 @@
     <Compile Include="Results\NotAcceptable.cs" />
     <Compile Include="Results\PreconditionFailed.cs" />
     <Compile Include="Results\RestfulieResult.cs" />
-    <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlAndHypermediaSerializer.cs" />
+    <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlSerializer.cs" />
     <Compile Include="Marshalling\Serializers\IResourceSerializer.cs" />
     <Compile Include="Results\SeeOther.cs" />
     <Compile Include="Results\Success.cs" />

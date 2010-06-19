@@ -3,10 +3,13 @@ using Restfulie.Server.Unmarshalling.Deserializers.Xml;
 
 namespace Restfulie.Server.MediaTypes
 {
-    public class XmlAndHypermedia : RestfulieMediaType
+    public class Vendorized : RestfulieMediaType
     {
-        public XmlAndHypermedia()
+        private readonly string[] synonyms;
+
+        public Vendorized(string format)
         {
+            synonyms = new[] {format};
             Serializer = new XmlSerializer();
             Hypermedia = new XmlHypermediaInserter();
             Deserializer = new XmlDeserializer();
@@ -14,7 +17,7 @@ namespace Restfulie.Server.MediaTypes
 
         public override string[] Synonyms
         {
-            get { return new[] {"application/xml", "text/xml" }; }
+            get { return synonyms; }
         }
     }
 }

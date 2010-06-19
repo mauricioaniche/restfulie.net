@@ -2,7 +2,7 @@
 
 namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
 {
-    public class XmlAndHypermediaSerializer : IResourceSerializer
+    public class XmlSerializer : IResourceSerializer
     {
         public string Serialize(object resource)
         {

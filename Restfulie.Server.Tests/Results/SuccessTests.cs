@@ -3,7 +3,6 @@ using NUnit.Framework;
 using Restfulie.Server.MediaTypes;
 using Restfulie.Server.Results;
 using Restfulie.Server.Results.Decorators;
-using Restfulie.Server.Results.Decorators.Holders;
 
 namespace Restfulie.Server.Tests.Results
 {
@@ -20,8 +19,7 @@ namespace Restfulie.Server.Tests.Results
 
             result = new Success
             {
-                MediaType = mediaType.Object,
-                ResultHolder = new Mock<IResultDecoratorHolder>().Object
+                MediaType = mediaType.Object
             };
         }
 

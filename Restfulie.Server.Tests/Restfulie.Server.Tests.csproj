@@ -83,29 +83,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActAsRestfulieTests.cs" />
+    <Compile Include="Configuration\RestfulieConfigurationTests.cs" />
     <Compile Include="Extensions\ObjectExtensionsTest.cs" />
     <Compile Include="Extensions\TypeExtensionsTests.cs" />
     <Compile Include="Fixtures\SomeResult.cs" />
     <Compile Include="Fixtures\SomeResultDecorator.cs" />
-    <Compile Include="Marshalling\NoMarshallerTests.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInserterTests.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializerTests.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\FeedTests.cs" />
     <Compile Include="Marshalling\Serializers\Json\JsonSerializerTests.cs" />
     <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlHypermediaInserterTests.cs" />
     <Compile Include="MediaTypes\DefaultMediaTypeListTests.cs" />
+    <Compile Include="MediaTypes\VendorizedTests.cs" />
     <Compile Include="Negotiation\AcceptHeaderToMediaTypeTests.cs" />
     <Compile Include="Negotiation\ContentTypeToMediaTypeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlAndHypermediaSerializerTests.cs" />
+    <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlSerializerTests.cs" />
     <Compile Include="Marshalling\RestfulieMarshallerTests.cs" />
     <Compile Include="Fixtures\SomeController.cs" />
     <Compile Include="Fixtures\SomeResource.cs" />
     <Compile Include="Results\BadRequestTests.cs" />
+    <Compile Include="Results\Chooser\ResultChooserTests.cs" />
     <Compile Include="Results\CreatedTests.cs" />
     <Compile Include="Results\Decorators\ContentTests.cs" />
     <Compile Include="Results\Decorators\ContentTypeTests.cs" />
-    <Compile Include="Results\Decorators\Holders\ResultDecoratorHolderFactoryTests.cs" />
     <Compile Include="Results\Decorators\LocationTests.cs" />
     <Compile Include="Results\Decorators\StatusCodeTests.cs" />
     <Compile Include="RelationsTests.cs" />
