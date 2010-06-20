@@ -13,8 +13,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia
             var content = "<SomeResource><Name>123</Name></SomeResource>";
             var relations = new List<Relation>
                                 {
-                                    new Relation("pay", "controller", "action", new Dictionary<string, object>(),
-                                                 "some/url")
+                                    new Relation("pay", "some/url")
                                 };
 
             var result = new XmlHypermediaInserter().Insert(content, relations);
@@ -33,14 +32,12 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia
 
             var relationsFor123 = new List<Relation>
                                 {
-                                    new Relation("pay", "controller", "action", new Dictionary<string, object>(),
-                                                 "some/url/123")
+                                    new Relation("pay", "some/url/123")
                                 };
 
             var relationsFor456 = new List<Relation>
                                 {
-                                    new Relation("pay", "controller", "action", new Dictionary<string, object>(),
-                                                 "some/url/456")
+                                    new Relation("pay", "some/url/456")
                                 };
 
             var result = new XmlHypermediaInserter().Insert(content, new List<IList<Relation>> { relationsFor123, relationsFor456 });

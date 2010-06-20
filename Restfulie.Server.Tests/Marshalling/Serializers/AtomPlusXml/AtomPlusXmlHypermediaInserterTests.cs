@@ -31,8 +31,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
 
             var relations = new List<Relation>
                                 {
-                                    new Relation("pay", "controller", "action", new Dictionary<string, object>(),
-                                                 "some/url")
+                                    new Relation("pay", "some/url")
                                 };
 
             var result = new AtomPlusXmlHypermediaInserter().Insert(entry, relations);
@@ -96,14 +95,12 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
 
             var relationsFor123 = new List<Relation>
                                 {
-                                    new Relation("pay", "controller", "action", new Dictionary<string, object>(),
-                                                 "some/url/123")
+                                    new Relation("pay", "some/url/123")
                                 };
 
             var relationsFor456 = new List<Relation>
                                 {
-                                    new Relation("pay", "controller", "action", new Dictionary<string, object>(),
-                                                 "some/url/456")
+                                    new Relation("pay", "some/url/456")
                                 };
 
             var result = new AtomPlusXmlHypermediaInserter().Insert(feed, new List<IList<Relation>> { relationsFor123, relationsFor456 });

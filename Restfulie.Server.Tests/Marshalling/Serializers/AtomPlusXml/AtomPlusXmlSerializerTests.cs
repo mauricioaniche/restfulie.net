@@ -47,7 +47,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
 
         private IList<Relation> SomeRelations()
         {
-            return new List<Relation> { new Relation("pay", "controller", "action", new Dictionary<string, object>(),  "http://some/url") };
+            return new List<Relation> { new Relation("pay", "http://some/url") };
         }
     }
 }

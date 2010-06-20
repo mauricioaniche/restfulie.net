@@ -79,7 +79,7 @@ namespace Restfulie.Server.Tests.Marshalling
 
         private static List<Relation> SomeTransitions()
         {
-            return new List<Relation> { new Relation("pay", "Order", "Pay", new Dictionary<string, object>(), SerializedResource()) };
+            return new List<Relation> { new Relation("pay", "url") };
         }
 
         private static string SerializedResource()
