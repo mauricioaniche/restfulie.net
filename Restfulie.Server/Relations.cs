@@ -47,5 +47,11 @@ namespace Restfulie.Server
 
             return allRelations;
         }
+
+        public void At(string url)
+        {
+            all.Add(new Relation(currentName, url));
+            currentName = string.Empty;
+        }
     }
 }

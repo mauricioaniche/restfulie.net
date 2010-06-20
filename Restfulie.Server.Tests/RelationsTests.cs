@@ -47,5 +47,19 @@ namespace Restfulie.Server.Tests
             Assert.IsNotNull(all.Where(t => t.Name == "pay").Single());
             Assert.IsNotNull(all.Where(t => t.Name == "cancel").Single());
         }
+
+        [Test]
+        public void ShouldCreateALinkToaNonAction()
+        {
+            var relations = new Relations(new Mock<IUrlGenerator>().Object);
+
+            relations.Named("to_another_website").At("some/url");
+
+            var all = relations.GetAll();
+
+            Assert.AreEqual(1, all.Count);
+            Assert.AreEqual("to_another_website" , all.First().Name);
+            Assert.AreEqual("some/url", all.First().Url);
+        }
     }
 }
