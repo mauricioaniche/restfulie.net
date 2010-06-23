@@ -33,5 +33,11 @@ namespace Restfulie.Server.Extensions
 
             return stringWriter.ToString();
         }
+
+        public static int? GetIdProperty(this object resource)
+        {
+            var propertyDef = resource.GetType().GetProperty("Id");
+            return (propertyDef != null) ? propertyDef.GetValue(resource, null) as int? : null;
+        }
     }
 }

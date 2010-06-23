@@ -19,5 +19,15 @@ namespace Restfulie.Server.Tests.Extensions
             Assert.AreEqual(1, array.Length);
             Assert.AreEqual(resource, array[0]);
         }
+
+        [Test]
+        public void ShouldGetIdPropertyIfItHasOne()
+        {
+            var resourceWithId = new SomeResourceWithId { Id = 123 };
+            var resourceWithoutId = new SomeResource();
+
+            Assert.AreEqual(123, resourceWithId.GetIdProperty().Value);
+            Assert.IsNull(resourceWithoutId.GetIdProperty());
+        }
     }
 }
