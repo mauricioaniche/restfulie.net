@@ -14,7 +14,14 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
         {
             if (resource is IEnumerable)
             {
-                var feed = new Feed { Author = "", Description = "", Title = "", Updated = DateTime.Now, Id = "" };
+                var feed = new Feed
+                               {
+                                   Author = resource.ToString(), 
+                                   Description = resource.ToString(), 
+                                   Title = resource.ToString(),
+                                   Updated = DateTime.Now, 
+                                   Id = resource.ToString()
+                               };
 
                 foreach (var obj in (IEnumerable)resource)
                 {
@@ -29,12 +36,13 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 
         private Entry GenerateEntry(object resource)
         {
+            DateTime result;
             var item = new Entry
             {
                 Description = resource.ToString(),
                 Title = resource.ToString(),
-                Id = resource.ToString(),
-                PublicDate = DateTime.Now,
+                Id = resource.GetProperty("Id") ?? resource.GetProperty("ID"),
+                PublicDate = DateTime.TryParse(resource.GetProperty("UpdatedAt"), out result) ? result : DateTime.Now,
                 Content = resource.AsXml()
             };
             

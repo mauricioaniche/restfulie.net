@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Restfulie.Server.Marshalling.Serializers;
 using Restfulie.Server.Marshalling.Serializers.AtomPlusXml;
@@ -20,10 +21,14 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
         [Test]
         public void ShouldSerializeAResource()
         {
-            var resource = new SomeResource { Name = "John Doe", Amount = 123.45 };
+            var date = new DateTime(2010, 10, 10);
+            var resource = new SomeResource { Name = "John Doe", Amount = 123.45, Id = 123, UpdatedAt = date};
             var atom = serializer.Serialize(resource);
 
-            Assert.That(atom.Contains("John Doe"));
+            var expectedResult =
+                "<entry xmlns=\"http://www.w3.org/2005/Atom\">\r\n  <title>Restfulie.Server.Tests.Fixtures.SomeResource</title>\r\n  <id>123</id>\r\n  <updated>2010-10-10T00:00:00</updated>\r\n  <content><![CDATA[<SomeResource><Name>John Doe</Name><Amount>123.45</Amount><Id>123</Id><UpdatedAt>2010-10-10T00:00:00</UpdatedAt></SomeResource>]]></content>\r\n</entry>";
+            
+            Assert.AreEqual(expectedResult, atom);
         }
 
         [Test]

@@ -10,7 +10,6 @@ namespace Restfulie.Server.Tests.Fixtures
         public double Amount { get; set; }
         public int Id { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public string Author { get; set; }
 
         public IList<Relation> GetRelations(Relations relations)
         {
