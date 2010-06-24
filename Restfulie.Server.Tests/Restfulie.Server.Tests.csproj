@@ -86,7 +86,6 @@
     <Compile Include="Configuration\RestfulieConfigurationTests.cs" />
     <Compile Include="Extensions\ObjectExtensionsTest.cs" />
     <Compile Include="Extensions\TypeExtensionsTests.cs" />
-    <Compile Include="Fixtures\SomeResourceWithId.cs" />
     <Compile Include="Fixtures\SomeResult.cs" />
     <Compile Include="Fixtures\SomeResultDecorator.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInserterTests.cs" />
