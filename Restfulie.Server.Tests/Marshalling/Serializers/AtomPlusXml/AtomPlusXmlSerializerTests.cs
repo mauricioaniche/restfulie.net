@@ -26,7 +26,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
             var atom = serializer.Serialize(resource);
 
             var expectedResult =
-                "<entry xmlns=\"http://www.w3.org/2005/Atom\">\r\n  <title>Restfulie.Server.Tests.Fixtures.SomeResource</title>\r\n  <id>123</id>\r\n  <updated>2010-10-10T00:00:00</updated>\r\n  <content><![CDATA[<SomeResource><Name>John Doe</Name><Amount>123.45</Amount><Id>123</Id><UpdatedAt>2010-10-10T00:00:00</UpdatedAt></SomeResource>]]></content>\r\n</entry>";
+                "<entry xmlns=\"http://www.w3.org/2005/Atom\">\r\n  <title>Restfulie.Server.Tests.Fixtures.SomeResource</title>\r\n  <id>123</id>\r\n  <updated>10/10/2010 12:00:00 AM</updated>\r\n  <content><![CDATA[<SomeResource><Name>John Doe</Name><Amount>123.45</Amount><Id>123</Id><UpdatedAt>2010-10-10T00:00:00</UpdatedAt></SomeResource>]]></content>\r\n</entry>";
             
             Assert.AreEqual(expectedResult, atom);
         }

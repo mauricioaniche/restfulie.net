@@ -36,13 +36,12 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 
         private Entry GenerateEntry(object resource)
         {
-            DateTime result;
             var item = new Entry
             {
                 Description = resource.ToString(),
                 Title = resource.ToString(),
                 Id = resource.GetProperty("Id") ?? resource.GetProperty("ID"),
-                PublicDate = DateTime.TryParse(resource.GetProperty("UpdatedAt"), out result) ? result : DateTime.Now,
+                PublicDate = resource.GetProperty("UpdatedAt") ?? DateTime.Now.ToString(),
                 Content = resource.AsXml()
             };
             
@@ -74,7 +73,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
                                        new XElement(ns + "title", item.Title),
                                        new XElement(ns + "id", item.Id),
                                        new XElement(ns + "updated",
-                                                    item.PublicDate.ToString("yyyy-MM-dd\\THH:mm:ss%K")));
+                                                    item.PublicDate));
 
             element.Add(new XElement(ns + "content", new XCData(item.Content)));
             return element;

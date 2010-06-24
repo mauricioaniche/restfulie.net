@@ -8,7 +8,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
         //feed informations
         public string Title { set; get; }
         public string Description { set; get; }
-        public DateTime PublicDate { set; get; }
+        public string PublicDate { set; get; }
         public string Id { set; get; }
         public string Content { get; set; }
     }
