@@ -16,8 +16,9 @@ namespace Restfulie.Server.Negotiation
 
         public IMediaType GetMediaType(string acceptHeader)
         {
-            var types = acceptHeader.Split(',');
+            if (string.IsNullOrEmpty(acceptHeader)) return mediaTypes.Default;
 
+            var types = acceptHeader.Split(',');
             var acceptedMediaType = new List<QualifiedMediaType>();
 
             foreach(var type in types)
