@@ -42,20 +42,20 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
             var resource = new SomeResource {Name = "John Doe", Amount = 123.45, Id = 123, UpdatedAt = date};
             var atom = serializer.Serialize(resource);
 
-            const string expectedResult = "<entry xmlns=\"http://www.w3.org/2005/Atom\">\r\n  "+
-                                          "<title>Restfulie.Server.Tests.Fixtures.SomeResource</title>\r\n  "+
-                                          "<id>123</id>\r\n  "+
-                                          "<updated>10/10/2010 12:00:00 AM</updated>\r\n  "+
-                                          "<content>"+
-                                          "<![CDATA["+
-                                          "<SomeResource>"+
-                                          "<Name>John Doe</Name>"+
-                                          "<Amount>123.45</Amount>"+
-                                          "<Id>123</Id>"+
-                                          "<UpdatedAt>2010-10-10T00:00:00</UpdatedAt>"+
-                                          "</SomeResource>]]>"+
-                                          "</content>\r\n"+
-                                          "</entry>";
+            const string expectedResult = 
+                "<entry xmlns=\"http://www.w3.org/2005/Atom\">\r\n  "+
+                    "<title>Restfulie.Server.Tests.Fixtures.SomeResource</title>\r\n  "+
+                    "<id>123</id>\r\n  "+
+                    "<updated>10/10/2010 12:00:00 AM</updated>\r\n  "+
+                    "<content>\r\n    "+
+                        "<SomeResource xmlns=\"\">\r\n      "+
+                        "<Name>John Doe</Name>\r\n      "+
+                        "<Amount>123.45</Amount>\r\n      "+
+                        "<Id>123</Id>\r\n      "+
+                        "<UpdatedAt>2010-10-10T00:00:00</UpdatedAt>\r\n    "+
+                        "</SomeResource>\r\n  "+
+                    "</content>\r\n"+
+                "</entry>";
 
             Assert.AreEqual(expectedResult, atom);
         }

@@ -75,7 +75,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
                                        new XElement(ns + "updated",
                                                     item.PublicDate));
 
-            element.Add(new XElement(ns + "content", new XCData(item.Content)));
+            element.Add(new XElement(ns + "content", XElement.Parse(item.Content)));
             return element;
         }
     }
