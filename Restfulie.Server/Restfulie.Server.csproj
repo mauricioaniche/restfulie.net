@@ -86,7 +86,6 @@
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
-    <Compile Include="IRelations.cs" />
     <Compile Include="IRelationsFactory.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInserter.cs" />
     <Compile Include="Marshalling\Serializers\IHypermediaInserter.cs" />

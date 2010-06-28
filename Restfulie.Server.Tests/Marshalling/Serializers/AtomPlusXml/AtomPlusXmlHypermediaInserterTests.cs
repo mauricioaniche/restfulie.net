@@ -2,6 +2,7 @@
 using Moq;
 using NUnit.Framework;
 using Restfulie.Server.Marshalling.Serializers.AtomPlusXml;
+using Restfulie.Server.Marshalling.UrlGenerators;
 
 namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
 {
@@ -30,7 +31,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
                     "</content>\n" +
                 "</entry> ";
 
-            var relations = new Mock<IRelations>();
+            var relations = new Mock<Relations>(new Mock<IUrlGenerator>().Object);
             relations.Setup(r => r.GetAll()).Returns(new List<Relation>
                                 {
                                     new Relation("pay", "some/url")
@@ -95,8 +96,8 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
                     "</entry> " +
                 "</feed>";
 
-            var relationsFor123 = new Mock<IRelations>();
-            var relationsFor456 = new Mock<IRelations>();
+            var relationsFor123 = new Mock<Relations>(new Mock<IUrlGenerator>().Object);
+            var relationsFor456 = new Mock<Relations>(new Mock<IUrlGenerator>().Object);
 
             relationsFor123.Setup(r => r.GetAll()).Returns(new List<Relation>
                                 {
@@ -108,7 +109,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
                                     new Relation("pay", "some/url/456")
                                 });
 
-            var result = new AtomPlusXmlHypermediaInserter().Insert(feed, new List<IRelations> { relationsFor123.Object, relationsFor456.Object });
+            var result = new AtomPlusXmlHypermediaInserter().Insert(feed, new List<Relations> { relationsFor123.Object, relationsFor456.Object });
 
 
             Assert.AreEqual(

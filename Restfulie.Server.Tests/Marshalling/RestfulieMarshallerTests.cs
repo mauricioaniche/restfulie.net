@@ -52,7 +52,7 @@ namespace Restfulie.Server.Tests.Marshalling
             var resources = new List<IBehaveAsResource> { new SomeResource(), new SomeResource() };
             SetSomeTransitions();
 
-            hypermedia.Setup(h => h.Insert(SerializedListOfResources(), It.IsAny<IList<IRelations>>())).Returns(
+            hypermedia.Setup(h => h.Insert(SerializedListOfResources(), It.IsAny<IList<Relations>>())).Returns(
                 SerializedHypermediaList());
             serializer.Setup(s => s.Serialize(resources)).Returns(SerializedListOfResources());
 

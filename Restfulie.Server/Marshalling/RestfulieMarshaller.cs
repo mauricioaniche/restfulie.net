@@ -30,7 +30,7 @@ namespace Restfulie.Server.Marshalling
 
             else if(model.GetType().IsAListOfResources())
             {
-                var allRelations = new List<IRelations>();
+                var allRelations = new List<Relations>();
 
                 var resources = model.AsResourceArray();
                 foreach (var resource in resources)

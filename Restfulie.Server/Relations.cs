@@ -6,7 +6,7 @@ using Restfulie.Server.Marshalling.UrlGenerators;
 
 namespace Restfulie.Server
 {
-    public class Relations : IRelations
+    public class Relations
     {
         private readonly IUrlGenerator urlGenerator;
         private readonly TransitionInterceptor interceptor;

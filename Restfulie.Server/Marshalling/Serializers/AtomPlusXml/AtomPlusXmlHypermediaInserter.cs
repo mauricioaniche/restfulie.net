@@ -6,7 +6,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 {
     public class AtomPlusXmlHypermediaInserter : IHypermediaInserter
     {
-        public string Insert(string content, IRelations relations)
+        public string Insert(string content, Relations relations)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);
@@ -21,7 +21,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
             return xmlDocument.InnerXml;
         }
 
-        public string Insert(string content, IList<IRelations> relations)
+        public string Insert(string content, IList<Relations> relations)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);
