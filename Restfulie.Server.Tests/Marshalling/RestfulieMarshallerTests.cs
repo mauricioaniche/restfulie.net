@@ -31,15 +31,13 @@ namespace Restfulie.Server.Tests.Marshalling
         public void ShouldBuildResourceRepresentation()
         {
             var resource = new SomeResource();
-            SetSomeTransitions();
-
+            
             serializer.Setup(s => s.Serialize(resource)).Returns(SerializedResource());
             hypermedia.Setup(h => h.Insert(SerializedResource(), relations.Object)).Returns(HypermediaResource());
 
             var builder = new RestfulieMarshaller(relationsFactory.Object, serializer.Object, hypermedia.Object);
             var representation = builder.Build(resource);
 
-            relations.VerifyAll();
             serializer.VerifyAll();
             hypermedia.VerifyAll();
 
@@ -50,8 +48,7 @@ namespace Restfulie.Server.Tests.Marshalling
         public void ShouldBuildListRepresentation()
         {
             var resources = new List<IBehaveAsResource> { new SomeResource(), new SomeResource() };
-            SetSomeTransitions();
-
+            
             hypermedia.Setup(h => h.Insert(SerializedListOfResources(), It.IsAny<IList<Relations>>())).Returns(
                 SerializedHypermediaList());
             serializer.Setup(s => s.Serialize(resources)).Returns(SerializedListOfResources());
@@ -59,7 +56,6 @@ namespace Restfulie.Server.Tests.Marshalling
             var builder = new RestfulieMarshaller(relationsFactory.Object, serializer.Object, hypermedia.Object);
             var representation = builder.Build(resources);
 
-            relations.VerifyAll();
             serializer.VerifyAll();
             hypermedia.VerifyAll();
             Assert.AreEqual(representation, SerializedHypermediaList());
@@ -77,11 +73,6 @@ namespace Restfulie.Server.Tests.Marshalling
 
             serializer.VerifyAll();
             Assert.AreEqual("some list of integers", representation);
-        }
-
-        private void SetSomeTransitions()
-        {
-            relations.Setup(r => r.GetAll()).Returns(new List<Relation> { new Relation("pay", "url") });
         }
 
         private static string SerializedResource()

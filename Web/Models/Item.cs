@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Restfulie.Server;
+﻿using Restfulie.Server;
 
 namespace Web.Models
 {
@@ -10,9 +8,8 @@ namespace Web.Models
         public string Nome { get; set; }
         public string Preco { get; set; }
 
-        public IList<Relation> GetRelations(Relations relations)
+        public void GetRelations(Relations relations)
         {
-            return relations.GetAll();
         }
     }
 }

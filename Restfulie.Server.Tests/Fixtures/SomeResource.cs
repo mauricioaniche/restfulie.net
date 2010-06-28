@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Restfulie.Server.Tests.Fixtures
 {
@@ -11,11 +10,9 @@ namespace Restfulie.Server.Tests.Fixtures
         public int Id { get; set; }
         public DateTime UpdatedAt { get; set; }
 
-        public IList<Relation> GetRelations(Relations relations)
+        public void GetRelations(Relations relations)
         {
             relations.Named("pay").Uses<SomeController>().SomeSimpleAction();
-
-            return relations.GetAll();
         }
     }
 }
