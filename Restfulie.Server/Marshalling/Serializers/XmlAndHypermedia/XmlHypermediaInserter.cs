@@ -5,12 +5,12 @@ namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
 {
     public class XmlHypermediaInserter : IHypermediaInserter
     {
-        public string Insert(string content, IList<Relation> relations)
+        public string Insert(string content, IRelations relations)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);
 
-            foreach (var state in relations)
+            foreach (var state in relations.GetAll())
             {
                 XmlNode transition = GetTransition(xmlDocument, state);
 
@@ -20,7 +20,7 @@ namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
             return xmlDocument.InnerXml;
         }
 
-        public string Insert(string content, IList<IList<Relation>> relations)
+        public string Insert(string content, IList<IRelations> relations)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);
@@ -29,7 +29,7 @@ namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
             {
                 var node = xmlDocument.DocumentElement.ChildNodes[i];
 
-                foreach(var relation in relations[i])
+                foreach(var relation in relations[i].GetAll())
                 {
                     var transition = GetTransition(xmlDocument, relation);
                     node.AppendChild(transition);

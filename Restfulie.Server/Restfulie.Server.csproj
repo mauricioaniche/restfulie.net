@@ -86,6 +86,8 @@
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="IRelations.cs" />
+    <Compile Include="IRelationsFactory.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInserter.cs" />
     <Compile Include="Marshalling\Serializers\IHypermediaInserter.cs" />
     <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlHypermediaInserter.cs" />
@@ -99,6 +101,7 @@
     <Compile Include="Negotiation\ContentTypeNotSupportedException.cs" />
     <Compile Include="Negotiation\AcceptHeaderNotSupportedException.cs" />
     <Compile Include="Negotiation\IContentTypeToMediaType.cs" />
+    <Compile Include="RelationsFactory.cs" />
     <Compile Include="Results\Chooser\IResultChooser.cs" />
     <Compile Include="Results\Decorators\Content.cs" />
     <Compile Include="Results\Decorators\ContentType.cs" />

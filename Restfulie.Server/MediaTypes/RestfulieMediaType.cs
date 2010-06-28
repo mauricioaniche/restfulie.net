@@ -19,7 +19,7 @@ namespace Restfulie.Server.MediaTypes
             get
             {
                 return
-                    new RestfulieMarshaller(new Relations(new AspNetMvcUrlGenerator()),
+                    new RestfulieMarshaller(new RelationsFactory(new AspNetMvcUrlGenerator()),
                                             Serializer,
                                             Hypermedia);
             }
