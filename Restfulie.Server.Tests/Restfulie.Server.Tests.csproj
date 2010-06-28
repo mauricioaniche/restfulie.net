@@ -101,6 +101,7 @@
     <Compile Include="Marshalling\RestfulieMarshallerTests.cs" />
     <Compile Include="Fixtures\SomeController.cs" />
     <Compile Include="Fixtures\SomeResource.cs" />
+    <Compile Include="RelationsFactoryTests.cs" />
     <Compile Include="Results\BadRequestTests.cs" />
     <Compile Include="Results\Chooser\ResultChooserTests.cs" />
     <Compile Include="Results\CreatedTests.cs" />
