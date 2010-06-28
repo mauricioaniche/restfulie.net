@@ -2,6 +2,6 @@
 {
     public interface IBehaveAsResource
     {
-        void GetRelations(Relations relations);
+        void SetRelations(Relations relations);
     }
 }

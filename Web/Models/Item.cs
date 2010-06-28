@@ -8,7 +8,7 @@ namespace Web.Models
         public string Nome { get; set; }
         public string Preco { get; set; }
 
-        public void GetRelations(Relations relations)
+        public void SetRelations(Relations relations)
         {
         }
     }

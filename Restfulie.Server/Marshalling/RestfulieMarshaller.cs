@@ -24,7 +24,7 @@ namespace Restfulie.Server.Marshalling
             if(model.GetType().IsAResource())
             {
                 var relations = relationsFactory.NewRelations();
-                ((IBehaveAsResource) model).GetRelations(relations);
+                ((IBehaveAsResource) model).SetRelations(relations);
                 content = hypermedia.Insert(content, relations);
             }
 
@@ -36,7 +36,7 @@ namespace Restfulie.Server.Marshalling
                 foreach (var resource in resources)
                 {
                     var relations = relationsFactory.NewRelations();
-                    resource.GetRelations(relations);
+                    resource.SetRelations(relations);
                     allRelations.Add(relations);
                 }
 

@@ -10,7 +10,7 @@ namespace Restfulie.Server.Tests.Fixtures
         public int Id { get; set; }
         public DateTime UpdatedAt { get; set; }
 
-        public void GetRelations(Relations relations)
+        public void SetRelations(Relations relations)
         {
             relations.Named("pay").Uses<SomeController>().SomeSimpleAction();
         }
