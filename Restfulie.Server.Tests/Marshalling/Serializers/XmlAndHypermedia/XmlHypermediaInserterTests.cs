@@ -22,7 +22,11 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia
 
             var result = new XmlHypermediaInserter().Insert(content, relations.Object);
 
-            Assert.AreEqual("<SomeResource><Name>123</Name><atom:link rel=\"pay\" href=\"some/url\" xmlns:atom=\"http://www.w3.org/2005/Atom\" /></SomeResource>", result);
+            Assert.AreEqual(
+                "<SomeResource>"+
+                "<Name>123</Name>"+
+                "<atom:link rel=\"pay\" href=\"some/url\" xmlns:atom=\"http://www.w3.org/2005/Atom\" />"+
+                "</SomeResource>", result);
         }
 
         [Test]
