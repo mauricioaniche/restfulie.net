@@ -21,13 +21,11 @@ namespace Restfulie.Server.Configuration
                         };
         }
 
-        public void Register<T>(IResourceSerializer serializer, IHypermediaInserter hypermedia, IResourceDeserializer deserializer) 
+        public void Register<T>(IDriver driver) 
             where T : IMediaType 
         {
             var media = FindOrCreate(typeof (T));
-            media.Serializer = serializer;
-            media.Deserializer = deserializer;
-            media.Hypermedia = hypermedia;
+            media.Driver = driver;
         }
 
         public IMediaTypeList MediaTypes
@@ -35,13 +33,11 @@ namespace Restfulie.Server.Configuration
             get { return new DefaultMediaTypeList(store, new HTML()); }
         }
 
-        public void RegisterVendorized(string format, IResourceSerializer serializer, IHypermediaInserter hypermedia, IResourceDeserializer deserializer)
+        public void RegisterVendorized(string format, IDriver driver)
         {
             var vendorizedMediaType = new Vendorized(format)
                                           {
-                                              Serializer = serializer,
-                                              Deserializer = deserializer,
-                                              Hypermedia = hypermedia
+                                              Driver = driver
                                           };
 
             store.Add(vendorizedMediaType);

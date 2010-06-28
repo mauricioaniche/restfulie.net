@@ -51,8 +51,8 @@ namespace Restfulie.Server.Tests
             resolver = new Mock<IUnmarshallerResolver>();
 
             mediaType = new Mock<IMediaType>();
-            mediaType.SetupGet(m => m.Unmarshaller).Returns(unmarshaller.Object);
-            mediaType.SetupGet(m => m.Marshaller).Returns(marshaller.Object);
+            mediaType.Setup(m => m.BuildUnmarshaller()).Returns(unmarshaller.Object);
+            mediaType.Setup(m => m.BuildMarshaller()).Returns(marshaller.Object);
         }
 
         [Test]

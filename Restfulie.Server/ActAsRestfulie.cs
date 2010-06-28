@@ -85,7 +85,7 @@ namespace Restfulie.Server
             {
                 var requestMediaType = contentType.GetMediaType(requestInfo.GetContentTypeIn(filterContext));
 
-                var resource = requestMediaType.Unmarshaller.Build(requestInfo.GetContent(filterContext), unmarshallerResolver.ParameterType);
+                var resource = requestMediaType.BuildUnmarshaller().Build(requestInfo.GetContent(filterContext), unmarshallerResolver.ParameterType);
                 if (resource != null) filterContext.ActionParameters[unmarshallerResolver.ParameterName] = resource;
             }
         }

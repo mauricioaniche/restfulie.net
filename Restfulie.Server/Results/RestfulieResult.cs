@@ -21,7 +21,7 @@ namespace Restfulie.Server.Results
 
         protected string BuildContent()
         {
-            return Model != null ? MediaType.Marshaller.Build(Model) : string.Empty;
+            return Model != null ? MediaType.BuildMarshaller().Build(Model) : string.Empty;
         }
 
         public abstract ResultDecorator GetDecorators();

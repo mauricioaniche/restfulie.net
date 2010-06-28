@@ -8,23 +8,21 @@ namespace Restfulie.Server.MediaTypes
 {
     public class HTML : IMediaType
     {
-        public IResourceSerializer Serializer { get; set; }
-        public IHypermediaInserter Hypermedia { get; set; }
-        public IResourceDeserializer Deserializer { get; set; }
+        public IDriver Driver { get; set; }
 
         public string[] Synonyms
         {
             get { return new[] {"text/html"}; }
         }
 
-        public IResourceMarshaller Marshaller
+        public IResourceMarshaller BuildMarshaller()
         {
-            get { throw new Exception("HTML should be marshalled by ASP.NET MVC! :-("); }
+            throw new Exception("HTML should be marshalled by ASP.NET MVC! :-(");
         }
 
-        public IResourceUnmarshaller Unmarshaller
+        public IResourceUnmarshaller BuildUnmarshaller()
         {
-            get { return new NoUnmarshaller(); }
+            return new NoUnmarshaller();
         }
     }
 }
