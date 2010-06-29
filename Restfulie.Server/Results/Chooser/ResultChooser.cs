@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Restfulie.Server.Extensions;
 using Restfulie.Server.MediaTypes;
 
 namespace Restfulie.Server.Results.Chooser
@@ -7,6 +8,8 @@ namespace Restfulie.Server.Results.Chooser
     {
         public ActionResult BasedOnMediaType(ActionExecutedContext context, IMediaType type)
         {
+            if (!context.Result.IsRestfulieResult()) return context.Result;
+
             return (type is HTML) ? AspNetResult(context) : DefaultResult(context, type);
         }
 
