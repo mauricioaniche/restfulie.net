@@ -17,7 +17,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
         public string Link { set; get; }
         public string Author { set; get; }
         public List<Entry> Items { set; get; }
-        public DateTime Updated { set; get; }
+        public string Updated { set; get; }
         public string Id { get; set; }
     }
 }
