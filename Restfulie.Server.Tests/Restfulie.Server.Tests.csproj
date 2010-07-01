@@ -93,6 +93,7 @@
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInserterTests.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializerTests.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\FeedTests.cs" />
+    <Compile Include="Marshalling\Serializers\Json\JsonHypermediaInserterTests.cs" />
     <Compile Include="Marshalling\Serializers\Json\JsonSerializerTests.cs" />
     <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlHypermediaInserterTests.cs" />
     <Compile Include="MediaTypes\DefaultMediaTypeListTests.cs" />

@@ -98,6 +98,7 @@
     <Compile Include="IRelationsFactory.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInserter.cs" />
     <Compile Include="Marshalling\Serializers\IHypermediaInserter.cs" />
+    <Compile Include="Marshalling\Serializers\Json\JsonHypermediaInserter.cs" />
     <Compile Include="Marshalling\Serializers\Json\JsonSerializer.cs" />
     <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlHypermediaInserter.cs" />
     <Compile Include="MediaTypes\DefaultMediaTypeList.cs" />
