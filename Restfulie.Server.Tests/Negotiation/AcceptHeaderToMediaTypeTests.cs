@@ -57,6 +57,14 @@ namespace Restfulie.Server.Tests.Negotiation
             Assert.AreEqual(atom.Object, mediaType);
         }
 
+		[Test]
+		public void ShouldReturnMostQualifiedMediaTypeWhenItsNotTheFirstMediaTypeSpecified()
+		{
+			var mediaType = acceptHeader.GetMediaType("application/atom+xml; q=0.8, application/xml; q=1.0");
+
+			Assert.AreEqual(xml.Object, mediaType);
+		}
+
         [Test]
         public void ShouldReturnMostQualifiedMediaTypeWhenQualifierIsNotPresent()
         {
@@ -77,6 +85,16 @@ namespace Restfulie.Server.Tests.Negotiation
             var mediaType = acceptHeader.GetMediaType("*/*");
     
             Assert.AreEqual(xml.Object, mediaType);
+        }
+
+        [Test]
+        public void ShouldReturnDefaultMediaTypeIsNotIsProvided()
+        {
+            var mediaType = acceptHeader.GetMediaType(null);
+            Assert.AreEqual(xml.Object, mediaType);
+
+            mediaType = acceptHeader.GetMediaType("");
+            Assert.AreEqual(xml.Object, mediaType);         
         }
     }
 }

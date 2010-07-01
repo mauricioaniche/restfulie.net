@@ -28,7 +28,7 @@ namespace Restfulie.Server
                 }
             }
 
-            relations.AddTransition(controller, action, values);
+            relations.AddToAction(controller, action, values);
         }
     }
 }

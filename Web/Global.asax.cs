@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Restfulie.Server.Configuration;
 using Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia;
+using Restfulie.Server.MediaTypes;
 using Restfulie.Server.Unmarshalling.Deserializers.Xml;
 
 namespace Web
@@ -46,7 +47,7 @@ namespace Web
             );
 
             var config = ConfigurationStore.Get();
-            config.RegisterVendorized("application/vnd.company.com+xml", new XmlSerializer(), new XmlHypermediaInserter(), new XmlDeserializer());
+            config.RegisterVendorized("application/vnd.company.com+xml", new Driver(new XmlSerializer(), new XmlHypermediaInserter(), new XmlDeserializer()));
         }
 
         protected void Application_Start()

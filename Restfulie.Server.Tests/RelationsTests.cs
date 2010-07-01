@@ -23,8 +23,6 @@ namespace Restfulie.Server.Tests
             var all = relations.GetAll();
 
             Assert.AreEqual("pay", all.First().Name);
-            Assert.AreEqual("Some", all.First().Controller);
-            Assert.AreEqual("SomeSimpleAction", all.First().Action);
             Assert.AreEqual("http://Some/SomeSimpleAction", all.First().Url);
         }
 
@@ -51,27 +49,17 @@ namespace Restfulie.Server.Tests
         }
 
         [Test]
-        public void ShouldCaptureValuesPassed()
+        public void ShouldCreateALinkToaNonAction()
         {
             var relations = new Relations(new Mock<IUrlGenerator>().Object);
-            relations.Named("pay").Uses<SomeController>().ActionWithParameter(123, 456);
+
+            relations.Named("to_another_website").At("some/url");
 
             var all = relations.GetAll();
 
-            Assert.AreEqual(2, all.First().Values.Count);
-            Assert.AreEqual("123", Convert.ToString(all.First().Values["id"]));
-            Assert.AreEqual("456", Convert.ToString(all.First().Values["qty"]));
-        }
-
-        [Test]
-        public void ShouldIgnoreValuesPassedAsNull()
-        {
-            var relations = new Relations(new Mock<IUrlGenerator>().Object);
-            relations.Named("pay").Uses<SomeController>().ActionWithResource(null);
-
-            var all = relations.GetAll();
-
-            Assert.AreEqual(0, all.First().Values.Count);
+            Assert.AreEqual(1, all.Count);
+            Assert.AreEqual("to_another_website" , all.First().Name);
+            Assert.AreEqual("some/url", all.First().Url);
         }
     }
 }

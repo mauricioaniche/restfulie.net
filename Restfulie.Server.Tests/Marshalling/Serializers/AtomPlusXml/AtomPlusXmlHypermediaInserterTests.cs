@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using Moq;
 using NUnit.Framework;
 using Restfulie.Server.Marshalling.Serializers.AtomPlusXml;
+using Restfulie.Server.Marshalling.UrlGenerators;
 
 namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
 {
@@ -29,13 +31,13 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
                     "</content>\n" +
                 "</entry> ";
 
-            var relations = new List<Relation>
+            var relations = new Mock<Relations>(new Mock<IUrlGenerator>().Object);
+            relations.Setup(r => r.GetAll()).Returns(new List<Relation>
                                 {
-                                    new Relation("pay", "controller", "action", new Dictionary<string, object>(),
-                                                 "some/url")
-                                };
+                                    new Relation("pay", "some/url")
+                                });
 
-            var result = new AtomPlusXmlHypermediaInserter().Insert(entry, relations);
+            var result = new AtomPlusXmlHypermediaInserter().Insert(entry, relations.Object);
 
             Assert.AreEqual(
                 "<entry>"+
@@ -94,19 +96,20 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
                     "</entry> " +
                 "</feed>";
 
-            var relationsFor123 = new List<Relation>
-                                {
-                                    new Relation("pay", "controller", "action", new Dictionary<string, object>(),
-                                                 "some/url/123")
-                                };
+            var relationsFor123 = new Mock<Relations>(new Mock<IUrlGenerator>().Object);
+            var relationsFor456 = new Mock<Relations>(new Mock<IUrlGenerator>().Object);
 
-            var relationsFor456 = new List<Relation>
+            relationsFor123.Setup(r => r.GetAll()).Returns(new List<Relation>
                                 {
-                                    new Relation("pay", "controller", "action", new Dictionary<string, object>(),
-                                                 "some/url/456")
-                                };
+                                    new Relation("pay", "some/url/123")
+                                });
 
-            var result = new AtomPlusXmlHypermediaInserter().Insert(feed, new List<IList<Relation>> { relationsFor123, relationsFor456 });
+            relationsFor456.Setup(r => r.GetAll()).Returns(new List<Relation>
+                                {
+                                    new Relation("pay", "some/url/456")
+                                });
+
+            var result = new AtomPlusXmlHypermediaInserter().Insert(feed, new List<Relations> { relationsFor123.Object, relationsFor456.Object });
 
 
             Assert.AreEqual(

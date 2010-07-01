@@ -6,12 +6,12 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 {
     public class AtomPlusXmlHypermediaInserter : IHypermediaInserter
     {
-        public string Insert(string content, IList<Relation> relations)
+        public string Insert(string content, Relations relations)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);
 
-            foreach (var state in relations)
+            foreach (var state in relations.GetAll())
             {
                 XmlNode transition = GetTransition(xmlDocument, state);
 
@@ -21,7 +21,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
             return xmlDocument.InnerXml;
         }
 
-        public string Insert(string content, IList<IList<Relation>> relations)
+        public string Insert(string content, IList<Relations> relations)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);
@@ -32,7 +32,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
             {
                 var node = nodes[i];
 
-                foreach (var relation in relations[i])
+                foreach (var relation in relations[i].GetAll())
                 {
                     var transition = GetTransition(xmlDocument, relation);
                     node.AppendChild(transition);

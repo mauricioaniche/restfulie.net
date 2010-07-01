@@ -16,8 +16,9 @@ namespace Restfulie.Server.Negotiation
 
         public IMediaType GetMediaType(string acceptHeader)
         {
-            var types = acceptHeader.Split(',');
+            if (string.IsNullOrEmpty(acceptHeader)) return mediaTypes.Default;
 
+            var types = acceptHeader.Split(',');
             var acceptedMediaType = new List<QualifiedMediaType>();
 
             foreach(var type in types)
@@ -34,7 +35,7 @@ namespace Restfulie.Server.Negotiation
                     if (ContainsQualifier(type))
                     {
                         var typeInfo = type.Split(';');
-                        format = typeInfo[0];
+                        format = typeInfo[0].Trim();
                         qualifier = Convert.ToDouble(typeInfo[1].Split('=')[1]);
                     }
                     else

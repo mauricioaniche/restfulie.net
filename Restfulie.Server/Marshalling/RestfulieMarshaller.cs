@@ -6,13 +6,13 @@ namespace Restfulie.Server.Marshalling
 {
     public class RestfulieMarshaller : IResourceMarshaller
     {
-        private readonly Relations relations;
+        private readonly IRelationsFactory relationsFactory;
         private readonly IResourceSerializer serializer;
         private readonly IHypermediaInserter hypermedia;
 
-        public RestfulieMarshaller(Relations relations, IResourceSerializer serializer, IHypermediaInserter hypermedia)
+        public RestfulieMarshaller(IRelationsFactory relationsFactory, IResourceSerializer serializer, IHypermediaInserter hypermedia)
         {
-            this.relations = relations;
+            this.relationsFactory = relationsFactory;
             this.serializer = serializer;
             this.hypermedia = hypermedia;
         }
@@ -23,18 +23,21 @@ namespace Restfulie.Server.Marshalling
 
             if(model.GetType().IsAResource())
             {
-                var allRelations = ((IBehaveAsResource) model).GetRelations(relations);
-                content = hypermedia.Insert(content, allRelations);
+                var relations = relationsFactory.NewRelations();
+                ((IBehaveAsResource) model).SetRelations(relations);
+                content = hypermedia.Insert(content, relations);
             }
 
             else if(model.GetType().IsAListOfResources())
             {
-                var allRelations = new List<IList<Relation>>();
+                var allRelations = new List<Relations>();
 
                 var resources = model.AsResourceArray();
                 foreach (var resource in resources)
                 {
-                    allRelations.Add(resource.GetRelations(relations));
+                    var relations = relationsFactory.NewRelations();
+                    resource.SetRelations(relations);
+                    allRelations.Add(relations);
                 }
 
                 content = hypermedia.Insert(content, allRelations);

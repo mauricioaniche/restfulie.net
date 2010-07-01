@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Globalization;
 using System.Xml.Linq;
 using Restfulie.Server.Extensions;
 
@@ -14,7 +15,14 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
         {
             if (resource is IEnumerable)
             {
-                var feed = new Feed { Author = "", Description = "", Title = "", Updated = DateTime.Now, Id = "" };
+                var feed = new Feed
+                               {
+                                   Author = "(none)",
+                                   Description = "(none)",
+                                   Title = "(none)",
+                                   Updated = DateTime.Now.ToRFC3339(), 
+                                   Id = resource.ToString()
+                               };
 
                 foreach (var obj in (IEnumerable)resource)
                 {
@@ -32,13 +40,26 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
             var item = new Entry
             {
                 Description = resource.ToString(),
-                Title = resource.ToString(),
-                Id = resource.ToString(),
-                PublicDate = DateTime.Now,
+                Title = "(none)",
+                Id = resource.GetProperty("Id").ToString() ?? resource.GetProperty("ID").ToString(),
+                PublicDate = GetUpdatedAt(resource),
                 Content = resource.AsXml()
             };
             
             return item;
+        }
+
+        private string GetUpdatedAt(object resource)
+        {
+            var updatedAt = resource.GetProperty("UpdatedAt");
+            DateTime date;
+
+            if(updatedAt != null && DateTime.TryParse(updatedAt.ToString(), out date))
+            {
+                return date.ToRFC3339();
+            }
+
+            return DateTime.Now.ToRFC3339();
         }
 
         private XDocument FeedInXml(Feed atomFeeds)
@@ -47,9 +68,9 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
                 new XDeclaration("1.0", "UTF-8", ""),
                 new XElement(ns + "feed",
                     new XElement(ns + "title", atomFeeds.Title),
-                    new XElement(ns + "updated", atomFeeds.Updated.ToString("yyyy-MM-dd\\THH:mm:ss%K")),
+                    new XElement(ns + "updated", atomFeeds.Updated),
                     new XElement(ns + "author", new XElement(ns + "name", atomFeeds.Author)),
-                    new XElement(ns + "id", "id")
+                    new XElement(ns + "id", atomFeeds.Id)
                     ));
 
             foreach (var item in atomFeeds.Items)
@@ -66,9 +87,9 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
                                        new XElement(ns + "title", item.Title),
                                        new XElement(ns + "id", item.Id),
                                        new XElement(ns + "updated",
-                                                    item.PublicDate.ToString("yyyy-MM-dd\\THH:mm:ss%K")));
+                                                    item.PublicDate));
 
-            element.Add(new XElement(ns + "content", new XCData(item.Content)));
+            element.Add(new XElement(ns + "content", XElement.Parse(item.Content)));
             return element;
         }
     }

@@ -42,5 +42,14 @@ namespace Restfulie.Server.Tests.Results.Chooser
             Assert.IsTrue(choosedResult is SomeResult);
             Assert.IsTrue(choosedResult.MediaType is XmlAndHypermedia);
         }
+
+        [Test]
+        public void ShouldIgnoreNonRestfulieResults()
+        {
+            context.Result = new RedirectResult("some-url");
+            var choosedResult = new ResultChooser().BasedOnMediaType(context, new XmlAndHypermedia());
+
+            Assert.IsTrue(choosedResult is RedirectResult);
+        }
     }
 }

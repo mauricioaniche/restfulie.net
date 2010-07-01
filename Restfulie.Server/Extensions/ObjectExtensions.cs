@@ -27,11 +27,17 @@ namespace Restfulie.Server.Extensions
             using (var xmlWriter = XmlWriter.Create(stringWriter, new XmlWriterSettings { OmitXmlDeclaration = true }))
             {
                 var noNamespaces = new XmlSerializerNamespaces();
-                noNamespaces.Add("", "");
+                noNamespaces.Add("","");
                 new XmlSerializer(resource.GetType()).Serialize(xmlWriter, resource, noNamespaces);
             }
 
             return stringWriter.ToString();
+        }
+
+        public static object GetProperty(this object resource, string name)
+        {
+            var propertyDef = resource.GetType().GetProperty(name);
+            return (propertyDef != null) ? propertyDef.GetValue(resource, null) : null;
         }
     }
 }

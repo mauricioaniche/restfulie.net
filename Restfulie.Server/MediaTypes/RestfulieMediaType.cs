@@ -1,33 +1,26 @@
 ﻿using Restfulie.Server.Marshalling;
-using Restfulie.Server.Marshalling.Serializers;
 using Restfulie.Server.Marshalling.UrlGenerators;
 using Restfulie.Server.Unmarshalling;
-using Restfulie.Server.Unmarshalling.Deserializers;
 
 namespace Restfulie.Server.MediaTypes
 {
     public abstract class RestfulieMediaType : IMediaType
     {
-        public IResourceSerializer Serializer { get; set; }
-        public IHypermediaInserter Hypermedia { get; set; }
-        public IResourceDeserializer Deserializer { get; set; }
+        public IDriver Driver { get; set; }
 
         public abstract string[] Synonyms { get; }
 
-        public IResourceMarshaller Marshaller
+        public IResourceMarshaller BuildMarshaller()
         {
-            get
-            {
-                return
-                    new RestfulieMarshaller(new Relations(new AspNetMvcUrlGenerator()),
-                                            Serializer,
-                                            Hypermedia);
-            }
+            return
+                new RestfulieMarshaller(new RelationsFactory(new AspNetMvcUrlGenerator()),
+                                        Driver.Serializer,
+                                        Driver.HypermediaInserter);
         }
 
-        public IResourceUnmarshaller Unmarshaller
+        public IResourceUnmarshaller BuildUnmarshaller()
         {
-            get { return new RestfulieUnmarshaller(Deserializer); }
+            return new RestfulieUnmarshaller(Driver.Deserializer);
         }
     }
 }

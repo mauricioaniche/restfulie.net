@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Restfulie.Server.Marshalling.Serializers;
 using Restfulie.Server.Marshalling.Serializers.AtomPlusXml;
@@ -18,26 +19,15 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
         }
 
         [Test]
-        public void ShouldSerializeAResource()
-        {
-            var resource = new SomeResource { Name = "John Doe", Amount = 123.45 };
-            var atom = serializer.Serialize(resource);
-
-            Assert.That(atom.Contains("<entry"));
-            Assert.That(atom.Contains("John Doe"));
-            Assert.That(atom.Contains("</entry>"));
-        }
-
-        [Test]
         public void ShouldSerializeAListOfResources()
         {
-            var resources = new []
-                                          {
-                                              new SomeResource {Amount = 123.45, Name = "John Doe"},
-                                              new SomeResource {Amount = 67.89, Name = "Sally Doe"}
-                                          };
+            var resources = new[]
+                                {
+                                    new SomeResource {Amount = 123.45, Name = "John Doe"},
+                                    new SomeResource {Amount = 67.89, Name = "Sally Doe"}
+                                };
 
-            var atom = serializer.Serialize(resources);
+            string atom = serializer.Serialize(resources);
 
             Assert.That(atom.Contains("<feed xmlns=\"http://www.w3.org/2005/Atom\">"));
             Assert.That(atom.Contains("John Doe"));
@@ -45,9 +35,29 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
             Assert.That(atom.Contains("</feed>"));
         }
 
-        private IList<Relation> SomeRelations()
+        [Test]
+        public void ShouldSerializeAResource()
         {
-            return new List<Relation> { new Relation("pay", "controller", "action", new Dictionary<string, object>(),  "http://some/url") };
+            var date = new DateTime(2010, 10, 10);
+            var resource = new SomeResource {Name = "John Doe", Amount = 123.45, Id = 123, UpdatedAt = date};
+            var atom = serializer.Serialize(resource);
+
+            const string expectedResult =
+                "<entry xmlns=\"http://www.w3.org/2005/Atom\">\r\n  "+
+                    "<title>(none)</title>\r\n  "+
+                    "<id>123</id>\r\n  "+
+                    "<updated>2010-10-10T00:00:00.000</updated>\r\n  "+
+                    "<content>\r\n    "+
+                        "<SomeResource xmlns=\"\">\r\n      "+
+                            "<Name>John Doe</Name>\r\n      "+
+                            "<Amount>123.45</Amount>\r\n      "+
+                            "<Id>123</Id>\r\n      "+
+                            "<UpdatedAt>2010-10-10T00:00:00</UpdatedAt>\r\n    "+
+                        "</SomeResource>\r\n  "+
+                    "</content>\r\n"+
+                "</entry>";
+
+            Assert.AreEqual(expectedResult, atom);
         }
     }
 }

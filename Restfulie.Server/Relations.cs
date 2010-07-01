@@ -28,9 +28,9 @@ namespace Restfulie.Server
             return proxifier.CreateClassProxy<T>(interceptor);
         }
 
-        public void AddTransition(string controller, string action, IDictionary<string, object> values)
+        public void AddToAction(string controller, string action, IDictionary<string, object> values)
         {
-            all.Add(new Relation(currentName, controller, action, values, urlGenerator.For(controller, action, values)));
+            all.Add(new Relation(currentName, urlGenerator.For(controller, action, values)));
             currentName = string.Empty;
         } 
 
@@ -42,10 +42,13 @@ namespace Restfulie.Server
 
         public virtual IList<Relation> GetAll()
         {
-            var allRelations = new List<Relation>(all);
-            all.Clear();
+            return new List<Relation>(all);
+        }
 
-            return allRelations;
+        public void At(string url)
+        {
+            all.Add(new Relation(currentName, url));
+            currentName = string.Empty;
         }
     }
 }

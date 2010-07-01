@@ -15,20 +15,20 @@ namespace Restfulie.Server.Tests.Configuration
         {
             var config = new RestfulieConfiguration();
 
-            config.Register<XmlAndHypermedia>(new XmlSerializer(), new XmlHypermediaInserter(), new XmlDeserializer());
+            config.Register<XmlAndHypermedia>(new Driver(new XmlSerializer(), new XmlHypermediaInserter(), new XmlDeserializer()));
             
             var mediaType = config.MediaTypes.Find("application/xml");
             
-            Assert.IsTrue(mediaType.Serializer is XmlSerializer);
-            Assert.IsTrue(mediaType.Deserializer is XmlDeserializer);
-            Assert.IsTrue(mediaType.Hypermedia is XmlHypermediaInserter);
+            Assert.IsTrue(mediaType.Driver.Serializer is XmlSerializer);
+            Assert.IsTrue(mediaType.Driver.Deserializer is XmlDeserializer);
+            Assert.IsTrue(mediaType.Driver.HypermediaInserter is XmlHypermediaInserter);
         }
 
         [Test]
         public void ShouldRegisterAVendorizedMediaType()
         {
             var config = new RestfulieConfiguration();
-            config.RegisterVendorized("some-vendor-media-type", new XmlSerializer(), new XmlHypermediaInserter(), new XmlDeserializer());
+            config.RegisterVendorized("some-vendor-media-type", new Driver(new XmlSerializer(), new XmlHypermediaInserter(), new XmlDeserializer()));
 
             var mediaType = config.MediaTypes.Find("some-vendor-media-type");
 
