@@ -66,11 +66,11 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 
         private void ReplaceEntryUrl(XmlNode node, Relations relations)
         {
-            var getRelation = relations.GetAll().Where(r => r.Name.ToLower().Equals("get")).SingleOrDefault();
-            if (getRelation != null)
+            var self = relations.GetAll().Where(r => r.Name.ToLower().Equals("self")).SingleOrDefault();
+            if (self != null)
             {
                 var id = FindNode(node, "id");
-                id.InnerText = getRelation.Url;
+                id.InnerText = self.Url;
             }
         }
 

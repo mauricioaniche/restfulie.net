@@ -43,7 +43,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
             relations.Setup(r => r.GetAll()).Returns(new List<Relation>
                                 {
                                     new Relation("pay", "some/url"),
-                                    new Relation("get", "some/get/url"),
+                                    new Relation("self", "some/get/url"),
                                 });
 
             var result = new AtomPlusXmlHypermediaInserter().Insert(entry, relations.Object, requestInfo.Object);
@@ -59,7 +59,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
                 "</author>"+
                 "<content><![CDATA[<SomeResource>\n<Name>Name</Name>\n<Amount>123.45</Amount>\n</SomeResource>\n]]></content>"+
                 "<link rel=\"pay\" href=\"some/url\" />"+
-                "<link rel=\"get\" href=\"some/get/url\" />"+
+                "<link rel=\"self\" href=\"some/get/url\" />"+
                 "</entry>"
                 , result);
         }
@@ -122,7 +122,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
                 "</SomeResource>"+
                 "</content>"+
                 "<link rel=\"pay\" href=\"some/url/123\" xmlns=\"\" />"+
-                "<link rel=\"get\" href=\"some/get/url/123\" xmlns=\"\" />"+
+                "<link rel=\"self\" href=\"some/get/url/123\" xmlns=\"\" />"+
                 "</entry>"+
                 "<entry>"+
                 "<title>(title)</title>"+
@@ -136,7 +136,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
                 "<UpdatedAt>0001-01-01T00:00:00</UpdatedAt>"+
                 "</SomeResource></content>"+
                 "<link rel=\"pay\" href=\"some/url/456\" xmlns=\"\" />"+
-                "<link rel=\"get\" href=\"some/get/url/456\" xmlns=\"\" />"+
+                "<link rel=\"self\" href=\"some/get/url/456\" xmlns=\"\" />"+
                 "</entry>"+
                 "</feed>";
 
@@ -146,13 +146,13 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
             relationsFor123.Setup(r => r.GetAll()).Returns(new List<Relation>
                                 {
                                     new Relation("pay", "some/url/123"),
-                                    new Relation("get", "some/get/url/123")
+                                    new Relation("self", "some/get/url/123")
                                 });
 
             relationsFor456.Setup(r => r.GetAll()).Returns(new List<Relation>
                                 {
                                     new Relation("pay", "some/url/456"),
-                                    new Relation("get", "some/get/url/456")
+                                    new Relation("self", "some/get/url/456")
                                 });
 
             requestInfo.Setup(r => r.GetUrl()).Returns("entry/point");
