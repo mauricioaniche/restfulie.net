@@ -4,8 +4,8 @@ namespace Restfulie.Server.Request
 {
     public interface IRequestInfoFinder
     {
-        string GetAcceptHeaderIn(ControllerContext context);
-        string GetContentTypeIn(ControllerContext context);
-        string GetContent(ControllerContext context);
+        string GetAcceptHeader();
+        string GetContentType();
+        string GetContent();
     }
 }
