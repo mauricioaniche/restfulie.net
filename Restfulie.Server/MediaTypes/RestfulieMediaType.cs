@@ -15,7 +15,7 @@ namespace Restfulie.Server.MediaTypes
             return
                 new RestfulieMarshaller(new RelationsFactory(new AspNetMvcUrlGenerator()),
                                         Driver.Serializer,
-                                        Driver.HypermediaInserter);
+                                        Driver.HypermediaInjector);
         }
 
         public IResourceUnmarshaller BuildUnmarshaller()

@@ -10,16 +10,16 @@ namespace Restfulie.Server.Tests.MediaTypes
     public class DriverTests
     {
         [Test]
-        public void ShouldContainSerializerHypermediaInserterAndDeserializer()
+        public void ShouldContainSerializerHypermediaInjectorAndDeserializer()
         {
             var serializer = new Mock<IResourceSerializer>();
-            var hypermediaInserter = new Mock<IHypermediaInserter>();
+            var hypermediaInjector = new Mock<IHypermediaInjector>();
             var deserializer = new Mock<IResourceDeserializer>();
 
-            var driver = new Driver(serializer.Object, hypermediaInserter.Object, deserializer.Object);
+            var driver = new Driver(serializer.Object, hypermediaInjector.Object, deserializer.Object);
 
             Assert.AreSame(serializer.Object, driver.Serializer);
-            Assert.AreSame(hypermediaInserter.Object, driver.HypermediaInserter);
+            Assert.AreSame(hypermediaInjector.Object, driver.HypermediaInjector);
             Assert.AreSame(deserializer.Object, driver.Deserializer);
         }
     }

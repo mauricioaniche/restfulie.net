@@ -47,7 +47,7 @@ namespace Web
             );
 
             var config = ConfigurationStore.Get();
-            config.RegisterVendorized("application/vnd.company.com+xml", new Driver(new XmlSerializer(), new XmlHypermediaInserter(), new XmlDeserializer()));
+            config.RegisterVendorized("application/vnd.company.com+xml", new Driver(new XmlSerializer(), new XmlHypermediaInjector(), new XmlDeserializer()));
         }
 
         protected void Application_Start()

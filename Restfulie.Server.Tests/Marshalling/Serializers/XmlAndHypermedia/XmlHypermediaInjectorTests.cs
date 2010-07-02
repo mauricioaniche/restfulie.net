@@ -8,7 +8,7 @@ using Restfulie.Server.Request;
 namespace Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia
 {
     [TestFixture]
-    public class XmlHypermediaInserterTests
+    public class XmlHypermediaInjectorTests
     {
         private IRequestInfoFinder requestInfo;
 
@@ -29,7 +29,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia
                                                              new Relation("pay", "some/url")
                                                          });
 
-            var result = new XmlHypermediaInserter().Insert(content, relations.Object, requestInfo);
+            var result = new XmlHypermediaInjector().Inject(content, relations.Object, requestInfo);
 
             Assert.AreEqual(
                 "<SomeResource>"+
@@ -60,7 +60,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia
                                                                    new Relation("pay", "some/url/456")
                                                                });
 
-            var result = new XmlHypermediaInserter().Insert(content, new List<Relations> { relationsFor123.Object, relationsFor456.Object }, requestInfo);
+            var result = new XmlHypermediaInjector().Inject(content, new List<Relations> { relationsFor123.Object, relationsFor456.Object }, requestInfo);
 
             Assert.AreEqual(
                 "<SomeResources>"+

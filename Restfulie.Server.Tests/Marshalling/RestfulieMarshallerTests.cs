@@ -15,7 +15,7 @@ namespace Restfulie.Server.Tests.Marshalling
         private Mock<IRelationsFactory> relationsFactory;
         private Mock<Relations> relations;
         private Mock<IResourceSerializer> serializer;
-        private Mock<IHypermediaInserter> hypermedia;
+        private Mock<IHypermediaInjector> hypermedia;
         private Mock<IRequestInfoFinder> requestInfo;
 
         [SetUp]
@@ -23,7 +23,7 @@ namespace Restfulie.Server.Tests.Marshalling
         {
             relations = new Mock<Relations>(new Mock<IUrlGenerator>().Object);
             serializer = new Mock<IResourceSerializer>();
-            hypermedia = new Mock<IHypermediaInserter>();
+            hypermedia = new Mock<IHypermediaInjector>();
             relationsFactory = new Mock<IRelationsFactory>();
             requestInfo = new Mock<IRequestInfoFinder>();
 
@@ -36,7 +36,7 @@ namespace Restfulie.Server.Tests.Marshalling
             var resource = new SomeResource();
             
             serializer.Setup(s => s.Serialize(resource)).Returns(SerializedResource());
-            hypermedia.Setup(h => h.Insert(SerializedResource(), relations.Object, requestInfo.Object)).Returns(HypermediaResource());
+            hypermedia.Setup(h => h.Inject(SerializedResource(), relations.Object, requestInfo.Object)).Returns(HypermediaResource());
 
             var builder = new RestfulieMarshaller(relationsFactory.Object, serializer.Object, hypermedia.Object);
             var representation = builder.Build(resource, requestInfo.Object);
@@ -52,7 +52,7 @@ namespace Restfulie.Server.Tests.Marshalling
         {
             var resources = new List<IBehaveAsResource> { new SomeResource(), new SomeResource() };
             
-            hypermedia.Setup(h => h.Insert(SerializedListOfResources(), It.IsAny<IList<Relations>>(), requestInfo.Object)).Returns(
+            hypermedia.Setup(h => h.Inject(SerializedListOfResources(), It.IsAny<IList<Relations>>(), requestInfo.Object)).Returns(
                 SerializedHypermediaList());
             serializer.Setup(s => s.Serialize(resources)).Returns(SerializedListOfResources());
 

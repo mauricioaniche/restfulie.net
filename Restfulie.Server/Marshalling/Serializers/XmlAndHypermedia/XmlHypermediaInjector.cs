@@ -4,9 +4,9 @@ using Restfulie.Server.Request;
 
 namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
 {
-    public class XmlHypermediaInserter : IHypermediaInserter
+    public class XmlHypermediaInjector : IHypermediaInjector
     {
-        public string Insert(string content, Relations relations, IRequestInfoFinder requestInfo)
+        public string Inject(string content, Relations relations, IRequestInfoFinder requestInfo)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);
@@ -21,7 +21,7 @@ namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
             return xmlDocument.InnerXml;
         }
 
-        public string Insert(string content, IList<Relations> relations, IRequestInfoFinder requestInfo)
+        public string Inject(string content, IList<Relations> relations, IRequestInfoFinder requestInfo)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);

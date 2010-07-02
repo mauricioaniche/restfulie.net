@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 {
-    public class AtomPlusXmlHypermediaInserter : IHypermediaInserter
+    public class AtomPlusXmlHypermediaInjector : IHypermediaInjector
     {
-        public string Insert(string content, Relations relations, IRequestInfoFinder requestInfo)
+        public string Inject(string content, Relations relations, IRequestInfoFinder requestInfo)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);
@@ -23,7 +23,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
             return xmlDocument.InnerXml;
         }
 
-        public string Insert(string content, IList<Relations> relations, IRequestInfoFinder requestInfo)
+        public string Inject(string content, IList<Relations> relations, IRequestInfoFinder requestInfo)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);

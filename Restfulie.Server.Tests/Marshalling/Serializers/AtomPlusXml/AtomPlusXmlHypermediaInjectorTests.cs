@@ -8,7 +8,7 @@ using Restfulie.Server.Request;
 namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
 {
     [TestFixture]
-    public class AtomPlusXmlHypermediaInserterTests
+    public class AtomPlusXmlHypermediaInjectorTests
     {
         private Mock<IRequestInfoFinder> requestInfo;
 
@@ -43,7 +43,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
                                     new Relation("self", "some/get/url"),
                                 });
 
-            var result = new AtomPlusXmlHypermediaInserter().Insert(entry, relations.Object, requestInfo.Object);
+            var result = new AtomPlusXmlHypermediaInjector().Inject(entry, relations.Object, requestInfo.Object);
 
             Assert.AreEqual(
                "<entry xmlns=\"http://www.w3.org/2005/Atom\">"+
@@ -123,7 +123,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
 
             requestInfo.Setup(r => r.GetUrl()).Returns("entry/point");
 
-            var result = new AtomPlusXmlHypermediaInserter().Insert(feed, new List<Relations> { relationsFor123.Object, relationsFor456.Object }, requestInfo.Object);
+            var result = new AtomPlusXmlHypermediaInjector().Inject(feed, new List<Relations> { relationsFor123.Object, relationsFor456.Object }, requestInfo.Object);
 
             Assert.AreEqual(expectedFeed, result);
             requestInfo.VerifyAll();

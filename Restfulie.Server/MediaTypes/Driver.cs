@@ -6,13 +6,13 @@ namespace Restfulie.Server.MediaTypes
     public class Driver : IDriver
     {
         public IResourceSerializer Serializer { get; set; }
-        public IHypermediaInserter HypermediaInserter { get; set; }
+        public IHypermediaInjector HypermediaInjector { get; set; }
         public IResourceDeserializer Deserializer { get; set; }
 
-        public Driver(IResourceSerializer serializer, IHypermediaInserter inserter, IResourceDeserializer deserializer)
+        public Driver(IResourceSerializer serializer, IHypermediaInjector injector, IResourceDeserializer deserializer)
         {
             this.Serializer = serializer;
-            this.HypermediaInserter = inserter;
+            this.HypermediaInjector = injector;
             this.Deserializer = deserializer;
         }
     }

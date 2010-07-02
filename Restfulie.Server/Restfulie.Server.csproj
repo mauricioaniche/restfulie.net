@@ -89,9 +89,9 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="IRelationsFactory.cs" />
-    <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInserter.cs" />
-    <Compile Include="Marshalling\Serializers\IHypermediaInserter.cs" />
-    <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlHypermediaInserter.cs" />
+    <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInjector.cs" />
+    <Compile Include="Marshalling\Serializers\IHypermediaInjector.cs" />
+    <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlHypermediaInjector.cs" />
     <Compile Include="MediaTypes\DefaultMediaTypeList.cs" />
     <Compile Include="MediaTypes\Driver.cs" />
     <Compile Include="MediaTypes\IDriver.cs" />
