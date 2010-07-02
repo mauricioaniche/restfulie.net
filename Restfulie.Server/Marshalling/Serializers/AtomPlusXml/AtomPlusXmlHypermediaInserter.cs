@@ -7,51 +7,49 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 {
     public class AtomPlusXmlHypermediaInserter : IHypermediaInserter
     {
-        public string Insert(string content, Relations relations, IRequestInfoFinder finder)
+        public string Insert(string content, Relations relations, IRequestInfoFinder requestInfo)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);
 
             foreach (var state in relations.GetAll())
             {
-                XmlNode transition = GetTransition(xmlDocument, state);
-
+                var transition = BuildTransition(xmlDocument, state);
                 xmlDocument.DocumentElement.AppendChild(transition);
             }
 
-            var xml = xmlDocument.InnerXml;
+            ReplaceEntryUrl(xmlDocument.DocumentElement, relations);
 
-            var getRelation = relations.GetAll().Where(r => r.Name.ToLower().Equals("get")).SingleOrDefault();
-            if (getRelation != null)
-            {
-                xml = xml.Replace("(entry-url)", getRelation.Url);
-            }
-            return xml;
+            return xmlDocument.InnerXml;
         }
 
-        public string Insert(string content, IList<Relations> relations, IRequestInfoFinder finder)
+        public string Insert(string content, IList<Relations> relations, IRequestInfoFinder requestInfo)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);
 
             var nodes = xmlDocument.DocumentElement.GetElementsByTagName("entry");
-
             for (var i = 0; i < nodes.Count; i++)
             {
-                var node = nodes[i];
+                var currentNode = nodes[i];
+                var currentRelation = relations[i];
 
-                foreach (var relation in relations[i].GetAll())
+                foreach (var relation in currentRelation.GetAll())
                 {
-                    var transition = GetTransition(xmlDocument, relation);
-                    node.AppendChild(transition);
+                    var transition = BuildTransition(xmlDocument, relation);
+                    currentNode.AppendChild(transition);
                 }
+
+                ReplaceEntryUrl(currentNode, currentRelation);
             }
+
+            ReplaceFeedUrl(xmlDocument.DocumentElement, requestInfo);
 
             return xmlDocument.InnerXml;
         }
 
 
-        private XmlNode GetTransition(XmlDocument xmlDocument, Relation state)
+        private XmlNode BuildTransition(XmlDocument xmlDocument, Relation state)
         {
             var transition = xmlDocument.CreateNode(XmlNodeType.Element, "link", "");
 
@@ -64,6 +62,32 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
             transition.Attributes.Append(href);
 
             return transition;
+        }
+
+        private void ReplaceEntryUrl(XmlNode node, Relations relations)
+        {
+            var getRelation = relations.GetAll().Where(r => r.Name.ToLower().Equals("get")).SingleOrDefault();
+            if (getRelation != null)
+            {
+                var id = FindNode(node, "id");
+                id.InnerText = getRelation.Url;
+            }
+        }
+
+        private XmlNode FindNode(XmlNode root, string name)
+        {
+            for(var i = 0; i < root.ChildNodes.Count; i++)
+            {
+                if (root.ChildNodes[i].Name.Equals(name)) return root.ChildNodes[i];
+            }
+
+            return null;
+        }
+
+        private void ReplaceFeedUrl(XmlNode node, IRequestInfoFinder requestInfo)
+        {
+            var id = FindNode(node, "id");
+            id.InnerText = requestInfo.GetUrl();
         }
     }
 }

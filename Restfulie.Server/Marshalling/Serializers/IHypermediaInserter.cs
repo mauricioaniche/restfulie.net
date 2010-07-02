@@ -5,7 +5,7 @@ namespace Restfulie.Server.Marshalling.Serializers
 {
     public interface IHypermediaInserter
     {
-        string Insert(string content, Relations relations, IRequestInfoFinder finder);
-        string Insert(string content, IList<Relations> relations, IRequestInfoFinder finder);
+        string Insert(string content, Relations relations, IRequestInfoFinder requestInfo);
+        string Insert(string content, IList<Relations> relations, IRequestInfoFinder requestInfo);
     }
 }

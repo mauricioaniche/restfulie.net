@@ -6,7 +6,7 @@ namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
 {
     public class XmlHypermediaInserter : IHypermediaInserter
     {
-        public string Insert(string content, Relations relations, IRequestInfoFinder finder)
+        public string Insert(string content, Relations relations, IRequestInfoFinder requestInfo)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);
@@ -21,7 +21,7 @@ namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
             return xmlDocument.InnerXml;
         }
 
-        public string Insert(string content, IList<Relations> relations, IRequestInfoFinder finder)
+        public string Insert(string content, IList<Relations> relations, IRequestInfoFinder requestInfo)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);

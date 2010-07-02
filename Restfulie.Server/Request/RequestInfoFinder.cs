@@ -23,6 +23,11 @@ namespace Restfulie.Server.Request
             return httpContext.Request.ContentType;
         }
 
+        public string GetUrl()
+        {
+            return httpContext.Request.RawUrl;
+        }
+
         public string GetContent()
         {
             return new StreamReader(httpContext.Request.InputStream).ReadToEnd();

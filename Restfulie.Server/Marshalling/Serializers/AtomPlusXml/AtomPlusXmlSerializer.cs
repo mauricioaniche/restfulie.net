@@ -21,7 +21,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
                                    Description = "(description)",
                                    Title = "(title)",
                                    Updated = DateTime.Now.ToRFC3339(), 
-                                   Id = resource.ToString()
+                                   Id = "(feed-url)"
                                };
 
                 foreach (var obj in (IEnumerable)resource)
