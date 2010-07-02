@@ -1,5 +1,6 @@
 ﻿using System.Web.Mvc;
 using Restfulie.Server.MediaTypes;
+using Restfulie.Server.Request;
 using Restfulie.Server.Results.Decorators;
 
 namespace Restfulie.Server.Results
@@ -7,8 +8,8 @@ namespace Restfulie.Server.Results
     public abstract class RestfulieResult : ActionResult
     {
         public object Model { get; private set;}
-
         public IMediaType MediaType { get; set; }
+        public IRequestInfoFinder RequestInfo { get; set; }
 
         protected RestfulieResult()
         {

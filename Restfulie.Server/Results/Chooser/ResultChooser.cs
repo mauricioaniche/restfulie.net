@@ -1,22 +1,23 @@
 ﻿using System.Web.Mvc;
 using Restfulie.Server.Extensions;
 using Restfulie.Server.MediaTypes;
+using Restfulie.Server.Request;
 
 namespace Restfulie.Server.Results.Chooser
 {
     public class ResultChooser : IResultChooser
     {
-        public ActionResult BasedOnMediaType(ActionExecutedContext context, IMediaType type)
+        public ActionResult BasedOnMediaType(ActionExecutedContext context, IMediaType type, IRequestInfoFinder requestInfoFinder)
         {
             if (!context.Result.IsRestfulieResult()) return context.Result;
-
-            return (type is HTML) ? AspNetResult(context) : RestfulieResult(context, type);
+            return (type is HTML) ? AspNetResult(context) : RestfulieResult(context, type, requestInfoFinder);
         }
 
-        private ActionResult RestfulieResult(ActionExecutedContext context, IMediaType type)
+        private ActionResult RestfulieResult(ActionExecutedContext context, IMediaType type, IRequestInfoFinder requestInfoFinder)
         {
             var result = (RestfulieResult)context.Result;
             result.MediaType = type;
+            result.RequestInfo = requestInfoFinder;
 
             return result; 
         }

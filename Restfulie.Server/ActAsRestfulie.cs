@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using Restfulie.Server.Configuration;
 using Restfulie.Server.MediaTypes;
 using Restfulie.Server.Negotiation;
@@ -13,13 +14,12 @@ namespace Restfulie.Server
     public class ActAsRestfulie : ActionFilterAttribute
     {
         private IMediaType mediaType;
-
-        private readonly IAcceptHeaderToMediaType acceptHeader;
         private readonly IContentTypeToMediaType contentType;
         private readonly IRequestInfoFinderFactory requestInfoFactory;
         private readonly IUnmarshallerResolver unmarshallerResolver;
         private readonly IResultChooser choose;
         private IRequestInfoFinder requestInfo;
+        private readonly IAcceptHeaderToMediaType acceptHeader;
 
         public ActAsRestfulie()
         {
@@ -32,18 +32,18 @@ namespace Restfulie.Server
         }
 
         public ActAsRestfulie(IAcceptHeaderToMediaType acceptHeader, IContentTypeToMediaType contentType,
-            IRequestInfoFinderFactory requestInfoFinderFactory, IResultChooser resultChooser, IUnmarshallerResolver resolver)
+            IRequestInfoFinderFactory requestInfoFactory, IResultChooser choose, IUnmarshallerResolver unmarshallerResolver)
         {
             this.acceptHeader = acceptHeader;
             this.contentType = contentType;
-            this.requestInfoFactory = requestInfoFinderFactory;
-            this.choose = resultChooser;
-            this.unmarshallerResolver = resolver;
+            this.requestInfoFactory = requestInfoFactory;
+            this.choose = choose;
+            this.unmarshallerResolver = unmarshallerResolver;
         }
 
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            filterContext.Result = choose.BasedOnMediaType(filterContext, mediaType);
+            filterContext.Result = choose.BasedOnMediaType(filterContext, mediaType, requestInfo);
 
             base.OnActionExecuted(filterContext);
         }
@@ -75,14 +75,14 @@ namespace Restfulie.Server
             base.OnActionExecuting(filterContext);
         }
 
-        private void GetRequestInfo(ControllerContext filterContext)
-        {
-            requestInfo = requestInfoFactory.BasedOn(filterContext.HttpContext);
-        }
-
         private void GetMediaType()
         {
             mediaType = acceptHeader.GetMediaType(requestInfo.GetAcceptHeader());
+        }
+
+        public void GetRequestInfo(ControllerContext filterContext)
+        {
+            requestInfo = requestInfoFactory.BasedOn(filterContext.HttpContext);
         }
 
         private void DoUnmarshalling(ActionExecutingContext filterContext)

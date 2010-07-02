@@ -186,9 +186,10 @@ namespace Restfulie.Server.Tests
             var filter = new ActAsRestfulie(acceptHeader.Object, contentType.Object, requestInfoFactory.Object,
                                 chooser.Object, resolver.Object);
 
+            filter.GetRequestInfo(actionExecutingContext);
             filter.OnActionExecuted(actionExecutedContext);
 
-            chooser.Verify(c => c.BasedOnMediaType(actionExecutedContext, It.IsAny<IMediaType>()), Times.Once());
+            chooser.Verify(c => c.BasedOnMediaType(actionExecutedContext, It.IsAny<IMediaType>(), requestInfo.Object), Times.Once());
         }
     }
 }
