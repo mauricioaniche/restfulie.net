@@ -11,15 +11,20 @@ namespace Web.Controllers
     [ActAsRestfulie]
     public class ItemsController : Controller
     {
-        public ActionResult Index()
+        private MemoryDatabase database;
+
+        public ItemsController()
         {
-            var database = new MemoryDatabase();
+            database = new MemoryDatabase();
+        }
+
+        public virtual ActionResult Index()
+        {
             return new Success(database.List());
         }
 
-        public ActionResult Get(int id)
+        public virtual ActionResult Get(int id)
         {
-            var database = new MemoryDatabase();
             var item = database.List().Where(i => i.Id == id).SingleOrDefault();
 
             if (item == null) return new NotFound();
@@ -27,9 +32,8 @@ namespace Web.Controllers
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Save(Item item)
+        public virtual ActionResult Save(Item item)
         {
-            var database = new MemoryDatabase();
             database.Add(item);
 
             return new Created("http://localhost:1198/Items/" + item.Id);

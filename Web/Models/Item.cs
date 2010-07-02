@@ -1,4 +1,5 @@
 ﻿using Restfulie.Server;
+using Web.Controllers;
 
 namespace Web.Models
 {
@@ -10,6 +11,7 @@ namespace Web.Models
 
         public void SetRelations(Relations relations)
         {
+            relations.Named("self").Uses<ItemsController>().Get(Id);
         }
     }
 }
