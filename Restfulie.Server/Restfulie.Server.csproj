@@ -131,8 +131,8 @@
     <Compile Include="MediaTypes\HTML.cs" />
     <Compile Include="MediaTypes\IMediaType.cs" />
     <Compile Include="MediaTypes\XmlAndHypermedia.cs" />
-    <Compile Include="Negotiation\DefaultRequestInfoFinder.cs" />
-    <Compile Include="Negotiation\IRequestInfoFinder.cs" />
+    <Compile Include="Request\DefaultRequestInfoFinder.cs" />
+    <Compile Include="Request\IRequestInfoFinder.cs" />
     <Compile Include="Results\BadRequest.cs" />
     <Compile Include="Results\Created.cs" />
     <Compile Include="Results\NotAcceptable.cs" />

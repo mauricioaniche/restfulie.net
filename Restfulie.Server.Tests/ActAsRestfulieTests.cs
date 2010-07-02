@@ -6,6 +6,7 @@ using NUnit.Framework;
 using Restfulie.Server.Marshalling;
 using Restfulie.Server.MediaTypes;
 using Restfulie.Server.Negotiation;
+using Restfulie.Server.Request;
 using Restfulie.Server.Results;
 using Restfulie.Server.Results.Chooser;
 using Restfulie.Server.Tests.Fixtures;
