@@ -39,7 +39,6 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
         {
             var item = new Entry
             {
-                Description = resource.ToString(),
                 Title = "(title)",
                 Id = "(entry-url)",
                 PublicDate = GetUpdatedAt(resource),
