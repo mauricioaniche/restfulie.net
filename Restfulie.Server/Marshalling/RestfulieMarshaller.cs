@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Restfulie.Server.Marshalling.Serializers;
 using Restfulie.Server.Extensions;
+using Restfulie.Server.Request;
 
 namespace Restfulie.Server.Marshalling
 {
@@ -17,7 +18,7 @@ namespace Restfulie.Server.Marshalling
             this.hypermedia = hypermedia;
         }
 
-        public string Build(object model)
+        public string Build(object model, IRequestInfoFinder finder)
         {
             var content = serializer.Serialize(model);
 
@@ -25,7 +26,7 @@ namespace Restfulie.Server.Marshalling
             {
                 var relations = relationsFactory.NewRelations();
                 ((IBehaveAsResource) model).SetRelations(relations);
-                content = hypermedia.Insert(content, relations);
+                content = hypermedia.Insert(content, relations, finder);
             }
 
             else if(model.GetType().IsAListOfResources())
@@ -40,7 +41,7 @@ namespace Restfulie.Server.Marshalling
                     allRelations.Add(relations);
                 }
 
-                content = hypermedia.Insert(content, allRelations);
+                content = hypermedia.Insert(content, allRelations, finder);
             }
 
             return content;

@@ -1,7 +1,9 @@
-﻿namespace Restfulie.Server.Marshalling
+﻿using Restfulie.Server.Request;
+
+namespace Restfulie.Server.Marshalling
 {
     public interface IResourceMarshaller
     {
-        string Build(object model);
+        string Build(object model, IRequestInfoFinder finder);
     }
 }

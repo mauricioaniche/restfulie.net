@@ -3,12 +3,21 @@ using Moq;
 using NUnit.Framework;
 using Restfulie.Server.Marshalling.Serializers.AtomPlusXml;
 using Restfulie.Server.Marshalling.UrlGenerators;
+using Restfulie.Server.Request;
 
 namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
 {
     [TestFixture]
     public class AtomPlusXmlHypermediaInserterTests
     {
+        private Mock<IRequestInfoFinder> requestInfo;
+
+        [SetUp]
+        public void SetUp()
+        {
+            requestInfo = new Mock<IRequestInfoFinder>();
+        }
+
         [Test]
         public void ShouldInsertTransitionsInAEntry()
         {
@@ -37,7 +46,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
                                     new Relation("pay", "some/url")
                                 });
 
-            var result = new AtomPlusXmlHypermediaInserter().Insert(entry, relations.Object);
+            var result = new AtomPlusXmlHypermediaInserter().Insert(entry, relations.Object, requestInfo.Object);
 
             Assert.AreEqual(
                 "<entry>"+
@@ -109,7 +118,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
                                     new Relation("pay", "some/url/456")
                                 });
 
-            var result = new AtomPlusXmlHypermediaInserter().Insert(feed, new List<Relations> { relationsFor123.Object, relationsFor456.Object });
+            var result = new AtomPlusXmlHypermediaInserter().Insert(feed, new List<Relations> { relationsFor123.Object, relationsFor456.Object }, requestInfo.Object);
 
 
             Assert.AreEqual(

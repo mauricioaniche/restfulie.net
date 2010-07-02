@@ -3,12 +3,21 @@ using Moq;
 using NUnit.Framework;
 using Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia;
 using Restfulie.Server.Marshalling.UrlGenerators;
+using Restfulie.Server.Request;
 
 namespace Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia
 {
     [TestFixture]
     public class XmlHypermediaInserterTests
     {
+        private IRequestInfoFinder requestInfo;
+
+        [SetUp]
+        public void SetUp()
+        {
+            requestInfo = new Mock<IRequestInfoFinder>().Object;
+        }
+
         [Test]
         public void ShouldInsertTransitionsInResource()
         {
@@ -20,7 +29,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia
                                                              new Relation("pay", "some/url")
                                                          });
 
-            var result = new XmlHypermediaInserter().Insert(content, relations.Object);
+            var result = new XmlHypermediaInserter().Insert(content, relations.Object, requestInfo);
 
             Assert.AreEqual(
                 "<SomeResource>"+
@@ -51,7 +60,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia
                                                                    new Relation("pay", "some/url/456")
                                                                });
 
-            var result = new XmlHypermediaInserter().Insert(content, new List<Relations> { relationsFor123.Object, relationsFor456.Object });
+            var result = new XmlHypermediaInserter().Insert(content, new List<Relations> { relationsFor123.Object, relationsFor456.Object }, requestInfo);
 
             Assert.AreEqual(
                 "<SomeResources>"+

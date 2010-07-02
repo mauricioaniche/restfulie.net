@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
+using Restfulie.Server.Request;
 
 namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
 {
     public class XmlHypermediaInserter : IHypermediaInserter
     {
-        public string Insert(string content, Relations relations)
+        public string Insert(string content, Relations relations, IRequestInfoFinder finder)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);
@@ -20,7 +21,7 @@ namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
             return xmlDocument.InnerXml;
         }
 
-        public string Insert(string content, IList<Relations> relations)
+        public string Insert(string content, IList<Relations> relations, IRequestInfoFinder finder)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);

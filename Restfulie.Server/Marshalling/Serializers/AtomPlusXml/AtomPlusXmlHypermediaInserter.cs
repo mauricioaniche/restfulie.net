@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml;
+using Restfulie.Server.Request;
 
 namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 {
     public class AtomPlusXmlHypermediaInserter : IHypermediaInserter
     {
-        public string Insert(string content, Relations relations)
+        public string Insert(string content, Relations relations, IRequestInfoFinder finder)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);
@@ -21,7 +21,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
             return xmlDocument.InnerXml;
         }
 
-        public string Insert(string content, IList<Relations> relations)
+        public string Insert(string content, IList<Relations> relations, IRequestInfoFinder finder)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);
