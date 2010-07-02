@@ -21,24 +21,23 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
         [Test]
         public void ShouldInsertTransitionsInAEntry()
         {
-            var entry =
-                "<entry>\n" +
-                    "<title>some title</title>\n" +
-                    "<id>1234</id>\n" +
-                    "<updated>05—01—2006 02:56:00</updated>\n" +
-                    "<summary>summary</summary>\n" +
-                    "<author>\n" +
-                        "<name>author</name>\n" +
-                    "</author>\n" +
-                    "<content>\n" +
-                        "<![CDATA[" +
-                            "<SomeResource>\n" +
-                                "<Name>Name</Name>\n" +
-                                "<Amount>123.45</Amount>\n" +
-                            "</SomeResource>\n" +
-                        "]]>" +
-                    "</content>\n" +
-                "</entry> ";
+            const string entry = "<entry>\n" +
+                                 "<title>some title</title>\n" +
+                                 "<id>1234</id>\n" +
+                                 "<updated>05—01—2006 02:56:00</updated>\n" +
+                                 "<summary>summary</summary>\n" +
+                                 "<author>\n" +
+                                 "<name>author</name>\n" +
+                                 "</author>\n" +
+                                 "<content>\n" +
+                                 "<![CDATA[" +
+                                 "<SomeResource>\n" +
+                                 "<Name>Name</Name>\n" +
+                                 "<Amount>123.45</Amount>\n" +
+                                 "</SomeResource>\n" +
+                                 "]]>" +
+                                 "</content>\n" +
+                                 "</entry> ";
 
             var relations = new Mock<Relations>(new Mock<IUrlGenerator>().Object);
             relations.Setup(r => r.GetAll()).Returns(new List<Relation>
