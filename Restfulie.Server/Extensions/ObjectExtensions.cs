@@ -21,6 +21,11 @@ namespace Restfulie.Server.Extensions
             return resources.ToArray();
         }
 
+        public static IBehaveAsResource AsResource(this object obj)
+        {
+            return (IBehaveAsResource) obj;
+        }
+
         public static string AsXml(this object resource)
         {
             var stringWriter = new StringWriter();

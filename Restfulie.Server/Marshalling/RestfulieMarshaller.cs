@@ -24,8 +24,9 @@ namespace Restfulie.Server.Marshalling
 
             if(model.GetType().IsAResource())
             {
+                var resource = model.AsResource();
                 var relations = relationsFactory.NewRelations();
-                ((IBehaveAsResource) model).SetRelations(relations);
+                resource.SetRelations(relations);
                 content = hypermedia.Inject(content, relations, finder);
             }
 
