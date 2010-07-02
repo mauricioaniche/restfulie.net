@@ -44,8 +44,8 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
 
             const string expectedResult =
                 "<entry xmlns=\"http://www.w3.org/2005/Atom\">\r\n  "+
-                    "<title>(none)</title>\r\n  "+
-                    "<id>123</id>\r\n  "+
+                    "<title>(title)</title>\r\n  "+
+                    "<id>(entry-url)</id>\r\n  "+
                     "<updated>2010-10-10T00:00:00.000</updated>\r\n  "+
                     "<content>\r\n    "+
                         "<SomeResource xmlns=\"\">\r\n      "+

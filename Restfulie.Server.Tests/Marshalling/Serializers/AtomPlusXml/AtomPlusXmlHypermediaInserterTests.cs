@@ -23,7 +23,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
         {
             const string entry = "<entry>\n" +
                                  "<title>some title</title>\n" +
-                                 "<id>1234</id>\n" +
+                                 "<id>(entry-url)</id>\n" +
                                  "<updated>05—01—2006 02:56:00</updated>\n" +
                                  "<summary>summary</summary>\n" +
                                  "<author>\n" +
@@ -42,7 +42,8 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
             var relations = new Mock<Relations>(new Mock<IUrlGenerator>().Object);
             relations.Setup(r => r.GetAll()).Returns(new List<Relation>
                                 {
-                                    new Relation("pay", "some/url")
+                                    new Relation("pay", "some/url"),
+                                    new Relation("get", "some/get/url"),
                                 });
 
             var result = new AtomPlusXmlHypermediaInserter().Insert(entry, relations.Object, requestInfo.Object);
@@ -50,7 +51,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
             Assert.AreEqual(
                 "<entry>"+
                 "<title>some title</title>"+
-                "<id>1234</id>"+
+                "<id>some/get/url</id>"+
                 "<updated>05—01—2006 02:56:00</updated>"+
                 "<summary>summary</summary>"+
                 "<author>"+
@@ -58,6 +59,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
                 "</author>"+
                 "<content><![CDATA[<SomeResource>\n<Name>Name</Name>\n<Amount>123.45</Amount>\n</SomeResource>\n]]></content>"+
                 "<link rel=\"pay\" href=\"some/url\" />"+
+                "<link rel=\"get\" href=\"some/get/url\" />"+
                 "</entry>"
                 , result);
         }

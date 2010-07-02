@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
 using Restfulie.Server.Request;
+using System.Linq;
 
 namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 {
@@ -18,7 +19,14 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
                 xmlDocument.DocumentElement.AppendChild(transition);
             }
 
-            return xmlDocument.InnerXml;
+            var xml = xmlDocument.InnerXml;
+
+            var getRelation = relations.GetAll().Where(r => r.Name.ToLower().Equals("get")).SingleOrDefault();
+            if (getRelation != null)
+            {
+                xml = xml.Replace("(entry-url)", getRelation.Url);
+            }
+            return xml;
         }
 
         public string Insert(string content, IList<Relations> relations, IRequestInfoFinder finder)

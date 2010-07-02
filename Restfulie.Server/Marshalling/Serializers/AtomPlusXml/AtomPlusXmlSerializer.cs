@@ -17,9 +17,9 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
             {
                 var feed = new Feed
                                {
-                                   Author = "(none)",
-                                   Description = "(none)",
-                                   Title = "(none)",
+                                   Author = "(author)",
+                                   Description = "(description)",
+                                   Title = "(title)",
                                    Updated = DateTime.Now.ToRFC3339(), 
                                    Id = resource.ToString()
                                };
@@ -40,8 +40,8 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
             var item = new Entry
             {
                 Description = resource.ToString(),
-                Title = "(none)",
-                Id = resource.GetProperty("Id").ToString() ?? resource.GetProperty("ID").ToString(),
+                Title = "(title)",
+                Id = "(entry-url)",
                 PublicDate = GetUpdatedAt(resource),
                 Content = resource.AsXml()
             };
