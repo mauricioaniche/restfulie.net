@@ -25,7 +25,7 @@ namespace Restfulie.Server.Request
 
         public string GetUrl()
         {
-            return httpContext.Request.RawUrl;
+            return httpContext.Request.Url.AbsoluteUri;
         }
 
         public string GetContent()

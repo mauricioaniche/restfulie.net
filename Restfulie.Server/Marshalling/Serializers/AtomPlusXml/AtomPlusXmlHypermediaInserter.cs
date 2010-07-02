@@ -51,7 +51,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 
         private XmlNode BuildTransition(XmlDocument xmlDocument, Relation state)
         {
-            var transition = xmlDocument.CreateNode(XmlNodeType.Element, "link", "");
+            var transition = xmlDocument.CreateNode(XmlNodeType.Element, "link", "http://www.w3.org/2005/Atom");
 
             var rel = xmlDocument.CreateAttribute("rel");
             rel.InnerText = state.Name;

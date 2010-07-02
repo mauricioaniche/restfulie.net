@@ -10,6 +10,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
     public class AtomPlusXmlSerializer : IResourceSerializer
     {
         private static readonly XNamespace ns = "http://www.w3.org/2005/Atom";
+        private static readonly XNamespace contentNs = "";
 
         public string Serialize(object resource)
         {
@@ -88,7 +89,9 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
                                        new XElement(ns + "updated",
                                                     item.PublicDate));
 
-            element.Add(new XElement(ns + "content", XElement.Parse(item.Content)));
+            element.Add(new XElement(contentNs + "content", 
+                new XAttribute("type","application/xml"), 
+                XElement.Parse(item.Content)));
             return element;
         }
     }

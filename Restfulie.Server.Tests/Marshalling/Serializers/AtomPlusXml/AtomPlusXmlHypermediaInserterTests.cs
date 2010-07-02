@@ -21,23 +21,20 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
         [Test]
         public void ShouldInsertTransitionsInAEntry()
         {
-            const string entry = "<entry>\n" +
-                                 "<title>some title</title>\n" +
-                                 "<id>(entry-url)</id>\n" +
-                                 "<updated>05—01—2006 02:56:00</updated>\n" +
-                                 "<summary>summary</summary>\n" +
-                                 "<author>\n" +
-                                 "<name>author</name>\n" +
-                                 "</author>\n" +
-                                 "<content>\n" +
-                                 "<![CDATA[" +
-                                 "<SomeResource>\n" +
-                                 "<Name>Name</Name>\n" +
-                                 "<Amount>123.45</Amount>\n" +
-                                 "</SomeResource>\n" +
-                                 "]]>" +
-                                 "</content>\n" +
-                                 "</entry> ";
+            const string entry = 
+                "<entry xmlns=\"http://www.w3.org/2005/Atom\">\r\n" +
+                "  <title>(title)</title>\r\n" +
+                "  <id>(entry-url)</id>\r\n" +
+                "  <updated>2010-10-10T00:00:00.000</updated>\r\n" +
+                "  <content type=\"application/xml\" xmlns=\"\">\r\n" +
+                "    <SomeResource>\r\n" +
+                "      <Name>John Doe</Name>\r\n" +
+                "      <Amount>123.45</Amount>\r\n" +
+                "      <Id>123</Id>\r\n" +
+                "      <UpdatedAt>2010-10-10T00:00:00</UpdatedAt>\r\n" +
+                "    </SomeResource>\r\n" +
+                "  </content>\r\n" +
+                "</entry>";
 
             var relations = new Mock<Relations>(new Mock<IUrlGenerator>().Object);
             relations.Setup(r => r.GetAll()).Returns(new List<Relation>
@@ -49,19 +46,22 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
             var result = new AtomPlusXmlHypermediaInserter().Insert(entry, relations.Object, requestInfo.Object);
 
             Assert.AreEqual(
-                "<entry>"+
-                "<title>some title</title>"+
-                "<id>some/get/url</id>"+
-                "<updated>05—01—2006 02:56:00</updated>"+
-                "<summary>summary</summary>"+
-                "<author>"+
-                "<name>author</name>"+
-                "</author>"+
-                "<content><![CDATA[<SomeResource>\n<Name>Name</Name>\n<Amount>123.45</Amount>\n</SomeResource>\n]]></content>"+
-                "<link rel=\"pay\" href=\"some/url\" />"+
-                "<link rel=\"self\" href=\"some/get/url\" />"+
-                "</entry>"
-                , result);
+               "<entry xmlns=\"http://www.w3.org/2005/Atom\">"+
+               "<title>(title)</title>"+
+               "<id>some/get/url</id>"+
+               "<updated>2010-10-10T00:00:00.000</updated>"+
+               "<content type=\"application/xml\" xmlns=\"\">"+
+               "<SomeResource>"+
+               "<Name>John Doe</Name>"+
+               "<Amount>123.45</Amount>"+
+               "<Id>123</Id>"+
+               "<UpdatedAt>2010-10-10T00:00:00</UpdatedAt>"+
+               "</SomeResource>"+
+               "</content>"+
+               "<link rel=\"pay\" href=\"some/url\" />"+
+               "<link rel=\"self\" href=\"some/get/url\" />"+
+               "</entry>", 
+               result);
         }
 
         [Test]
@@ -104,41 +104,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml
                 "</feed>";
 
             const string expectedFeed =
-                "<feed xmlns=\"http://www.w3.org/2005/Atom\">"+
-                "<title>(title)</title>"+
-                "<updated>0001-01-01T00:00:00</updated>"+
-                "<author><name>(author)</name></author>"+
-                "<id>entry/point</id>"+
-                "<entry>"+
-                "<title>(title)</title>"+
-                "<id>some/get/url/123</id>"+
-                "<updated>0001-01-01T00:00:00.000</updated>"+
-                "<content>"+
-                "<SomeResource xmlns=\"\">"+
-                "<Name>John Doe</Name>"+
-                "<Amount>123.45</Amount>"+
-                "<Id>0</Id>"+
-                "<UpdatedAt>0001-01-01T00:00:00</UpdatedAt>"+
-                "</SomeResource>"+
-                "</content>"+
-                "<link rel=\"pay\" href=\"some/url/123\" xmlns=\"\" />"+
-                "<link rel=\"self\" href=\"some/get/url/123\" xmlns=\"\" />"+
-                "</entry>"+
-                "<entry>"+
-                "<title>(title)</title>"+
-                "<id>some/get/url/456</id>"+
-                "<updated>0001-01-01T00:00:00.000</updated>"+
-                "<content>"+
-                "<SomeResource xmlns=\"\">"+
-                "<Name>Sally Doe</Name>"+
-                "<Amount>67.89</Amount>"+
-                "<Id>0</Id>"+
-                "<UpdatedAt>0001-01-01T00:00:00</UpdatedAt>"+
-                "</SomeResource></content>"+
-                "<link rel=\"pay\" href=\"some/url/456\" xmlns=\"\" />"+
-                "<link rel=\"self\" href=\"some/get/url/456\" xmlns=\"\" />"+
-                "</entry>"+
-                "</feed>";
+                "<feed xmlns=\"http://www.w3.org/2005/Atom\"><title>(title)</title><updated>0001-01-01T00:00:00</updated><author><name>(author)</name></author><id>entry/point</id><entry><title>(title)</title><id>some/get/url/123</id><updated>0001-01-01T00:00:00.000</updated><content><SomeResource xmlns=\"\"><Name>John Doe</Name><Amount>123.45</Amount><Id>0</Id><UpdatedAt>0001-01-01T00:00:00</UpdatedAt></SomeResource></content><link rel=\"pay\" href=\"some/url/123\" /><link rel=\"self\" href=\"some/get/url/123\" /></entry><entry><title>(title)</title><id>some/get/url/456</id><updated>0001-01-01T00:00:00.000</updated><content><SomeResource xmlns=\"\"><Name>Sally Doe</Name><Amount>67.89</Amount><Id>0</Id><UpdatedAt>0001-01-01T00:00:00</UpdatedAt></SomeResource></content><link rel=\"pay\" href=\"some/url/456\" /><link rel=\"self\" href=\"some/get/url/456\" /></entry></feed>";
 
             var relationsFor123 = new Mock<Relations>(new Mock<IUrlGenerator>().Object);
             var relationsFor456 = new Mock<Relations>(new Mock<IUrlGenerator>().Object);
