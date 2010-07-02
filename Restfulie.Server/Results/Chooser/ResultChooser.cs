@@ -10,10 +10,10 @@ namespace Restfulie.Server.Results.Chooser
         {
             if (!context.Result.IsRestfulieResult()) return context.Result;
 
-            return (type is HTML) ? AspNetResult(context) : DefaultResult(context, type);
+            return (type is HTML) ? AspNetResult(context) : RestfulieResult(context, type);
         }
 
-        private ActionResult DefaultResult(ActionExecutedContext context, IMediaType type)
+        private ActionResult RestfulieResult(ActionExecutedContext context, IMediaType type)
         {
             var result = (RestfulieResult)context.Result;
             result.MediaType = type;
