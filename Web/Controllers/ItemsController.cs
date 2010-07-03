@@ -36,7 +36,7 @@ namespace Web.Controllers
         {
             database.Add(item);
 
-            return new Created("http://localhost:1198/Items/" + item.Id);
+            return new Created(item, "http://localhost:1198/Items/" + item.Id);
         }
     }
 }
