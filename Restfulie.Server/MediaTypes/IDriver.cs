@@ -6,7 +6,7 @@ namespace Restfulie.Server.MediaTypes
     public interface IDriver
     {
         IResourceSerializer Serializer { get; set; }
-        IHypermediaInserter HypermediaInserter { get; set; }
+        IHypermediaInjector HypermediaInjector { get; set; }
         IResourceDeserializer Deserializer { get; set; }
     }
 }

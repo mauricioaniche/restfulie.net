@@ -7,7 +7,7 @@ namespace Restfulie.Server.MediaTypes
     {
         public AtomPlusXml()
         {
-            Driver = new Driver(new AtomPlusXmlSerializer(), new AtomPlusXmlHypermediaInserter(), new AtomPlusXmlDeserializer());
+            Driver = new Driver(new AtomPlusXmlSerializer(), new AtomPlusXmlHypermediaInjector(), new AtomPlusXmlDeserializer());
         }
 
         public override string[] Synonyms

@@ -96,11 +96,11 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="IRelationsFactory.cs" />
-    <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInserter.cs" />
-    <Compile Include="Marshalling\Serializers\IHypermediaInserter.cs" />
     <Compile Include="Marshalling\Serializers\Json\JsonHypermediaInserter.cs" />
     <Compile Include="Marshalling\Serializers\Json\JsonSerializer.cs" />
-    <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlHypermediaInserter.cs" />
+    <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInjector.cs" />
+    <Compile Include="Marshalling\Serializers\IHypermediaInjector.cs" />
+    <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlHypermediaInjector.cs" />
     <Compile Include="MediaTypes\DefaultMediaTypeList.cs" />
     <Compile Include="MediaTypes\Driver.cs" />
     <Compile Include="MediaTypes\IDriver.cs" />
@@ -114,6 +114,8 @@
     <Compile Include="Negotiation\AcceptHeaderNotSupportedException.cs" />
     <Compile Include="Negotiation\IContentTypeToMediaType.cs" />
     <Compile Include="RelationsFactory.cs" />
+    <Compile Include="Request\IRequestInfoFinderFactory.cs" />
+    <Compile Include="Request\RequestInfoFinderFactory.cs" />
     <Compile Include="Results\Chooser\IResultChooser.cs" />
     <Compile Include="Results\Decorators\Content.cs" />
     <Compile Include="Results\Decorators\ContentType.cs" />
@@ -141,8 +143,8 @@
     <Compile Include="MediaTypes\HTML.cs" />
     <Compile Include="MediaTypes\IMediaType.cs" />
     <Compile Include="MediaTypes\XmlAndHypermedia.cs" />
-    <Compile Include="Negotiation\DefaultRequestInfoFinder.cs" />
-    <Compile Include="Negotiation\IRequestInfoFinder.cs" />
+    <Compile Include="Request\RequestInfoFinder.cs" />
+    <Compile Include="Request\IRequestInfoFinder.cs" />
     <Compile Include="Results\BadRequest.cs" />
     <Compile Include="Results\Created.cs" />
     <Compile Include="Results\NotAcceptable.cs" />

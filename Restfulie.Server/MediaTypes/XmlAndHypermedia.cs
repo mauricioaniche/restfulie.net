@@ -7,7 +7,7 @@ namespace Restfulie.Server.MediaTypes
     {
         public XmlAndHypermedia()
         {
-            Driver = new Driver(new XmlSerializer(), new XmlHypermediaInserter(), new XmlDeserializer());
+            Driver = new Driver(new XmlSerializer(), new XmlHypermediaInjector(), new XmlDeserializer());
         }
 
         public override string[] Synonyms

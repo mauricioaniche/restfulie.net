@@ -4,12 +4,21 @@ using NUnit.Framework;
 using Restfulie.Server.Marshalling.Serializers.Json;
 using Moq;
 using Restfulie.Server.Marshalling.UrlGenerators;
+using Restfulie.Server.Request;
 
 namespace Restfulie.Server.Tests.Marshalling.Serializers.Json
 {
     [TestFixture]
     public class JsonHypermediaInserterTests
     {
+        private Mock<IRequestInfoFinder> requestInfo;
+
+        [SetUp]
+        public void Setup()
+        {
+            requestInfo = new Mock<IRequestInfoFinder>();
+        }
+
         [Test]
         public void ShouldInsertTransitionsInResource()
         {
@@ -26,7 +35,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.Json
                                                             new Relation("refresh", "http://some/url/refresh/john-doe")
                                                          });
 
-            var result = new JsonHypermediaInserter().Insert(json, relations.Object);
+            var result = new JsonHypermediaInserter().Inject(json, relations.Object, requestInfo.Object);
 
             Assert.AreEqual(
                 "{" +
@@ -78,7 +87,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.Json
                                     new Relation("refresh", "http://some/url/refresh/sally-doe")
                                 });
 
-            var result = new JsonHypermediaInserter().Insert(json, new List<Relations> { relationsForJohnDoe.Object, relationsForSallyDoe.Object });
+            var result = new JsonHypermediaInserter().Inject(json, new List<Relations> { relationsForJohnDoe.Object, relationsForSallyDoe.Object }, requestInfo.Object);
 
             Assert.AreEqual(
                 "[" +

@@ -10,6 +10,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
     public class AtomPlusXmlSerializer : IResourceSerializer
     {
         private static readonly XNamespace ns = "http://www.w3.org/2005/Atom";
+        private static readonly XNamespace contentNs = "";
 
         public string Serialize(object resource)
         {
@@ -17,11 +18,11 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
             {
                 var feed = new Feed
                                {
-                                   Author = "(none)",
-                                   Description = "(none)",
-                                   Title = "(none)",
+                                   Author = "(author)",
+                                   Description = "(description)",
+                                   Title = "(title)",
                                    Updated = DateTime.Now.ToRFC3339(), 
-                                   Id = resource.ToString()
+                                   Id = "(feed-url)"
                                };
 
                 foreach (var obj in (IEnumerable)resource)
@@ -39,9 +40,8 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
         {
             var item = new Entry
             {
-                Description = resource.ToString(),
-                Title = "(none)",
-                Id = resource.GetProperty("Id").ToString() ?? resource.GetProperty("ID").ToString(),
+                Title = "(title)",
+                Id = "(entry-url)",
                 PublicDate = GetUpdatedAt(resource),
                 Content = resource.AsXml()
             };
@@ -89,7 +89,9 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
                                        new XElement(ns + "updated",
                                                     item.PublicDate));
 
-            element.Add(new XElement(ns + "content", XElement.Parse(item.Content)));
+            element.Add(new XElement(contentNs + "content", 
+                new XAttribute("type","application/xml"), 
+                XElement.Parse(item.Content)));
             return element;
         }
     }

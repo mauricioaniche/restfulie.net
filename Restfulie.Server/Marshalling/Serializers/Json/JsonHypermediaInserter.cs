@@ -1,17 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Restfulie.Server.Request;
 
 namespace Restfulie.Server.Marshalling.Serializers.Json
 {
-    public class JsonHypermediaInserter : IHypermediaInserter
+    public class JsonHypermediaInserter : IHypermediaInjector
     {
-        public string Insert(string content, Relations relations)
+        public string Inject(string content, Relations relations, IRequestInfoFinder requestInfo)
         {
-            return this.InsertJsonTransitions(content, relations);
+            return this.InjectJsonTransitions(content, relations);
         }
 
-        public string Insert(string content, IList<Relations> relations)
+        public string Inject(string content, IList<Relations> relations, IRequestInfoFinder requestInfo)
         {
             return "[" +
                     "{" +
@@ -47,7 +48,7 @@ namespace Restfulie.Server.Marshalling.Serializers.Json
                 "]";
         }
 
-        private string InsertJsonTransitions(string content, Relations relations)
+        private string InjectJsonTransitions(string content, Relations relations)
         {
             var jsonTransitions = relations.GetAll().Select((r) => this.GetTransitionOnJsonFormat(r));
             var jsonTransitionsConcatenated = string.Join(",", jsonTransitions.ToArray());

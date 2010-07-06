@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Xml;
+using Restfulie.Server.Request;
 
-namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
+namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
 {
-    public class AtomPlusXmlHypermediaInserter : IHypermediaInserter
+    public class XmlHypermediaInjector : IHypermediaInjector
     {
-        public string Insert(string content, Relations relations)
+        public string Inject(string content, Relations relations, IRequestInfoFinder requestInfo)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);
@@ -21,18 +21,16 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
             return xmlDocument.InnerXml;
         }
 
-        public string Insert(string content, IList<Relations> relations)
+        public string Inject(string content, IList<Relations> relations, IRequestInfoFinder requestInfo)
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(content);
 
-            var nodes = xmlDocument.DocumentElement.GetElementsByTagName("entry");
-
-            for (var i = 0; i < nodes.Count; i++)
+            for (var i = 0; i < xmlDocument.DocumentElement.ChildNodes.Count; i++)
             {
-                var node = nodes[i];
+                var node = xmlDocument.DocumentElement.ChildNodes[i];
 
-                foreach (var relation in relations[i].GetAll())
+                foreach(var relation in relations[i].GetAll())
                 {
                     var transition = GetTransition(xmlDocument, relation);
                     node.AppendChild(transition);
@@ -45,7 +43,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 
         private XmlNode GetTransition(XmlDocument xmlDocument, Relation state)
         {
-            var transition = xmlDocument.CreateNode(XmlNodeType.Element, "link", "");
+            var transition = xmlDocument.CreateNode(XmlNodeType.Element, "atom", "link", "http://www.w3.org/2005/Atom");
 
             var rel = xmlDocument.CreateAttribute("rel");
             rel.InnerText = state.Name;
@@ -57,5 +55,6 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 
             return transition;
         }
+
     }
 }

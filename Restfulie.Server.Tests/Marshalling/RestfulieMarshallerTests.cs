@@ -4,6 +4,7 @@ using NUnit.Framework;
 using Restfulie.Server.Marshalling;
 using Restfulie.Server.Marshalling.Serializers;
 using Restfulie.Server.Marshalling.UrlGenerators;
+using Restfulie.Server.Request;
 using Restfulie.Server.Tests.Fixtures;
 
 namespace Restfulie.Server.Tests.Marshalling
@@ -14,15 +15,17 @@ namespace Restfulie.Server.Tests.Marshalling
         private Mock<IRelationsFactory> relationsFactory;
         private Mock<Relations> relations;
         private Mock<IResourceSerializer> serializer;
-        private Mock<IHypermediaInserter> hypermedia;
+        private Mock<IHypermediaInjector> hypermedia;
+        private Mock<IRequestInfoFinder> requestInfo;
 
         [SetUp]
         public void SetUp()
         {
             relations = new Mock<Relations>(new Mock<IUrlGenerator>().Object);
             serializer = new Mock<IResourceSerializer>();
-            hypermedia = new Mock<IHypermediaInserter>();
+            hypermedia = new Mock<IHypermediaInjector>();
             relationsFactory = new Mock<IRelationsFactory>();
+            requestInfo = new Mock<IRequestInfoFinder>();
 
             relationsFactory.Setup(r => r.NewRelations()).Returns(relations.Object);
         }
@@ -33,10 +36,10 @@ namespace Restfulie.Server.Tests.Marshalling
             var resource = new SomeResource();
             
             serializer.Setup(s => s.Serialize(resource)).Returns(SerializedResource());
-            hypermedia.Setup(h => h.Insert(SerializedResource(), relations.Object)).Returns(HypermediaResource());
+            hypermedia.Setup(h => h.Inject(SerializedResource(), relations.Object, requestInfo.Object)).Returns(HypermediaResource());
 
             var builder = new RestfulieMarshaller(relationsFactory.Object, serializer.Object, hypermedia.Object);
-            var representation = builder.Build(resource);
+            var representation = builder.Build(resource, requestInfo.Object);
 
             serializer.VerifyAll();
             hypermedia.VerifyAll();
@@ -49,12 +52,12 @@ namespace Restfulie.Server.Tests.Marshalling
         {
             var resources = new List<IBehaveAsResource> { new SomeResource(), new SomeResource() };
             
-            hypermedia.Setup(h => h.Insert(SerializedListOfResources(), It.IsAny<IList<Relations>>())).Returns(
+            hypermedia.Setup(h => h.Inject(SerializedListOfResources(), It.IsAny<IList<Relations>>(), requestInfo.Object)).Returns(
                 SerializedHypermediaList());
             serializer.Setup(s => s.Serialize(resources)).Returns(SerializedListOfResources());
 
             var builder = new RestfulieMarshaller(relationsFactory.Object, serializer.Object, hypermedia.Object);
-            var representation = builder.Build(resources);
+            var representation = builder.Build(resources, requestInfo.Object);
 
             serializer.VerifyAll();
             hypermedia.VerifyAll();
@@ -69,7 +72,7 @@ namespace Restfulie.Server.Tests.Marshalling
             serializer.Setup(s => s.Serialize(model)).Returns("some list of integers");
 
             var builder = new RestfulieMarshaller(relationsFactory.Object, serializer.Object, hypermedia.Object);
-            var representation = builder.Build(model);
+            var representation = builder.Build(model, requestInfo.Object);
 
             serializer.VerifyAll();
             Assert.AreEqual("some list of integers", representation);
