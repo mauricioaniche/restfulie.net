@@ -5,7 +5,7 @@ using Restfulie.Server.Request;
 
 namespace Restfulie.Server.Marshalling.Serializers.Json
 {
-    public class JsonHypermediaInserter : IHypermediaInjector
+    public class JsonHypermediaInjector : IHypermediaInjector
     {
         public string Inject(string content, Relations relations, IRequestInfoFinder requestInfo)
         {

@@ -96,7 +96,7 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="IRelationsFactory.cs" />
-    <Compile Include="Marshalling\Serializers\Json\JsonHypermediaInserter.cs" />
+    <Compile Include="Marshalling\Serializers\Json\JsonHypermediaInjector.cs" />
     <Compile Include="Marshalling\Serializers\Json\JsonSerializer.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInjector.cs" />
     <Compile Include="Marshalling\Serializers\IHypermediaInjector.cs" />

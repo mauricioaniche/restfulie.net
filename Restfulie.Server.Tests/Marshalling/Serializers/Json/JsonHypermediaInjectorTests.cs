@@ -9,7 +9,7 @@ using Restfulie.Server.Request;
 namespace Restfulie.Server.Tests.Marshalling.Serializers.Json
 {
     [TestFixture]
-    public class JsonHypermediaInserterTests
+    public class JsonHypermediaInjectorTests
     {
         private Mock<IRequestInfoFinder> requestInfo;
 
@@ -35,7 +35,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.Json
                                                             new Relation("refresh", "http://some/url/refresh/john-doe")
                                                          });
 
-            var result = new JsonHypermediaInserter().Inject(json, relations.Object, requestInfo.Object);
+            var result = new JsonHypermediaInjector().Inject(json, relations.Object, requestInfo.Object);
 
             Assert.AreEqual(
                 "{" +
@@ -87,7 +87,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.Json
                                     new Relation("refresh", "http://some/url/refresh/sally-doe")
                                 });
 
-            var result = new JsonHypermediaInserter().Inject(json, new List<Relations> { relationsForJohnDoe.Object, relationsForSallyDoe.Object }, requestInfo.Object);
+            var result = new JsonHypermediaInjector().Inject(json, new List<Relations> { relationsForJohnDoe.Object, relationsForSallyDoe.Object }, requestInfo.Object);
 
             Assert.AreEqual(
                 "[" +
