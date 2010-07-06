@@ -94,6 +94,7 @@
     <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlHypermediaInjector.cs" />
     <Compile Include="MediaTypes\DefaultMediaTypeList.cs" />
     <Compile Include="MediaTypes\Driver.cs" />
+    <Compile Include="MediaTypes\UrlEncoded.cs" />
     <Compile Include="MediaTypes\IDriver.cs" />
     <Compile Include="MediaTypes\IMediaTypeList.cs" />
     <Compile Include="MediaTypes\RestfulieMediaType.cs" />

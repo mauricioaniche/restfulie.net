@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Restfulie.Server;
 using Restfulie.Server.Results;
 using Web.Models;
@@ -15,6 +14,7 @@ namespace Web.Controllers
 
         public ItemsController()
         {
+            
             database = new MemoryDatabase();
         }
 
