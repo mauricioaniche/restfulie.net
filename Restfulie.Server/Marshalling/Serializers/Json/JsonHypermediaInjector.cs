@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Restfulie.Server.Request;
+using System.Text;
 
 namespace Restfulie.Server.Marshalling.Serializers.Json
 {
@@ -14,38 +15,86 @@ namespace Restfulie.Server.Marshalling.Serializers.Json
 
         public string Inject(string content, IList<Relations> relations, IRequestInfoFinder requestInfo)
         {
-            return "[" +
-                    "{" +
-                        "\"Name\":\"John Doe\"," +
-                        "\"Amount\":123.45," +
-                        "\"links\":" +
-                            "[" +
-                                "{" +
-                                    "\"rel\":\"pay\"," +
-                                    "\"href\":\"http://some/url/pay/john-doe\"" +
-                                "}," +
-                                "{" +
-                                    "\"rel\":\"refresh\"," +
-                                    "\"href\":\"http://some/url/refresh/john-doe\"" +
-                                "}" +
-                            "]" +
-                    "}," +
-                    "{" +
-                        "\"Name\":\"Sally Doe\"," +
-                        "\"Amount\":67.89," +
-                        "\"links\":" +
-                            "[" +
-                                "{" +
-                                    "\"rel\":\"pay\"," +
-                                    "\"href\":\"http://some/url/pay/sally-doe\"" +
-                                "}," +
-                                "{" +
-                                    "\"rel\":\"refresh\"," +
-                                    "\"href\":\"http://some/url/refresh/sally-doe\"" +
-                                "}" +
-                            "]" +
-                    "}" +
-                "]";
+            var listOfSingleObjects = this.SplitContentIntoListOfSingleJsonObjects(content);
+
+            StringBuilder injectedContent = new StringBuilder();
+            injectedContent.Append("[");
+
+            for(var index=0; index < listOfSingleObjects.Count; index++)
+            {
+                var singleObject = listOfSingleObjects[index];
+
+                try
+                {
+                    var singleObjectWithTransition = this.InjectJsonTransitions(singleObject, relations[index]);
+                    injectedContent.Append(singleObjectWithTransition);
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    injectedContent.Append(singleObject);
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    injectedContent.Append(singleObject);
+                }
+
+                injectedContent.Append(",");
+            }
+            // Removes last comma ','
+            injectedContent.Remove(injectedContent.Length - 1, 1);
+
+            injectedContent.Append("]");
+
+            return injectedContent.ToString();
+        }
+
+        private IList<string> SplitContentIntoListOfSingleJsonObjects(string content)
+        {
+            var list = new List<string>();
+
+            if (IsContentAnArray(content))
+            {
+                int firstJsonObjDelimiterIndex = 0;
+                var contentAsArrayOfString = content.ToCharArray();
+                Stack<char> stackOfDelimiters = new Stack<char>();
+
+                for (var index = firstJsonObjDelimiterIndex; index < contentAsArrayOfString.Length; index++)
+                {
+                    var currentChar = contentAsArrayOfString[index];
+
+                    if (currentChar == '{')
+                    {
+                        if (stackOfDelimiters.Count == 0)
+                        {
+                            firstJsonObjDelimiterIndex = index;
+                        }
+
+                        stackOfDelimiters.Push(currentChar);
+                    }
+                    else if (currentChar == '}')
+                    {
+                        stackOfDelimiters.Pop();
+
+                        if (stackOfDelimiters.Count == 0)
+                        {
+                            list.Add(content.Substring(firstJsonObjDelimiterIndex, (index - firstJsonObjDelimiterIndex) + 1));
+                        }
+
+                    }
+                }
+            }
+            else 
+            {
+                // Content is single json object
+                list.Add(content);
+            }
+
+            return list;
+        }
+
+        private bool IsContentAnArray(string content)
+        {
+            return content.StartsWith("[");
         }
 
         private string InjectJsonTransitions(string content, Relations relations)
