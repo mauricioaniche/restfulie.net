@@ -101,6 +101,7 @@
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInjector.cs" />
     <Compile Include="Marshalling\Serializers\IHypermediaInjector.cs" />
     <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlHypermediaInjector.cs" />
+    <Compile Include="MediaTypes\JsonAndHypermedia.cs" />
     <Compile Include="MediaTypes\DefaultMediaTypeList.cs" />
     <Compile Include="MediaTypes\Driver.cs" />
     <Compile Include="MediaTypes\IDriver.cs" />

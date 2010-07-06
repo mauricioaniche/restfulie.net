@@ -15,6 +15,7 @@ namespace Restfulie.Server.Configuration
                         {
                             new XmlAndHypermedia(),
                             new AtomPlusXml(),
+                            new JsonAndHypermedia(),
                             new HTML()
                         };
         }
