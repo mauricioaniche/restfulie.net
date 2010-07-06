@@ -40,8 +40,11 @@ namespace Restfulie.Server.Marshalling.Serializers.Json
 
                 injectedContent.Append(",");
             }
-            // Removes last comma ','
-            injectedContent.Remove(injectedContent.Length - 1, 1);
+            if (injectedContent.Length > 1)
+            {
+                // Removes last comma ','
+                injectedContent.Remove(injectedContent.Length - 1, 1);
+            }
 
             injectedContent.Append("]");
 
