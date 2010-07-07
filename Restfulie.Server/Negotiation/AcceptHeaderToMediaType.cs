@@ -23,28 +23,16 @@ namespace Restfulie.Server.Negotiation
 
             foreach(var type in types)
             {
-                if (IsDefaultFormat(type))
+                var parsedFormat = CreateBasedOn(type);
+
+                if (IsDefaultFormat(parsedFormat.Format))
                 {
-                    acceptedMediaType.Add(new QualifiedMediaType(mediaTypes.Default, 1));
+                    acceptedMediaType.Add(new QualifiedMediaType(mediaTypes.Default, parsedFormat.Qualifier));
                 }
                 else
                 {
-                    string format;
-                    var qualifier = 1.0;
-
-                    if (ContainsQualifier(type))
-                    {
-                        var typeInfo = type.Split(';');
-                        format = typeInfo[0].Trim();
-                        qualifier = Convert.ToDouble(typeInfo[1].Split('=')[1]);
-                    }
-                    else
-                    {
-                        format = type;
-                    }
-
-                    var mediaType = mediaTypes.Find(format);
-                    if (mediaType != null) acceptedMediaType.Add(new QualifiedMediaType(mediaType, qualifier));
+                    var mediaType = mediaTypes.Find(parsedFormat.Format);
+                    if (mediaType != null) acceptedMediaType.Add(new QualifiedMediaType(mediaType, parsedFormat.Qualifier));
                 }
             }
 
@@ -59,13 +47,44 @@ namespace Restfulie.Server.Negotiation
 
         private bool IsDefaultFormat(string type)
         {
-            return type.Trim().Contains("*/*");
+            return type.Equals("*/*");
         }
 
         private IMediaType MostQualifiedMediaType(IEnumerable<QualifiedMediaType> acceptedMediaType)
         {
             var maxQualifier = acceptedMediaType.Max(m => m.Qualifier);
             return acceptedMediaType.Where(m => m.Qualifier == maxQualifier).First().MediaType;
+        }
+
+        private FormatPlusQualifier CreateBasedOn(string type)
+        {
+            string format;
+            var qualifier = 1.0;
+
+            if (ContainsQualifier(type))
+            {
+                var typeInfo = type.Split(';');
+                format = typeInfo[0].Trim();
+                qualifier = Convert.ToDouble(typeInfo[1].Split('=')[1]);
+            }
+            else
+            {
+                format = type.Trim();
+            }
+
+            return new FormatPlusQualifier(format, qualifier);
+        }
+
+        class FormatPlusQualifier
+        {
+            public string Format { get; private set; }
+            public double Qualifier { get; private set; }
+
+            public FormatPlusQualifier(string format, double qualifier)
+            {
+                Format = format;
+                Qualifier = qualifier;
+            }
         }
 
         class QualifiedMediaType
