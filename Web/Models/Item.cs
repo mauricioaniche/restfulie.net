@@ -6,12 +6,13 @@ namespace Web.Models
     public class Item : IBehaveAsResource
     {
         public int Id { get; set; }
-        public string Nome { get; set; }
-        public string Preco { get; set; }
+        public string Name { get; set; }
+        public string Price { get; set; }
 
         public void SetRelations(Relations relations)
         {
             relations.Named("self").Uses<ItemsController>().Get(Id);
+            relations.Named("create").Uses<ItemsController>().Save(null);
         }
     }
 }

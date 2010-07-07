@@ -10,7 +10,7 @@
     <h2>Get</h2>
     
     Id: <%= Model.Id %><br />
-    Name: <%= Model.Nome %><br />
-    Price: <%= Model.Preco %><br />
+    Name: <%= Model.Name %><br />
+    Price: <%= Model.Price %><br />
 
 </asp:Content>

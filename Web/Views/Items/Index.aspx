@@ -13,13 +13,13 @@
 <% foreach (var item in Model)
    { %>
 <p>
-<%= item.Nome %>, <%= item.Preco %>
+<%= item.Name %>, <%= item.Price %>
 </p>
 <% } %>
 
 <form action="<%= Url.Action("Save") %>" method="post">
-    Name: <input type="text" name="item.Nome" />
-    Price: <input type="text" name="item.Preco" />
+    Name: <input type="text" name="item.Name" />
+    Price: <input type="text" name="item.Price" />
     
     <input type="submit" value="Add new item" />
 </form>

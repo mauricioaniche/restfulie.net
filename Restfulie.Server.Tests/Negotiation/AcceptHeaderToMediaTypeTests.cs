@@ -88,6 +88,14 @@ namespace Restfulie.Server.Tests.Negotiation
         }
 
         [Test]
+        public void ShouldReturnDefaultMediaTypeEvenIfItHasQualifier()
+        {
+            var mediaType = acceptHeader.GetMediaType("*/*; 0.5");
+
+            Assert.AreEqual(xml.Object, mediaType);
+        }
+
+        [Test]
         public void ShouldReturnDefaultMediaTypeIsNotIsProvided()
         {
             var mediaType = acceptHeader.GetMediaType(null);

@@ -59,7 +59,7 @@ namespace Restfulie.Server.Negotiation
 
         private bool IsDefaultFormat(string type)
         {
-            return type.Trim().Equals("*/*");
+            return type.Trim().Contains("*/*");
         }
 
         private IMediaType MostQualifiedMediaType(IEnumerable<QualifiedMediaType> acceptedMediaType)
