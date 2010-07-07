@@ -23,7 +23,7 @@ namespace Restfulie.Server.Negotiation
 
             foreach(var type in types)
             {
-                var parsedFormat = CreateBasedOn(type);
+                var parsedFormat = ParseFormat(type);
 
                 if (IsDefaultFormat(parsedFormat.Format))
                 {
@@ -56,7 +56,7 @@ namespace Restfulie.Server.Negotiation
             return acceptedMediaType.Where(m => m.Qualifier == maxQualifier).First().MediaType;
         }
 
-        private FormatPlusQualifier CreateBasedOn(string type)
+        private FormatPlusQualifier ParseFormat(string type)
         {
             string format;
             var qualifier = 1.0;
