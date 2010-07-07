@@ -62,8 +62,7 @@ namespace Restfulie.Server
             }
             catch(ContentTypeNotSupportedException)
             {
-                filterContext.Result = new UnsupportedMediaType();
-                return;
+                // let asp.net mvc try to unmarshall!
             }
             catch(UnmarshallingException)
             {

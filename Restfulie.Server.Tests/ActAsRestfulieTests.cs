@@ -112,7 +112,7 @@ namespace Restfulie.Server.Tests
         }
 
         [Test]
-        public void ShouldReturnUnsupportedMediaTypeWhenContentTypeIsNotSupported()
+        public void ShouldNotReturnUnsupportedMediaTypeWhenContentTypeIsNotInterpretedByResftfulie()
         {
             resolver.Setup(r => r.HasResource).Returns(true);
             contentType.Setup(f => f.GetMediaType(It.IsAny<string>())).Throws(new ContentTypeNotSupportedException());
@@ -123,7 +123,7 @@ namespace Restfulie.Server.Tests
 
             filter.OnActionExecuting(actionExecutingContext);
 
-            Assert.IsTrue(actionExecutingContext.Result is UnsupportedMediaType);
+            Assert.IsFalse(actionExecutingContext.Result is UnsupportedMediaType);
         }
 
         [Test]
