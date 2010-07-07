@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using Restfulie.Server.Results.Decorators;
 
 namespace Restfulie.Server.Results
@@ -23,7 +24,8 @@ namespace Restfulie.Server.Results
         {
             return new StatusCode((int)HttpStatusCode.Created,
                    new Location(location,
-                   new Content(BuildContent())));
+                   new ContentType(MediaType.Synonyms.First(),
+                   new Content(BuildContent()))));
         }
     }
 }
