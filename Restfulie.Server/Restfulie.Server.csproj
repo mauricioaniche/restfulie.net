@@ -65,6 +65,9 @@
     <Reference Include="System.Web.Abstractions">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Routing">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -89,9 +92,12 @@
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="IRelationsFactory.cs" />
+    <Compile Include="Marshalling\Serializers\Json\JsonHypermediaInjector.cs" />
+    <Compile Include="Marshalling\Serializers\Json\JsonSerializer.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInjector.cs" />
     <Compile Include="Marshalling\Serializers\IHypermediaInjector.cs" />
     <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlHypermediaInjector.cs" />
+    <Compile Include="MediaTypes\JsonAndHypermedia.cs" />
     <Compile Include="MediaTypes\DefaultMediaTypeList.cs" />
     <Compile Include="MediaTypes\Driver.cs" />
     <Compile Include="MediaTypes\UrlEncoded.cs" />
@@ -117,6 +123,7 @@
     <Compile Include="Results\InternalServerError.cs" />
     <Compile Include="Results\NotFound.cs" />
     <Compile Include="Results\Chooser\ResultChooser.cs" />
+    <Compile Include="Unmarshalling\Deserializers\Json\JsonDeserializer.cs" />
     <Compile Include="Unmarshalling\NoUnmarshaller.cs" />
     <Compile Include="Unmarshalling\Deserializers\AtomPlusXml\AtomPlusXmlDeserializer.cs" />
     <Compile Include="Unmarshalling\Resolver\AcceptPostPutAndPatchVerbs.cs" />

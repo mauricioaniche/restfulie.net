@@ -18,7 +18,8 @@ namespace Restfulie.Server.Tests.MediaTypes
                           {
                               new HTML(),
                               new AtomPlusXml(),
-                              new XmlAndHypermedia()
+                              new XmlAndHypermedia(),
+                              new JsonAndHypermedia()
                           };
 
             anyMediaType = new Mock<IMediaType>().Object;
@@ -36,6 +37,13 @@ namespace Restfulie.Server.Tests.MediaTypes
         {
             var mediaType = new DefaultMediaTypeList(anyList, anyMediaType).Find("crazy-media-type");
             Assert.IsNull(mediaType);
+        }
+
+        [Test]
+        public void ShouldFindByNameJsonMediaType()
+        {
+            var mediaType = new DefaultMediaTypeList(anyList, anyMediaType).Find("application/json");
+            Assert.IsTrue(mediaType is JsonAndHypermedia);
         }
     }
 }

@@ -93,6 +93,8 @@
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInjectorTests.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializerTests.cs" />
     <Compile Include="Marshalling\Serializers\AtomPlusXml\FeedTests.cs" />
+    <Compile Include="Marshalling\Serializers\Json\JsonHypermediaInjectorTests.cs" />
+    <Compile Include="Marshalling\Serializers\Json\JsonSerializerTests.cs" />
     <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlHypermediaInjectorTests.cs" />
     <Compile Include="MediaTypes\DefaultMediaTypeListTests.cs" />
     <Compile Include="MediaTypes\DriverTests.cs" />
@@ -122,6 +124,7 @@
     <Compile Include="Results\SuccessTests.cs" />
     <Compile Include="Results\UnsupportedMediaTypeTests.cs" />
     <Compile Include="Unmarshalling\Deserializers\AtomPlusXmlDeserializerTests.cs" />
+    <Compile Include="Unmarshalling\Deserializers\JsonDeserializerTests.cs" />
     <Compile Include="Unmarshalling\Resolver\AcceptPostPutAndPatchVerbsTests.cs" />
     <Compile Include="Unmarshalling\RestfulieUnmarshallerTests.cs" />
     <Compile Include="Unmarshalling\Deserializers\XmlDeserializerTests.cs" />
