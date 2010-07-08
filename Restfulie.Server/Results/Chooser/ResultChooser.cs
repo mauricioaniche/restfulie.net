@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using Restfulie.Server.Extensions;
+using Restfulie.Server.Http;
 using Restfulie.Server.MediaTypes;
-using Restfulie.Server.Request;
 
 namespace Restfulie.Server.Results.Chooser
 {

@@ -112,8 +112,8 @@
     <Compile Include="Negotiation\AcceptHeaderNotSupportedException.cs" />
     <Compile Include="Negotiation\IContentTypeToMediaType.cs" />
     <Compile Include="RelationsFactory.cs" />
-    <Compile Include="Request\IRequestInfoFinderFactory.cs" />
-    <Compile Include="Request\RequestInfoFinderFactory.cs" />
+    <Compile Include="Http\IRequestInfoFinderFactory.cs" />
+    <Compile Include="Http\RequestInfoFinderFactory.cs" />
     <Compile Include="Results\Chooser\IResultChooser.cs" />
     <Compile Include="Results\Decorators\Content.cs" />
     <Compile Include="Results\Decorators\ContentType.cs" />
@@ -141,8 +141,8 @@
     <Compile Include="MediaTypes\HTML.cs" />
     <Compile Include="MediaTypes\IMediaType.cs" />
     <Compile Include="MediaTypes\XmlAndHypermedia.cs" />
-    <Compile Include="Request\RequestInfoFinder.cs" />
-    <Compile Include="Request\IRequestInfoFinder.cs" />
+    <Compile Include="Http\RequestInfoFinder.cs" />
+    <Compile Include="Http\IRequestInfoFinder.cs" />
     <Compile Include="Results\BadRequest.cs" />
     <Compile Include="Results\Created.cs" />
     <Compile Include="Results\NotAcceptable.cs" />

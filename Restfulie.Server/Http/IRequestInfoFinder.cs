@@ -1,4 +1,4 @@
-﻿namespace Restfulie.Server.Request
+﻿namespace Restfulie.Server.Http
 {
     public interface IRequestInfoFinder
     {

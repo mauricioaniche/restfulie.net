@@ -1,8 +1,7 @@
 ﻿using System.IO;
 using System.Web;
-using System.Web.Mvc;
 
-namespace Restfulie.Server.Request
+namespace Restfulie.Server.Http
 {
     public class RequestInfoFinder : IRequestInfoFinder
     {

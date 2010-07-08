@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
+using Restfulie.Server.Http;
 using Restfulie.Server.Marshalling.Serializers;
 using Restfulie.Server.Extensions;
-using Restfulie.Server.Request;
 
 namespace Restfulie.Server.Marshalling
 {

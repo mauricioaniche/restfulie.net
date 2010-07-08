@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Restfulie.Server.Request;
+using Restfulie.Server.Http;
 
 namespace Restfulie.Server.Marshalling.Serializers
 {

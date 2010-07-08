@@ -1,6 +1,6 @@
 using System.Web;
 
-namespace Restfulie.Server.Request
+namespace Restfulie.Server.Http
 {
     public interface IRequestInfoFinderFactory
     {

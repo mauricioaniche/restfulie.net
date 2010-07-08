@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
+using Restfulie.Server.Http;
 using Restfulie.Server.MediaTypes;
-using Restfulie.Server.Request;
 using Restfulie.Server.Results.Decorators;
 
 namespace Restfulie.Server.Results

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Restfulie.Server.Request;
+using Restfulie.Server.Http;
 using System.Text;
 
 namespace Restfulie.Server.Marshalling.Serializers.Json

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
+using Restfulie.Server.Http;
 using Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia;
 using Restfulie.Server.Marshalling.UrlGenerators;
-using Restfulie.Server.Request;
 
 namespace Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia
 {

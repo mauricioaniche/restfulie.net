@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
 using Moq;
 using NUnit.Framework;
+using Restfulie.Server.Http;
 using Restfulie.Server.MediaTypes;
-using Restfulie.Server.Request;
 using Restfulie.Server.Results;
 using Restfulie.Server.Results.Chooser;
 using Restfulie.Server.Tests.Fixtures;

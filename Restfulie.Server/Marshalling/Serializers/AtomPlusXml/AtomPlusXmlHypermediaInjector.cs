@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
-using Restfulie.Server.Request;
+using Restfulie.Server.Http;
 using System.Linq;
 
 namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml

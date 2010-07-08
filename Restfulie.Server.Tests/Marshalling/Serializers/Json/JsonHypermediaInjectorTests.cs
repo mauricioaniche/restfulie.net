@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using Restfulie.Server.Http;
 using Restfulie.Server.Marshalling.Serializers.Json;
 using Moq;
 using Restfulie.Server.Marshalling.UrlGenerators;
-using Restfulie.Server.Request;
 
 namespace Restfulie.Server.Tests.Marshalling.Serializers.Json
 {
