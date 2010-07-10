@@ -120,9 +120,11 @@
     <Compile Include="Results\Decorators\ResultDecorator.cs" />
     <Compile Include="Results\Decorators\Location.cs" />
     <Compile Include="Results\Decorators\StatusCode.cs" />
+    <Compile Include="Results\Forbidden.cs" />
     <Compile Include="Results\InternalServerError.cs" />
     <Compile Include="Results\NotFound.cs" />
     <Compile Include="Results\Chooser\ResultChooser.cs" />
+    <Compile Include="Results\NotModified.cs" />
     <Compile Include="Unmarshalling\Deserializers\Json\JsonDeserializer.cs" />
     <Compile Include="Unmarshalling\NoUnmarshaller.cs" />
     <Compile Include="Unmarshalling\Deserializers\AtomPlusXml\AtomPlusXmlDeserializer.cs" />

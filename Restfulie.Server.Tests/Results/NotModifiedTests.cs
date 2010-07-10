@@ -7,9 +7,9 @@ using Restfulie.Server.Results.Decorators;
 namespace Restfulie.Server.Tests.Results
 {
     [TestFixture]
-    public class CreatedTests
+    public class NotModifiedTests
     {
-        private Created result;
+        private NotModified result;
 
         [SetUp]
         public void SetUp()
@@ -17,7 +17,7 @@ namespace Restfulie.Server.Tests.Results
             var mediaType = new Mock<IMediaType>();
             mediaType.SetupGet(mt => mt.Synonyms).Returns(new[] { "media-type" });
 
-            result = new Created
+            result = new NotModified
             {
                 MediaType = mediaType.Object
             };
@@ -27,24 +27,6 @@ namespace Restfulie.Server.Tests.Results
         public void ShouldSetStatusCode()
         {
             Assert.That(result.GetDecorators().Contains(typeof(StatusCode)));
-        }
-
-        [Test]
-        public void ShouldSetLocation()
-        {
-            Assert.That(result.GetDecorators().Contains(typeof(Location)));
-        }
-
-        [Test]
-        public void ShouldSetContent()
-        {
-            Assert.That(result.GetDecorators().Contains(typeof(Content)));
-        }
-
-        [Test]
-        public void ShouldSetContentType()
-        {
-            Assert.That(result.GetDecorators().Contains(typeof(ContentType)));
         }
     }
 }
