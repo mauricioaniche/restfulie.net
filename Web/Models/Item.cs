@@ -12,7 +12,7 @@ namespace Web.Models
         public void SetRelations(Relations relations)
         {
             relations.Named("self").Uses<ItemsController>().Get(Id);
-            relations.Named("create").Uses<ItemsController>().Save(null);
+            relations.Named("origin").At("http://www.some-fabric.com/");
         }
     }
 }
