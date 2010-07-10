@@ -7,9 +7,9 @@ using Restfulie.Server.Results.Decorators;
 namespace Restfulie.Server.Tests.Results
 {
     [TestFixture]
-    public class SuccessTests
+    public class OKTests
     {
-        private Success result;
+        private OK result;
 
         [SetUp]
         public void SetUp()
@@ -17,7 +17,7 @@ namespace Restfulie.Server.Tests.Results
             var mediaType = new Mock<IMediaType>();
             mediaType.SetupGet(mt => mt.Synonyms).Returns(new[] { "media-type" });
 
-            result = new Success
+            result = new OK
             {
                 MediaType = mediaType.Object
             };

@@ -4,10 +4,10 @@ using Restfulie.Server.Results.Decorators;
 
 namespace Restfulie.Server.Results
 {
-    public class Success : RestfulieResult
+    public class OK : RestfulieResult
     {
-        public Success() { }
-        public Success(object model) : base(model) { }
+        public OK() { }
+        public OK(object model) : base(model) { }
 
         public override ResultDecorator GetDecorators()
         {

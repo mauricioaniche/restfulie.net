@@ -20,7 +20,7 @@ namespace Web.Controllers
 
         public virtual ActionResult Index()
         {
-            return new Success(database.List());
+            return new OK(database.List());
         }
 
         public virtual ActionResult Get(int id)
@@ -28,7 +28,7 @@ namespace Web.Controllers
             var item = database.List().Where(i => i.Id == id).SingleOrDefault();
 
             if (item == null) return new NotFound();
-            return new Success(item);
+            return new OK(item);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]

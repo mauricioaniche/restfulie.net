@@ -151,7 +151,7 @@
     <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlSerializer.cs" />
     <Compile Include="Marshalling\Serializers\IResourceSerializer.cs" />
     <Compile Include="Results\SeeOther.cs" />
-    <Compile Include="Results\Success.cs" />
+    <Compile Include="Results\OK.cs" />
     <Compile Include="Marshalling\UrlGenerators\IUrlGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Relation.cs" />

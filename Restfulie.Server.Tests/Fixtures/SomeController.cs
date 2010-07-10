@@ -8,19 +8,19 @@ namespace Restfulie.Server.Tests.Fixtures
         [ActAsRestfulie]
         public virtual ActionResult SomeSimpleAction()
         {
-            return new Success();
+            return new OK();
         }
 
         [ActAsRestfulie]
         public virtual ActionResult ActionWithParameter(int id, int qty)
         {
-            return new Success();
+            return new OK();
         }
 
         [ActAsRestfulie]
         public virtual ActionResult ActionWithResource(SomeResource resource)
         {
-            return new Success(resource);
+            return new OK(resource);
         }
     }
 }

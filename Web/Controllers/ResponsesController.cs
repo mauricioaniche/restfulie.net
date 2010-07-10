@@ -7,9 +7,9 @@ namespace Web.Controllers
     [ActAsRestfulie]
     public class ResponsesController : Controller
     {
-        public virtual ActionResult Success()
+        public virtual ActionResult OK()
         {
-            return new Success();
+            return new OK();
         }
 
         public virtual ActionResult BadRequest()
@@ -39,7 +39,7 @@ namespace Web.Controllers
 
         public virtual ActionResult SeeOther()
         {
-            return new SeeOther(Url.Action("Success"));
+            return new SeeOther(Url.Action("OK"));
         }
     }
 }

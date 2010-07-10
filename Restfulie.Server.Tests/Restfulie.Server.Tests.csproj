@@ -121,7 +121,7 @@
     <Compile Include="Results\PreconditionFailedTests.cs" />
     <Compile Include="Results\ResultDecoratorTestExtensions.cs" />
     <Compile Include="Results\SeeOtherTests.cs" />
-    <Compile Include="Results\SuccessTests.cs" />
+    <Compile Include="Results\OKTests.cs" />
     <Compile Include="Results\UnsupportedMediaTypeTests.cs" />
     <Compile Include="Unmarshalling\Deserializers\AtomPlusXmlDeserializerTests.cs" />
     <Compile Include="Unmarshalling\Deserializers\JsonDeserializerTests.cs" />

@@ -11,7 +11,7 @@ namespace Restfulie.Server.Tests.Extensions
         [Test]
         public void ShouldKnowIfItIsARestfulieResult()
         {
-            Assert.IsTrue(new Success().IsRestfulieResult());
+            Assert.IsTrue(new OK().IsRestfulieResult());
             Assert.IsFalse(new RedirectResult("url").IsRestfulieResult());
         }
     }
