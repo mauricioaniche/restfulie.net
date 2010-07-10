@@ -109,7 +109,7 @@
     <Compile Include="RelationsFactoryTests.cs" />
     <Compile Include="Results\BadRequestTests.cs" />
     <Compile Include="Results\Chooser\ResultChooserTests.cs" />
-    <Compile Include="Results\CreatedTests.cs" />
+    <Content Include="Results\CreatedTests.cs" />
     <Compile Include="Results\Decorators\ContentTests.cs" />
     <Compile Include="Results\Decorators\ContentTypeTests.cs" />
     <Compile Include="Results\Decorators\LocationTests.cs" />
