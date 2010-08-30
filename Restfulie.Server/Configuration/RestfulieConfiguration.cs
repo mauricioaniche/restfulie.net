@@ -83,14 +83,14 @@ namespace Restfulie.Server.Configuration
 
     	public void Remove<TMediaTypeToRemove>(IMediaType defaultMediaType) where TMediaTypeToRemove : IMediaType
     	{
-    		_mediaTypeList.SetDefault(defaultMediaType);
+    		MediaTypes.SetDefault(defaultMediaType);
 			Remove<TMediaTypeToRemove>();
     	}
 
     	public void Remove<TMediaTypeToRemove>(Type defaultMediaType) where TMediaTypeToRemove : IMediaType
 		{
 			var newDefault = FindOrCreate(defaultMediaType);
-			_mediaTypeList.SetDefault(newDefault);
+			MediaTypes.SetDefault(newDefault);
 			Remove<TMediaTypeToRemove>();
 		}
     }
