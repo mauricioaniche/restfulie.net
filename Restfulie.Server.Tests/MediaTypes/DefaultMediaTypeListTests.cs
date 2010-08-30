@@ -2,6 +2,7 @@
 using Moq;
 using NUnit.Framework;
 using Restfulie.Server.MediaTypes;
+using Should;
 
 namespace Restfulie.Server.Tests.MediaTypes
 {
@@ -45,5 +46,21 @@ namespace Restfulie.Server.Tests.MediaTypes
             var mediaType = new DefaultMediaTypeList(anyList, anyMediaType).Find("application/json");
             Assert.IsTrue(mediaType is JsonAndHypermedia);
         }
+
+		[Test]
+		public void Should_be_able_to_change_default_media_type()
+		{
+			var newDefault = new Mock<IMediaType>().Object;
+			var list = new DefaultMediaTypeList(anyList, anyMediaType);
+			list.SetDefault(newDefault);
+			list.Default.ShouldEqual(newDefault);
+		}
+
+		[Test]
+		public void ShouldFindByType()
+		{
+			var list = new DefaultMediaTypeList(anyList, anyMediaType);
+			list.Find<XmlAndHypermedia>().ShouldBeType<XmlAndHypermedia>();
+		}
     }
 }

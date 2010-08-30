@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using NUnit.Framework;
 using Restfulie.Server.Marshalling.Serializers;
 using Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia;
@@ -23,7 +24,7 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia
             var resource = new SomeResource {Amount = 123.45, Name = "John Doe"};
             
             var xml = serializer.Serialize(resource);
-
+			Console.WriteLine(xml.Replace("utf-16","utf-8"));
             Assert.That(xml.Contains("<Name>John Doe</Name>"));
             Assert.That(xml.Contains("<Amount>123.45</Amount>"));
         }

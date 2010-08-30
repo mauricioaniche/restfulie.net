@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -29,7 +30,7 @@ namespace Restfulie.Server.Extensions
         public static string AsXml(this object resource)
         {
             var stringWriter = new StringWriter();
-            using (var xmlWriter = XmlWriter.Create(stringWriter, new XmlWriterSettings { OmitXmlDeclaration = true }))
+            using (var xmlWriter = XmlWriter.Create(stringWriter, new XmlWriterSettings { OmitXmlDeclaration = false,Encoding = Encoding.UTF8}))
             {
                 var noNamespaces = new XmlSerializerNamespaces();
                 noNamespaces.Add("","");

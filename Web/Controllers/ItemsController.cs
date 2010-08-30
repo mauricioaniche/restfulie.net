@@ -16,6 +16,7 @@ namespace Web.Controllers
         {
             
             database = new MemoryDatabase();
+			database.Add(new Item());
         }
 
         public virtual ActionResult Index()
@@ -30,6 +31,16 @@ namespace Web.Controllers
             if (item == null) return new NotFound();
             return new OK(item);
         }
+
+		[AcceptVerbs(HttpVerbs.Post)]
+		public virtual ActionResult Create()
+		{
+			var item = new Item();
+			database.Add(item);
+
+			return new Created(item, "http://localhost:1198/Items/" + item.Id);
+		}
+
 
         [AcceptVerbs(HttpVerbs.Post)]
         public virtual ActionResult Save(Item item)

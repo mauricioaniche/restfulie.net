@@ -78,6 +78,7 @@
   <ItemGroup>
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\ResponsesController.cs" />
+    <Compile Include="Controllers\ViewlessController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

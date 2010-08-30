@@ -85,6 +85,7 @@
     <Compile Include="ActAsRestfulie.cs" />
     <Compile Include="Configuration\ConfigurationStore.cs" />
     <Compile Include="Configuration\IRestfulieConfiguration.cs" />
+    <Compile Include="Configuration\RestfulieConfigurationException.cs" />
     <Compile Include="Configuration\RestfulieConfiguration.cs" />
     <Compile Include="Extensions\ActionResultExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
