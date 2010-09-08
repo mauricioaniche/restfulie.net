@@ -74,10 +74,10 @@ namespace Restfulie.Server.Tests.Configuration
 		}
 
 		[Test]
-		public void ShouldThrowRestfulieConfigurationExceptionWhenTriesToRemoveDefaultMediaType()
+		public void ShouldThrowRestfulieConfigurationExceptionWhenTriesToRemoveAllMediaTypeRegistered()
 		{
-			TestDelegate removeDefault = RemoveDefault;
-			Assert.Throws(typeof(RestfulieConfigurationException), removeDefault);
+			TestDelegate removeAllMediaTypes = RemoveAllMediaTypes;
+			Assert.Throws(typeof(RestfulieConfigurationException), removeAllMediaTypes);
 		}
 
 		[Test]
@@ -100,10 +100,23 @@ namespace Restfulie.Server.Tests.Configuration
 			_config.MediaTypeList.Default.ShouldEqual(jsonHypermedia);
 		}
 
-		
-		private void RemoveDefault()
+		[Test]
+		public void ShouldSetFirstMediaTypeInListAsDefaultWhenRemovingTheDefaultMediaType()
 		{
-			_config.Remove<HTML>();
+			var defaultMediaType = _config.MediaTypeList.Default;
+			var firstMediaType = _config.MediaTypeList.MediaTypes.First(x => !x.Equals(defaultMediaType));
+			_config.Remove(defaultMediaType);
+			
+			_config.MediaTypeList.Default.ShouldEqual(firstMediaType);
+		}
+		
+		private void RemoveAllMediaTypes()
+		{
+			while(_config.MediaTypeList.MediaTypes.Any())
+			{
+				var first = _config.MediaTypeList.MediaTypes.First();
+				_config.Remove(first);
+			}
 		}
 	}
 

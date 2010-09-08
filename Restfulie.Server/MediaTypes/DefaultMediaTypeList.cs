@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Restfulie.Server.Configuration;
 
 namespace Restfulie.Server.MediaTypes
 {
@@ -13,7 +14,7 @@ namespace Restfulie.Server.MediaTypes
     	public DefaultMediaTypeList(IEnumerable<IMediaType> mediaTypes, IMediaType defaultMediaType)
         {
             MediaTypes = mediaTypes;
-            Default = defaultMediaType;
+            SetDefault(defaultMediaType);
         }
 
     	public IMediaType Find(string format)
@@ -28,8 +29,14 @@ namespace Restfulie.Server.MediaTypes
 
     	public void SetDefault(IMediaType defaultMediaType)
 		{
+			if(!IsRegistered(defaultMediaType))
+				throw new RestfulieConfigurationException(string.Format("Can't set type as default. {0} is not a registered media type.",defaultMediaType));
 			Default = defaultMediaType;
 		}
 
+    	private bool IsRegistered(IMediaType mediaType)
+    	{
+    		return MediaTypes.Contains(mediaType);
+    	}
     }
 }

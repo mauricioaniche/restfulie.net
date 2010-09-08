@@ -79,9 +79,24 @@ namespace Restfulie.Server.Configuration
 			var isDefaultType = mediaTypeToRemove.Equals(MediaTypeList.Default);
 
 			if (isDefaultType)
-				throw new RestfulieConfigurationException(string.Format("Can't remove the type {0}. Type is the default media type. Set other Media Type as default via SetDefaultMediaType() before invoking the Remove method.", mediaTypeToRemove));
-			
+				RemoveDefaultMediaType();
+				
 			_store.Remove(mediaTypeToRemove);
+
+		}
+
+		private void RemoveDefaultMediaType()
+		{
+			var hasOtherMediaTypesRegistered = MediaTypeList.MediaTypes.Count() > 1;
+			
+			if (!hasOtherMediaTypesRegistered)
+				throw new RestfulieConfigurationException(string.Format("Can't remove the type {0}. Type is the only type registered.",MediaTypeList.Default));
+
+			var typeToRemove = MediaTypeList.Default;
+			var newDefault = MediaTypeList.MediaTypes.First(x => !x.Equals(typeToRemove));
+
+			SetDefaultMediaType(newDefault);
+			Remove(typeToRemove);
 
 		}
 

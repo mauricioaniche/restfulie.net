@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Moq;
 using NUnit.Framework;
+using Restfulie.Server.Configuration;
 using Restfulie.Server.MediaTypes;
 using Should;
 
@@ -11,8 +13,9 @@ namespace Restfulie.Server.Tests.MediaTypes
     {
         private IList<IMediaType> anyList;
         private IMediaType anyMediaType;
+    	private DefaultMediaTypeList _list;
 
-        [SetUp]
+    	[SetUp]
         public void SetUp()
         {
             anyList = new List<IMediaType>
@@ -23,44 +26,58 @@ namespace Restfulie.Server.Tests.MediaTypes
                               new JsonAndHypermedia()
                           };
 
-            anyMediaType = new Mock<IMediaType>().Object;
+            anyMediaType = new HTML();
+
+        	_list = new DefaultMediaTypeList(anyList, anyMediaType);
         }
 
         [Test]
         public void ShouldFindByName()
         {
-            var mediaType = new DefaultMediaTypeList(anyList, anyMediaType).Find("application/xml");
-            Assert.IsTrue(mediaType is XmlAndHypermedia);
+            var mediaType = _list.Find("application/xml");
+        	mediaType.ShouldBeType<XmlAndHypermedia>();
         }
 
         [Test]
         public void ShouldReturnNullIfDoesNotFind()
         {
-            var mediaType = new DefaultMediaTypeList(anyList, anyMediaType).Find("crazy-media-type");
-            Assert.IsNull(mediaType);
+            var mediaType = _list.Find("crazy-media-type");
+			mediaType.ShouldBeNull();
         }
 
         [Test]
         public void ShouldFindByNameJsonMediaType()
         {
-            var mediaType = new DefaultMediaTypeList(anyList, anyMediaType).Find("application/json");
-            Assert.IsTrue(mediaType is JsonAndHypermedia);
+            var mediaType = _list.Find("application/json");
+        	mediaType.ShouldBeType<JsonAndHypermedia>();
         }
 
 		[Test]
-		public void Should_be_able_to_change_default_media_type()
+		public void ShouldBeAbleToChangeDefaultMediaType()
 		{
-			var newDefault = new Mock<IMediaType>().Object;
-			var list = new DefaultMediaTypeList(anyList, anyMediaType);
-			list.SetDefault(newDefault);
-			list.Default.ShouldEqual(newDefault);
+			var newDefault = anyList.Last();
+			_list.SetDefault(newDefault);
+			_list.Default.ShouldEqual(newDefault);
 		}
 
 		[Test]
-		public void ShouldFindByType()
+		public void ShouldFindByTypeUsingGenerics()
 		{
-			var list = new DefaultMediaTypeList(anyList, anyMediaType);
-			list.Find<XmlAndHypermedia>().ShouldBeType<XmlAndHypermedia>();
+			_list.Find<XmlAndHypermedia>().ShouldBeType<XmlAndHypermedia>();
 		}
+
+		[Test]
+		public void ShouldThrowRestfulieConfigurationExceptionWhenTriesToSetAsDefaultANonRegisteredMediaType()
+		{
+			TestDelegate setNonRegisteredTypeAsDefault = SetNonRegisteredTypeAsDefault;
+			Assert.Throws(typeof (RestfulieConfigurationException), setNonRegisteredTypeAsDefault);
+		}
+
+		private void SetNonRegisteredTypeAsDefault()
+		{
+			var newDefault = new Mock<IMediaType>().Object;
+			_list.SetDefault(newDefault);
+		}
+    
     }
 }
