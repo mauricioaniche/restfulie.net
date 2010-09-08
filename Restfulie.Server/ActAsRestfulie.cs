@@ -22,7 +22,7 @@ namespace Restfulie.Server
 
         public ActAsRestfulie()
         {
-            var mediaTypesList = ConfigurationStore.Get().MediaTypes;
+            var mediaTypesList = ConfigurationStore.Get().MediaTypeList;
             acceptHeader = new AcceptHeaderToMediaType(mediaTypesList);
             contentType = new ContentTypeToMediaType(mediaTypesList);
             requestInfoFactory = new RequestInfoFinderFactory();
