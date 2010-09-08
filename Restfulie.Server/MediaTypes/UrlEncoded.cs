@@ -4,26 +4,22 @@ using Restfulie.Server.Unmarshalling;
 
 namespace Restfulie.Server.MediaTypes
 {
-    public class UrlEncoded : IMediaType
+    public class UrlEncoded : MediaType
     {
-        public string[] Synonyms
+        public override string[] Synonyms
         {
             get { return new[] {"application/x-www-form-urlencoded"}; }
         }
 
-        public IResourceMarshaller BuildMarshaller()
+        public override IResourceMarshaller BuildMarshaller()
         {
             throw new Exception("Marshaller for UrlEncoded not available");
         }
 
-        public IResourceUnmarshaller BuildUnmarshaller()
+        public override IResourceUnmarshaller BuildUnmarshaller()
         {
             return new NoUnmarshaller();
         }
-
-        public IDriver Driver
-        {
-            get; set;
-        }
+        
     }
 }

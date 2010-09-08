@@ -4,13 +4,9 @@ using Restfulie.Server.Unmarshalling;
 
 namespace Restfulie.Server.MediaTypes
 {
-    public abstract class RestfulieMediaType : IMediaType
+    public abstract class RestfulieMediaType : MediaType
     {
-        public IDriver Driver { get; set; }
-
-        public abstract string[] Synonyms { get; }
-
-        public IResourceMarshaller BuildMarshaller()
+        public override IResourceMarshaller BuildMarshaller()
         {
             return
                 new RestfulieMarshaller(new RelationsFactory(new AspNetMvcUrlGenerator()),
@@ -18,9 +14,10 @@ namespace Restfulie.Server.MediaTypes
                                         Driver.HypermediaInjector);
         }
 
-        public IResourceUnmarshaller BuildUnmarshaller()
+        public override IResourceUnmarshaller BuildUnmarshaller()
         {
             return new RestfulieUnmarshaller(Driver.Deserializer);
         }
+	
     }
 }
