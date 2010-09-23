@@ -126,6 +126,7 @@
     <Compile Include="Results\NotFound.cs" />
     <Compile Include="Results\Chooser\ResultChooser.cs" />
     <Compile Include="Results\NotModified.cs" />
+    <Compile Include="Results\ServiceUnavailable.cs" />
     <Compile Include="Unmarshalling\Deserializers\Json\JsonDeserializer.cs" />
     <Compile Include="Unmarshalling\NoUnmarshaller.cs" />
     <Compile Include="Unmarshalling\Deserializers\AtomPlusXml\AtomPlusXmlDeserializer.cs" />

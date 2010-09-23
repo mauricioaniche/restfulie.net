@@ -11,12 +11,4 @@ namespace Restfulie.Server.Results
             return new StatusCode((int)HttpStatusCode.InternalServerError);
         }
     }
-
-	public class ServiceUnavailable : RestfulieResult
-	{
-		public override ResultDecorator GetDecorators()
-		{
-			return new StatusCode((int) HttpStatusCode.ServiceUnavailable);
-		}
-	}
 }
