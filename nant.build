@@ -9,7 +9,7 @@
   
   <property name="revisionnumber" value="9999" dynamic="true"/>  
   <property name="project.fullversion" value="${build.number}" if="${property::exists('build.number')}"/>
-  <property name="config" value="Debug" />
+  <property name="config" value="Release" />
 
   <target name="test" depends="compile, run-unit-tests"
   description="Compile and Run Tests" />
