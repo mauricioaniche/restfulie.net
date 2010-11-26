@@ -100,17 +100,17 @@ namespace Restfulie.Server.Configuration
 
 		}
 
-		public void SetDefaultMediaType(IMediaType defaultMediaType)
-		{
-			MediaTypeList.SetDefault(defaultMediaType);
-		}
-
 		public void SetDefaultMediaType<TDefault>() where TDefault : IMediaType
 		{
 			var mediaType = Find(typeof(TDefault));
 			if (mediaType == null)
 				throw new RestfulieConfigurationException(string.Format("Media Type {0} can't be set as default. Media Type must be registered before set as default."));
 			SetDefaultMediaType(mediaType);
+		}
+
+		private void SetDefaultMediaType(IMediaType defaultMediaType)
+		{
+			MediaTypeList.SetDefault(defaultMediaType);
 		}
 
 		private IMediaType Find(Type mediaType)

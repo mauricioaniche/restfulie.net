@@ -22,6 +22,7 @@ namespace Restfulie.Server.Tests.Configuration
 		{
 			_config = new RestfulieConfiguration();
 		}
+
 		[Test]
 		public void ShouldRegisterSerializerAndDeserializerForAMediaType()
 		{
@@ -46,18 +47,18 @@ namespace Restfulie.Server.Tests.Configuration
 		}
 
 		[Test]
-		public void ShouldRemoveAMediaTypeUsingGenerics()
+		public void ShouldRemoveAMediaType()
 		{
 			_config.Remove<XmlAndHypermedia>();
 			_config.MediaTypeList.MediaTypes.Any(x => x.GetType() == typeof(XmlAndHypermedia)).ShouldBeFalse();
 		}
 
 		[Test]
-		public void ShouldRemoveAMediaTypePassingTheMediaTypeAsArgument()
+		public void ShouldRemoveAMediaTypePassingAInstanceOfTheMediaTypeAsArgument()
 		{
-			var typeToRemove = _config.MediaTypeList.Find<XmlAndHypermedia>();
-			_config.Remove(typeToRemove);
-			_config.MediaTypeList.MediaTypes.Any(x => x.GetType() == typeof(XmlAndHypermedia)).ShouldBeFalse();
+			var mediaTypeToRemove = _config.MediaTypeList.MediaTypes.First();
+			_config.Remove(mediaTypeToRemove);
+			_config.MediaTypeList.MediaTypes.ShouldNotContain(mediaTypeToRemove);
 		}
 
 		[Test]
@@ -68,11 +69,6 @@ namespace Restfulie.Server.Tests.Configuration
 			
 		}
 
-		private void RemoveNonRegisteredMediaType()
-		{
-			_config.Remove<NonRegisteredMediaType>();
-		}
-
 		[Test]
 		public void ShouldThrowRestfulieConfigurationExceptionWhenTriesToRemoveAllMediaTypeRegistered()
 		{
@@ -81,7 +77,7 @@ namespace Restfulie.Server.Tests.Configuration
 		}
 
 		[Test]
-		public void ShouldSetDefaultMediaTypeWithGenerics()
+		public void ShouldSetDefaultMediaType()
 		{
 			var jsonHypermedia = _config.MediaTypeList.Find<JsonAndHypermedia>();
 
@@ -90,32 +86,29 @@ namespace Restfulie.Server.Tests.Configuration
 			_config.MediaTypeList.Default.ShouldEqual(jsonHypermedia);
 		}
 
-		[Test]
-		public void ShouldSetDefaultPassingMediaTypeAsArgument()
-		{
-			var jsonHypermedia = _config.MediaTypeList.Find<JsonAndHypermedia>();
-
-			_config.SetDefaultMediaType(jsonHypermedia);
-
-			_config.MediaTypeList.Default.ShouldEqual(jsonHypermedia);
-		}
 
 		[Test]
 		public void ShouldSetFirstMediaTypeInListAsDefaultWhenRemovingTheDefaultMediaType()
 		{
-			var defaultMediaType = _config.MediaTypeList.Default;
-			var firstMediaType = _config.MediaTypeList.MediaTypes.First(x => !x.Equals(defaultMediaType));
-			_config.Remove(defaultMediaType);
+			_config.SetDefaultMediaType<JsonAndHypermedia>();
+            var firstMediaType = _config.MediaTypeList.MediaTypes.First(x => !x.Equals(_config.MediaTypeList.Default));
+            
+			_config.Remove<JsonAndHypermedia>();
 			
 			_config.MediaTypeList.Default.ShouldEqual(firstMediaType);
 		}
-		
+
+		private void RemoveNonRegisteredMediaType()
+		{
+			_config.Remove<NonRegisteredMediaType>();
+		}
+
 		private void RemoveAllMediaTypes()
 		{
 			while(_config.MediaTypeList.MediaTypes.Any())
 			{
-				var first = _config.MediaTypeList.MediaTypes.First();
-				_config.Remove(first);
+			    var first = _config.MediaTypeList.MediaTypes.First();
+			    _config.Remove(first);
 			}
 		}
 	}
