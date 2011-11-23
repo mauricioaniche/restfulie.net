@@ -75,6 +75,16 @@ namespace Restfulie.Server.Tests.Negotiation
             Assert.AreEqual(xml.Object, mediaType);
         }
 
+	[TestCase("pt-BR")]
+        public void ShouldSetQualifiedOneDotZeroWhenQualifiedIsNotPresentCultureIndependent(string culture)
+        {
+            System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo(culture);
+            
+            var mediaType = acceptHeader.GetMediaType("application/atom+xml; q=0.8, application/xml");
+            //the mediaType should xml because qualified default is .1.0
+            Assert.AreEqual(xml.Object, mediaType);
+        }
+        
         [Test]
         public void ShouldThrowAnExceptionIfMediaTypeIsNotAccepted()
         {
