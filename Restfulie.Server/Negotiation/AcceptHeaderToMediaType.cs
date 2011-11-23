@@ -65,7 +65,7 @@ namespace Restfulie.Server.Negotiation
             {
                 var typeInfo = type.Split(';');
                 format = typeInfo[0].Trim();
-                qualifier = Convert.ToDouble(typeInfo[1].Split('=')[1]);
+                qualifier = Convert.ToDouble(typeInfo[1].Split('=')[1], new CultureInfo("en-US"));
             }
             else
             {
