@@ -31,11 +31,29 @@ namespace Restfulie.Server.Tests.Results.Chooser
         }
 
         [Test]
-        public void ShouldReturnViewResultIfItIsHTML()
+        public void ShouldReturnViewResultIfItIsHTMLForOK()
         {
+            context.Result = new OK();
             var choosedResult = new ResultChooser().BasedOnMediaType(context, new HTML(), requestInfo);
 
             Assert.IsTrue(choosedResult is ViewResult);
+        }
+
+        [Test]
+        public void ShouldReturnViewResultIfItIsHTMLForCreated()
+        {
+            context.Result = new Created();
+            var choosedResult = new ResultChooser().BasedOnMediaType(context, new HTML(), requestInfo);
+
+            Assert.IsTrue(choosedResult is ViewResult);
+        }
+
+        [Test]
+        public void ShouldNotReturnViewResultIfItIsNotOKOrCreated()
+        {
+            var choosedResult = new ResultChooser().BasedOnMediaType(context, new HTML(), requestInfo);
+
+            Assert.IsFalse(choosedResult is ViewResult);
         }
 
         [Test]
