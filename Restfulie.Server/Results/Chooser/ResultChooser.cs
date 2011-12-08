@@ -9,8 +9,13 @@ namespace Restfulie.Server.Results.Chooser
     {
         public ActionResult BasedOnMediaType(ActionExecutedContext context, IMediaType type, IRequestInfoFinder requestInfoFinder)
         {
-            if (!context.Result.IsRestfulieResult()) return context.Result;
-            return (type is HTML) ? AspNetResult(context) : RestfulieResult(context, type, requestInfoFinder);
+            if (!context.Result.IsRestfulieResult()) 
+                return context.Result;
+
+            if (type is HTML && (context.Result is OK || context.Result is Created))
+                return AspNetResult(context);
+
+            return RestfulieResult(context, type, requestInfoFinder);
         }
 
         private ActionResult RestfulieResult(ActionExecutedContext context, IMediaType type, IRequestInfoFinder requestInfoFinder)

@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restfulie.Server", "Restfulie.Server\Restfulie.Server.csproj", "{94F2996B-1DC4-4C6B-9612-E16B61375B92}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Restfulie.Server.Tests", "Restfulie.Server.Tests\Restfulie.Server.Tests.csproj", "{33F7784D-7DBF-4ACA-A5E5-F83E78BB0B6C}"
