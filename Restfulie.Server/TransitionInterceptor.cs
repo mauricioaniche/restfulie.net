@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Castle.Core.Interceptor;
+using Castle.DynamicProxy;
 
 namespace Restfulie.Server
 {
