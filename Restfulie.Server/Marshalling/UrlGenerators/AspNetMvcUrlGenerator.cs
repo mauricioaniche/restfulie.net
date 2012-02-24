@@ -17,9 +17,8 @@ namespace Restfulie.Server.Marshalling.UrlGenerators
         }
 
         private string FullApplicationPath(HttpRequestBase request)
-        {
-            var url = request.Url.AbsoluteUri.Replace(request.Url.AbsolutePath, string.Empty) + request.ApplicationPath;
-            return url.EndsWith("/") ? url.Substring(0, url.Length - 1) : url;
+        { 
+            return request.Url.Scheme + "://" + request.Url.Authority;
         }
     }
 }
