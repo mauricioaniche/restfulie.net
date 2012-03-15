@@ -75,6 +75,16 @@ namespace Restfulie.Server.Tests.Negotiation
 
             Assert.AreEqual(xml.Object, mediaType);
         }
+        
+        [Test]
+        public void ShouldReturnMostQualifiedMediaTypeWhenMoreThenOneQualifierParameterIsPresent()
+        {
+            var mediaType =
+                acceptHeader.GetMediaType(
+                    "application/xml,application/vnd.wap.xhtml+xml,application/xhtml+xml;profile='http://www.wapforum.org/xhtml',text/html;q=0.9,text/plain;q=0.8,image/png,*/*;q=0.5");
+
+            Assert.AreEqual(xml.Object, mediaType);
+        }
 
 	[TestCase("pt-BR")]
         public void ShouldSetQualifiedOneDotZeroWhenQualifiedIsNotPresentCultureIndependent(string culture)
