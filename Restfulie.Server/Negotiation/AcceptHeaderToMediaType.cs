@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Text.RegularExpressions;
 using Restfulie.Server.MediaTypes;
 using System.Linq;
 
@@ -59,19 +59,16 @@ namespace Restfulie.Server.Negotiation
 
         private FormatPlusQualifier ParseFormat(string type)
         {
-            string format;
             var qualifier = 1.0;
 
-            if (ContainsQualifier(type))
-            {
-                var typeInfo = type.Split(';');
-                format = typeInfo[0].Trim();
-                qualifier = Convert.ToDouble(typeInfo[1].Split('=')[1], new CultureInfo("en-US"));
-            }
-            else
-            {
-                format = type.Trim();
-            }
+            const string strRegex = @"[^;]+;q\s*=\s*(?<q>[\d.]+)";
+            var match = Regex.Match(type, strRegex);
+
+            if(match.Groups["q"].Success)
+                qualifier = Convert.ToDouble(match.Groups["q"].Value);
+
+            var typeInfo = type.Split(';');
+            string format = typeInfo[0].Trim();
 
             return new FormatPlusQualifier(format, qualifier);
         }
