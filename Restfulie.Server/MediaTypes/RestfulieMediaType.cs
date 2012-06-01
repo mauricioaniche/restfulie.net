@@ -18,6 +18,5 @@ namespace Restfulie.Server.MediaTypes
         {
             return new RestfulieUnmarshaller(Driver.Deserializer);
         }
-	
     }
 }

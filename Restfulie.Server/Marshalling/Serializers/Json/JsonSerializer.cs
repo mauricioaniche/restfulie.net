@@ -6,6 +6,8 @@ namespace Restfulie.Server.Marshalling.Serializers.Json
 {
     public class JsonSerializer : IResourceSerializer
     {
+        #region IResourceSerializer Members
+
         public string Serialize(object resource)
         {
             var textWriter = new StringWriter();
@@ -19,5 +21,7 @@ namespace Restfulie.Server.Marshalling.Serializers.Json
             jsonSerializer.Serialize(textWriter, resource);
             return textWriter.ToString();
         }
+
+        #endregion
     }
 }

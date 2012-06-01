@@ -7,7 +7,7 @@ namespace Restfulie.Server.Results
     {
         public override ResultDecorator GetDecorators()
         {
-            return new StatusCode((int)HttpStatusCode.NotAcceptable);
+            return new StatusCode((int) HttpStatusCode.NotAcceptable);
         }
     }
 }

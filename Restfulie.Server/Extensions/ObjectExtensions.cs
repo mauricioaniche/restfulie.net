@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
@@ -12,14 +11,7 @@ namespace Restfulie.Server.Extensions
     {
         public static IBehaveAsResource[] AsResourceArray(this object obj)
         {
-            var resources = new List<IBehaveAsResource>();
-
-            foreach(var item in (IEnumerable)obj)
-            {
-                resources.Add((IBehaveAsResource)item);
-            }
-
-            return resources.ToArray();
+            return ((IEnumerable) obj).Cast<IBehaveAsResource>().ToArray();
         }
 
         public static IBehaveAsResource AsResource(this object obj)
@@ -30,10 +22,10 @@ namespace Restfulie.Server.Extensions
         public static string AsXml(this object resource)
         {
             var stringWriter = new StringWriter();
-            using (var xmlWriter = XmlWriter.Create(stringWriter, new XmlWriterSettings { OmitXmlDeclaration = false,Encoding = Encoding.UTF8}))
+            using (var xmlWriter = XmlWriter.Create(stringWriter, new XmlWriterSettings {OmitXmlDeclaration = false, Encoding = Encoding.UTF8}))
             {
                 var noNamespaces = new XmlSerializerNamespaces();
-                noNamespaces.Add("","");
+                noNamespaces.Add("", "");
                 new XmlSerializer(resource.GetType()).Serialize(xmlWriter, resource, noNamespaces);
             }
 

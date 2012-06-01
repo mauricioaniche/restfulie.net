@@ -20,6 +20,5 @@ namespace Restfulie.Server.MediaTypes
         {
             return new NoUnmarshaller();
         }
-        
     }
 }

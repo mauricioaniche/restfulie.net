@@ -1,5 +1,4 @@
-﻿// based on http://geekswithblogs.net/lszk/archive/2009/08/23/own-rssatom-feed-in-asp.net-mvc.aspx
-namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
+﻿namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 {
     public class Entry
     {

@@ -9,10 +9,12 @@ namespace Restfulie.Server.Results
         private readonly string location;
 
         public Created() {}
+
         public Created(object model, string location) : base(model)
         {
             this.location = location;
         }
+
         public Created(object model) : base(model) {}
 
         public Created(string location)
@@ -22,10 +24,9 @@ namespace Restfulie.Server.Results
 
         public override ResultDecorator GetDecorators()
         {
-            return new StatusCode((int)HttpStatusCode.Created,
-                   new Location(location,
-                   new ContentType(MediaType.Synonyms.First(),
-                   new Content(BuildContent()))));
+            var content = new Content(BuildContent());
+            var contentType = new ContentType(MediaType.Synonyms.First(), content);
+            return new StatusCode((int)HttpStatusCode.Created, new Location(location, contentType));
         }
     }
 }

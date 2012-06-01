@@ -12,9 +12,11 @@ namespace Restfulie.Server.Http
             this.httpContext = httpContext;
         }
 
+        #region IRequestInfoFinder Members
+
         public string GetAcceptHeader()
         {
-            return httpContext.Request.Headers["accept"]; 
+            return httpContext.Request.Headers["accept"];
         }
 
         public string GetContentType()
@@ -31,5 +33,7 @@ namespace Restfulie.Server.Http
         {
             return new StreamReader(httpContext.Request.InputStream).ReadToEnd();
         }
+
+        #endregion
     }
 }

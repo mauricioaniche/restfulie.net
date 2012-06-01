@@ -1,39 +1,39 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Restfulie.Server.Http;
 using System.Text;
+using Restfulie.Server.Http;
 
 namespace Restfulie.Server.Marshalling.Serializers.Json
 {
     public class JsonHypermediaInjector : IHypermediaInjector
     {
+        #region IHypermediaInjector Members
+
         public string Inject(string content, Relations relations, IRequestInfoFinder requestInfo)
         {
-            return this.InjectJsonTransitions(content, relations);
+            return InjectJsonTransitions(content, relations);
         }
 
         public string Inject(string content, IList<Relations> relations, IRequestInfoFinder requestInfo)
         {
-            var listOfSingleObjects = this.SplitContentIntoListOfSingleJsonObjects(content);
+            var listOfSingleObjects = SplitContentIntoListOfSingleJsonObjects(content);
 
-            StringBuilder injectedContent = new StringBuilder();
+            var injectedContent = new StringBuilder();
             injectedContent.Append("[");
 
-            for(var index=0; index < listOfSingleObjects.Count; index++)
+            for (var index = 0; index < listOfSingleObjects.Count; index++)
             {
                 var singleObject = listOfSingleObjects[index];
 
                 try
                 {
-                    var singleObjectWithTransition = this.InjectJsonTransitions(singleObject, relations[index]);
+                    var singleObjectWithTransition = InjectJsonTransitions(singleObject, relations[index]);
                     injectedContent.Append(singleObjectWithTransition);
-                }
-                catch (IndexOutOfRangeException)
+                } catch (IndexOutOfRangeException)
                 {
                     injectedContent.Append(singleObject);
-                }
-                catch (ArgumentOutOfRangeException)
+                } catch (ArgumentOutOfRangeException)
                 {
                     injectedContent.Append(singleObject);
                 }
@@ -41,15 +41,15 @@ namespace Restfulie.Server.Marshalling.Serializers.Json
                 injectedContent.Append(",");
             }
             if (injectedContent.Length > 1)
-            {
                 // Removes last comma ','
                 injectedContent.Remove(injectedContent.Length - 1, 1);
-            }
 
             injectedContent.Append("]");
 
             return injectedContent.ToString();
         }
+
+        #endregion
 
         private IList<string> SplitContentIntoListOfSingleJsonObjects(string content)
         {
@@ -57,9 +57,9 @@ namespace Restfulie.Server.Marshalling.Serializers.Json
 
             if (IsContentAnArray(content))
             {
-                int firstJsonObjDelimiterIndex = 0;
+                var firstJsonObjDelimiterIndex = 0;
                 var contentAsArrayOfString = content.ToCharArray();
-                Stack<char> stackOfDelimiters = new Stack<char>();
+                var stackOfDelimiters = new Stack<char>();
 
                 for (var index = firstJsonObjDelimiterIndex; index < contentAsArrayOfString.Length; index++)
                 {
@@ -68,29 +68,20 @@ namespace Restfulie.Server.Marshalling.Serializers.Json
                     if (currentChar == '{')
                     {
                         if (stackOfDelimiters.Count == 0)
-                        {
                             firstJsonObjDelimiterIndex = index;
-                        }
 
                         stackOfDelimiters.Push(currentChar);
-                    }
-                    else if (currentChar == '}')
+                    } else if (currentChar == '}')
                     {
                         stackOfDelimiters.Pop();
 
                         if (stackOfDelimiters.Count == 0)
-                        {
                             list.Add(content.Substring(firstJsonObjDelimiterIndex, (index - firstJsonObjDelimiterIndex) + 1));
-                        }
-
                     }
                 }
-            }
-            else 
-            {
+            } else 
                 // Content is single json object
                 list.Add(content);
-            }
 
             return list;
         }
@@ -102,7 +93,7 @@ namespace Restfulie.Server.Marshalling.Serializers.Json
 
         private string InjectJsonTransitions(string content, Relations relations)
         {
-            var jsonTransitions = relations.GetAll().Select((r) => this.GetTransitionOnJsonFormat(r));
+            var jsonTransitions = relations.GetAll().Select(GetTransitionOnJsonFormat);
             var jsonTransitionsConcatenated = string.Join(",", jsonTransitions.ToArray());
 
             var jsonWithTransitions = content.Insert(content.Length - 1, ",\"links\":[" + jsonTransitionsConcatenated + "]");

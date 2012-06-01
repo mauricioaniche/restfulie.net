@@ -11,7 +11,7 @@ namespace Restfulie.Server.Results.Decorators
             this.location = location;
         }
 
-        public Location(string location, ResultDecorator nextDecorator): base(nextDecorator)
+        public Location(string location, ResultDecorator nextDecorator) : base(nextDecorator)
         {
             this.location = location;
         }
@@ -19,9 +19,7 @@ namespace Restfulie.Server.Results.Decorators
         public override void Execute(ControllerContext context)
         {
             if (!string.IsNullOrEmpty(location))
-            {
                 context.HttpContext.Response.RedirectLocation = location;
-            }
 
             Next(context);
         }
