@@ -21,17 +21,17 @@ namespace Restfulie.Server.Tests.Negotiation
             xml.SetupGet(m => m.Synonyms).Returns(new[] { "application/xml", "text/xml" });
 
             atom = new Mock<IMediaType>();
-            atom.SetupGet(m => m.Synonyms).Returns(new[] {"application/atom+xml"});
+            atom.SetupGet(m => m.Synonyms).Returns(new[] { "application/atom+xml" });
 
             mediaTypeList = new Mock<IMediaTypeList>();
             mediaTypeList.Setup(m => m.Find("application/xml")).Returns(xml.Object);
             mediaTypeList.Setup(m => m.Find("text/xml")).Returns(xml.Object);
             mediaTypeList.Setup(m => m.Find("application/atom+xml")).Returns(atom.Object);
             mediaTypeList.SetupGet(m => m.Default).Returns(xml.Object);
-            mediaTypeList.SetupGet(m => m.MediaTypes).Returns(new[] {xml.Object, atom.Object});
+            mediaTypeList.SetupGet(m => m.MediaTypes).Returns(new[] { xml.Object, atom.Object });
 
             acceptHeader = new AcceptHeaderToMediaType(mediaTypeList.Object);
-            
+
         }
 
         [Test]
@@ -60,13 +60,13 @@ namespace Restfulie.Server.Tests.Negotiation
             Assert.AreEqual(xml.Object, mediaType);
         }
 
-		[Test]
-		public void ShouldReturnMostQualifiedMediaTypeWhenItsNotTheFirstMediaTypeSpecified()
-		{
-			var mediaType = acceptHeader.GetMediaType("application/atom+xml; q=0.8, application/xml; q=1.0");
+        [Test]
+        public void ShouldReturnMostQualifiedMediaTypeWhenItsNotTheFirstMediaTypeSpecified()
+        {
+            var mediaType = acceptHeader.GetMediaType("application/atom+xml; q=0.8, application/xml; q=1.0");
 
-			Assert.AreEqual(xml.Object, mediaType);
-		}
+            Assert.AreEqual(xml.Object, mediaType);
+        }
 
         [Test]
         public void ShouldReturnMostQualifiedMediaTypeWhenQualifierIsNotPresent()
@@ -75,7 +75,7 @@ namespace Restfulie.Server.Tests.Negotiation
 
             Assert.AreEqual(xml.Object, mediaType);
         }
-        
+
         [Test]
         public void ShouldReturnMostQualifiedMediaTypeWhenMoreThenOneQualifierParameterIsPresent()
         {
@@ -86,16 +86,16 @@ namespace Restfulie.Server.Tests.Negotiation
             Assert.AreEqual(xml.Object, mediaType);
         }
 
-	[TestCase("pt-BR")]
+        [TestCase("pt-BR")]
         public void ShouldSetQualifiedOneDotZeroWhenQualifiedIsNotPresentCultureIndependent(string culture)
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo(culture);
-            
+
             var mediaType = acceptHeader.GetMediaType("application/atom+xml; q=0.8, application/xml");
             //the mediaType should xml because qualified default is .1.0
             Assert.AreEqual(xml.Object, mediaType);
         }
-        
+
         [Test]
         public void ShouldThrowAnExceptionIfMediaTypeIsNotAccepted()
         {
@@ -106,7 +106,7 @@ namespace Restfulie.Server.Tests.Negotiation
         public void ShouldReturnDefaultMediaType()
         {
             var mediaType = acceptHeader.GetMediaType("*/*");
-    
+
             Assert.AreEqual(xml.Object, mediaType);
         }
 
@@ -133,7 +133,7 @@ namespace Restfulie.Server.Tests.Negotiation
             Assert.AreEqual(xml.Object, mediaType);
 
             mediaType = acceptHeader.GetMediaType("");
-            Assert.AreEqual(xml.Object, mediaType);         
+            Assert.AreEqual(xml.Object, mediaType);
         }
     }
 }

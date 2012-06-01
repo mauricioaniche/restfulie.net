@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using Restfulie.Server.MediaTypes;
 using System.Linq;
@@ -61,11 +62,11 @@ namespace Restfulie.Server.Negotiation
         {
             var qualifier = 1.0;
 
-            const string strRegex = @"[^;]+;q\s*=\s*(?<q>[\d.]+)";
+            const string strRegex = @"[^;]+;\s*q\s*=\s*(?<q>[\d.]+)";
             var match = Regex.Match(type, strRegex);
 
             if(match.Groups["q"].Success)
-                qualifier = Convert.ToDouble(match.Groups["q"].Value);
+                qualifier = Convert.ToDouble(match.Groups["q"].Value, new CultureInfo("en-US"));
 
             var typeInfo = type.Split(';');
             string format = typeInfo[0].Trim();
@@ -82,6 +83,11 @@ namespace Restfulie.Server.Negotiation
             {
                 Format = format;
                 Qualifier = qualifier;
+            }
+
+            public override string ToString()
+            {
+                return string.Format("Format: {0} - Qualifier: {1}", Format, Qualifier);
             }
         }
 
