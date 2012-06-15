@@ -1,5 +1,4 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using Restfulie.Server.Results.Decorators;
 
 namespace Restfulie.Server.Results
@@ -8,7 +7,7 @@ namespace Restfulie.Server.Results
     {
         public override ResultDecorator GetDecorators()
         {
-            return new StatusCode((int)HttpStatusCode.InternalServerError);
+            return new StatusCode((int) HttpStatusCode.InternalServerError);
         }
     }
 }

@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
+using Restfulie.Server.Extensions;
 using Restfulie.Server.Http;
 using Restfulie.Server.Marshalling.Serializers;
-using Restfulie.Server.Extensions;
 
 namespace Restfulie.Server.Marshalling
 {
     public class RestfulieMarshaller : IResourceMarshaller
     {
+        private readonly IHypermediaInjector hypermedia;
         private readonly IRelationsFactory relationsFactory;
         private readonly IResourceSerializer serializer;
-        private readonly IHypermediaInjector hypermedia;
 
         public RestfulieMarshaller(IRelationsFactory relationsFactory, IResourceSerializer serializer, IHypermediaInjector hypermedia)
         {
@@ -18,19 +18,19 @@ namespace Restfulie.Server.Marshalling
             this.hypermedia = hypermedia;
         }
 
+        #region IResourceMarshaller Members
+
         public string Build(object model, IRequestInfoFinder finder)
         {
             var content = serializer.Serialize(model);
 
-            if(model.GetType().IsAResource())
+            if (model.GetType().IsAResource())
             {
                 var resource = model.AsResource();
                 var relations = relationsFactory.NewRelations();
                 resource.SetRelations(relations);
                 content = hypermedia.Inject(content, relations, finder);
-            }
-
-            else if(model.GetType().IsAListOfResources())
+            } else if (model.GetType().IsAListOfResources())
             {
                 var allRelations = new List<Relations>();
 
@@ -47,5 +47,7 @@ namespace Restfulie.Server.Marshalling
 
             return content;
         }
+
+        #endregion
     }
 }

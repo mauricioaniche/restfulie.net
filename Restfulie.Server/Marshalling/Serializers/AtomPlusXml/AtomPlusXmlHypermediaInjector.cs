@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using Restfulie.Server.Http;
-using System.Linq;
 
 namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 {
     public class AtomPlusXmlHypermediaInjector : IHypermediaInjector
     {
+        #region IHypermediaInjector Members
+
         public string Inject(string content, Relations relations, IRequestInfoFinder requestInfo)
         {
             var xmlDocument = new XmlDocument();
@@ -48,6 +50,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
             return xmlDocument.InnerXml;
         }
 
+        #endregion
 
         private XmlNode BuildTransition(XmlDocument xmlDocument, Relation state)
         {
@@ -66,7 +69,7 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 
         private void ReplaceEntryUrl(XmlNode node, Relations relations)
         {
-            var self = relations.GetAll().Where(r => r.Name.ToLower().Equals("self")).SingleOrDefault();
+            var self = relations.GetAll().SingleOrDefault(r => r.Name.ToLower().Equals("self"));
             if (self != null)
             {
                 var id = FindNode(node, "id");
@@ -76,10 +79,9 @@ namespace Restfulie.Server.Marshalling.Serializers.AtomPlusXml
 
         private XmlNode FindNode(XmlNode root, string name)
         {
-            for(var i = 0; i < root.ChildNodes.Count; i++)
-            {
-                if (root.ChildNodes[i].Name.Equals(name)) return root.ChildNodes[i];
-            }
+            for (var i = 0; i < root.ChildNodes.Count; i++)
+                if (root.ChildNodes[i].Name.Equals(name))
+                    return root.ChildNodes[i];
 
             return null;
         }

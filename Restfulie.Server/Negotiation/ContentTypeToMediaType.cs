@@ -11,11 +11,16 @@ namespace Restfulie.Server.Negotiation
             this.mediaTypes = mediaTypes;
         }
 
+        #region IContentTypeToMediaType Members
+
         public IMediaType GetMediaType(string contentType)
         {
             var mediaType = mediaTypes.Find(contentType);
-            if(mediaType == null) throw new ContentTypeNotSupportedException();
+            if (mediaType == null)
+                throw new ContentTypeNotSupportedException();
             return mediaType;
         }
+
+        #endregion
     }
 }

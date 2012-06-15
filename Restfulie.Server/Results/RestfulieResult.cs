@@ -7,18 +7,16 @@ namespace Restfulie.Server.Results
 {
     public abstract class RestfulieResult : ActionResult
     {
-        public object Model { get; private set;}
-        public IMediaType MediaType { get; set; }
-        public IRequestInfoFinder RequestInfo { get; set; }
-
-        protected RestfulieResult()
-        {
-        }
+        protected RestfulieResult() {}
 
         protected RestfulieResult(object model)
         {
-            this.Model = model;
+            Model = model;
         }
+
+        public object Model { get; private set; }
+        public IMediaType MediaType { get; set; }
+        public IRequestInfoFinder RequestInfo { get; set; }
 
         protected string BuildContent()
         {

@@ -12,7 +12,7 @@ namespace Restfulie.Server.MediaTypes
 
         public override string[] Synonyms
         {
-            get { return new[] {"application/xml", "text/xml" }; }
+            get { return new[] {"application/xml", "text/xml"}; }
         }
     }
 }

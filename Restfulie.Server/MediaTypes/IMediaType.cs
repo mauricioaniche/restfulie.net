@@ -1,31 +1,33 @@
-﻿using System;
-using Restfulie.Server.Marshalling;
+﻿using Restfulie.Server.Marshalling;
 using Restfulie.Server.Unmarshalling;
 
 namespace Restfulie.Server.MediaTypes
 {
-	public interface IMediaType
-	{
-		string[] Synonyms { get; }
-		IResourceMarshaller BuildMarshaller();
-		IResourceUnmarshaller BuildUnmarshaller();
-		IDriver Driver { get; set; }
-	}
+    public interface IMediaType
+    {
+        string[] Synonyms { get; }
+        IDriver Driver { get; set; }
+        IResourceMarshaller BuildMarshaller();
+        IResourceUnmarshaller BuildUnmarshaller();
+    }
 
-	public abstract class MediaType : IMediaType
-	{
-		public abstract string[] Synonyms { get; }
+    public abstract class MediaType : IMediaType
+    {
+        #region IMediaType Members
 
-		public abstract IResourceMarshaller BuildMarshaller();
+        public abstract string[] Synonyms { get; }
 
-		public abstract IResourceUnmarshaller BuildUnmarshaller();
+        public abstract IResourceMarshaller BuildMarshaller();
 
+        public abstract IResourceUnmarshaller BuildUnmarshaller();
 
-		public IDriver Driver { get; set; }
+        public IDriver Driver { get; set; }
 
-		public override bool Equals(object obj)
-		{
-			return GetType() == obj.GetType();
-		}
-	}
+        #endregion
+
+        public override bool Equals(object obj)
+        {
+            return GetType() == obj.GetType();
+        }
+    }
 }

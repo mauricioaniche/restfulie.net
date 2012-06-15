@@ -14,8 +14,8 @@ namespace Restfulie.Server.Results
 
         public override ResultDecorator GetDecorators()
         {
-            return new StatusCode((int)HttpStatusCode.SeeOther,
-                   new Location(location));
+            return new StatusCode((int) HttpStatusCode.SeeOther,
+                                  new Location(location));
         }
     }
 }

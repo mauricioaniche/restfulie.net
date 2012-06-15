@@ -6,6 +6,8 @@ namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
 {
     public class XmlHypermediaInjector : IHypermediaInjector
     {
+        #region IHypermediaInjector Members
+
         public string Inject(string content, Relations relations, IRequestInfoFinder requestInfo)
         {
             var xmlDocument = new XmlDocument();
@@ -13,7 +15,7 @@ namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
 
             foreach (var state in relations.GetAll())
             {
-                XmlNode transition = GetTransition(xmlDocument, state);
+                var transition = GetTransition(xmlDocument, state);
 
                 xmlDocument.DocumentElement.AppendChild(transition);
             }
@@ -30,7 +32,7 @@ namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
             {
                 var node = xmlDocument.DocumentElement.ChildNodes[i];
 
-                foreach(var relation in relations[i].GetAll())
+                foreach (var relation in relations[i].GetAll())
                 {
                     var transition = GetTransition(xmlDocument, relation);
                     node.AppendChild(transition);
@@ -40,6 +42,7 @@ namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
             return xmlDocument.InnerXml;
         }
 
+        #endregion
 
         private XmlNode GetTransition(XmlDocument xmlDocument, Relation state)
         {
@@ -55,6 +58,5 @@ namespace Restfulie.Server.Marshalling.Serializers.XmlAndHypermedia
 
             return transition;
         }
-
     }
 }

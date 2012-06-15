@@ -12,16 +12,19 @@ namespace Restfulie.Server.Unmarshalling
             this.deserializer = deserializer;
         }
 
+        #region IResourceUnmarshaller Members
+
         public object Build(string xml, Type objectType)
         {
             try
             {
                 return string.IsNullOrEmpty(xml) ? null : deserializer.Deserialize(xml, objectType);
-            }
-            catch(Exception e)
+            } catch (Exception e)
             {
                 throw new UnmarshallingException(e.Message);
             }
         }
+
+        #endregion
     }
 }

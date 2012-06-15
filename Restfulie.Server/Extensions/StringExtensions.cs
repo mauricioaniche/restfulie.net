@@ -1,6 +1,11 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+
+#endregion
 
 namespace Restfulie.Server.Extensions
 {
@@ -8,13 +13,7 @@ namespace Restfulie.Server.Extensions
     {
         public static Stream AsStream(this string xml)
         {
-            var byteArray = new List<byte>();
-            foreach (var s in xml)
-            {
-                byteArray.Add(Convert.ToByte(s));
-            }
-
-            return new MemoryStream(byteArray.ToArray());
+            return new MemoryStream(xml.Select(Convert.ToByte).ToArray());
         }
     }
 }

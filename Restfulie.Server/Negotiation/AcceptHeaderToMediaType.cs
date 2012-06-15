@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Restfulie.Server.MediaTypes;
-using System.Linq;
 
 namespace Restfulie.Server.Negotiation
 {
@@ -15,86 +16,90 @@ namespace Restfulie.Server.Negotiation
             this.mediaTypes = mediaTypes;
         }
 
+        #region IAcceptHeaderToMediaType Members
+
         public IMediaType GetMediaType(string acceptHeader)
         {
-            if (string.IsNullOrEmpty(acceptHeader)) return mediaTypes.Default;
+            if (string.IsNullOrEmpty(acceptHeader))
+                return mediaTypes.Default;
 
             var types = acceptHeader.Split(',');
             var acceptedMediaType = new List<QualifiedMediaType>();
 
-            foreach(var type in types)
-            {
-                var parsedFormat = ParseFormat(type);
-
-                if (IsDefaultFormat(parsedFormat.Format))
-                {
-                    acceptedMediaType.Add(new QualifiedMediaType(mediaTypes.Default, parsedFormat.Qualifier));
-                }
+            foreach (var formatedMediaType in types.Select(ParseFormat))
+                if (IsDefaultFormat(formatedMediaType.Format))
+                    acceptedMediaType.Add(new QualifiedMediaType(mediaTypes.Default, formatedMediaType.Qualifier));
                 else
                 {
-                    var mediaType = mediaTypes.Find(parsedFormat.Format);
-                    if (mediaType != null) acceptedMediaType.Add(new QualifiedMediaType(mediaType, parsedFormat.Qualifier));
+                    var mediaType = mediaTypes.Find(formatedMediaType.Format);
+                    if (mediaType != null)
+                        acceptedMediaType.Add(new QualifiedMediaType(mediaType, formatedMediaType.Qualifier));
                 }
-            }
 
-            if(acceptedMediaType.Count == 0) throw new AcceptHeaderNotSupportedException();
+            if (acceptedMediaType.Count == 0)
+                throw new AcceptHeaderNotSupportedException();
             return MostQualifiedMediaType(acceptedMediaType);
         }
 
-        private bool ContainsQualifier(string type)
-        {
-            return type.Contains(";");
-        }
+        #endregion
 
-        private bool IsDefaultFormat(string type)
+        private static bool IsDefaultFormat(string type)
         {
             return type.Equals("*/*");
         }
 
-        private IMediaType MostQualifiedMediaType(IEnumerable<QualifiedMediaType> acceptedMediaType)
+        private static IMediaType MostQualifiedMediaType(IEnumerable<QualifiedMediaType> acceptedMediaType)
         {
             var maxQualifier = acceptedMediaType.Max(m => m.Qualifier);
-            return acceptedMediaType.Where(m => m.Qualifier == maxQualifier).First().MediaType;
+            return acceptedMediaType.First(m => m.Qualifier == maxQualifier).MediaType;
         }
 
-        private FormatPlusQualifier ParseFormat(string type)
+        private static FormatPlusQualifier ParseFormat(string type)
         {
             var qualifier = 1.0;
 
-            const string strRegex = @"[^;]+;q\s*=\s*(?<q>[\d.]+)";
+            const string strRegex = @"[^;]+;\s*q\s*=\s*(?<q>[\d.]+)";
             var match = Regex.Match(type, strRegex);
 
-            if(match.Groups["q"].Success)
-                qualifier = Convert.ToDouble(match.Groups["q"].Value);
+            if (match.Groups["q"].Success)
+                qualifier = Convert.ToDouble(match.Groups["q"].Value, new CultureInfo("en-US"));
 
             var typeInfo = type.Split(';');
-            string format = typeInfo[0].Trim();
+            var format = typeInfo[0].Trim();
 
             return new FormatPlusQualifier(format, qualifier);
         }
 
-        class FormatPlusQualifier
-        {
-            public string Format { get; private set; }
-            public double Qualifier { get; private set; }
+        #region Nested type: FormatPlusQualifier
 
+        private class FormatPlusQualifier
+        {
             public FormatPlusQualifier(string format, double qualifier)
             {
                 Format = format;
                 Qualifier = qualifier;
             }
+
+            public string Format { get; private set; }
+            public double Qualifier { get; private set; }
         }
 
-        class QualifiedMediaType
-        {
-            public IMediaType MediaType { get; private set; }
-            public double Qualifier { get; private set; }
+        #endregion
 
+        #region Nested type: QualifiedMediaType
+
+        private class QualifiedMediaType
+        {
             public QualifiedMediaType(IMediaType mediaType, double qualifier)
             {
                 MediaType = mediaType;
                 Qualifier = qualifier;
             }
+
+            public IMediaType MediaType { get; private set; }
+            public double Qualifier { get; private set; }
         }
+
+        #endregion
     }
 }
