@@ -1,72 +1,69 @@
 properties {
-  	$base_dir = Split-Path $psake.build_script_file  
-    $build_dir = "$base_dir\build\"  
-    $sln = "$base_dir\Restfulie.sln"
-    $tools_dir = "$base_dir\Tools"
-    $result_dir = "$build_dir\results"
-    $global:config = 'debug'
-    $version = if ($env:build_number -ne $NULL) { $env:build_number } else { '0.5.4' }
-	$buildNumber = $version + '.0'
-	$source_dir = "$base_dir\Restfulie.Server"
-	$dist_dir = "$base_dir\release"
+   $base_dir = Split-Path $psake.build_script_file  
+   $build_dir = "$base_dir\build\"  
+   $sln = "$base_dir\Restfulie.sln"
+   $tools_dir = "$base_dir\Tools"
+   $result_dir = "$build_dir\results"
+   $global:config = 'debug'
+   $version = if ($env:build_number -ne $NULL) { $env:build_number } else { '0.5.4' }
+   $buildNumber = $version + '.0'
+   $source_dir = "$base_dir\Restfulie.Server"
+   $dist_dir = "$base_dir\release"
 }
 
 task default -depends Test
 task ci -depends clean, release, commonAssemblyInfo, test, dist
 
 Task Clean {
-	delete_directory $build_dir
+   delete_directory $build_dir
 }
 
 task Release {
-	$global:config = 'release'
+   $global:config = 'release'
 }
 
 task Compile -depends Clean {
 
-	Write-Host "Building Solution $sln" -ForegroundColor Green
-	Exec { msbuild "$sln" /t:Clean /t:Build /p:Configuration=Automated$config /p:OutDir=$build_dir/$config/ /v:m /nologo }
+   Write-Host "Building Solution $sln" -ForegroundColor Green
+   Exec { msbuild "$sln" /t:Clean /t:Build /p:Configuration=Automated$config /p:OutDir=$build_dir/$config/ /v:m /nologo }
 }
 
 task Test -depends Compile {
-	create_directory($result_dir)
-	exec { & $tools_dir\nunit\nunit-console-x86.exe $build_dir/$config/Restfulie.Server.Tests.dll /nologo /nodots /xml=$result_dir\Restfulie.xml }	
+   create_directory($result_dir)
+   exec { & $tools_dir\nunit\nunit-console-x86.exe $build_dir/$config/Restfulie.Server.Tests.dll /nologo /nodots /xml=$result_dir\Restfulie.xml }
 }
 
 task commonAssemblyInfo {
-	$commit = git log -1 --pretty=format:%H
-	create-commonAssemblyInfo "$buildNumber" "$commit" "$source_dir\CommonAssemblyInfo.cs"
+   $commit = git log -1 --pretty=format:%H
+   create-commonAssemblyInfo "$buildNumber" "$commit" "$source_dir\CommonAssemblyInfo.cs"
 }
 
 task dist {
-	create_directory $dist_dir
-	copy_file "$build_dir\$config\Restfulie.Server.dll" "$dist_dir"
-	copy_file "$build_dir\$config\Restfulie.Server.pdb" "$dist_dir"
-	copy_file "$result_dir\Restfulie.xml" "$dist_dir"
-    create-nuspec "$buildNumber"
+   create_directory $dist_dir
+   copy_file "$build_dir\$config\Restfulie.Server.dll" "$dist_dir"
+   copy_file "$build_dir\$config\Restfulie.Server.pdb" "$dist_dir"
+   copy_file "$result_dir\Restfulie.xml" "$dist_dir"
+   create-nuspec "$buildNumber"
 }
 
 
 function global:copy_file($source, $destination){
-	create_directory $destination
-	Copy-Item $source $destination
+   create_directory $destination
+   Copy-Item $source $destination
 }
 
 
-function global:delete_directory($directory_name)
-{
-  rd $directory_name -recurse -force  -ErrorAction SilentlyContinue | out-null
+function global:delete_directory($directory_name) {
+   rd $directory_name -recurse -force  -ErrorAction SilentlyContinue | out-null
 }
 
-function global:create_directory($directory_name)
-{
-  mkdir $directory_name  -ErrorAction SilentlyContinue  | out-null
+function global:create_directory($directory_name) {
+   mkdir $directory_name  -ErrorAction SilentlyContinue  | out-null
 }
 
-function global:create-commonAssemblyInfo($version, $commit, $filename)
-{
-	$date = Get-Date
-    "using System;
+function global:create-commonAssemblyInfo($version, $commit, $filename) {
+   $date = Get-Date
+   "using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
