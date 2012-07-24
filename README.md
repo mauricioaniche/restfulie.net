@@ -1,6 +1,6 @@
 ##Restfulie.Net
 
-Restfulie Server extension for ASP.NET MVC.
+Restfulie.Net extends ASP.NET MVC providing Content Negotiation, HTTP Status Code's ActionResults (Created, OK, etc) and Hypermedia Link Relations.
 
 For more information check Restfulie [website](http://restfulie.caelum.com.br/) and [Wiki docs](https://github.com/mauricioaniche/restfulie.net/wiki).
 
