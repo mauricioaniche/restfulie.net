@@ -6,3 +6,7 @@ bin
 obj
 Bin
 *ncrunch*
+*.DotSettings*
+release/
+UpgradeLog.xml
+_UpgradeReport_Files/

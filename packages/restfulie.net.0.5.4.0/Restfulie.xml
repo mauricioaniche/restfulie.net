@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!--This file represents the results of running a test suite-->
+<test-results name="C:\dev\restfulie.net\build\release\Restfulie.Server.Tests.dll" total="115" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2012-07-24" time="00:53:49">
+  <environment nunit-version="2.6.0.12051" clr-version="2.0.50727.5456" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="C:\dev\restfulie.net" machine-name="HS-WINDOWS" user="Pedro" user-domain="HS-Windows" />
+  <culture-info current-culture="en-US" current-uiculture="en-US" />
+  <test-suite type="Assembly" name="C:\dev\restfulie.net\build\release\Restfulie.Server.Tests.dll" executed="True" result="Success" success="True" time="2.148" asserts="0">
+    <results>
+      <test-suite type="Namespace" name="Restfulie" executed="True" result="Success" success="True" time="2.142" asserts="0">
+        <results>
+          <test-suite type="Namespace" name="Server" executed="True" result="Success" success="True" time="2.142" asserts="0">
+            <results>
+              <test-suite type="Namespace" name="Tests" executed="True" result="Success" success="True" time="2.141" asserts="0">
+                <results>
+                  <test-suite type="TestFixture" name="ActAsRestfulieTests" executed="True" result="Success" success="True" time="0.597" asserts="0">
+                    <results>
+                      <test-case name="Restfulie.Server.Tests.ActAsRestfulieTests.ShouldCallResultChooser" executed="True" result="Success" success="True" time="0.516" asserts="0" />
+                      <test-case name="Restfulie.Server.Tests.ActAsRestfulieTests.ShouldIgnoreUnmarshallingIfThereIsNothingToBeUnmarshalled" executed="True" result="Success" success="True" time="0.019" asserts="0" />
+                      <test-case name="Restfulie.Server.Tests.ActAsRestfulieTests.ShouldNotReplaceResourceIfUnmarshallerReturnsNull" executed="True" result="Success" success="True" time="0.025" asserts="1" />
+                      <test-case name="Restfulie.Server.Tests.ActAsRestfulieTests.ShouldNotReturnUnsupportedMediaTypeWhenContentTypeIsNotInterpretedByResftfulie" executed="True" result="Success" success="True" time="0.007" asserts="1" />
+                      <test-case name="Restfulie.Server.Tests.ActAsRestfulieTests.ShouldReturnBadRequestWhenUnmarshallingFails" executed="True" result="Success" success="True" time="0.005" asserts="1" />
+                      <test-case name="Restfulie.Server.Tests.ActAsRestfulieTests.ShouldReturnNotAcceptableWhenMediaTypeIsNotSupported" executed="True" result="Success" success="True" time="0.004" asserts="1" />
+                      <test-case name="Restfulie.Server.Tests.ActAsRestfulieTests.ShouldUnmarshallListOfResources" executed="True" result="Success" success="True" time="0.007" asserts="1" />
+                      <test-case name="Restfulie.Server.Tests.ActAsRestfulieTests.ShouldUnmarshallResource" executed="True" result="Success" success="True" time="0.006" asserts="1" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="Namespace" name="Configuration" executed="True" result="Success" success="True" time="0.040" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="RestfulieConfigurationTests" executed="True" result="Success" success="True" time="0.039" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.Configuration.RestfulieConfigurationTests.ShouldRegisterAVendorizedMediaType" executed="True" result="Success" success="True" time="0.026" asserts="0" />
+                          <test-case name="Restfulie.Server.Tests.Configuration.RestfulieConfigurationTests.ShouldRegisterSerializerAndDeserializerForAMediaType" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="Restfulie.Server.Tests.Configuration.RestfulieConfigurationTests.ShouldRemoveAMediaType" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="Restfulie.Server.Tests.Configuration.RestfulieConfigurationTests.ShouldRemoveAMediaTypePassingAInstanceOfTheMediaTypeAsArgument" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="Restfulie.Server.Tests.Configuration.RestfulieConfigurationTests.ShouldSetDefaultMediaType" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="Restfulie.Server.Tests.Configuration.RestfulieConfigurationTests.ShouldSetFirstMediaTypeInListAsDefaultWhenRemovingTheDefaultMediaType" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="Restfulie.Server.Tests.Configuration.RestfulieConfigurationTests.ShouldThrowRestfulieConfigurationExceptionWhenTriesToRemoveAllMediaTypeRegistered" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                          <test-case name="Restfulie.Server.Tests.Configuration.RestfulieConfigurationTests.ShouldThrowRestfulieConfigurationExceptionWhenTriesToRemoveNonRegisteredMediaType" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="Namespace" name="Extensions" executed="True" result="Success" success="True" time="0.013" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="ActionResultExtensionsTests" executed="True" result="Success" success="True" time="0.001" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.Extensions.ActionResultExtensionsTests.ShouldKnowIfItIsARestfulieResult" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="DateTimeExtensionsTests" executed="True" result="Success" success="True" time="0.001" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.Extensions.DateTimeExtensionsTests.ShouldReturnADateInRFC3339Format" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="ObjectExtensionsTests" executed="True" result="Success" success="True" time="0.008" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.Extensions.ObjectExtensionsTests.ShouldConvertToAnArrayOfResources" executed="True" result="Success" success="True" time="0.006" asserts="2" />
+                          <test-case name="Restfulie.Server.Tests.Extensions.ObjectExtensionsTests.ShouldGetPropertyIfItHasOne" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="TypeExtensionsTests" executed="True" result="Success" success="True" time="0.002" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.Extensions.TypeExtensionsTests.SholdKnowIfATypeIsAListOfResources" executed="True" result="Success" success="True" time="0.001" asserts="4" />
+                          <test-case name="Restfulie.Server.Tests.Extensions.TypeExtensionsTests.ShouldKnowIfATypeIsAResource" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="Namespace" name="Marshalling" executed="True" result="Success" success="True" time="0.859" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="RestfulieMarshallerTests" executed="True" result="Success" success="True" time="0.243" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.Marshalling.RestfulieMarshallerTests.ShouldBuildANonResource" executed="True" result="Success" success="True" time="0.078" asserts="1" />
+                          <test-case name="Restfulie.Server.Tests.Marshalling.RestfulieMarshallerTests.ShouldBuildListRepresentation" executed="True" result="Success" success="True" time="0.130" asserts="1" />
+                          <test-case name="Restfulie.Server.Tests.Marshalling.RestfulieMarshallerTests.ShouldBuildResourceRepresentation" executed="True" result="Success" success="True" time="0.033" asserts="1" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="Serializers" executed="True" result="Success" success="True" time="0.615" asserts="0">
+                        <results>
+                          <test-suite type="Namespace" name="AtomPlusXml" executed="True" result="Success" success="True" time="0.345" asserts="0">
+                            <results>
+                              <test-suite type="TestFixture" name="AtomPlusXmlHypermediaInjectorTests" executed="True" result="Success" success="True" time="0.045" asserts="0">
+                                <results>
+                                  <test-case name="Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml.AtomPlusXmlHypermediaInjectorTests.ShouldInsertTransitionsInAEntry" executed="True" result="Success" success="True" time="0.036" asserts="1" />
+                                  <test-case name="Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml.AtomPlusXmlHypermediaInjectorTests.ShouldInsertTransitionsInAFeed" executed="True" result="Success" success="True" time="0.006" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="AtomPlusXmlSerializerTests" executed="True" result="Success" success="True" time="0.299" asserts="0">
+                                <results>
+                                  <test-case name="Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml.AtomPlusXmlSerializerTests.ShouldSerializeAListOfResources" executed="True" result="Success" success="True" time="0.297" asserts="2" />
+                                  <test-case name="Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml.AtomPlusXmlSerializerTests.ShouldSerializeAResource" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="FeedTests" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                                <results>
+                                  <test-case name="Restfulie.Server.Tests.Marshalling.Serializers.AtomPlusXml.FeedTests.ShouldHaveEntries" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                          <test-suite type="Namespace" name="Json" executed="True" result="Success" success="True" time="0.175" asserts="0">
+                            <results>
+                              <test-suite type="TestFixture" name="JsonHypermediaInjectorTests" executed="True" result="Success" success="True" time="0.015" asserts="0">
+                                <results>
+                                  <test-case name="Restfulie.Server.Tests.Marshalling.Serializers.Json.JsonHypermediaInjectorTests.ShouldInjectTransitionsInAListOfResources" executed="True" result="Success" success="True" time="0.008" asserts="1" />
+                                  <test-case name="Restfulie.Server.Tests.Marshalling.Serializers.Json.JsonHypermediaInjectorTests.ShouldInjectTransitionsInAListOfResourcesEvenWhenNumberOfRelationsIsLessThanNumberOfResources" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                                  <test-case name="Restfulie.Server.Tests.Marshalling.Serializers.Json.JsonHypermediaInjectorTests.ShouldInjectTransitionsInResource" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                                  <test-case name="Restfulie.Server.Tests.Marshalling.Serializers.Json.JsonHypermediaInjectorTests.ShouldInsertTransitionsInAListOfResourcesWhenJsonHasAnInternalArray" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="JsonSerializerTests" executed="True" result="Success" success="True" time="0.160" asserts="0">
+                                <results>
+                                  <test-case name="Restfulie.Server.Tests.Marshalling.Serializers.Json.JsonSerializerTests.ShouldSerializeAListOfResources" executed="True" result="Success" success="True" time="0.158" asserts="4" />
+                                  <test-case name="Restfulie.Server.Tests.Marshalling.Serializers.Json.JsonSerializerTests.ShouldSerializeAsResource" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                          <test-suite type="Namespace" name="XmlAndHypermedia" executed="True" result="Success" success="True" time="0.092" asserts="0">
+                            <results>
+                              <test-suite type="TestFixture" name="XmlHypermediaInjectorTests" executed="True" result="Success" success="True" time="0.006" asserts="0">
+                                <results>
+                                  <test-case name="Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia.XmlHypermediaInjectorTests.ShouldInsertTransitionsInAListOfResources" executed="True" result="Success" success="True" time="0.004" asserts="1" />
+                                  <test-case name="Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia.XmlHypermediaInjectorTests.ShouldInsertTransitionsInResource" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                                </results>
+                              </test-suite>
+                              <test-suite type="TestFixture" name="XmlSerializerTests" executed="True" result="Success" success="True" time="0.084" asserts="0">
+                                <results>
+                                  <test-case name="Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia.XmlSerializerTests.ShouldSerializeAListOfResources" executed="True" result="Success" success="True" time="0.083" asserts="2" />
+                                  <test-case name="Restfulie.Server.Tests.Marshalling.Serializers.XmlAndHypermedia.XmlSerializerTests.ShouldSerializeAllDataInResource" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                                </results>
+                              </test-suite>
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="Namespace" name="MediaTypes" executed="True" result="Success" success="True" time="0.012" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="DefaultMediaTypeListTests" executed="True" result="Success" success="True" time="0.006" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.MediaTypes.DefaultMediaTypeListTests.ShouldBeAbleToChangeDefaultMediaType" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                          <test-case name="Restfulie.Server.Tests.MediaTypes.DefaultMediaTypeListTests.ShouldFindByName" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="Restfulie.Server.Tests.MediaTypes.DefaultMediaTypeListTests.ShouldFindByNameJsonMediaType" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="Restfulie.Server.Tests.MediaTypes.DefaultMediaTypeListTests.ShouldFindByTypeUsingGenerics" executed="True" result="Success" success="True" time="0.000" asserts="0" />
+                          <test-case name="Restfulie.Server.Tests.MediaTypes.DefaultMediaTypeListTests.ShouldReturnNullIfDoesNotFind" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                          <test-case name="Restfulie.Server.Tests.MediaTypes.DefaultMediaTypeListTests.ShouldThrowRestfulieConfigurationExceptionWhenTriesToSetAsDefaultANonRegisteredMediaType" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="DriverTests" executed="True" result="Success" success="True" time="0.004" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.MediaTypes.DriverTests.ShouldContainSerializerHypermediaInjectorAndDeserializer" executed="True" result="Success" success="True" time="0.004" asserts="3" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="VendorizedTests" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.MediaTypes.VendorizedTests.ShouldSetTheSynonym" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="Namespace" name="Negotiation" executed="True" result="Success" success="True" time="0.126" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="AcceptHeaderToMediaTypeTests" executed="True" result="Success" success="True" time="0.116" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.Negotiation.AcceptHeaderToMediaTypeTests.ShouldReturnDefaultMediaType" executed="True" result="Success" success="True" time="0.078" asserts="1" />
+                          <test-case name="Restfulie.Server.Tests.Negotiation.AcceptHeaderToMediaTypeTests.ShouldReturnDefaultMediaTypeEvenIfItHasQualifier" executed="True" result="Success" success="True" time="0.005" asserts="1" />
+                          <test-case name="Restfulie.Server.Tests.Negotiation.AcceptHeaderToMediaTypeTests.ShouldReturnDefaultMediaTypeIsNotIsProvided" executed="True" result="Success" success="True" time="0.002" asserts="2" />
+                          <test-case name="Restfulie.Server.Tests.Negotiation.AcceptHeaderToMediaTypeTests.ShouldReturnMediaTypeForASimpleExpression" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                          <test-case name="Restfulie.Server.Tests.Negotiation.AcceptHeaderToMediaTypeTests.ShouldReturnMediaTypeForASynonym" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                          <test-case name="Restfulie.Server.Tests.Negotiation.AcceptHeaderToMediaTypeTests.ShouldReturnMostQualifiedMediaType" executed="True" result="Success" success="True" time="0.003" asserts="2" />
+                          <test-case name="Restfulie.Server.Tests.Negotiation.AcceptHeaderToMediaTypeTests.ShouldReturnMostQualifiedMediaTypeWhenDefaultHasQualifier" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                          <test-case name="Restfulie.Server.Tests.Negotiation.AcceptHeaderToMediaTypeTests.ShouldReturnMostQualifiedMediaTypeWhenItsNotTheFirstMediaTypeSpecified" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                          <test-case name="Restfulie.Server.Tests.Negotiation.AcceptHeaderToMediaTypeTests.ShouldReturnMostQualifiedMediaTypeWhenMoreThenOneQualifierParameterIsPresent" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                          <test-case name="Restfulie.Server.Tests.Negotiation.AcceptHeaderToMediaTypeTests.ShouldReturnMostQualifiedMediaTypeWhenQualifierIsNotPresent" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                          <test-suite type="ParameterizedTest" name="ShouldSetQualifiedOneDotZeroWhenQualifiedIsNotPresentCultureIndependent" executed="True" result="Success" success="True" time="0.003" asserts="0">
+                            <results>
+                              <test-case name="Restfulie.Server.Tests.Negotiation.AcceptHeaderToMediaTypeTests.ShouldSetQualifiedOneDotZeroWhenQualifiedIsNotPresentCultureIndependent(&quot;pt-BR&quot;)" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-case name="Restfulie.Server.Tests.Negotiation.AcceptHeaderToMediaTypeTests.ShouldThrowAnExceptionIfMediaTypeIsNotAccepted" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="ContentTypeToMediaTypeTests" executed="True" result="Success" success="True" time="0.009" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.Negotiation.ContentTypeToMediaTypeTests.ShouldReturnMediaType" executed="True" result="Success" success="True" time="0.005" asserts="1" />
+                          <test-case name="Restfulie.Server.Tests.Negotiation.ContentTypeToMediaTypeTests.ShouldThrowExceptionWhenContentTypeIsNotAccepted" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="RelationsFactoryTests" executed="True" result="Success" success="True" time="0.000" asserts="0">
+                    <results>
+                      <test-case name="Restfulie.Server.Tests.RelationsFactoryTests.ShouldCreateANewRelation" executed="True" result="Success" success="True" time="0.000" asserts="3" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="TestFixture" name="RelationsTests" executed="True" result="Success" success="True" time="0.064" asserts="0">
+                    <results>
+                      <test-case name="Restfulie.Server.Tests.RelationsTests.ShouldCreateALinkToaNonAction" executed="True" result="Success" success="True" time="0.001" asserts="3" />
+                      <test-case name="Restfulie.Server.Tests.RelationsTests.ShouldDetectWrongUseOfFluentAPI" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                      <test-case name="Restfulie.Server.Tests.RelationsTests.ShouldTransitToAControllerAction" executed="True" result="Success" success="True" time="0.029" asserts="2" />
+                      <test-case name="Restfulie.Server.Tests.RelationsTests.ShouldWorkWhenUsingTheAPIFluentlyInARow" executed="True" result="Success" success="True" time="0.032" asserts="3" />
+                    </results>
+                  </test-suite>
+                  <test-suite type="Namespace" name="Results" executed="True" result="Success" success="True" time="0.209" asserts="0">
+                    <results>
+                      <test-suite type="TestFixture" name="BadRequestTests" executed="True" result="Success" success="True" time="0.003" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.Results.BadRequestTests.ShouldSetStatusCode" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="Chooser" executed="True" result="Success" success="True" time="0.016" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="ResultChooserTests" executed="True" result="Success" success="True" time="0.015" asserts="0">
+                            <results>
+                              <test-case name="Restfulie.Server.Tests.Results.Chooser.ResultChooserTests.ShouldIgnoreNonRestfulieResults" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                              <test-case name="Restfulie.Server.Tests.Results.Chooser.ResultChooserTests.ShouldNotReturnViewResultIfItIsNotOKOrCreated" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                              <test-case name="Restfulie.Server.Tests.Results.Chooser.ResultChooserTests.ShouldReturnTheSameResultIfItIsNotHTML" executed="True" result="Success" success="True" time="0.000" asserts="3" />
+                              <test-case name="Restfulie.Server.Tests.Results.Chooser.ResultChooserTests.ShouldReturnViewResultIfItIsHTMLForCreated" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                              <test-case name="Restfulie.Server.Tests.Results.Chooser.ResultChooserTests.ShouldReturnViewResultIfItIsHTMLForOK" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="Decorators" executed="True" result="Success" success="True" time="0.166" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="ContentDecoratorTests" executed="True" result="Success" success="True" time="0.134" asserts="0">
+                            <results>
+                              <test-case name="Restfulie.Server.Tests.Results.Decorators.ContentDecoratorTests.ShouldCallNextDecorator" executed="True" result="Success" success="True" time="0.128" asserts="0" />
+                              <test-case name="Restfulie.Server.Tests.Results.Decorators.ContentDecoratorTests.ShouldNotSetContentWhenIsEmpty" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="Restfulie.Server.Tests.Results.Decorators.ContentDecoratorTests.ShouldSetContent" executed="True" result="Success" success="True" time="0.002" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="ContentTypeDecoratorTests" executed="True" result="Success" success="True" time="0.017" asserts="0">
+                            <results>
+                              <test-case name="Restfulie.Server.Tests.Results.Decorators.ContentTypeDecoratorTests.ShouldCallNextDecorator" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="Restfulie.Server.Tests.Results.Decorators.ContentTypeDecoratorTests.ShouldNotSetContentTypeWhenIsEmpty" executed="True" result="Success" success="True" time="0.010" asserts="0" />
+                              <test-case name="Restfulie.Server.Tests.Results.Decorators.ContentTypeDecoratorTests.ShouldSetContentType" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="LocationDecoratorTests" executed="True" result="Success" success="True" time="0.007" asserts="0">
+                            <results>
+                              <test-case name="Restfulie.Server.Tests.Results.Decorators.LocationDecoratorTests.ShouldCallNextDecorator" executed="True" result="Success" success="True" time="0.004" asserts="0" />
+                              <test-case name="Restfulie.Server.Tests.Results.Decorators.LocationDecoratorTests.ShouldNotSetLocationWhenIsEmpty" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                              <test-case name="Restfulie.Server.Tests.Results.Decorators.LocationDecoratorTests.ShouldSetLocation" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="StatusCodeDecoratorTests" executed="True" result="Success" success="True" time="0.005" asserts="0">
+                            <results>
+                              <test-case name="Restfulie.Server.Tests.Results.Decorators.StatusCodeDecoratorTests.ShouldCallNextDecorator" executed="True" result="Success" success="True" time="0.003" asserts="0" />
+                              <test-case name="Restfulie.Server.Tests.Results.Decorators.StatusCodeDecoratorTests.ShouldSetStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="0" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="ForbiddenTests" executed="True" result="Success" success="True" time="0.001" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.Results.ForbiddenTests.ShouldSetStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="InternalServerErrorTests" executed="True" result="Success" success="True" time="0.001" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.Results.InternalServerErrorTests.ShouldSetStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="NotAcceptableTests" executed="True" result="Success" success="True" time="0.001" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.Results.NotAcceptableTests.ShouldSetStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="NotFoundTests" executed="True" result="Success" success="True" time="0.001" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.Results.NotFoundTests.ShouldSetStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="NotModifiedTests" executed="True" result="Success" success="True" time="0.001" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.Results.NotModifiedTests.ShouldSetStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="OKTests" executed="True" result="Success" success="True" time="0.003" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.Results.OKTests.ShouldSetContent" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                          <test-case name="Restfulie.Server.Tests.Results.OKTests.ShouldSetContentType" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                          <test-case name="Restfulie.Server.Tests.Results.OKTests.ShouldSetStatusCode" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="PreconditionFailedTests" executed="True" result="Success" success="True" time="0.001" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.Results.PreconditionFailedTests.ShouldSetStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="SeeOtherTests" executed="True" result="Success" success="True" time="0.002" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.Results.SeeOtherTests.ShouldSetLocation" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                          <test-case name="Restfulie.Server.Tests.Results.SeeOtherTests.ShouldSetStatusCode" executed="True" result="Success" success="True" time="0.000" asserts="1" />
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="UnsupportedMediaTypeTests" executed="True" result="Success" success="True" time="0.002" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.Results.UnsupportedMediaTypeTests.ShouldSetStatusCode" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                  <test-suite type="Namespace" name="Unmarshalling" executed="True" result="Success" success="True" time="0.199" asserts="0">
+                    <results>
+                      <test-suite type="Namespace" name="Deserializers" executed="True" result="Success" success="True" time="0.097" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="AtomPlusXmlDeserializerTests" executed="True" result="Success" success="True" time="0.016" asserts="0">
+                            <results>
+                              <test-case name="Restfulie.Server.Tests.Unmarshalling.Deserializers.AtomPlusXmlDeserializerTests.ShouldDeserializeAnEntry" executed="True" result="Success" success="True" time="0.015" asserts="2" />
+                              <test-case name="Restfulie.Server.Tests.Unmarshalling.Deserializers.AtomPlusXmlDeserializerTests.ShouldDeserializeAnFeed" executed="True" result="Success" success="True" time="0.001" asserts="4" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="JsonDeserializerTests" executed="True" result="Success" success="True" time="0.040" asserts="0">
+                            <results>
+                              <test-case name="Restfulie.Server.Tests.Unmarshalling.Deserializers.JsonDeserializerTests.ShouldDeserializeListOfResourcesInJson" executed="True" result="Success" success="True" time="0.039" asserts="4" />
+                              <test-case name="Restfulie.Server.Tests.Unmarshalling.Deserializers.JsonDeserializerTests.ShouldDeserializeResourceInJson" executed="True" result="Success" success="True" time="0.001" asserts="2" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="XmlDeserializerTests" executed="True" result="Success" success="True" time="0.005" asserts="0">
+                            <results>
+                              <test-case name="Restfulie.Server.Tests.Unmarshalling.Deserializers.XmlDeserializerTests.ShouldDeserializeListOfResourcesInXml" executed="True" result="Success" success="True" time="0.004" asserts="4" />
+                              <test-case name="Restfulie.Server.Tests.Unmarshalling.Deserializers.XmlDeserializerTests.ShouldDeserializeResourceInXml" executed="True" result="Success" success="True" time="0.000" asserts="2" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="Namespace" name="Resolver" executed="True" result="Success" success="True" time="0.082" asserts="0">
+                        <results>
+                          <test-suite type="TestFixture" name="AcceptPostPutAndPatchVerbsTests" executed="True" result="Success" success="True" time="0.055" asserts="0">
+                            <results>
+                              <test-case name="Restfulie.Server.Tests.Unmarshalling.Resolver.AcceptPostPutAndPatchVerbsTests.ShouldAcceptPatch" executed="True" result="Success" success="True" time="0.049" asserts="1" />
+                              <test-case name="Restfulie.Server.Tests.Unmarshalling.Resolver.AcceptPostPutAndPatchVerbsTests.ShouldAcceptPost" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                              <test-case name="Restfulie.Server.Tests.Unmarshalling.Resolver.AcceptPostPutAndPatchVerbsTests.ShouldAcceptPut" executed="True" result="Success" success="True" time="0.002" asserts="1" />
+                              <test-case name="Restfulie.Server.Tests.Unmarshalling.Resolver.AcceptPostPutAndPatchVerbsTests.ShouldRefuseOthers" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                            </results>
+                          </test-suite>
+                          <test-suite type="TestFixture" name="UnmarshallerResolverTests" executed="True" result="Success" success="True" time="0.026" asserts="0">
+                            <results>
+                              <test-case name="Restfulie.Server.Tests.Unmarshalling.Resolver.UnmarshallerResolverTests.ItShouldUnmarshallOnlyWhenVerbIsAPostOrPutOrPatch" executed="True" result="Success" success="True" time="0.008" asserts="1" />
+                              <test-case name="Restfulie.Server.Tests.Unmarshalling.Resolver.UnmarshallerResolverTests.ShouldNotResolveActionWithoutParameter" executed="True" result="Success" success="True" time="0.004" asserts="1" />
+                              <test-case name="Restfulie.Server.Tests.Unmarshalling.Resolver.UnmarshallerResolverTests.ShouldUnmarshallTheFirstParameter" executed="True" result="Success" success="True" time="0.013" asserts="3" />
+                            </results>
+                          </test-suite>
+                        </results>
+                      </test-suite>
+                      <test-suite type="TestFixture" name="RestfulieUnmarshallerTests" executed="True" result="Success" success="True" time="0.017" asserts="0">
+                        <results>
+                          <test-case name="Restfulie.Server.Tests.Unmarshalling.RestfulieUnmarshallerTests.ShouldNotUnmarshallIfNothingWasPassed" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                          <test-case name="Restfulie.Server.Tests.Unmarshalling.RestfulieUnmarshallerTests.ShouldNotUnmarshallListIfNothingWasPassed" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                          <test-case name="Restfulie.Server.Tests.Unmarshalling.RestfulieUnmarshallerTests.ShouldThrowUnmarshallingExceptionIfSomethingFails" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                          <test-case name="Restfulie.Server.Tests.Unmarshalling.RestfulieUnmarshallerTests.ShouldThrowUnmarshallingExceptionIfSomethingFailsWhenUnmarshallingList" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                          <test-case name="Restfulie.Server.Tests.Unmarshalling.RestfulieUnmarshallerTests.ShouldUnmarshallListOfResources" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                          <test-case name="Restfulie.Server.Tests.Unmarshalling.RestfulieUnmarshallerTests.ShouldUnmarshallResource" executed="True" result="Success" success="True" time="0.003" asserts="1" />
+                        </results>
+                      </test-suite>
+                    </results>
+                  </test-suite>
+                </results>
+              </test-suite>
+            </results>
+          </test-suite>
+        </results>
+      </test-suite>
+    </results>
+  </test-suite>
+</test-results>
