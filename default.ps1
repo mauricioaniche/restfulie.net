@@ -115,6 +115,7 @@ function global:create-nuspec($package_version)
   	<file src=""$dist_dir\Restfulie.Server.dll"" target=""lib""/>
   	<file src=""$dist_dir\Restfulie.Server.pdb"" target=""lib""/>
   	<file src=""$dist_dir\Restfulie.xml"" />
+    <file src=""$source_dir\**\*.cs"" target=""src"" />
   </files>
 </package>" | out-file $build_dir\Restfulie.Server.nuspec -encoding "ASCII"
 }
