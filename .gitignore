@@ -10,3 +10,4 @@ Bin
 release/
 UpgradeLog.xml
 _UpgradeReport_Files/
+Restfulie.Server/CommonAssemblyInfo.cs

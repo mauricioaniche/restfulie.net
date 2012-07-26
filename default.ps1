@@ -5,7 +5,7 @@ properties {
    $tools_dir = "$base_dir\Tools"
    $result_dir = "$build_dir\results"
    $global:config = 'debug'
-   $version = if ($env:build_number -ne $NULL) { $env:build_number } else { '0.5.4' }
+   $version = if ($env:build_number -ne $NULL) { $env:build_number } else { '0.5.5' }
    $buildNumber = $version + '.0'
    $source_dir = "$base_dir\Restfulie.Server"
    $dist_dir = "$base_dir\release"
@@ -105,8 +105,8 @@ function global:create-nuspec($package_version)
     <language>en-US</language>
     <tags>REST HTTP API</tags>
     <dependencies>
-  	<dependency id=""Castle.Core"" version=""3.0.0"" />
-  	<dependency id=""Newtonsoft.Json"" version=""4.5.6"" />
+  	<dependency id=""Castle.Core"" version=""2.5.2"" />
+  	<dependency id=""Newtonsoft.Json"" version=""4.0.8"" />
   </dependencies>
   </metadata>  
   <files>
