@@ -20,3 +20,7 @@ For more information check Restfulie [website](http://restfulie.caelum.com.br/) 
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
     See the License for the specific language governing permissions and 
     limitations under the License. 
+    
+
+##Thank You
+  [JetBrains](http://www.jetbrains.com/), [CodeBetter](http://codebetter.com/) and [Devlicio.us](http://devlicio.us/blogs/)for providing our [Teamcity CI Server](http://teamcity.codebetter.com)
