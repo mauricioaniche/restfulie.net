@@ -26,7 +26,7 @@ namespace Restfulie.Server.Tests.Configuration
 		[Test]
 		public void ShouldRegisterSerializerAndDeserializerForAMediaType()
 		{
-			
+
 			_config.Register<XmlAndHypermedia>(new Driver(new XmlSerializer(), new XmlHypermediaInjector(), new XmlDeserializer()));
 
 			var mediaType = _config.MediaTypeList.Find("application/xml");

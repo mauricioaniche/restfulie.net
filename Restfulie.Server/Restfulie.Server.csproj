@@ -8,8 +8,8 @@
     <ProjectGuid>{18C82B7B-05CB-4AC4-967A-836FBFB1CE1C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Restfulie.Server.Nuget</RootNamespace>
-    <AssemblyName>Restfulie.Server.Nuget</AssemblyName>
+    <RootNamespace>Restfulie.Server</RootNamespace>
+    <AssemblyName>Restfulie.Server</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
