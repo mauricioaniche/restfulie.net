@@ -23,4 +23,4 @@ For more information check Restfulie [website](http://restfulie.caelum.com.br/) 
     
 
 ##Thank You
-  [JetBrains](http://www.jetbrains.com/), [CodeBetter](http://codebetter.com/) and [Devlicio.us](http://devlicio.us/blogs/)for providing our [Teamcity CI Server](http://teamcity.codebetter.com)
+  [JetBrains](http://www.jetbrains.com/), [CodeBetter](http://codebetter.com/) and [Devlicio.us](http://devlicio.us/blogs/) for providing our [Teamcity CI Server](http://teamcity.codebetter.com)
