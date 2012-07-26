@@ -206,13 +206,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Restfulie.Server\Restfulie.Server.csproj">
-      <Project>{94F2996B-1DC4-4C6B-9612-E16B61375B92}</Project>
-      <Name>Restfulie.Server</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\Restfulie.Server\Restfulie.Server.csproj">
+      <Project>{18C82B7B-05CB-4AC4-967A-836FBFB1CE1C}</Project>
+      <Name>Restfulie.Server</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

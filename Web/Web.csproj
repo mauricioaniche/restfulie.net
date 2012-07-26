@@ -80,7 +80,6 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.DynamicData" />
-    <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -161,11 +160,13 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Restfulie.Server\Restfulie.Server.csproj">
-      <Project>{94F2996B-1DC4-4C6B-9612-E16B61375B92}</Project>
+      <Project>{18C82B7B-05CB-4AC4-967A-836FBFB1CE1C}</Project>
       <Name>Restfulie.Server</Name>
     </ProjectReference>
   </ItemGroup>

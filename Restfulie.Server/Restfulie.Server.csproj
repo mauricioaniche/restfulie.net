@@ -3,35 +3,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{94F2996B-1DC4-4C6B-9612-E16B61375B92}</ProjectGuid>
+    <ProjectGuid>{18C82B7B-05CB-4AC4-967A-836FBFB1CE1C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Restfulie.Server</RootNamespace>
-    <AssemblyName>Restfulie.Server</AssemblyName>
+    <RootNamespace>Restfulie.Server.Nuget</RootNamespace>
+    <AssemblyName>Restfulie.Server.Nuget</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation />
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,7 +21,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -50,52 +29,21 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AutomatedDebug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\build\Debug\Restfulie.Server\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AutomatedRelease|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>..\build\Release\Restfulie.Server\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <Optimize>true</Optimize>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.Core, Version=2.5.1.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Castle.Core">
       <HintPath>..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.0.8.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.4.0.8\lib\net35\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.4.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Core" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Abstractions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Web.Extensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Web.Helpers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.Helpers.dll</HintPath>
@@ -107,9 +55,6 @@
     <Reference Include="System.Web.Razor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Razor.1.0.20105.408\lib\net40\System.Web.Razor.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Routing">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -123,12 +68,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.1.0.20105.408\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -137,109 +79,90 @@
     <Compile Include="CommonAssemblyInfo.cs" />
     <Compile Include="Configuration\ConfigurationStore.cs" />
     <Compile Include="Configuration\IRestfulieConfiguration.cs" />
-    <Compile Include="Configuration\RestfulieConfigurationException.cs" />
     <Compile Include="Configuration\RestfulieConfiguration.cs" />
+    <Compile Include="Configuration\RestfulieConfigurationException.cs" />
     <Compile Include="Extensions\ActionResultExtensions.cs" />
     <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\ObjectExtensions.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Http\IRequestInfoFinder.cs" />
+    <Compile Include="Http\IRequestInfoFinderFactory.cs" />
+    <Compile Include="Http\RequestInfoFinder.cs" />
+    <Compile Include="Http\RequestInfoFinderFactory.cs" />
+    <Compile Include="IBehaveAsResource.cs" />
     <Compile Include="IRelationsFactory.cs" />
+    <Compile Include="Marshalling\IResourceMarshaller.cs" />
+    <Compile Include="Marshalling\RestfulieMarshaller.cs" />
+    <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInjector.cs" />
+    <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializer.cs" />
+    <Compile Include="Marshalling\Serializers\AtomPlusXml\Entry.cs" />
+    <Compile Include="Marshalling\Serializers\AtomPlusXml\Feed.cs" />
+    <Compile Include="Marshalling\Serializers\IHypermediaInjector.cs" />
+    <Compile Include="Marshalling\Serializers\IResourceSerializer.cs" />
     <Compile Include="Marshalling\Serializers\Json\JsonHypermediaInjector.cs" />
     <Compile Include="Marshalling\Serializers\Json\JsonSerializer.cs" />
-    <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlHypermediaInjector.cs" />
-    <Compile Include="Marshalling\Serializers\IHypermediaInjector.cs" />
     <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlHypermediaInjector.cs" />
-    <Compile Include="MediaTypes\JsonAndHypermedia.cs" />
+    <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlSerializer.cs" />
+    <Compile Include="Marshalling\UrlGenerators\AspNetMvcUrlGenerator.cs" />
+    <Compile Include="Marshalling\UrlGenerators\IUrlGenerator.cs" />
+    <Compile Include="MediaTypes\AtomPlusXml.cs" />
     <Compile Include="MediaTypes\DefaultMediaTypeList.cs" />
     <Compile Include="MediaTypes\Driver.cs" />
-    <Compile Include="MediaTypes\UrlEncoded.cs" />
+    <Compile Include="MediaTypes\HTML.cs" />
     <Compile Include="MediaTypes\IDriver.cs" />
+    <Compile Include="MediaTypes\IMediaType.cs" />
     <Compile Include="MediaTypes\IMediaTypeList.cs" />
+    <Compile Include="MediaTypes\JsonAndHypermedia.cs" />
     <Compile Include="MediaTypes\RestfulieMediaType.cs" />
+    <Compile Include="MediaTypes\UrlEncoded.cs" />
     <Compile Include="MediaTypes\Vendorized.cs" />
+    <Compile Include="MediaTypes\XmlAndHypermedia.cs" />
+    <Compile Include="Negotiation\AcceptHeaderNotSupportedException.cs" />
     <Compile Include="Negotiation\AcceptHeaderToMediaType.cs" />
+    <Compile Include="Negotiation\ContentTypeNotSupportedException.cs" />
     <Compile Include="Negotiation\ContentTypeToMediaType.cs" />
     <Compile Include="Negotiation\IAcceptHeaderToMediaType.cs" />
-    <Compile Include="Negotiation\ContentTypeNotSupportedException.cs" />
-    <Compile Include="Negotiation\AcceptHeaderNotSupportedException.cs" />
     <Compile Include="Negotiation\IContentTypeToMediaType.cs" />
+    <Compile Include="Relation.cs" />
+    <Compile Include="Relations.cs" />
     <Compile Include="RelationsFactory.cs" />
-    <Compile Include="Http\IRequestInfoFinderFactory.cs" />
-    <Compile Include="Http\RequestInfoFinderFactory.cs" />
+    <Compile Include="Results\BadRequest.cs" />
     <Compile Include="Results\Chooser\IResultChooser.cs" />
+    <Compile Include="Results\Chooser\ResultChooser.cs" />
+    <Compile Include="Results\Created.cs" />
     <Compile Include="Results\Decorators\Content.cs" />
     <Compile Include="Results\Decorators\ContentType.cs" />
-    <Compile Include="Results\Decorators\ResultDecorator.cs" />
     <Compile Include="Results\Decorators\Location.cs" />
+    <Compile Include="Results\Decorators\ResultDecorator.cs" />
     <Compile Include="Results\Decorators\StatusCode.cs" />
     <Compile Include="Results\Forbidden.cs" />
     <Compile Include="Results\InternalServerError.cs" />
+    <Compile Include="Results\NotAcceptable.cs" />
     <Compile Include="Results\NotFound.cs" />
-    <Compile Include="Results\Chooser\ResultChooser.cs" />
     <Compile Include="Results\NotModified.cs" />
+    <Compile Include="Results\OK.cs" />
+    <Compile Include="Results\PreConditionFailed.cs" />
+    <Compile Include="Results\RestfulieResult.cs" />
+    <Compile Include="Results\SeeOther.cs" />
     <Compile Include="Results\ServiceUnavailable.cs" />
-    <Compile Include="Unmarshalling\Deserializers\Json\JsonDeserializer.cs" />
-    <Compile Include="Unmarshalling\NoUnmarshaller.cs" />
+    <Compile Include="Results\UnsupportedMediaType.cs" />
+    <Compile Include="TransitionInterceptor.cs" />
     <Compile Include="Unmarshalling\Deserializers\AtomPlusXml\AtomPlusXmlDeserializer.cs" />
+    <Compile Include="Unmarshalling\Deserializers\IResourceDeserializer.cs" />
+    <Compile Include="Unmarshalling\Deserializers\Json\JsonDeserializer.cs" />
+    <Compile Include="Unmarshalling\Deserializers\Xml\XmlDeserializer.cs" />
+    <Compile Include="Unmarshalling\IResourceUnmarshaller.cs" />
+    <Compile Include="Unmarshalling\NoUnmarshaller.cs" />
     <Compile Include="Unmarshalling\Resolver\AcceptPostPutAndPatchVerbs.cs" />
     <Compile Include="Unmarshalling\Resolver\IAcceptHttpVerb.cs" />
     <Compile Include="Unmarshalling\Resolver\IUnmarshallerResolver.cs" />
     <Compile Include="Unmarshalling\Resolver\UnmarshallerResolver.cs" />
-    <Compile Include="Unmarshalling\UnmarshallingException.cs" />
-    <Compile Include="IBehaveAsResource.cs" />
-    <Compile Include="Marshalling\RestfulieMarshaller.cs" />
-    <Compile Include="Marshalling\IResourceMarshaller.cs" />
-    <Compile Include="Marshalling\Serializers\AtomPlusXml\AtomPlusXmlSerializer.cs" />
-    <Compile Include="Marshalling\Serializers\AtomPlusXml\Feed.cs" />
-    <Compile Include="Marshalling\Serializers\AtomPlusXml\Entry.cs" />
-    <Compile Include="MediaTypes\AtomPlusXml.cs" />
-    <Compile Include="MediaTypes\HTML.cs" />
-    <Compile Include="MediaTypes\IMediaType.cs" />
-    <Compile Include="MediaTypes\XmlAndHypermedia.cs" />
-    <Compile Include="Http\RequestInfoFinder.cs" />
-    <Compile Include="Http\IRequestInfoFinder.cs" />
-    <Compile Include="Results\BadRequest.cs" />
-    <Compile Include="Results\Created.cs" />
-    <Compile Include="Results\NotAcceptable.cs" />
-    <Compile Include="Results\PreconditionFailed.cs" />
-    <Compile Include="Results\RestfulieResult.cs" />
-    <Compile Include="Marshalling\Serializers\XmlAndHypermedia\XmlSerializer.cs" />
-    <Compile Include="Marshalling\Serializers\IResourceSerializer.cs" />
-    <Compile Include="Results\SeeOther.cs" />
-    <Compile Include="Results\OK.cs" />
-    <Compile Include="Marshalling\UrlGenerators\IUrlGenerator.cs" />
-    <Compile Include="Relation.cs" />
-    <Compile Include="Relations.cs" />
-    <Compile Include="Results\UnsupportedMediaType.cs" />
-    <Compile Include="TransitionInterceptor.cs" />
-    <Compile Include="Marshalling\UrlGenerators\AspNetMvcUrlGenerator.cs" />
     <Compile Include="Unmarshalling\RestfulieUnmarshaller.cs" />
-    <Compile Include="Unmarshalling\Deserializers\IResourceDeserializer.cs" />
-    <Compile Include="Unmarshalling\Deserializers\Xml\XmlDeserializer.cs" />
-    <Compile Include="Unmarshalling\IResourceUnmarshaller.cs" />
+    <Compile Include="Unmarshalling\UnmarshallingException.cs" />
   </ItemGroup>
   <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
