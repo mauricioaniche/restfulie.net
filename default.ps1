@@ -107,7 +107,7 @@ function global:create-nuspec($package_version)
     <dependencies>
   	<dependency id=""Castle.Core"" version=""2.5.2"" />
   	<dependency id=""Newtonsoft.Json"" version=""4.0.8"" />
-    <dependency  id="Microsoft.AspNet.Mvc" version="[3.0.20105.1]" />
+    <dependency  id="AspNetMvc" version="[3.0.20105.1]" />
   </dependencies>
   </metadata>  
   <files>
