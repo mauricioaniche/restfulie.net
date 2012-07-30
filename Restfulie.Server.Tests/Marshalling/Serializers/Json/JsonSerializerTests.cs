@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using NUnit.Framework;
 using Restfulie.Server.Marshalling.Serializers;
 using Restfulie.Server.Marshalling.Serializers.Json;
@@ -20,12 +20,13 @@ namespace Restfulie.Server.Tests.Marshalling.Serializers.Json
         [Test]
         public void ShouldSerializeAsResource()
         {
-            var resource = new SomeResource {Amount = 123.45, Name = "John Doe"};
+            var resource = new SomeResource {Amount = 123.45, Name = "John Doe", UpdatedAt = new DateTime(2012,7,29)};
             
             var json = serializer.Serialize(resource);
 
             Assert.That(json.Contains("\"Name\":\"John Doe\""));
             Assert.That(json.Contains("\"Amount\":123.45"));
+            Assert.That(json.Contains("\"UpdatedAt\":\"2012-07-29T00:00:00\""));
         }
         
         [Test]

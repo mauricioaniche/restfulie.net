@@ -16,7 +16,7 @@ namespace Restfulie.Server.Marshalling.Serializers.Json
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             };
 
-            jsonSerializer.Converters.Add(new JavaScriptDateTimeConverter());
+            jsonSerializer.Converters.Add(new IsoDateTimeConverter());
 
             jsonSerializer.Serialize(textWriter, resource);
             return textWriter.ToString();
